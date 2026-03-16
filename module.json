@@ -1,0 +1,55 @@
+{
+  "id": "compendios-para-t20",
+  "title": "Compêndios para T20",
+  "description": "Compêndios de Itens, Ameaças, Macros e Tabelas para o sistema Tormenta20.",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Seu Nome",
+      "url": "https://github.com/sitariom"
+    }
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12",
+    "maximum": "13"
+  },
+  "flags": {
+    "canUpload": true
+  },
+  "packs": [
+    {
+      "name": "Ameacas_T20",
+      "label": "Ameaças T20",
+      "path": "packs/Ameacas_T20",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "Itens_T20",
+      "label": "Itens T20",
+      "path": "packs/Itens_T20",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "Macros_T20",
+      "label": "Macros T20",
+      "path": "packs/Macros_T20",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "Tabelas_T20",
+      "label": "Tabelas T20",
+      "path": "packs/Tabelas_T20",
+      "type": "RollTable",
+      "system": "tormenta20"
+    }
+  ],
+  "url": "https://github.com/sitariom/compendios-para-t20",
+  "manifest": "https://github.com/sitariom/compendios-para-t20/releases/latest/download/module.json",
+  "download": "https://github.com/sitariom/compendios-para-t20/releases/latest/download/module.zip",
+  "readme": "README.md",
+  "license": "LICENSE"
+}

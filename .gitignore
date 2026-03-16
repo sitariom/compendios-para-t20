@@ -1,0 +1,13 @@
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de build e dependências (caso venha a usar)
+node_modules/
+dist/
+*.zip
+
+# Logs de sistema (mas NÃO os do LevelDB)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
