@@ -2,10 +2,10 @@
   "id": "compendios-para-t20",
   "title": "Compêndios para T20",
   "description": "Compêndios de Itens, Ameaças, Macros e Tabelas para o sistema Tormenta20.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "authors": [
     {
-      "name": "Seu Nome",
+      "name": "sitariom",
       "url": "https://github.com/sitariom"
     }
   ],
@@ -44,6 +44,20 @@
       "label": "Tabelas T20",
       "path": "packs/Tabelas_T20",
       "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "Diarios_T20",
+      "label": "Diários T20",
+      "path": "packs/Diarios_T20",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "Playlist_T20",
+      "label": "Playlist T20",
+      "path": "packs/Playlist_T20",
+      "type": "Playlist",
       "system": "tormenta20"
     }
   ],
