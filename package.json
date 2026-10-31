@@ -1,0 +1,26 @@
+{
+  "name": "compendios-para-t20",
+  "version": "1.2.0",
+  "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20 no Foundry VTT.",
+  "scripts": {
+    "stats": "node scripts/stats.js",
+    "audit": "node scripts/audit.js",
+    "search": "node scripts/search.js",
+    "unpack": "node scripts/unpack.js",
+    "pack": "node scripts/pack.js",
+    "zip": "zip -r module.zip . -x \".git/*\" \".github/*\" \".gitignore\" \"LICENSE\" \"README.md\" \"node_modules/*\" \"src/*\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sitariom/compendios-para-t20.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sitariom/compendios-para-t20/issues"
+  },
+  "homepage": "https://github.com/sitariom/compendios-para-t20#readme",
+  "devDependencies": {
+    "classic-level": "^3.0.0"
+  }
+}
