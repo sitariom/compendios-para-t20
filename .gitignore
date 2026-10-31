@@ -6,6 +6,9 @@ Thumbs.db
 node_modules/
 dist/
 *.zip
+.codegraph/
+.engram/
+src/
 
 # Logs de sistema (mas NÃO os do LevelDB)
 npm-debug.log*
