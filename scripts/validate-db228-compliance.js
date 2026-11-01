@@ -323,16 +323,16 @@ async function validateItems() {
       effSubdocs.push(effVal);
     }
 
-    if (!Array.isArray(item.effects) || item.effects.length === 0 || effSubdocs.length === 0) {
-      console.error(`❌ Item "${name}" não possui ActiveEffects configurados!`);
+    if (!Array.isArray(item.effects) || item.effects.length === 0 || typeof item.effects[0] !== 'object' || effSubdocs.length === 0) {
+      console.error(`❌ Item "${name}" não possui objetos ActiveEffects configurados em item.effects!`);
       errors++;
     } else {
-      const hasChanges = effSubdocs.every(e => Array.isArray(e.changes));
+      const hasChanges = item.effects.every(e => Array.isArray(e.changes));
       if (!hasChanges) {
         console.error(`❌ Item "${name}" possui efeitos sem changes válidas!`);
         errors++;
       } else {
-        console.log(`   Item "${name}" possui ${effSubdocs.length} ActiveEffects funcionais.`);
+        console.log(`   Item "${name}" possui ${item.effects.length} ActiveEffects funcionais.`);
       }
     }
 
