@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.4.1 - 2026-11-01
+
+- **Reconstrução Canônica Completa da Dragão Brasil #228 e Imposição de Schemas Estritos (OpenSpec SDD)**:
+  - **Ameaças e Perigos (`Ameacas_T20`)**:
+    - *Ankthyr (ND 8)*: Reconstrução canônica completa com 5 ataques e poderes embutidos com rolagens funcionais (`Mordida` com rolls `parts` de ataque e dano + ácido, `Agarrar Aprimorado` com rolagem de manobra, `Cuspe Ácido` com CD 26 e efeito de Muco Corrosivo contínuo, `Espreitador Subterrâneo`, `Sentido Sísmico`), 34 perícias deduzidas com a fórmula oficial, PV 308, Defesa 33 (base 31 + Des 2), sentidos, deslocamento estruturado e biografia com citações duplas em HTML.
+    - *Enxame Cáustico (ND 4)*: Reconstrução com 3 poderes embutidos (`Enxame Cáustico` com 3d8 de ácido automático, `Gosma Corrosiva` persistente e `Sentido Sísmico`), 34 perícias, PV 140, Defesa 23 (base 22 + Des 1) e biografia canônica.
+    - *Slark (ND 1 Lacaio)*: Reconstrução com `Garras` (ataque +11, 2d6+9 19/x3 com rolls `parts`), `Queda Livre` e `Saliva` (CD 14 cegueira), 34 perícias, PV 9, Defesa 15 (base 12 + Des 3).
+    - *Desabamento dos Túneis (Hazard ND 8)*: Perigo complexo completo com todas as ações e efeitos mecânicos.
+    - *Parceiros Especiais*: *Reabilitador* com Julgamento de Khalmyr e Equilíbrio da Justiça (+2 Defesa/Resistências); *Allihennali* com Cura de Luz, Bênção Feérica (-2 PM em cura) e Cura Maior; *Guaxininjas* com Invocação Furtiva e Flanquear Sorrateiro (+2 Furtividade/Ataque).
+    - *Expurgo de Chaves Órfãs*: Remoção definitiva de 19 entradas duplicadas ou vazias do ClassicLevel.
+  - **Itens, Poderes e Magias (`Itens_T20`)**:
+    - *17 Itens de Divinas Organizações Reconstruídos*: Todas as armas específicas (*Arco dos Arautos*, *Arma Silente*) configuradas com estrutura nativa `rolls.parts` (`ataque0` e `dano1`), `criticoM` e `criticoX`.
+    - *Automação de ActiveEffects*: Todos os itens com modificadores mecânicos receberam ActiveEffects nativos com chaves Tormenta20 (`flags.tormenta20.transfer: true`).
+    - *100% de Presença de Variáveis de Template*: Zero campos omitidos (`peso`, `espacos`, `qtd`, `preco`, `equipado`, `ativacao`, `duracao`, `chatFlavor`, etc.).
+  - **Tabelas de Rolagem (`Tabelas_T20`)**:
+    - *Desabamento dos Túneis: Efeitos por Rodada (DB #228)*: Nova RollTable oficial com fórmula `1d6` cobrindo Destroços, Fenda no Chão, Bloqueio e Passagem Livre.
+    - *Divinas Organizações de Arton (DB #228)*: Nova RollTable oficial com fórmula `1d17` para sorteio de encontros e patronos sagrados.
+  - **Especificações OpenSpec SDD**:
+    - Atualização formal das living specs `actors-specification` e `items-specification` impondo que armas possuam `rolls.parts`, atores possuam `items` embutidos no documento principal e que nenhuma variável de template seja omitida.
+  - **Automação & Validação**:
+    - Scripts `create-entry.js`, `inject-db228-threats.js`, `inject-db228-items.js`, `inject-db228-tables.js`, `validate-db228-compliance.js`, `test-all-document-types.js` e `audit.js` com 100% de aprovação e 0 erros.
+
 ## v1.4.0 - 2026-11-01
 
 - **Dragão Brasil #228 (Integração Canônica Completa)**:

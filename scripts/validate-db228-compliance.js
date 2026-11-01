@@ -28,6 +28,7 @@ const path = require('path');
 const PACK_ACTORS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
 const PACK_ITEMS = path.join(__dirname, '..', 'packs', 'Itens_T20');
 const PACK_JOURNALS = path.join(__dirname, '..', 'packs', 'Diarios_T20');
+const PACK_TABLES = path.join(__dirname, '..', 'packs', 'Tabelas_T20');
 
 async function validateActors() {
   console.log('--- 1. Validando Ameaças, Perigos e Parceiros da DB #228 (Ameacas_T20) ---');
@@ -286,6 +287,54 @@ async function validateJournals() {
   return 0;
 }
 
+async function validateTables() {
+  console.log('\n--- 4. Validando Tabelas de Rolagem da DB #228 (Tabelas_T20) ---');
+  const db = new ClassicLevel(PACK_TABLES, { valueEncoding: 'json' });
+
+  const requiredTables = [
+    { name: 'Desabamento dos Túneis: Efeitos por Rodada (DB #228)', formula: '1d6', resultsCount: 4 },
+    { name: 'Divinas Organizações de Arton (DB #228)', formula: '1d17', resultsCount: 17 }
+  ];
+
+  let errors = 0;
+  const foundTables = {};
+
+  for await (const [key, value] of db.iterator()) {
+    if (key.startsWith('!tables!') && !key.includes('.results!')) {
+      if (value && value.name) {
+        foundTables[value.name] = value;
+      }
+    }
+  }
+
+  for (const req of requiredTables) {
+    const table = foundTables[req.name];
+    if (!table) {
+      console.error(`❌ Tabela de rolagem "${req.name}" não encontrada em Tabelas_T20!`);
+      errors++;
+      continue;
+    }
+
+    if (table.formula !== req.formula) {
+      console.error(`❌ Fórmula incorreta para "${req.name}": esperava ${req.formula}, obteve ${table.formula}`);
+      errors++;
+    } else {
+      console.log(`✅ Fórmula correta para "${req.name}": ${table.formula}`);
+    }
+
+    const count = Array.isArray(table.results) ? table.results.length : 0;
+    if (count !== req.resultsCount) {
+      console.error(`❌ Resultados insuficientes para "${req.name}": esperava ${req.resultsCount}, obteve ${count}`);
+      errors++;
+    } else {
+      console.log(`✅ Todos os ${count} resultados da tabela "${req.name}" verificados com sucesso.`);
+    }
+  }
+
+  await db.close();
+  return errors;
+}
+
 async function main() {
   console.log('================================================================');
   console.log('🔍 VALIDAÇÃO RIGOROSA E CANÔNICA DE CONFORMIDADE - DB #228');
@@ -295,6 +344,7 @@ async function main() {
   totalErrors += await validateActors();
   totalErrors += await validateItems();
   totalErrors += await validateJournals();
+  totalErrors += await validateTables();
 
   console.log('\n================================================================');
   if (totalErrors === 0) {
