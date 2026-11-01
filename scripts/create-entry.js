@@ -16,6 +16,94 @@ const fs = require('fs');
 const path = require('path');
 const { resolveIcon, resolveToken } = require('./icon-resolver');
 
+const ALL_SKILLS = [
+  { key: 'acro', nome: 'Acrobacia', atributo: 'des', st: false, pda: true },
+  { key: 'ades', nome: 'Adestramento', atributo: 'car', st: false, pda: false },
+  { key: 'atle', nome: 'Atletismo', atributo: 'for', st: false, pda: false },
+  { key: 'atua', nome: 'Atuação', atributo: 'car', st: false, pda: false },
+  { key: 'cava', nome: 'Cavalgar', atributo: 'des', st: false, pda: false },
+  { key: 'conh', nome: 'Conhecimento', atributo: 'int', st: false, pda: false },
+  { key: 'cura', nome: 'Cura', atributo: 'sab', st: false, pda: false },
+  { key: 'dipl', nome: 'Diplomacia', atributo: 'car', st: false, pda: false },
+  { key: 'enga', nome: 'Enganação', atributo: 'car', st: false, pda: false },
+  { key: 'fort', nome: 'Fortitude', atributo: 'con', st: true, pda: false },
+  { key: 'furt', nome: 'Furtividade', atributo: 'des', st: false, pda: true },
+  { key: 'guer', nome: 'Guerra', atributo: 'int', st: false, pda: false },
+  { key: 'inic', nome: 'Iniciativa', atributo: 'des', st: false, pda: false },
+  { key: 'inti', nome: 'Intimidação', atributo: 'car', st: false, pda: false },
+  { key: 'intu', nome: 'Intuição', atributo: 'sab', st: false, pda: false },
+  { key: 'inve', nome: 'Investigação', atributo: 'int', st: false, pda: false },
+  { key: 'joga', nome: 'Jogatina', atributo: 'car', st: false, pda: false },
+  { key: 'ladi', nome: 'Ladinagem', atributo: 'des', st: false, pda: true },
+  { key: 'luta', nome: 'Luta', atributo: 'for', st: false, pda: false },
+  { key: 'mist', nome: 'Misticismo', atributo: 'int', st: false, pda: false },
+  { key: 'nobr', nome: 'Nobreza', atributo: 'car', st: false, pda: false },
+  { key: 'perc', nome: 'Percepção', atributo: 'sab', st: false, pda: false },
+  { key: 'pilo', nome: 'Pilotagem', atributo: 'des', st: false, pda: false },
+  { key: 'pont', nome: 'Pontaria', atributo: 'des', st: false, pda: false },
+  { key: 'refl', nome: 'Reflexos', atributo: 'des', st: true, pda: false },
+  { key: 'reli', nome: 'Religião', atributo: 'sab', st: false, pda: false },
+  { key: 'sobr', nome: 'Sobrevivência', atributo: 'sab', st: false, pda: false },
+  { key: 'vont', nome: 'Vontade', atributo: 'sab', st: true, pda: false },
+  { key: 'alfa', nome: 'Ofício (Alfaiate)', atributo: 'int', st: false, pda: false },
+  { key: 'alqu', nome: 'Ofício (Alquimia)', atributo: 'int', st: false, pda: false },
+  { key: 'arme', nome: 'Ofício (Armeiro)', atributo: 'int', st: false, pda: false },
+  { key: 'arte', nome: 'Ofício (Artesão)', atributo: 'int', st: false, pda: false },
+  { key: 'cozi', nome: 'Ofício (Culinária)', atributo: 'int', st: false, pda: false },
+  { key: 'enge', nome: 'Ofício (Engenharia)', atributo: 'int', st: false, pda: false }
+];
+
+function buildSkills(ndNum, atributos, trainedSkills = {}) {
+  const meionivel = Math.floor(ndNum / 2);
+  let treino = 2;
+  if (ndNum >= 15) {
+    treino = 6;
+  } else if (ndNum >= 7) {
+    treino = 4;
+  }
+  const pericias = {};
+
+  for (const s of ALL_SKILLS) {
+    const atrMod = atributos[s.atributo] || 0;
+    const isTrained = trainedSkills[s.key] !== undefined || s.key === 'inic' || s.key === 'perc';
+
+    if (isTrained) {
+      const fichaVal = trainedSkills[s.key] === undefined ? (meionivel + atrMod + treino) : trainedSkills[s.key];
+      const val = fichaVal - meionivel - atrMod - treino;
+      pericias[s.key] = {
+        atributo: s.atributo,
+        treinado: true,
+        st: Boolean(s.st),
+        pda: Boolean(s.pda),
+        size: false,
+        value: val,
+        outros: val,
+        condi: 0,
+        bonus: [],
+        custom: false,
+        label: s.nome,
+        nome: s.nome
+      };
+    } else {
+      pericias[s.key] = {
+        atributo: s.atributo,
+        treinado: false,
+        st: Boolean(s.st),
+        pda: Boolean(s.pda),
+        size: false,
+        value: 0,
+        outros: 0,
+        condi: 0,
+        bonus: [],
+        custom: false,
+        label: s.nome,
+        nome: s.nome
+      };
+    }
+  }
+  return pericias;
+}
+
 function generateId() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -89,7 +177,7 @@ function buildActiveEffect({
 }
 
 /**
- * Constrói um item genérico ou poder de Tormenta20
+ * Constrói um item genérico ou poder de Tormenta20 com schema completo
  */
 function buildItem({
   name,
@@ -98,12 +186,24 @@ function buildItem({
   description = '',
   folder = null,
   system = {},
+  rolls = null,
   effects = []
 }) {
   const _id = generateId();
   const finalImg = (!img || img === 'icons/svg/mystery-man.svg')
     ? resolveIcon({ name, type })
     : img;
+
+  const descVal = description.startsWith('<p>') || description.startsWith('<blockquote')
+    ? description
+    : `<p>${description}</p>`;
+
+  let finalRolls = [];
+  if (Array.isArray(rolls)) {
+    finalRolls = rolls;
+  } else if (Array.isArray(system.rolls)) {
+    finalRolls = system.rolls;
+  }
 
   const baseDoc = {
     _id,
@@ -112,9 +212,82 @@ function buildItem({
     img: finalImg,
     system: {
       description: {
-        value: description.startsWith('<p>') ? description : `<p>${description}</p>`,
+        value: descVal,
         unidentified: ''
       },
+      source: system.source || 'Tormenta20',
+      carregado: system.carregado !== undefined ? Boolean(system.carregado) : true,
+      peso: Number(system.peso || 0),
+      espacos: Number(system.espacos || 0),
+      qtd: Number(system.qtd || 1),
+      preco: Number(system.preco || 0),
+      pv: {
+        value: system.pv?.value || 0,
+        min: 0,
+        max: system.pv?.max || 0
+      },
+      rd: Number(system.rd || 0),
+      equipado: system.equipado !== undefined ? Boolean(system.equipado) : true,
+      equipado2: {
+        slot: system.equipado2?.slot || 0,
+        type: system.equipado2?.type || ''
+      },
+      ativacao: {
+        execucao: system.ativacao?.execucao || 'padrao',
+        custo: Number(system.ativacao?.custo || 0),
+        qtd: system.ativacao?.qtd || '',
+        condicao: system.ativacao?.condicao || '',
+        special: system.ativacao?.special || ''
+      },
+      duracao: {
+        value: Number(system.duracao?.value || 0),
+        units: system.duracao?.units || '',
+        special: system.duracao?.special || ''
+      },
+      target: {
+        value: Number(system.target?.value || 0),
+        width: Number(system.target?.width || 0),
+        type: system.target?.type || ''
+      },
+      range: {
+        value: Number(system.range?.value || 0),
+        units: system.range?.units || ''
+      },
+      consume: {
+        type: system.consume?.type || '',
+        target: system.consume?.target || '',
+        amount: Number(system.consume?.amount || 0),
+        mpMultiplier: Boolean(system.consume?.mpMultiplier)
+      },
+      efeito: system.efeito || '',
+      alcance: system.alcance || '',
+      alvo: system.alvo || '',
+      area: system.area || '',
+      resistencia: {
+        pericia: system.resistencia?.pericia || '',
+        atributo: system.resistencia?.atributo || '',
+        bonus: Number(system.resistencia?.bonus || 0),
+        txt: system.resistencia?.txt || ''
+      },
+      origin: system.origin || '',
+      tags: Array.isArray(system.tags) ? system.tags : [],
+      chatFlavor: system.chatFlavor || (description.includes('blockquote') ? description.slice(0, 300) : `<p>${name}</p>`),
+      chatGif: system.chatGif || '',
+      rolltags: Array.isArray(system.rolltags) ? system.rolltags : [],
+      upgrades: {
+        melhoria1: '',
+        melhoria2: '',
+        melhoria3: '',
+        melhoria4: '',
+        material: '',
+        encanto1: '',
+        encanto2: '',
+        encanto3: '',
+        ...(system.upgrades || {})
+      },
+      melhorias: system.melhorias || {},
+      encantos: system.encantos || {},
+      rolls: finalRolls,
       ...system
     },
     effects: effects.map(eff => buildActiveEffect({
@@ -140,6 +313,138 @@ function buildItem({
 }
 
 /**
+ * Constrói um ataque embutido de criatura (arma natural ou manufaturada)
+ */
+function buildWeaponAttack({
+  name,
+  img = null,
+  dano = '1d8',
+  tipoDano = 'corte',
+  ataque = 10,
+  periciaAtaque = 'luta',
+  criticoMargem = 20,
+  criticoMultiplicador = 2,
+  alcance = '',
+  empunhadura = 'uma',
+  tipo = 'corpo-a-corpo',
+  description = '',
+  flavorPhrase = '',
+  flavorAction = '',
+  effects = [],
+  rolls = null
+}) {
+  const finalImg = img || resolveIcon({ name, type: 'arma' });
+  const critM = Number(criticoMargem || 20);
+  const critX = Number(criticoMultiplicador || 2);
+
+  const defaultRolls = [
+    {
+      name: 'Ataque',
+      key: 'ataque0',
+      type: 'ataque',
+      parts: [
+        ['1d20', '', ''],
+        [periciaAtaque, '', ''],
+        [Number(ataque), '', '']
+      ],
+      versatil: ''
+    },
+    {
+      name: 'Dano',
+      key: 'dano1',
+      type: 'dano',
+      parts: [
+        [dano, tipoDano, ''],
+        ['for', '', '']
+      ],
+      versatil: ''
+    }
+  ];
+
+  const chatFlavor = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${flavorPhrase || name + '!'}"</blockquote><p>${flavorAction || 'Executa um ataque com ' + name}. <span style="color: #800000; font-weight: bold;">Acerto ameaçador!</span></p>`;
+
+  return buildItem({
+    name,
+    type: 'arma',
+    img: finalImg,
+    description: description || `Ataque ${name} da criatura.`,
+    effects,
+    system: {
+      tipo,
+      empunhadura,
+      proficiencia: 'simples',
+      dano,
+      tipoDano,
+      criticoM: critM,
+      criticoX: critX,
+      critico: { margem: critM, multiplicador: critX },
+      ataque: Number(ataque),
+      ataques: 1,
+      tipoUso: 'ataque',
+      proposito: tipo,
+      size: 'medio',
+      alcance,
+      chatFlavor,
+      propriedades: {
+        ada: false, agi: false, alo: false, des: false, dup: false, ver: false, hib: false
+      },
+      rolls: rolls || defaultRolls
+    }
+  });
+}
+
+/**
+ * Constrói um poder especial ou habilidade de criatura
+ */
+function buildSpecialPower({
+  name,
+  img = null,
+  tipo = 'geral',
+  subtipo = 'combate',
+  execucao = 'padrao',
+  custo = 0,
+  cd = null,
+  alcance = '',
+  alvo = '',
+  area = '',
+  resistencia = null,
+  description = '',
+  flavorPhrase = '',
+  flavorAction = '',
+  rolls = [],
+  effects = []
+}) {
+  const finalImg = img || resolveIcon({ name, type: 'poder' });
+  const chatFlavor = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${flavorPhrase || name}"</blockquote><p>${flavorAction || description}. <span style="color: #800000; font-weight: bold;">Habilidade especial ativada!</span></p>`;
+
+  return buildItem({
+    name,
+    type: 'poder',
+    img: finalImg,
+    description,
+    effects,
+    system: {
+      tipo,
+      subtipo,
+      ativacao: {
+        execucao,
+        custo: Number(custo),
+        qtd: '',
+        condicao: '',
+        special: ''
+      },
+      cd: cd ? Number(cd) : null,
+      alcance,
+      alvo,
+      area,
+      resistencia: resistencia || { pericia: '', atributo: '', bonus: 0, txt: '' },
+      chatFlavor,
+      rolls: Array.isArray(rolls) ? rolls : []
+    }
+  });
+}
+
+/**
  * Constrói uma Arma (corpo a corpo ou à distância)
  */
 function buildWeaponItem({
@@ -156,8 +461,36 @@ function buildWeaponItem({
   espacos = 1,
   propriedades = [],
   effects = [],
+  rolls = null,
+  chatFlavor = null,
   folder = null
 }) {
+  const critM = Number(criticoMargem || 20);
+  const critX = Number(criticoMultiplicador || 2);
+  const finalRolls = rolls || [
+    {
+      name: 'Ataque',
+      key: 'ataque0',
+      type: 'ataque',
+      parts: [
+        ['1d20', '', ''],
+        [alcance ? 'pont' : 'luta', '', ''],
+        [0, '', '']
+      ],
+      versatil: ''
+    },
+    {
+      name: 'Dano',
+      key: 'dano1',
+      type: 'dano',
+      parts: [
+        [dano, tipoDano, ''],
+        [alcance ? '' : 'for', '', '']
+      ],
+      versatil: ''
+    }
+  ];
+
   return buildItem({
     name,
     type: 'arma',
@@ -169,14 +502,18 @@ function buildWeaponItem({
       empunhadura,
       dano,
       tipoDano,
+      criticoM: critM,
+      criticoX: critX,
       critico: {
-        margem: Number(criticoMargem),
-        multiplicador: Number(criticoMultiplicador)
+        margem: critM,
+        multiplicador: critX
       },
       alcance,
       preco: Number(preco),
       espacos: Number(espacos),
-      propriedades: propriedades || []
+      propriedades: propriedades || [],
+      rolls: finalRolls,
+      chatFlavor: chatFlavor || `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${name}"</blockquote><p>Ataque com ${name}. <span style="color: #800000; font-weight: bold;">Disparo ou golpe!</span></p>`
     }
   });
 }
@@ -205,6 +542,11 @@ function buildArmorItem({
     effects,
     system: {
       tipo: isShield ? 'escudo' : 'armadura',
+      armadura: {
+        value: Number(defesa),
+        penalidade: Number(penalidade),
+        maxAtr: isShield ? 0 : 4
+      },
       defesa: Number(defesa),
       penalidade: Number(penalidade),
       espacos: Number(espacos),
@@ -230,6 +572,7 @@ function buildSpellItem({
   duracao = 'instantanea',
   resistencia = '',
   aprimoramentos = [],
+  rolls = [],
   effects = [],
   folder = null
 }) {
@@ -253,7 +596,8 @@ function buildSpellItem({
       area,
       duracao,
       resistencia,
-      aprimoramentos: aprimoramentos || []
+      aprimoramentos: aprimoramentos || [],
+      rolls: Array.isArray(rolls) ? rolls : []
     }
   });
 }
@@ -272,6 +616,8 @@ function buildNpcActor({
   tipoMonstro = 'monstro',
   tamanho = 'medio',
   deslocamento = '9m (6q)',
+  sentidos = 'visão no escuro',
+  tesouro = 'Nenhum',
   atributos = { for: 0, des: 0, con: 0, int: 0, sab: 0, car: 0 },
   attributes = {
     pv: { value: 50, max: 50 },
@@ -299,6 +645,40 @@ function buildNpcActor({
     ? attributes.defesa.base
     : (defVal - desMod);
 
+  const ndNum = Number(nd) || 1;
+  const treino = ndNum >= 15 ? 6 : ndNum >= 7 ? 4 : 2;
+  const cdVal = attributes.cd !== undefined
+    ? Number(attributes.cd)
+    : (10 + Math.floor(ndNum / 2) + Math.max(atributos.for || 0, atributos.des || 0, atributos.con || 0, atributos.int || 0, atributos.sab || 0, atributos.car || 0));
+
+  const movStr = String(deslocamento || '9m (6q)');
+  const walkVal = parseInt(movStr, 10) || 9;
+  let burrowVal = 0;
+  let climbVal = 0;
+  let flyVal = 0;
+  let swimVal = 0;
+  if (movStr.includes('escavação') || movStr.includes('escavar')) {
+    const m = movStr.match(/escavação\s+(\d+)m/i) || movStr.match(/escavar\s+(\d+)m/i);
+    burrowVal = m ? parseInt(m[1], 10) : 6;
+  }
+  if (movStr.includes('escalada') || movStr.includes('escalar')) {
+    const m = movStr.match(/escalada\s+(\d+)m/i) || movStr.match(/escalar\s+(\d+)m/i);
+    climbVal = m ? parseInt(m[1], 10) : 6;
+  }
+  if (movStr.includes('voo') || movStr.includes('voar')) {
+    const m = movStr.match(/voo\s+(\d+)m/i) || movStr.match(/voar\s+(\d+)m/i);
+    flyVal = m ? parseInt(m[1], 10) : 12;
+  }
+  if (movStr.includes('natação') || movStr.includes('nadar')) {
+    const m = movStr.match(/natação\s+(\d+)m/i) || movStr.match(/nadar\s+(\d+)m/i);
+    swimVal = m ? parseInt(m[1], 10) : 9;
+  }
+
+  // Garante as 34 perícias preenchidas se objeto vazio for passado
+  const finalPericias = Object.keys(pericias || {}).length >= 30
+    ? pericias
+    : buildSkills(ndNum, atributos, pericias);
+
   const actorDoc = {
     _id,
     name,
@@ -314,32 +694,85 @@ function buildNpcActor({
     },
     system: {
       detalhes: {
-        biography: { value: biography.startsWith('<p>') ? biography : `<p>${biography}</p>`, public: '' },
+        biography: {
+          value: biography.startsWith('<p>') || biography.startsWith('<blockquote') ? biography : `<p>${biography}</p>`,
+          public: ''
+        },
         nd: String(nd),
         papel,
+        role: papel,
         tipo: tipoMonstro,
-        tamanho
+        tamanho,
+        origem: '',
+        info: '',
+        divindade: '',
+        raca: '',
+        equipamento: '',
+        resistencias: resistencias.txt || '',
+        tesouro: tesouro || 'Nenhum',
+        ataquescac: '',
+        movimento: movStr,
+        ataquesad: ''
       },
       atributos: {
-        for: { value: atributos.for ?? 0 },
-        des: { value: desMod },
-        con: { value: atributos.con ?? 0 },
-        int: { value: atributos.int ?? 0 },
-        sab: { value: atributos.sab ?? 0 },
-        car: { value: atributos.car ?? 0 }
+        for: { value: atributos.for ?? 0, base: atributos.for ?? 0, racial: 0, bonus: 0 },
+        des: { value: desMod, base: desMod, racial: 0, bonus: 0 },
+        con: { value: atributos.con ?? 0, base: atributos.con ?? 0, racial: 0, bonus: 0 },
+        int: { value: atributos.int ?? 0, base: atributos.int ?? 0, racial: 0, bonus: 0 },
+        sab: { value: atributos.sab ?? 0, base: atributos.sab ?? 0, racial: 0, bonus: 0 },
+        car: { value: atributos.car ?? 0, base: atributos.car ?? 0, racial: 0, bonus: 0 }
       },
       attributes: {
-        pv: { value: attributes.pv?.value ?? 50, max: attributes.pv?.max ?? 50 },
-        pm: { value: attributes.pm?.value ?? 0, max: attributes.pm?.max ?? 0 },
-        defesa: { value: defVal, base: defBase },
-        sentidos: {
-          visaoNoEscuro: true
+        cd: cdVal,
+        pv: {
+          value: attributes.pv?.value ?? 50,
+          temp: 0,
+          min: 0,
+          max: attributes.pv?.max ?? (attributes.pv?.value ?? 50)
         },
-        movimento: {
-          terrestre: {
-            value: parseInt(deslocamento, 10) || 9
-          }
-        }
+        pm: {
+          value: attributes.pm?.value ?? 0,
+          temp: 0,
+          min: 0,
+          max: attributes.pm?.max ?? (attributes.pm?.value ?? 0)
+        },
+        defesa: {
+          atributo: 'des',
+          pda: 0,
+          value: defVal,
+          base: defBase,
+          outros: 0,
+          condi: 0
+        },
+        carga: {
+          value: 0,
+          atributo: 'for',
+          base: 0,
+          bonus: [],
+          max: 0,
+          pct: 0,
+          encumbered: false
+        },
+        sentidos: {
+          value: [],
+          custom: sentidos || 'visão no escuro'
+        },
+        conjuracao: '',
+        nivel: {
+          value: ndNum,
+          xp: { value: 0, pct: 0, proximo: 0 }
+        },
+        movement: {
+          burrow: burrowVal,
+          climb: climbVal,
+          fly: flyVal,
+          swim: swimVal,
+          walk: walkVal,
+          hover: false,
+          unit: 'm'
+        },
+        treino,
+        nd: String(nd)
       },
       tracos: {
         resistencias: resistencias.danos || {},
@@ -347,7 +780,7 @@ function buildNpcActor({
         idiomas: resistencias.idiomas || ['Nenhum'],
         tamanho: tamanho.slice(0, 3)
       },
-      pericias: pericias || {}
+      pericias: finalPericias
     },
     items: [],
     effects: [],
@@ -369,8 +802,16 @@ function buildNpcActor({
 
   // Adiciona itens embutidos (armas, poderes, magias)
   for (const item of items) {
-    const itemDoc = buildItem({ ...item });
-    itemDoc._id = generateId();
+    let itemDoc = item;
+    if (!item._id) {
+      if (item.type === 'arma') {
+        itemDoc = buildWeaponAttack(item);
+      } else if (item.type === 'poder') {
+        itemDoc = buildSpecialPower(item);
+      } else {
+        itemDoc = buildItem(item);
+      }
+    }
     actorDoc.items.push(itemDoc);
 
     embeddedDocs.push({
@@ -784,8 +1225,12 @@ function saveToSourcePacks(packName, doc, embeddedDocs = []) {
 module.exports = {
   generateId,
   getTokenDimension,
+  ALL_SKILLS,
+  buildSkills,
   buildActiveEffect,
   buildItem,
+  buildWeaponAttack,
+  buildSpecialPower,
   buildWeaponItem,
   buildArmorItem,
   buildSpellItem,
