@@ -783,106 +783,92 @@ async function injectItems() {
     }
     const key = `!items!${item._id}`;
     
-    // Constrói os documentos de efeitos completos
-    const effectDocs = (item.effects || []).map(eff => ({
-      _id: eff._id || generateId(),
-      name: eff.name,
-      origin: '',
-      tint: eff.tint || '#ffffff',
-      flags: {
-        tormenta20: {
-          onuse: Boolean(eff.flags?.tormenta20?.onuse),
-          durationScene: Boolean(eff.flags?.tormenta20?.durationScene),
-          self: eff.flags?.tormenta20?.self !== undefined ? Boolean(eff.flags.tormenta20.self) : true,
-          attack: Boolean(eff.flags?.tormenta20?.attack),
-          skill: Boolean(eff.flags?.tormenta20?.skill),
-          ability: Boolean(eff.flags?.tormenta20?.ability),
-          power: Boolean(eff.flags?.tormenta20?.power),
-          equipment: Boolean(eff.flags?.tormenta20?.equipment),
-          spell: Boolean(eff.flags?.tormenta20?.spell),
-          consumable: Boolean(eff.flags?.tormenta20?.consumable),
-          items: eff.flags?.tormenta20?.items || '',
-          aumenta: Boolean(eff.flags?.tormenta20?.aumenta),
-          custo: eff.flags?.tormenta20?.custo || null,
-          transfer: Boolean(eff.transfer !== false),
-          ...(eff.flags?.tormenta20 || {})
+    // Constrói os documentos de efeitos completos para compêndios
+    const effectDocs = (item.effects || []).map(eff => {
+      const effId = eff._id || generateId();
+      return {
+        _id: effId,
+        name: eff.name,
+        origin: item.name,
+        tint: eff.tint || '#ffffff',
+        flags: {
+          tormenta20: {
+            onuse: Boolean(eff.flags?.tormenta20?.onuse),
+            durationScene: Boolean(eff.flags?.tormenta20?.durationScene),
+            self: eff.flags?.tormenta20?.self !== undefined ? Boolean(eff.flags.tormenta20.self) : true,
+            attack: Boolean(eff.flags?.tormenta20?.attack),
+            skill: Boolean(eff.flags?.tormenta20?.skill),
+            ability: Boolean(eff.flags?.tormenta20?.ability),
+            power: Boolean(eff.flags?.tormenta20?.power),
+            equipment: Boolean(eff.flags?.tormenta20?.equipment),
+            spell: Boolean(eff.flags?.tormenta20?.spell),
+            consumable: Boolean(eff.flags?.tormenta20?.consumable),
+            items: eff.flags?.tormenta20?.items || '',
+            aumenta: Boolean(eff.flags?.tormenta20?.aumenta),
+            custo: eff.flags?.tormenta20?.custo || null,
+            ...(eff.flags?.tormenta20 || {})
+          },
+          ...(eff.flags || {})
         },
-        ...(eff.flags || {})
-      },
-      duration: {
-        rounds: eff.duration?.rounds || null,
-        seconds: eff.duration?.seconds || null,
-        startTime: eff.duration?.startTime || null,
-        combat: eff.duration?.combat || null,
-        turns: eff.duration?.turns || null,
-        startRound: eff.duration?.startRound || null,
-        startTurn: eff.duration?.startTurn || null,
-        ...(eff.duration || {})
-      },
-      disabled: Boolean(eff.disabled),
-      img: eff.img || item.img || 'systems/tormenta20/icons/svg/skills.svg',
-      type: 'base',
-      system: {
-        identifier: (eff.name || 'effect').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'effect',
-        targets: ['self'],
-        status: null,
-        onuse: Boolean(eff.flags?.tormenta20?.onuse),
-        abilityUse: {
-          description: eff.description || eff.name,
-          automatic: false,
-          aumenta: false,
-          custo: eff.flags?.tormenta20?.custo !== undefined ? eff.flags.tormenta20.custo : null,
-          names: [],
-          types: ['self']
+        duration: {
+          rounds: eff.duration?.rounds || null,
+          seconds: eff.duration?.seconds || null,
+          startTime: eff.duration?.startTime || null,
+          combat: eff.duration?.combat || null,
+          turns: eff.duration?.turns || null,
+          startRound: eff.duration?.startRound || null,
+          startTurn: eff.duration?.startTurn || null,
+          ...(eff.duration || {})
         },
-        aura: {
-          isAura: false,
-          range: 0,
-          behaviors: null
-        },
-        upgrade: {
-          type: null,
-          itemType: []
+        disabled: Boolean(eff.disabled),
+        img: eff.img || item.img || 'systems/tormenta20/icons/svg/skills.svg',
+        type: 'base',
+        system: {},
+        changes: (eff.changes || []).map(c => ({
+          key: c.key,
+          mode: c.mode !== undefined ? c.mode : 2,
+          value: String(c.value),
+          priority: c.priority !== undefined ? c.priority : 20
+        })),
+        description: eff.description || '',
+        transfer: eff.transfer !== undefined ? Boolean(eff.transfer) : true,
+        statuses: eff.statuses || [],
+        sort: 0,
+        _stats: {
+          compendiumSource: null,
+          duplicateSource: null,
+          exportSource: null,
+          coreVersion: '13.351',
+          systemId: 'tormenta20',
+          systemVersion: '1.5.015',
+          createdTime: Date.now(),
+          modifiedTime: Date.now(),
+          lastModifiedBy: null
         }
-      },
-      changes: (eff.changes || []).map(c => ({
-        key: c.key,
-        mode: c.mode !== undefined ? c.mode : 2,
-        value: String(c.value),
-        priority: c.priority !== undefined ? c.priority : 20
-      })),
-      description: eff.description || '',
-      transfer: eff.transfer !== undefined ? Boolean(eff.transfer) : true,
-      statuses: eff.statuses || [],
-      sort: 0,
-      _stats: {
-        compendiumSource: null,
-        duplicateSource: null,
-        exportSource: null,
-        coreVersion: '13.351',
-        systemId: 'tormenta20',
-        systemVersion: '1.5.015',
-        createdTime: Date.now(),
-        modifiedTime: Date.now(),
-        lastModifiedBy: 'piAgentTormenta20'
-      }
-    }));
-    
-    // Tanto doc.effects quanto doc.system.effects contêm os objetos completos ActiveEffect
-    item.effects = effectDocs;
-    if (!item.system) item.system = {};
-    item.system.effects = effectDocs;
+      };
+    });
 
-    await db.put(key, item);
+    const effectIds = effectDocs.map(e => e._id);
+    
+    // No documento do item do compêndio, effects armazena os IDs dos subdocumentos
+    const itemToStore = {
+      ...item,
+      effects: effectIds
+    };
+    if (itemToStore.system && itemToStore.system.effects) {
+      delete itemToStore.system.effects;
+    }
+
+    await db.put(key, itemToStore);
     count++;
-    console.log(`✓ [${item.type}] "${item.name}" salvo em Itens_T20 com ${effectDocs.length} ActiveEffects completos.`);
+    console.log(`✓ [${item.type}] "${item.name}" salvo em Itens_T20 (Effects IDs: ${effectIds.length}).`);
 
     // Limpa efeitos antigos se existirem
     for await (const [effK] of db.iterator({ gte: `!items.effects!${item._id}.`, lte: `!items.effects!${item._id}.\uffff` })) {
       await db.del(effK);
     }
 
-    // Grava também nas chaves de subdocumentos para compatibilidade
+    // Grava cada efeito completo em !items.effects!${item._id}.${eff._id}
     for (const eff of effectDocs) {
       const effKey = `!items.effects!${item._id}.${eff._id}`;
       await db.put(effKey, eff);
@@ -894,7 +880,7 @@ async function injectItems() {
       typePath: '!items.effects!',
       doc: eff
     }));
-    saveToSourcePacks('Itens_T20', item, embeddedSubdocs);
+    saveToSourcePacks('Itens_T20', itemToStore, embeddedSubdocs);
   }
 
   await db.close();
