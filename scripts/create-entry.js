@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const { resolveIcon } = require('./icon-resolver');
 
 function generateId() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -15,24 +16,35 @@ function sanitizeFilename(name) {
   return name.replace(/[/\\?%*:|"<>]/g, '_').trim().slice(0, 80);
 }
 
+function getTokenDimension(tamanho) {
+  if (tamanho === 'grande' || tamanho === 'gra') return 2;
+  if (tamanho === 'enorme' || tamanho === 'eno') return 3;
+  if (tamanho === 'colossal' || tamanho === 'col') return 4;
+  return 1;
+}
+
 /**
  * Constrói um item de Tormenta20 em conformidade com o sistema e as macros do autor
  */
 function buildItem({
   name,
   type = 'poder',
-  img = 'icons/svg/mystery-man.svg',
+  img = null,
   description = '',
   folder = null,
   system = {},
   effects = []
 }) {
   const _id = generateId();
+  const finalImg = (!img || img === 'icons/svg/mystery-man.svg')
+    ? resolveIcon({ name, type })
+    : img;
+
   const baseDoc = {
     _id,
     name,
     type,
-    img,
+    img: finalImg,
     system: {
       description: {
         value: description.startsWith('<p>') ? description : `<p>${description}</p>`,
@@ -43,7 +55,7 @@ function buildItem({
     effects: effects.map(eff => ({
       _id: generateId(),
       name: eff.name || `${name} - Efeito`,
-      img: eff.img || img,
+      img: eff.img || finalImg,
       disabled: eff.disabled !== undefined ? eff.disabled : false,
       type: eff.type || 'base',
       system: eff.system || {},
@@ -79,7 +91,7 @@ function buildItem({
 function buildNpcActor({
   name,
   type = 'npc',
-  img = 'icons/svg/mystery-man.svg',
+  img = null,
   biography = '',
   folder = null,
   nd = '1',
@@ -99,12 +111,25 @@ function buildNpcActor({
   effects = []
 }) {
   const _id = generateId();
+  const finalImg = (!img || img === 'icons/svg/mystery-man.svg')
+    ? resolveIcon({ name, type: 'npc' })
+    : img;
+
+  const tokenDim = getTokenDimension(tamanho);
 
   const actorDoc = {
     _id,
     name,
     type,
-    img,
+    img: finalImg,
+    prototypeToken: {
+      name,
+      texture: {
+        src: finalImg
+      },
+      width: tokenDim,
+      height: tokenDim
+    },
     system: {
       detalhes: {
         biography: { value: biography.startsWith('<p>') ? biography : `<p>${biography}</p>`, public: '' },
@@ -187,7 +212,7 @@ function buildNpcActor({
     const effDoc = {
       _id: generateId(),
       name: eff.name || `${name} - Efeito`,
-      img: eff.img || img,
+      img: eff.img || finalImg,
       disabled: eff.disabled !== undefined ? eff.disabled : false,
       type: eff.type || 'base',
       system: eff.system || {},

@@ -1,8 +1,15 @@
-2026/11/01-01:10:54.838916 ffffa93defc0 Recovering log #1000
-2026/11/01-01:10:54.868647 ffffa93defc0 Delete type=3 #998
-2026/11/01-01:10:54.868880 ffffa93defc0 Delete type=0 #1000
-2026/11/01-01:10:56.836965 ffff69e71fc0 Compacting 1@0 + 1@1 files
-2026/11/01-01:10:56.845153 ffff69e71fc0 Generated table #1003@0: 44 keys, 41784 bytes
-2026/11/01-01:10:56.908362 ffff69e71fc0 Generated table #1004@0: 3971 keys, 2137059 bytes
-2026/11/01-01:10:56.908420 ffff69e71fc0 Compacted 1@0 + 1@1 files => 2178843 bytes
-2026/11/01-01:10:56.909732 ffff69e71fc0 compacted to: files[ 0 4 14 0 0 0 0 ]
+2026/11/01-02:13:34.931985 ffff4bffefc0 Recovering log #1027
+2026/11/01-02:13:34.967692 ffff4bffefc0 Delete type=0 #1027
+2026/11/01-02:13:34.967839 ffff4bffefc0 Delete type=3 #1026
+2026/11/01-02:13:36.975116 ffff49f2bfc0 Compacting 1@1 + 9@2 files
+2026/11/01-02:13:37.032051 ffff49f2bfc0 Generated table #1030@1: 483 keys, 2120590 bytes
+2026/11/01-02:13:37.079290 ffff49f2bfc0 Generated table #1031@1: 478 keys, 2117452 bytes
+2026/11/01-02:13:37.126722 ffff49f2bfc0 Generated table #1032@1: 485 keys, 2116323 bytes
+2026/11/01-02:13:37.172502 ffff49f2bfc0 Generated table #1033@1: 486 keys, 2116884 bytes
+2026/11/01-02:13:37.218298 ffff49f2bfc0 Generated table #1034@1: 2331 keys, 2126688 bytes
+2026/11/01-02:13:37.259616 ffff49f2bfc0 Generated table #1035@1: 2586 keys, 2130092 bytes
+2026/11/01-02:13:37.300637 ffff49f2bfc0 Generated table #1036@1: 2632 keys, 2131543 bytes
+2026/11/01-02:13:37.341482 ffff49f2bfc0 Generated table #1037@1: 2694 keys, 2134070 bytes
+2026/11/01-02:13:37.381351 ffff49f2bfc0 Generated table #1038@1: 2678 keys, 2130376 bytes
+2026/11/01-02:13:37.381435 ffff49f2bfc0 Compacted 1@1 + 9@2 files => 19124018 bytes
+2026/11/01-02:13:37.383024 ffff49f2bfc0 compacted to: files[ 0 3 15 0 0 0 0 ]
