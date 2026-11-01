@@ -1,3 +1,8 @@
-2026/11/01-15:26:22.183996 ffff4fffefc0 Recovering log #659
-2026/11/01-15:26:22.190723 ffff4fffefc0 Delete type=0 #659
-2026/11/01-15:26:22.190826 ffff4fffefc0 Delete type=3 #658
+2026/11/01-15:35:17.560625 ffff80f9efc0 Recovering log #668
+2026/11/01-15:35:17.578042 ffff80f9efc0 Delete type=2 #667
+2026/11/01-15:35:17.578223 ffff80f9efc0 Delete type=2 #647
+2026/11/01-15:35:17.578363 ffff80f9efc0 Delete type=3 #666
+2026/11/01-15:35:17.578476 ffff80f9efc0 Delete type=2 #634
+2026/11/01-15:35:17.580831 ffff80f9efc0 Delete type=0 #668
+2026/11/01-15:35:17.581093 ffff80f9efc0 Delete type=2 #622
+2026/11/01-15:35:17.582171 ffff80f9efc0 Delete type=2 #650

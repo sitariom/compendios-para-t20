@@ -78,7 +78,7 @@ async function injectTables() {
     formula: '1d6',
     replacement: true,
     displayRoll: true,
-    folder: null,
+    folder: 'xbFP75zAd0URzuDL', // Pasta "Tabelas T20"
     sort: 500000,
     ownership: { default: 0 },
     flags: { tormenta20: { source: 'Dragão Brasil #228' } },
@@ -142,7 +142,7 @@ async function injectTables() {
     formula: '1d17',
     replacement: true,
     displayRoll: true,
-    folder: null,
+    folder: 'xbFP75zAd0URzuDL', // Pasta "Tabelas T20"
     sort: 510000,
     ownership: { default: 0 },
     flags: { tormenta20: { source: 'Dragão Brasil #228' } },
