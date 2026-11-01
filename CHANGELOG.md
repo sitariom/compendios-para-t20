@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.3 - 2026-11-01
+
+- **Mapeamento e Preenchimento Completo de Traços (Resistências, Imunidades, Condições e Idiomas)**:
+  - Mapeados e preenchidos integralmente os campos de `system.tracos` em todos os atores da Dragão Brasil #227:
+    - **Resistências a Dano (`tracos.resistencias`)**: Configurados os 13 tipos de dano com seus valores exatos de RD e imunidades (ex: *Lynel* com RD 10 a ácido, eletricidade, fogo e frio; *Enxame de Armas* com RD 5 geral; *Tropa de Mortos* com RD 5 a corte, frio e perfuração; *Inumano* com imunidade total a dano de frio).
+    - **Imunidades a Condições e Efeitos (`tracos.ic`)**: Marcados no array de condições e efeitos especiais (ex: *Enxame de Armas* e *Tropa de Mortos* com imunidades a condições de construto/morto-vivo e a manobras/alvos únicos; *Inumano* com imunidades de morto-vivo).
+    - **Idiomas (`tracos.idiomas`)**: Configurados nos campos de sistema e detalhes (`comum` para Lynel e Inumano; `Nenhum` para Oxxdon, Enxame de Armas e Tropa de Mortos).
+    - **Tamanho (`tracos.tamanho`)**: Sincronizado com os tamanhos canônicos ("eno" para Lynel, "gra" para Enxame e Tropa, "med" para Oxxdon e Inumano).
+
 ## v1.3.2 - 2026-11-01
 
 - **Correção da Defesa Base no Foundry VTT (Dragão Brasil #227)**:

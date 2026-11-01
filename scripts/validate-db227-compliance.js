@@ -50,6 +50,26 @@ async function validateCompliance() {
       if (pCount !== 34) { console.error(`❌ Perícias incompletas: ${pCount} !== 34`); passed = false; }
       if (!pericias.inic.treinado || !pericias.perc.treinado) { console.error(`❌ Inic ou Perc não treinadas em ${t.name}`); passed = false; }
 
+      // Validar traços (resistencias, ic, idiomas)
+      const tracos = sys.tracos;
+      if (!tracos) {
+        console.error(`❌ sys.tracos ausente em ${t.name}!`);
+        passed = false;
+      } else {
+        if (!tracos.resistencias || Object.keys(tracos.resistencias).length !== 13) {
+          console.error(`❌ Resistências a dano incompletas em ${t.name}!`);
+          passed = false;
+        }
+        if (!tracos.ic || !Array.isArray(tracos.ic.value)) {
+          console.error(`❌ Imunidades a condições (ic) inválidas em ${t.name}!`);
+          passed = false;
+        }
+        if (!tracos.idiomas || !Array.isArray(tracos.idiomas.value)) {
+          console.error(`❌ Idiomas inválidos em ${t.name}!`);
+          passed = false;
+        }
+      }
+
       // Validar biografia (formato de 2 citações + lore)
       const bio = sys.detalhes?.biography?.value || '';
       if (!bio.includes('blockquote') || !bio.includes('Grunk Ferroforja')) {
