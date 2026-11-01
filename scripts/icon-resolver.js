@@ -42,6 +42,20 @@ function normalize(str) {
 /**
  * Mapeamentos semânticos explícitos de nomes/termos frequentes em T20
  */
+/**
+ * Mapa de Tokens EXCLUSIVAMENTE originados do 2-Minute Tabletop (top-down transparentes)
+ */
+const TOKEN_2MTT_MAP = {
+  'lynel': 'modules/compendios-para-t20/assets/tokens/lynel.png',
+  'oxxdon': 'modules/compendios-para-t20/assets/tokens/oxxdon.png',
+  'tyrant': 'modules/compendios-para-t20/assets/tokens/tyrant.png',
+  'espectro do pesadelo': 'modules/compendios-para-t20/assets/tokens/espectro-do-pesadelo.png',
+  'expurgo onirico': 'modules/compendios-para-t20/assets/tokens/expurgo-onirico.png',
+  'enxame de armas': 'modules/compendios-para-t20/assets/tokens/enxame-de-armas.png',
+  'tropa de mortos': 'modules/compendios-para-t20/assets/tokens/tropa-de-mortos.png',
+  'inumano': 'modules/compendios-para-t20/assets/tokens/inumano.png'
+};
+
 const THREAT_MAP = {
   'lynel': 'systems/tormenta20/icons/ameacas/centauro-combatente.png',
   'oxxdon': 'modules/compendios-para-t20/assets/icons/ameacas/oxxdon.jpg',
@@ -356,8 +370,80 @@ function resolveIcon({ name, type = 'poder', currentImg = '' }) {
   return currentImg || 'systems/tormenta20/icons/svg/skills.svg';
 }
 
+/**
+ * Resolve o token EXCLUSIVAMENTE a partir do acervo 2-Minute Tabletop
+ * @param {Object} options
+ * @param {string} options.name Nome do ator
+ * @returns {string} Caminho do token 2-Minute Tabletop
+ */
+function resolveToken({ name }) {
+  if (!name) return 'modules/compendios-para-t20/assets/tokens/tyrant.png';
+  const norm = normalize(name);
+
+  if (TOKEN_2MTT_MAP[norm]) {
+    return TOKEN_2MTT_MAP[norm];
+  }
+
+  for (const [key, tokenPath] of Object.entries(TOKEN_2MTT_MAP)) {
+    if (norm.includes(key) || key.includes(norm)) {
+      return tokenPath;
+    }
+  }
+
+  // Fallback padrão 2MTT
+  return 'modules/compendios-para-t20/assets/tokens/lynel.png';
+}
+
+/**
+ * Busca e baixa um token transparente do acervo 2-Minute Tabletop
+ */
+function searchAndDownload2MinuteTabletopToken(query, localRelativePath) {
+  return new Promise((resolve, reject) => {
+    const searchUrl = `https://tools.2minutetabletop.com/token-editor/index?search=${encodeURIComponent(query)}`;
+    https.get(searchUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+      let html = '';
+      res.on('data', c => html += c);
+      res.on('end', () => {
+        const matches = [...html.matchAll(/<h5[^>]*>(.*?)<\/h5>.*?<img\s+src=[\"'](\/token-editor\/token-uploads\/[^\"'?]+)/gs)]
+          .filter(m => !m[1].includes('Token Types'));
+
+        if (matches.length === 0) {
+          return resolve({ success: false, reason: `Nenhum token 2MTT encontrado para: ${query}` });
+        }
+
+        const [, title, relPath] = matches[0];
+        const tokenUrl = `https://tools.2minutetabletop.com${relPath}`;
+        const destFile = path.isAbsolute(localRelativePath)
+          ? localRelativePath
+          : path.join(__dirname, '..', localRelativePath);
+
+        fs.mkdirSync(path.dirname(destFile), { recursive: true });
+        const fileStream = fs.createWriteStream(destFile);
+
+        https.get(tokenUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (tokenRes) => {
+          tokenRes.pipe(fileStream);
+          fileStream.on('finish', () => {
+            fileStream.close();
+            resolve({
+              success: true,
+              query,
+              title: title.trim(),
+              tokenUrl,
+              destFile,
+              foundryPath: `modules/compendios-para-t20/${path.relative(path.join(__dirname, '..'), destFile)}`,
+              totalFound: matches.length
+            });
+          });
+        }).on('error', reject);
+      });
+    }).on('error', reject);
+  });
+}
+
 module.exports = {
   resolveIcon,
+  resolveToken,
+  searchAndDownload2MinuteTabletopToken,
   downloadGameIcon,
   downloadFromUrl,
   downloadWowheadIconByName,
@@ -366,6 +452,7 @@ module.exports = {
   CANONICAL_MAP,
   THREAT_MAP,
   ITEM_AND_POWER_MAP,
+  TOKEN_2MTT_MAP,
   T20_ICONS_DIR,
   MODULE_ICONS_DIR,
   normalize

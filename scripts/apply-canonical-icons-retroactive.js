@@ -7,7 +7,7 @@
 
 const { ClassicLevel } = require('classic-level');
 const path = require('path');
-const { resolveIcon } = require('./icon-resolver');
+const { resolveIcon, resolveToken } = require('./icon-resolver');
 
 const PACK_ACTORS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
 const PACK_ITEMS = path.join(__dirname, '..', 'packs', 'Itens_T20');
@@ -48,18 +48,19 @@ async function updateActors() {
   for (const actor of Object.values(targetActors)) {
     const oldImg = actor.img;
     const newImg = resolveIcon({ name: actor.name, type: 'npc', currentImg: oldImg });
+    const tokenSrc = resolveToken({ name: actor.name });
 
     actor.img = newImg;
     if (!actor.prototypeToken) actor.prototypeToken = {};
     if (!actor.prototypeToken.texture) actor.prototypeToken.texture = {};
-    actor.prototypeToken.texture.src = newImg;
+    actor.prototypeToken.texture.src = tokenSrc;
     if (actor._stats) actor._stats.modifiedTime = Date.now();
 
     const dbKey = actor.dbKey || `!actors!${actor._id}`;
     delete actor.dbKey;
     await db.put(dbKey, actor);
     actorUpdates++;
-    console.log(`[Ator] ${actor.name}: ${oldImg} -> ${newImg}`);
+    console.log(`[Ator] ${actor.name}: img=${newImg} | token(2MTT)=${tokenSrc}`);
   }
 
   // 2. Atualiza os itens embutidos desses atores
