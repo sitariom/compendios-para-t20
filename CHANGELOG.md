@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.4.3 - 2026-11-01
+
+- **Ajuste Fino de Fidelidade Canônica ao PDF da Dragão Brasil #228**:
+  - **Ankthyr (ND 8)**:
+    - *Redução de Dano*: Corrigida atribuição para **Redução de Dano Geral 5** (`system.tracos.resistencias.dano.value = 5`, `base = 5`) e **Redução de Ácido 5** (`system.tracos.resistencias.acido.value = 5`), removendo a atribuição indevida de RD individual para corte, perfuração e impacto.
+    - *Perícias Treinadas Estritas*: Removido treinamento indevido em *Atletismo* e *Sobrevivência* que não constam no bloco de estatísticas do PDF da DB #228. Mantidos apenas os treinos canônicos em *Fortitude*, *Iniciativa*, *Luta*, *Percepção*, *Reflexos* e *Vontade*.
+  - **Enxame Cáustico (ND 4)**:
+    - *Resistências Canônicas*: Removida redução de dano física inexistente no statblock do PDF. Mantida exclusivamente a **Imunidade a Ácido** (`imunidade: true`), mantendo a mecânica de dano reduzido de armas restrita ao poder de enxame.
+  - **Slark (ND 1)**:
+    - *Perícias Treinadas Estritas*: Removido treinamento indevido em *Atletismo*, mantendo estritamente a perícia treinada oficial da ficha (*Furtividade +8*).
+  - **Especificações OpenSpec SDD**:
+    - Atualizada a `actors-specification` com novos cenários BDD para imposição de RD geral em `resistencias.dano` e fidelidade estrita de perícias treinadas publicadas.
+
 ## v1.4.2 - 2026-11-01
 
 - **Alinhamento Canônico Total dos Atores e Organização de Compêndios (Dragão Brasil #228)**:

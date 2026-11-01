@@ -182,6 +182,52 @@ async function validateActors() {
       } else {
         console.log(`✅ Biografia canônica com citações duplas validada para "${req.name}".`);
       }
+
+      // 11. Validações Específicas Canônicas da DB #228
+      if (req.name === 'Ankthyr') {
+        const rdGeral = actor.system.tracos?.resistencias?.dano?.value;
+        const rdAcido = actor.system.tracos?.resistencias?.acido?.value;
+        const rdCorte = actor.system.tracos?.resistencias?.corte?.value;
+        if (rdGeral !== 5 || rdAcido !== 5 || rdCorte !== 0) {
+          console.error(`❌ Resistências incorretas para Ankthyr: esperava RD geral 5 e ácido 5 (sem RD corte específica), obteve geral=${rdGeral}, acido=${rdAcido}, corte=${rdCorte}`);
+          errors++;
+        } else {
+          console.log(`✅ Ankthyr possui RD geral 5 e ácido 5 canônicas (sem RD física específica).`);
+        }
+
+        if (actor.system.pericias?.atle?.treinado || actor.system.pericias?.sobr?.treinado) {
+          console.error(`❌ Ankthyr não deve ter treino em Atletismo ou Sobrevivência conforme o PDF da DB #228!`);
+          errors++;
+        } else {
+          console.log(`✅ Ankthyr com perícias treinadas estritas (sem treino indevido em atletismo ou sobrevivência).`);
+        }
+      }
+
+      if (req.name === 'Enxame Cáustico') {
+        const rdGeral = actor.system.tracos?.resistencias?.dano?.value;
+        const rdCorte = actor.system.tracos?.resistencias?.corte?.value;
+        const imuAcido = actor.system.tracos?.resistencias?.acido?.imunidade;
+        if (imuAcido !== true || rdGeral !== 0 || rdCorte !== 0) {
+          console.error(`❌ Enxame Cáustico deve possuir apenas imunidade a ácido (sem RD de dano físico ou geral), obteve imuAcido=${imuAcido}, rdGeral=${rdGeral}, rdCorte=${rdCorte}`);
+          errors++;
+        } else {
+          console.log(`✅ Enxame Cáustico possui apenas imunidade a ácido (sem RD de dano físico no statblock).`);
+        }
+      }
+
+      if (req.name === 'Slark') {
+        const rdAcido = actor.system.tracos?.resistencias?.acido?.value;
+        if (rdAcido !== 5) {
+          console.error(`❌ Slark deve possuir redução de ácido 5, obteve ${rdAcido}`);
+          errors++;
+        }
+        if (actor.system.pericias?.atle?.treinado) {
+          console.error(`❌ Slark não deve ter treino em Atletismo conforme o PDF!`);
+          errors++;
+        } else {
+          console.log(`✅ Slark com redução de ácido 5 e perícias treinadas estritas (Furtividade +8).`);
+        }
+      }
     }
   }
 

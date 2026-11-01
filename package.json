@@ -1,6 +1,6 @@
 {
   "name": "compendios-para-t20",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20 no Foundry VTT.",
   "scripts": {
     "stats": "node scripts/stats.js",
