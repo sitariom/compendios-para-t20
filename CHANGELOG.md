@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.3.2 - 2026-11-01
+
+- **Correção da Defesa Base no Foundry VTT (Dragão Brasil #227)**:
+  - Corrigido o cálculo de `system.attributes.defesa.base` para que a fórmula do sistema Tormenta20 (`defesa.base + @des`) resulte exatamente no valor canônico da ficha:
+    - **Lynel (ND 12)**: Base ajustada de 43 para 35 (35 + Des 8 = Defesa 43). Anteriormente exibia 51 na ficha do Foundry.
+    - **Oxxdon (ND 2)**: Base ajustada de 20 para 16 (16 + Des 4 = Defesa 20).
+    - **Enxame de Armas (ND 4)**: Base ajustada de 22 para 20 (20 + Des 2 = Defesa 22).
+    - **Tropa de Mortos (ND 5)**: Base ajustada de 24 para 21 (21 + Des 3 = Defesa 24).
+    - **Inumano (ND 6)**: Base ajustada de 26 para 24 (24 + Des 2 = Defesa 26).
+  - Validador `scripts/validate-db227-compliance.js` atualizado para assegurar `defesa.base + des === defesa.value`.
+
 ## v1.3.1 - 2026-11-01
 
 - **Dragão Brasil #227 (Revisão e Adequação Canônica Completa)**:
