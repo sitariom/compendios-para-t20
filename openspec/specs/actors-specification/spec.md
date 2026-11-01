@@ -79,11 +79,15 @@ A Threat's natural weapons, manufactured weapons, and special powers SHALL be st
 - **AND** `system.chatFlavor` contains blockquote quote and highlighted action text
 - **AND** the actor's primary document `items` array contains the weapon document
 
-#### Scenario: Partner actor with tiered special powers
-- **GIVEN** a partner actor such as Reabilitador, Allihennali, or Guaxininjas
-- **WHEN** the partner document is created in Ameacas_T20
-- **THEN** all of its special benefits and tier powers are embedded as items of type `poder`
-- **AND** the actor's `items` array is non-empty and mirrors all embedded subdocuments
+### Requirement: Partners, Familiars, and Mounts Created as Powers
+When source material introduces a Partner (Parceiro), Familiar, or Mount (Montaria) providing bonuses or abilities to characters, it SHALL NOT be created as an Actor in `Ameacas_T20`. Instead, it MUST be created as an Item of type `poder` with `system.subtipo: "parceiro"` in `packs/Itens_T20` within the canonical "Parceiros" folder (`0uRx5Efj3tk7P5Xr`), equipped with structured `ActiveEffects` and activation rules.
+
+#### Scenario: Creating a partner from magazine content
+- **GIVEN** a new partner introduced in Dragão Brasil (e.g. Reabilitador, Allihennali, Guaxininjas)
+- **WHEN** the document is created
+- **THEN** it is saved in `packs/Itens_T20` as `type: "poder"` with `system.subtipo: "parceiro"`
+- **AND** it is assigned to the "Parceiros" folder (`0uRx5Efj3tk7P5Xr`)
+- **AND** no Actor document for the partner is added to `packs/Ameacas_T20`
 
 ### Requirement: All Template Variables Mandatory
 All Actor documents SHALL include 100% of the variables defined in the canonical Tormenta20 actor templates. Fields without a specific value MUST NOT be omitted; they SHALL receive their typed default (`0`, `""`, `null`, `false`, `[]`, or `{}`) according to the schema.

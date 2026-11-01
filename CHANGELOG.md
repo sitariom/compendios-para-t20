@@ -1,5 +1,38 @@
 # Changelog
 
+## v1.4.4 - 2026-11-01
+
+- **Migração de Parceiros para Poderes e Automação Rica de ActiveEffects (Dragão Brasil #228)**:
+  - **Diretriz Canônica de Parceiros, Familiares e Montarias**:
+    - Estabelecido e aplicado que todo Parceiro, Familiar ou Montaria deve ser criado estritamente como um item de `type: "poder"` com `system.subtipo: "parceiro"` em `packs/Itens_T20` dentro da pasta canônica **Parceiros** (`0uRx5Efj3tk7P5Xr`), e **NUNCA como um ator em `Ameacas_T20`**.
+    - *Expurgo de Ameacas_T20*: Removidos definitivamente os 3 atores de parceiros (*Reabilitador*, *Allihennali*, *Guaxininjas*) e seus 22 subdocumentos órfãos do compêndio de ameaças. `Ameacas_T20` retém estritamente as 4 ameaças e perigos canônicos da aventura: *Ankthyr (ND 8)*, *Enxame Cáustico (ND 4)*, *Slark (ND 1)* e *Desabamento dos Túneis (Hazard ND 8)*.
+  - **Reconstrução dos 20 Itens, Poderes e Parceiros (`Itens_T20`)**:
+    - *Parceiro: Reabilitador*: Poder de parceiro especial com ativação de cena equilibrando modificadores da corte divina de Khalmyr e `ActiveEffect` de *+2 Defesa e Resistências*.
+    - *Parceiro: Allihennali*: Poder de parceiro feérico com rolagens de *Cura de Luz* (2d6 PV) e *Cura Maior* (6d6 PV), além de `ActiveEffect` de *-2 PM em magias de cura*.
+    - *Parceiro: Guaxininjas*: Poder de parceiro capanga com rolagem de invocação (1d4+1), ataque furtivo e `ActiveEffect` de *+1d6 Dano Furtivo e +2 Furtividade*.
+    - *Automação Rica de ActiveEffects em 100% dos Itens*:
+      - *Arco dos Arautos*: ActiveEffects de *Marca da Presa (-1 PM)* e *Encantamento Cruel (+2 Dano à Distância)*.
+      - *Certificado de Conclusão*: ActiveEffect de *+1 PM Máximo*.
+      - *Chave Mestra*: ActiveEffect de *Abertura Sszzaasita (+20 Ladinagem para Abrir Fechaduras)*.
+      - *Bilhete de Valluk Delsori*: ActiveEffect de *Metamorfose Cênica (+20 Enganação por 1 Dia)*.
+      - *Máscara do Sol Dourado*: ActiveEffect de *+10 Ladinagem e -2 Furtividade*.
+      - *Pingente Rubro*: ActiveEffect de *Proteção Aberrante de Aharadak (-1 PM Perda Tormenta)*.
+      - *Alma de Dragão*: ActiveEffects de *Escama Dracônica Reativa (Redução 1d6)* e *Canalização Elemental (+1d6 Dano em Magias)*.
+      - *Âncora Naufragista*: 3 ActiveEffects (*RD 10 Frio/Eletricidade*, *+5 Pilotagem*, *Natação 9m*).
+      - *Arma Silente*: ActiveEffects de *Sabedoria Bélica (+5 Guerra, Conhecimento, Nobreza)* e *Adamante Formidável (+2 Ataque, +2 Dano)*.
+      - *Memorizar Conhecimento*: ActiveEffects de *Memória da Cena Gravada (+5)* e *Aprimoramento (+10)*.
+      - *Cítola da Paz*: ActiveEffect de *+5 Mudar Atitude / -1 PM Músicas de Bardo*.
+      - *Percepção de Masmorra*: ActiveEffect de *+10 Investigar Armadilhas*.
+      - *Rosário da Vida*: ActiveEffect de *+1d8 Cura de Luz por Patamar*.
+      - *Bússola das Lágrimas*: ActiveEffect de *+10 Misticismo para Detectar Magia*.
+      - *Corso Sombrio*: ActiveEffect de *Porte Legal de Armas de Fogo e +2 Foco*.
+      - *Previdência da Vigília*: ActiveEffect de *Dom da Imortalidade (Thyatis)*.
+      - *Bomba de Tinta*: ActiveEffect de *Tinta Viscosa Zoyrak (Condição Lento)*.
+  - **Especificações OpenSpec SDD**:
+    - Requisito normativo `Requirement: Partners, Familiars, and Mounts Created as Powers` incorporado à `actors-specification`.
+  - **Automação & Validação**:
+    - `validate-db228-compliance.js` atualizado para auditar as 4 ameaças exclusivas e os 20 itens com ActiveEffects ricos, aprovado com 0 erros.
+
 ## v1.4.3 - 2026-11-01
 
 - **Ajuste Fino de Fidelidade Canônica ao PDF da Dragão Brasil #228**:
