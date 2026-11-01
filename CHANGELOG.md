@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.3.0 - 2026-10-31
+
+- **Dragão Brasil #227 (Integração Completa)**:
+  - **Ameaças (`Ameacas_T20`)**:
+    - **Lynel (ND 12, Chefe de Fase)**: Ficha completa adaptada de *The Legend of Zelda* (Enorme 3x3, 600 PV, Defesa 43, 4 variações de armamento: Espada Bastarda e Escudo, Alabarda, Machado de Guerra e Tacape, Arco de Guerra, Sopro de Fogo 14d12, Investida Galopante, Brado Indomável e Coice Oportuno).
+    - **Oxxdon (ND 2)**: Monstro Médio de *Memórias das Armas* com destruição e corrosão por Ferrugem.
+    - **Enxame de Armas (ND 4)**: Construto Grande (140 PV, Aparar, dano passivo de área).
+    - **Tropa de Mortos (ND 5)**: Falange de esqueletos com mecânica de Bando.
+    - **Inumano (ND 6)**: Comandante morto-vivo com Drenar Energia e dano de trevas.
+  - **Poderes de Combate (`Itens_T20`)**:
+    - Adicionados **38 novos poderes de combate** da matéria *Caverna do Saber: Poderes e Combos!* (por Miguel Souza), incluindo *Ataque com Escudo II*, *Ataque Poderoso II*, *Atirar e Correr*, *Bloqueio com Escudo Perfeito*, *Carga de Cavalaria II*, *Combatente Sanguinário*, linhas de *Defesa Desarmada I-III*, *Golpe Aéreo I-III*, *Flechada de Impacto I-III*, *Flechada de Manobra I-II*, *Flechada Precisa Distante I-III*, *Golpe Poderoso Explosivo I-II*, *Torrente de Flechas I-III*, etc.
+  - **Diários (`Diarios_T20`)**:
+    - **Aventura: Memórias das Armas (DB #227)**: Diário completo com 8 páginas ricas cobrindo introdução, briefing em Rhond, ermos de Zakharov, invasão ao castelo e confronto final com o Inumano.
+- **Automação (`scripts/`)**:
+  - `scripts/inject-db227.js`: Script automatizado para injeção e validação da DB #227.
+
 ## v1.2.0 - 2026-10-31
 
 - **Dragão Brasil #226 (Integração e Revisão Completa)**:
