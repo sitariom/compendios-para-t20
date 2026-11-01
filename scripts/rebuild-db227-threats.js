@@ -111,6 +111,58 @@ function buildSkills(ndNum, atributos, trainedSkills) {
   return pericias;
 }
 
+function buildTracos({
+  tamanho = 'med',
+  resistencias = {},
+  imunidadesDano = [],
+  vulnerabilidadesDano = [],
+  icValue = [],
+  icCustom = '',
+  idiomasValue = [],
+  idiomasCustom = ''
+}) {
+  const damageTypes = [
+    'dano', 'perda', 'acido', 'corte', 'eletricidade',
+    'essencia', 'fogo', 'frio', 'impacto', 'luz',
+    'psiquico', 'perfuracao', 'trevas'
+  ];
+  
+  const resObj = {};
+  for (const dt of damageTypes) {
+    const val = resistencias[dt] || 0;
+    resObj[dt] = {
+      value: val,
+      base: val,
+      bonus: [],
+      excecao: 0,
+      imunidade: imunidadesDano.includes(dt),
+      vulnerabilidade: vulnerabilidadesDano.includes(dt),
+      danoPorDado: false
+    };
+  }
+
+  return {
+    tamanho,
+    resistencias: resObj,
+    ic: {
+      value: icValue,
+      custom: icCustom
+    },
+    idiomas: {
+      value: idiomasValue,
+      custom: idiomasCustom
+    },
+    profArmaduras: {
+      value: [],
+      custom: ''
+    },
+    profArmas: {
+      value: [],
+      custom: ''
+    }
+  };
+}
+
 function buildWeaponItem(data) {
   return {
     _id: data.id || generateId(),
@@ -632,6 +684,11 @@ async function rebuildThreats() {
         dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
         pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
       },
+      tracos: buildTracos({
+        tamanho: 'eno',
+        resistencias: { acido: 10, eletricidade: 10, fogo: 10, frio: 10 },
+        idiomasValue: ['comum']
+      }),
       detalhes: {
         biography: {
           value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"Você ousa cruzar as fronteiras do meu território, verme? Deixe suas armas na relva e fuja agora, ou seu crânio adornará meu próximo tacape."<br><span style="font-weight: bold; color: #800000;">&mdash; Lynel, Fera Guardiã dos Ermos</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Pelas barbas de Arsenal e pela pena sagrada de Valkar! Aquilo não é um mero centauro! Ele disparava três flechas em chamas do tamanho de lanças e quando nos aproximamos, sacou um machado maior que uma carroça. Mal conseguimos escapar vivos escalando a colina!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Lynel</span> é uma criatura colossal de poder ancestral, dotado do corpo maciço de um corcel de guerra, torso humanoide couraçado de músculos de aço e a cabeça temível de um leão predador. Adaptado de <em>The Legend of Zelda</em> para <em>Tormenta20</em> (Dragão Brasil #227), o Lynel atua como um verdadeiro <strong>Chefe de Fase</strong> em encontros solo, combinando letalidade à distância com devastação marcial de perto.</p><p style="font-family: Arial, sans-serif; line-height: 1.6;">Diferente de feras selvagens desprovidas de inteligência, o Lynel possui astúcia militar incomparável: avalia intrusos à distância, dispara rajadas fulminantes com seu arco de guerra e fecha o espaço através de uma carga irresistível, antes de esmagar oponentes com armas atrozes e sopros incandescentes.</p>',
@@ -645,6 +702,7 @@ async function rebuildThreats() {
         tamanho: 'eno',
         equipamento: 'Arco de guerra (Heróis de Arton, p. 216) e um entre: alabarda atroz maciça, machado de guerra atroz maciço, tacape atroz maciço ou espada bastarda atroz maciça e escudo pesado reforçado.',
         resistencias: 'Redução de ácido, eletricidade, fogo e frio 10',
+        idiomas: 'Comum',
         tesouro: 'Metade',
         role: 'solo',
         ataquescac: 'Armamento Lynel x2 +36 e Mordida +36 (4d10+25, 19).',
@@ -803,6 +861,10 @@ async function rebuildThreats() {
         dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
         pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
       },
+      tracos: buildTracos({
+        tamanho: 'med',
+        idiomasCustom: 'Nenhum'
+      }),
       detalhes: {
         biography: {
           value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Som gutural de quelíceras triturando ferro enferrujado...*"<br><span style="font-weight: bold; color: #800000;">&mdash; Oxxdon</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Primeiro foi a fivela do meu cinto. Depois a ponta da minha bota. Quando vi, meu tinteiro de metal tinha virado pó! Tive que escrever o resto da matéria com suco de amora num pedaço de casca de árvore. A civilização é frágil, leitores!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Oxxdon</span>, popularmente apelidado de "monstro da ferrugem", é uma monstruosidade insetoide réptil venerada pelo ódio de Megalokk contra o aço civilizado. Suas antenas secretam um agente catalítico capaz de dissolver qualquer forja de metal em questão de segundos, tornando-o o pior pesadelo de Zakharov e de guerreiros de armadura pesada.</p>',
@@ -815,7 +877,8 @@ async function rebuildThreats() {
         tipo: 'mon',
         tamanho: 'med',
         equipamento: 'Nenhum.',
-        resistencias: '',
+        resistencias: 'Nenhuma',
+        idiomas: 'Nenhum',
         tesouro: 'Nenhum.',
         role: 'special',
         ataquescac: 'Antena +12 (ferrugem) e mordida +12 (1d8+10).',
@@ -964,6 +1027,13 @@ async function rebuildThreats() {
         dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
         pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
       },
+      tracos: buildTracos({
+        tamanho: 'gra',
+        resistencias: { dano: 5 },
+        icValue: ['mental', 'veneno', 'sono', 'paralisado', 'atordoado', 'fadiga', 'exausto'],
+        icCustom: 'Imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano; sofre metade do dano de ataques com armas; vulnerabilidade (+50% de dano) a efeitos de área.',
+        idiomasCustom: 'Nenhum'
+      }),
       detalhes: {
         biography: {
           value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Tinir incessante de cem lâminas levitando no ar frio...*"<br><span style="font-weight: bold; color: #800000;">&mdash; Enxame de Armas</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Achei que o chão estava apenas atulhado de lixo militar antigo... até que cada adaga e machado começou a flutuar ao mesmo tempo! O ar zunia como uma nuvem de vespas de aço!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Enxame de Armas</span> é uma manifestação arcana e ódio concentrado que assombra as ruínas do Castelo Zweihardt em Zakharov. Composto por dezenas de espadas, machados, alabardas e adagas forjadas por artesãos há muito esquecidos, o enxame engolfa seus alvos em um vórtice impiedoso de lâminas voadoras.</p>',
@@ -976,7 +1046,8 @@ async function rebuildThreats() {
         tipo: 'con',
         tamanho: 'gra',
         equipamento: 'Arsenal variado de armas simples e marciais antigas.',
-        resistencias: 'Redução de dano 5, metade do dano de ataques com armas, vulnerabilidade a dano de área (+50%).',
+        resistencias: 'Redução de dano 5, metade do dano de ataques com armas, vulnerabilidade a dano de área (+50%), imune a manobras e efeitos de alvo único sem dano.',
+        idiomas: 'Nenhum',
         tesouro: 'Dobro (apenas armas).',
         role: 'padrao',
         ataquescac: 'Enxame (1d10 corte + 1d6 perfuração + 1d8 impacto, fim do turno).',
@@ -1113,6 +1184,13 @@ async function rebuildThreats() {
         dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
         pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
       },
+      tracos: buildTracos({
+        tamanho: 'gra',
+        resistencias: { corte: 5, frio: 5, perfuracao: 5 },
+        icValue: ['cansaco', 'metabolismo', 'veneno', 'sono', 'paralisado', 'atordoado', 'fadiga', 'exausto', 'mental'],
+        icCustom: 'Imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano; vulnerabilidade (+50% de dano) a efeitos de área.',
+        idiomasCustom: 'Nenhum'
+      }),
       detalhes: {
         biography: {
           value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*O ranger ritmado de ossos ressequidos batendo contra armaduras amassadas...*"<br><span style="font-weight: bold; color: #800000;">&mdash; Tropa de Mortos</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Eles marcham como um batalhão vivo da antiga Supremacia! Mesmo sem carne nas órbitas, você sente aquele ódio intolerante fixado em qualquer um que não se pareça com eles. Derrubar um não adianta: há três outros cobrindo a brecha!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">A <span style="color: #800000; font-weight: bold;">Tropa de Mortos</span> é uma falange militar de esqueletos sob comando necromântico nas terras de Zakharov. Combatem com a disciplina implacável de soldados veteranos: erguem escudos pesados e desferem investidas coordenadas com espadas longas, operando como um organismo único no campo de batalha.</p>',
@@ -1125,7 +1203,8 @@ async function rebuildThreats() {
         tipo: 'mor',
         tamanho: 'gra',
         equipamento: 'Escudo pesado, espada longa.',
-        resistencias: 'Redução de corte, frio e perfuração 5, vulnerabilidade a dano de área (+50%).',
+        resistencias: 'Redução de corte, frio e perfuração 5, vulnerabilidade a dano de área (+50%), imune a manobras e efeitos de alvo único sem dano.',
+        idiomas: 'Nenhum',
         tesouro: 'Nenhum.',
         role: 'padrao',
         ataquescac: 'Espada longa x2 +20 (4d8+18, 19).',
@@ -1311,6 +1390,13 @@ async function rebuildThreats() {
         dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
         pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
       },
+      tracos: buildTracos({
+        tamanho: 'med',
+        imunidadesDano: ['frio'],
+        icValue: ['frio', 'cansaco', 'metabolismo', 'veneno', 'sono', 'paralisado', 'atordoado', 'fadiga', 'exausto'],
+        icCustom: 'Imunidade a frio e características de morto-vivo',
+        idiomasValue: ['comum']
+      }),
       detalhes: {
         biography: {
           value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"Malditos... Me entreguem esta arma! Ela é minha por direito... E vocês não são merecedores de tocá-la!"<br><span style="font-weight: bold; color: #800000;">&mdash; Inumano, Comandante Sepultado</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"A pele do sujeito estava esticada como pergaminho podre sobre os ossos da face. O fedor de morte era tão denso que quase queimava os olhos. Quando ele brandiu a espada, as trevas ao redor congelaram a sala inteira!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Inumano</span> é um guerreiro comandante morto-vivo aprisionado pela própria ganância e ódio eterno nas ruínas do Castelo Zweihardt (<em>Breves Jornadas: Memórias das Armas</em>, DB #227). Empunhando escudo pesado, espada longa e azagaias profanadas com magia de trevas, ele drena a própria vitalidade dos vivos que ousam invadir seu santuário em ruínas.</p>',
@@ -1324,6 +1410,7 @@ async function rebuildThreats() {
         tamanho: 'med',
         equipamento: 'Azagaia x3, escudo pesado, espada longa, meia armadura.',
         resistencias: 'Imunidade a frio.',
+        idiomas: 'Comum',
         tesouro: 'Padrão.',
         role: 'padrao',
         ataquescac: 'Espada longa x2 +24 (2d8+9, 19/x2 corte, mais 2d12 trevas).',
