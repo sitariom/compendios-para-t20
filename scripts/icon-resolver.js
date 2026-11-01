@@ -147,6 +147,102 @@ const CANONICAL_MAP = {
 };
 
 /**
+ * Baixa um arquivo de qualquer URL pública (seguindo redirecionamentos) e salva localmente
+ */
+function downloadFromUrl(url, localRelativePath) {
+  const destFile = path.isAbsolute(localRelativePath)
+    ? localRelativePath
+    : path.join(__dirname, '..', localRelativePath);
+
+  fs.mkdirSync(path.dirname(destFile), { recursive: true });
+
+  return new Promise((resolve, reject) => {
+    function fetchUrl(currentUrl, maxRedirects = 5) {
+      if (maxRedirects <= 0) return reject(new Error('Muitos redirecionamentos'));
+
+      const isHttps = currentUrl.startsWith('https://');
+      const client = isHttps ? https : require('http');
+
+      client.get(currentUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => {
+        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+          const nextUrl = res.headers.location.startsWith('http')
+            ? res.headers.location
+            : new URL(res.headers.location, currentUrl).href;
+          return fetchUrl(nextUrl, maxRedirects - 1);
+        }
+
+        if (res.statusCode !== 200) {
+          return reject(new Error(`Falha HTTP ${res.statusCode} ao baixar ${currentUrl}`));
+        }
+
+        const fileStream = fs.createWriteStream(destFile);
+        res.pipe(fileStream);
+        fileStream.on('finish', () => {
+          fileStream.close();
+          const foundryPath = `modules/compendios-para-t20/${path.relative(path.join(__dirname, '..'), destFile)}`;
+          resolve(foundryPath);
+        });
+      }).on('error', reject);
+    }
+
+    fetchUrl(url);
+  });
+}
+
+/**
+ * Baixa um ícone do Wowhead pelo nome exato do ícone do World of Warcraft
+ */
+async function downloadWowheadIconByName(wowIconName, localRelativePath) {
+  const cleanName = wowIconName.replace(/\.(jpg|png|webp)$/i, '').trim();
+  const url = `https://wow.zamimg.com/images/wow/icons/large/${cleanName}.jpg`;
+  const dest = localRelativePath || `assets/icons/wow/${cleanName}.jpg`;
+  return downloadFromUrl(url, dest);
+}
+
+/**
+ * Busca um ícone no Wowhead por palavra-chave e baixa o resultado mais popular
+ */
+async function searchAndDownloadWowhead(query, localRelativePath) {
+  const searchUrl = `https://www.wowhead.com/icons/name:${encodeURIComponent(query.toLowerCase())}`;
+  
+  return new Promise((resolve, reject) => {
+    https.get(searchUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+      let html = '';
+      res.on('data', chunk => html += chunk);
+      res.on('end', async () => {
+        const matches = [...html.matchAll(/\"icon\":\"([^\"]+)\"/g)].map(m => m[1]);
+        if (matches.length === 0) {
+          return resolve({ success: false, reason: `Nenhum ícone encontrado no Wowhead para: ${query}` });
+        }
+        const bestIcon = matches[0];
+        const dest = localRelativePath || `assets/icons/wow/${bestIcon}.jpg`;
+        try {
+          const foundryPath = await downloadWowheadIconByName(bestIcon, dest);
+          resolve({
+            success: true,
+            query,
+            iconName: bestIcon,
+            foundryPath,
+            totalMatches: matches.length
+          });
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }).on('error', reject);
+  });
+}
+
+/**
+ * Baixa um arquivo de qualquer repositório GitHub público (ex: orourkek/Wow-Icons ou AcidWeb/Clean-Icons)
+ */
+async function downloadFromGithubRaw({ owner, repo, branch = 'master', path: repoPath, localRelativePath }) {
+  const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${repoPath}`;
+  const dest = localRelativePath || `assets/icons/${repo}/${path.basename(repoPath)}`;
+  return downloadFromUrl(url, dest);
+}
+
+/**
  * Baixa um ícone SVG oficial do Game-Icons.net e salva estilizado em assets/icons/
  */
 async function downloadGameIcon(gameIconName, localRelativePath) {
@@ -263,6 +359,10 @@ function resolveIcon({ name, type = 'poder', currentImg = '' }) {
 module.exports = {
   resolveIcon,
   downloadGameIcon,
+  downloadFromUrl,
+  downloadWowheadIconByName,
+  searchAndDownloadWowhead,
+  downloadFromGithubRaw,
   CANONICAL_MAP,
   THREAT_MAP,
   ITEM_AND_POWER_MAP,
