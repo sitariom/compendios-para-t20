@@ -117,6 +117,58 @@ function sanitizeFilename(name) {
   return name.replace(/[/\\?%*:|"<>]/g, '_').trim().slice(0, 80);
 }
 
+function buildTracos({
+  tamanho = 'med',
+  resistencias = {},
+  imunidadesDano = [],
+  vulnerabilidadesDano = [],
+  icValue = [],
+  icCustom = '',
+  idiomasValue = [],
+  idiomasCustom = ''
+}) {
+  const damageTypes = [
+    'dano', 'perda', 'acido', 'corte', 'eletricidade',
+    'essencia', 'fogo', 'frio', 'impacto', 'luz',
+    'psiquico', 'perfuracao', 'trevas'
+  ];
+
+  const resObj = {};
+  for (const dt of damageTypes) {
+    const val = resistencias[dt] || 0;
+    resObj[dt] = {
+      value: val,
+      base: val,
+      bonus: [],
+      excecao: 0,
+      imunidade: imunidadesDano.includes(dt),
+      vulnerabilidade: vulnerabilidadesDano.includes(dt),
+      danoPorDado: false
+    };
+  }
+
+  return {
+    tamanho,
+    resistencias: resObj,
+    ic: {
+      value: icValue,
+      custom: icCustom
+    },
+    idiomas: {
+      value: idiomasValue,
+      custom: idiomasCustom
+    },
+    profArmaduras: {
+      value: [],
+      custom: ''
+    },
+    profArmas: {
+      value: [],
+      custom: ''
+    }
+  };
+}
+
 function getTokenDimension(tamanho) {
   if (tamanho === 'grande' || tamanho === 'gra') return 2;
   if (tamanho === 'enorme' || tamanho === 'eno') return 3;
@@ -320,13 +372,17 @@ function buildWeaponAttack({
   img = null,
   dano = '1d8',
   tipoDano = 'corte',
-  ataque = 10,
+  danoExtra = null,
+  tipoDanoExtra = '',
   periciaAtaque = 'luta',
   criticoMargem = 20,
   criticoMultiplicador = 2,
   alcance = '',
   empunhadura = 'uma',
-  tipo = 'corpo-a-corpo',
+  proficiencia = 'natural',
+  proposito = 'corpo-a-corpo',
+  size = 'normal',
+  ataques = 1,
   description = '',
   flavorPhrase = '',
   flavorAction = '',
@@ -336,6 +392,7 @@ function buildWeaponAttack({
   const finalImg = img || resolveIcon({ name, type: 'arma' });
   const critM = Number(criticoMargem || 20);
   const critX = Number(criticoMultiplicador || 2);
+  const pericia = alcance ? 'pont' : periciaAtaque;
 
   const defaultRolls = [
     {
@@ -344,24 +401,38 @@ function buildWeaponAttack({
       type: 'ataque',
       parts: [
         ['1d20', '', ''],
-        [periciaAtaque, '', ''],
-        [Number(ataque), '', '']
+        [pericia, '', ''],
+        ['', '', '']
       ],
-      versatil: ''
+      versatil: '',
+      adaptavel: ''
     },
     {
       name: 'Dano',
       key: 'dano1',
       type: 'dano',
       parts: [
-        [dano, tipoDano, ''],
-        ['for', '', '']
+        [dano, tipoDano, '']
       ],
-      versatil: ''
+      versatil: '',
+      adaptavel: ''
     }
   ];
 
-  const chatFlavor = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${flavorPhrase || name + '!'}"</blockquote><p>${flavorAction || 'Executa um ataque com ' + name}. <span style="color: #800000; font-weight: bold;">Acerto ameaçador!</span></p>`;
+  if (danoExtra) {
+    defaultRolls.push({
+      name: `Dano de ${tipoDanoExtra || 'Extra'}`,
+      key: 'dano2',
+      type: 'dano',
+      parts: [
+        [danoExtra, tipoDanoExtra, '']
+      ],
+      versatil: '',
+      adaptavel: ''
+    });
+  }
+
+  const chatFlavor = `<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${flavorPhrase || name + '!'}"</blockquote><p>${flavorAction || description}. <span style="color: #800000; font-weight: bold;">Golpe com ${name}!</span></p></div>`;
 
   return buildItem({
     name,
@@ -370,19 +441,18 @@ function buildWeaponAttack({
     description: description || `Ataque ${name} da criatura.`,
     effects,
     system: {
-      tipo,
+      tipo: proposito,
       empunhadura,
-      proficiencia: 'simples',
+      proficiencia,
       dano,
       tipoDano,
       criticoM: critM,
       criticoX: critX,
       critico: { margem: critM, multiplicador: critX },
-      ataque: Number(ataque),
-      ataques: 1,
-      tipoUso: 'ataque',
-      proposito: tipo,
-      size: 'medio',
+      ataques,
+      tipoUso: 'sim',
+      proposito,
+      size,
       alcance,
       chatFlavor,
       propriedades: {
@@ -606,18 +676,21 @@ function buildSpellItem({
  * Constrói um ator / ameaça (NPC) de Tormenta20 com padrão canônico rigoroso
  */
 function buildNpcActor({
+  id = null,
   name,
   type = 'npc',
   img = null,
   biography = '',
-  folder = null,
+  folder = 'wfWApuyngzFm4KOP', // Pasta "Dragão Brasil" em Ameacas_T20
   nd = '1',
-  papel = 'padrao', // 'solo', 'lacaio', 'padrao'
-  tipoMonstro = 'monstro',
-  tamanho = 'medio',
+  papel = 'padrao', // 'solo', 'lacaio', 'padrao', 'special'
+  tipoMonstro = 'mon',
+  raca = '',
+  tamanho = 'med',
   deslocamento = '9m (6q)',
   sentidos = 'visão no escuro',
   tesouro = 'Nenhum',
+  disposition = -1,
   atributos = { for: 0, des: 0, con: 0, int: 0, sab: 0, car: 0 },
   attributes = {
     pv: { value: 50, max: 50 },
@@ -627,9 +700,12 @@ function buildNpcActor({
   resistencias = {},
   pericias = {},
   items = [],
-  effects = []
+  effects = [],
+  ataquescac = '',
+  ataquesad = '',
+  equipamento = ''
 }) {
-  const _id = generateId();
+  const _id = id || generateId();
   const finalImg = (!img || img === 'icons/svg/mystery-man.svg')
     ? resolveIcon({ name, type: 'npc' })
     : img;
@@ -647,9 +723,10 @@ function buildNpcActor({
 
   const ndNum = Number(nd) || 1;
   const treino = ndNum >= 15 ? 6 : ndNum >= 7 ? 4 : 2;
+  const meionivel = Math.floor(ndNum / 2);
   const cdVal = attributes.cd !== undefined
     ? Number(attributes.cd)
-    : (10 + Math.floor(ndNum / 2) + Math.max(atributos.for || 0, atributos.des || 0, atributos.con || 0, atributos.int || 0, atributos.sab || 0, atributos.car || 0));
+    : (10 + meionivel + Math.max(atributos.for || 0, atributos.des || 0, atributos.con || 0, atributos.int || 0, atributos.sab || 0, atributos.car || 0));
 
   const movStr = String(deslocamento || '9m (6q)');
   const walkVal = parseInt(movStr, 10) || 9;
@@ -679,6 +756,62 @@ function buildNpcActor({
     ? pericias
     : buildSkills(ndNum, atributos, pericias);
 
+  const finalTracos = (resistencias && resistencias.resistencias && typeof resistencias.resistencias === 'object')
+    ? resistencias
+    : buildTracos({
+        tamanho: tamanho.slice(0, 3),
+        resistencias: resistencias.danos || resistencias || {},
+        imunidadesDano: resistencias.imunidadesDano || [],
+        vulnerabilidadesDano: resistencias.vulnerabilidadesDano || [],
+        icValue: resistencias.condicoes || [],
+        icCustom: resistencias.icCustom || '',
+        idiomasValue: resistencias.idiomas || ['comum'],
+        idiomasCustom: resistencias.idiomasCustom || ''
+      });
+
+  const itemIds = [];
+  const embeddedDocs = [];
+
+  // Constrói e cataloga itens embutidos
+  for (const item of items) {
+    let itemDoc = item;
+    if (!item._id) {
+      if (item.type === 'arma') {
+        itemDoc = buildWeaponAttack(item);
+      } else if (item.type === 'poder') {
+        itemDoc = buildSpecialPower(item);
+      } else {
+        itemDoc = buildItem(item);
+      }
+    }
+    itemIds.push(itemDoc._id);
+
+    embeddedDocs.push({
+      key: `!actors.items!${_id}.${itemDoc._id}`,
+      typePath: '!actors.items!',
+      doc: itemDoc
+    });
+
+    if (itemDoc.effects && itemDoc.effects.length > 0) {
+      for (const eff of itemDoc.effects) {
+        embeddedDocs.push({
+          key: `!actors.items.effects!${_id}.${itemDoc._id}.${eff._id}`,
+          typePath: '!actors.items.effects!',
+          doc: eff
+        });
+      }
+    }
+  }
+
+  let idiomasStr = 'Nenhum';
+  if (typeof resistencias.idiomas === 'string') {
+    idiomasStr = resistencias.idiomas;
+  } else if (Array.isArray(resistencias.idiomas?.value) && resistencias.idiomas.value.length > 0) {
+    idiomasStr = resistencias.idiomas.value.join(', ');
+  } else if (Array.isArray(resistencias.idiomas) && resistencias.idiomas.length > 0) {
+    idiomasStr = resistencias.idiomas.join(', ');
+  }
+
   const actorDoc = {
     _id,
     name,
@@ -686,34 +819,36 @@ function buildNpcActor({
     img: finalImg,
     prototypeToken: {
       name,
-      texture: {
-        src: tokenSrc
-      },
+      displayName: 30,
+      actorLink: false,
       width: tokenDim,
-      height: tokenDim
+      height: tokenDim,
+      texture: {
+        src: tokenSrc,
+        scaleX: 1,
+        scaleY: 1,
+        offsetX: 0,
+        offsetY: 0,
+        rotation: 0,
+        tint: null
+      },
+      sight: {
+        enabled: true,
+        range: 0,
+        angle: 360,
+        visionMode: 'darkvision',
+        color: null,
+        attenuation: 0.1,
+        brightness: 0,
+        saturation: 0,
+        contrast: 0
+      },
+      disposition,
+      displayBars: 40,
+      bar1: { attribute: 'attributes.pv' },
+      bar2: { attribute: 'attributes.pm' }
     },
     system: {
-      detalhes: {
-        biography: {
-          value: biography.startsWith('<p>') || biography.startsWith('<blockquote') ? biography : `<p>${biography}</p>`,
-          public: ''
-        },
-        nd: String(nd),
-        papel,
-        role: papel,
-        tipo: tipoMonstro,
-        tamanho,
-        origem: '',
-        info: '',
-        divindade: '',
-        raca: '',
-        equipamento: '',
-        resistencias: resistencias.txt || '',
-        tesouro: tesouro || 'Nenhum',
-        ataquescac: '',
-        movimento: movStr,
-        ataquesad: ''
-      },
       atributos: {
         for: { value: atributos.for ?? 0, base: atributos.for ?? 0, racial: 0, bonus: 0 },
         des: { value: desMod, base: desMod, racial: 0, bonus: 0 },
@@ -742,7 +877,8 @@ function buildNpcActor({
           value: defVal,
           base: defBase,
           outros: 0,
-          condi: 0
+          condi: 0,
+          bonus: []
         },
         carga: {
           value: 0,
@@ -751,7 +887,8 @@ function buildNpcActor({
           bonus: [],
           max: 0,
           pct: 0,
-          encumbered: false
+          encumbered: false,
+          limit: 0
         },
         sentidos: {
           value: [],
@@ -763,29 +900,54 @@ function buildNpcActor({
           xp: { value: 0, pct: 0, proximo: 0 }
         },
         movement: {
-          burrow: burrowVal,
-          climb: climbVal,
-          fly: flyVal,
-          swim: swimVal,
-          walk: walkVal,
+          burrow: { base: burrowVal, bonus: [] },
+          climb: { base: climbVal, bonus: [] },
+          fly: { base: flyVal, bonus: [] },
+          swim: { base: swimVal, bonus: [] },
+          walk: { base: walkVal, bonus: [] },
           hover: false,
-          unit: 'm'
+          unit: 'm',
+          tags: []
         },
         treino,
-        nd: String(nd)
+        nd: String(nd),
+        meionivel
       },
-      tracos: {
-        resistencias: resistencias.danos || {},
-        ic: resistencias.condicoes || [],
-        idiomas: resistencias.idiomas || ['Nenhum'],
-        tamanho: tamanho.slice(0, 3)
+      pericias: finalPericias,
+      modificadores: {
+        custoPM: 0,
+        atributos: { for: [], des: [], con: [], int: [], sab: [], car: [], fisicos: [], mentais: [], geral: [] },
+        ataque: { geral: [], cac: [], ad: [] },
+        cura: { geral: [], mag: [] },
+        dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
+        pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
       },
-      pericias: finalPericias
+      tracos: finalTracos,
+      detalhes: {
+        biography: {
+          value: biography.startsWith('<p>') || biography.startsWith('<blockquote') ? biography : `<p>${biography}</p>`,
+          public: ''
+        },
+        origem: '',
+        info: '',
+        divindade: '',
+        raca: raca || (tipoMonstro === 'ani' ? 'Animal' : tipoMonstro === 'hum' ? 'Humanoide' : tipoMonstro === 'mon' ? 'Monstro' : tipoMonstro === 'esp' ? 'Espírito' : 'Criatura'),
+        tipo: tipoMonstro,
+        tamanho: tamanho.slice(0, 3),
+        equipamento: equipamento || '',
+        resistencias: resistencias.txt || '',
+        idiomas: idiomasStr,
+        tesouro: tesouro || 'Nenhum',
+        role: papel,
+        ataquescac: ataquescac || '',
+        movimento: movStr,
+        ataquesad: ataquesad || ''
+      }
     },
-    items: [],
+    items: itemIds, // Array de string IDs exatamente como DB 227 (Lynel e Oxxdon)
     effects: [],
     folder,
-    sort: 0,
+    sort: 80000000,
     ownership: { default: 0 },
     flags: {},
     _stats: {
@@ -797,39 +959,6 @@ function buildNpcActor({
       lastModifiedBy: 'piAgentTormenta20'
     }
   };
-
-  const embeddedDocs = [];
-
-  // Adiciona itens embutidos (armas, poderes, magias)
-  for (const item of items) {
-    let itemDoc = item;
-    if (!item._id) {
-      if (item.type === 'arma') {
-        itemDoc = buildWeaponAttack(item);
-      } else if (item.type === 'poder') {
-        itemDoc = buildSpecialPower(item);
-      } else {
-        itemDoc = buildItem(item);
-      }
-    }
-    actorDoc.items.push(itemDoc);
-
-    embeddedDocs.push({
-      key: `!actors.items!${_id}.${itemDoc._id}`,
-      typePath: '!actors.items!',
-      doc: itemDoc
-    });
-
-    if (itemDoc.effects && itemDoc.effects.length > 0) {
-      for (const eff of itemDoc.effects) {
-        embeddedDocs.push({
-          key: `!actors.items.effects!${_id}.${itemDoc._id}.${eff._id}`,
-          typePath: '!actors.items.effects!',
-          doc: eff
-        });
-      }
-    }
-  }
 
   // Efeitos diretos do ator
   for (const eff of effects) {
@@ -1227,6 +1356,7 @@ module.exports = {
   getTokenDimension,
   ALL_SKILLS,
   buildSkills,
+  buildTracos,
   buildActiveEffect,
   buildItem,
   buildWeaponAttack,
