@@ -1,6 +1,26 @@
 # Changelog
 
-## v1.3.3 - 2026-11-01
+## v1.3.4 - 2026-11-01
+
+- **Padronização e Resolução Canônica de Ícones (Tormenta20 & Game-Icons)**:
+  - **Novo Motor de Resolução e Download (`scripts/icon-resolver.js`)**:
+    - Mapeamento inteligente de palavras-chave, armas, ataques naturais, poderes de combate e ameaças para os 918 ícones oficiais do sistema Tormenta20 (`systems/tormenta20/icons/...`).
+    - Integração direta com o acervo oficial do Game-Icons.net (4.176 ícones via `scripts/game-icons-index.json`), com download automatizado e estilização em SVG para `assets/icons/` e `/home/orange/Documents/Tormenta20/icons/`.
+  - **Evolução da Criação de Atores e Itens (`scripts/create-entry.js`)**:
+    - Funções `buildItem` e `buildNpcActor` atualizadas para resolver ícones canônicos automaticamente ao invés de usar placeholders genéricos (`mystery-man.svg`).
+    - Sincronização automática da textura do token (`prototypeToken.texture.src`) e dimensões baseadas no tamanho da criatura.
+  - **Aplicação Retroativa Completa (DB #226 e DB #227)**:
+    - **DB #226**:
+      - *Tyrant*: Ícone do ator e token atualizados para `modules/compendios-para-t20/assets/icons/ameacas/tyrant.svg`. Armas e poderes atualizados (*Pancadas* -> `pancada.webp`, *Cura Acelerada* -> `cura-pelas-maos.webp`, *Super Tyrant* -> `super-tyrant.svg`, *Imunidade a Magia* -> `imunidade-magia.webp`).
+      - *Espectro do Pesadelo*: Ícone do ator e token atualizados para `systems/tormenta20/icons/ameacas/aparicao.png`. Poderes e armas atualizados (*Cascos* -> `cascos.webp`, *Relincho Aterrador* -> `urro-selvagem.webp`, *Devorar Sonhos* -> `ataque-trevas.webp`, *Terror Encarnado* -> `aura-aterradora.webp`, *Sensibilidade à Luz* -> `sensibilidade-luz.webp`, *Semi-Incorpóreo* -> `forma.webp`).
+      - *Expurgo Onírico*: Atualizado para `systems/tormenta20/icons/poderes/tormenta.webp`.
+    - **DB #227**:
+      - *Lynel*: Ator e token atualizados para `centauro-combatente.png`. Todas as 12 armas e poderes embutidos atualizados para os ícones canônicos correspondentes (`espada-bastarda.webp`, `alabarda.webp`, `machado-de-guerra.webp`, `tacape.webp`, `arco-longo.webp`, `mordida.webp`, `garras.webp`, `cospe-chamas.webp`, `urro-selvagem.webp`, `investida.webp`, `cascos.webp`, `espada-longa.webp`).
+      - *Oxxdon*: Ator e token atualizados para `oxxdon.svg`. Itens atualizados (*Antena* -> `ferrao.webp`, *Mordida* -> `mordida.webp`, *Ferrugem* -> `ferrugem.svg`).
+      - *Enxame de Armas*: Ator e token atualizados para `enxame-de-armas.svg`. Itens atualizados (*Enxame de Armas* -> `espada-longa.webp`, *Aparar* -> `duelo.webp`).
+      - *Tropa de Mortos*: Ator e token atualizados para `falange.png`. Itens atualizados (*Espada Longa da Tropa* -> `espada-longa.webp`, *Bando* -> `taticas-alcateia.webp`).
+      - *Inumano*: Ator e token atualizados para `esqueleto-de-elite.png`. Itens atualizados (*Espada Longa* -> `espada-longa.webp`, *Azagaia* -> `azagaia.webp`, *Drenar Energia* -> `ataque-trevas.webp`).
+      - *38 Poderes de Combate (Caverna do Saber)*: Atualizados integralmente em `Itens_T20` para os ícones temáticos do Tormenta20 (`durao.webp`, `briga.webp`, `arco-longo.webp`, `golpe-cruel.webp`, `flechas.webp`, `golpe-violento.webp`, `duelo.webp`, `rastreador.webp`, `caminho-cavaleiro-montaria.webp`, `fabricar-item-superior.webp`, `escudo-pesado.webp`, `arco-curto.webp`, `autoconfianca.webp`, `escudo-leve.webp`, `baluarte.webp`, `casca-grossa.webp`, `furia-titanica.webp`, `ataque-especial.webp`).
 
 - **Mapeamento e Preenchimento Completo de Traços (Resistências, Imunidades, Condições e Idiomas)**:
   - Mapeados e preenchidos integralmente os campos de `system.tracos` em todos os atores da Dragão Brasil #227:
