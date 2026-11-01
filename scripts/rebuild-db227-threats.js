@@ -600,7 +600,7 @@ async function rebuildThreats() {
           atributo: 'des',
           pda: 0,
           value: 43,
-          base: 43,
+          base: 35, // 43 - Des (8) = 35 para que Foundry compute 35 + 8 = 43
           outros: 0,
           condi: 0,
           bonus: []
@@ -771,7 +771,7 @@ async function rebuildThreats() {
           atributo: 'des',
           pda: 0,
           value: 20,
-          base: 20,
+          base: 16, // 20 - Des (4) = 16 para que Foundry compute 16 + 4 = 20
           outros: 0,
           condi: 0,
           bonus: []
@@ -932,7 +932,7 @@ async function rebuildThreats() {
           atributo: 'des',
           pda: 0,
           value: 22,
-          base: 22,
+          base: 20, // 22 - Des (2) = 20 para que Foundry compute 20 + 2 = 22
           outros: 0,
           condi: 0,
           bonus: []
@@ -1081,7 +1081,7 @@ async function rebuildThreats() {
           atributo: 'des',
           pda: 0,
           value: 24,
-          base: 24,
+          base: 21, // 24 - Des (3) = 21 para que Foundry compute 21 + 3 = 24
           outros: 0,
           condi: 0,
           bonus: []
@@ -1279,7 +1279,7 @@ async function rebuildThreats() {
           atributo: 'des',
           pda: 0,
           value: 26,
-          base: 26,
+          base: 24, // 26 - Des (2) = 24 para que Foundry compute 24 + 2 = 26
           outros: 0,
           condi: 0,
           bonus: []

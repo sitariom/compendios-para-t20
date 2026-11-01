@@ -37,6 +37,13 @@ async function validateCompliance() {
       if (attr.cd !== t.cd) { console.error(`❌ CD incorreta: ${attr.cd} !== ${t.cd}`); passed = false; }
       if (attr.pv.value !== t.pv) { console.error(`❌ PV incorreto: ${attr.pv.value} !== ${t.pv}`); passed = false; }
       if (attr.defesa.value !== t.def) { console.error(`❌ Defesa incorreta: ${attr.defesa.value} !== ${t.def}`); passed = false; }
+      const atrDefKey = attr.defesa.atributo || 'des';
+      const desVal = sys.atributos?.[atrDefKey]?.value || 0;
+      const expectedBase = t.def - desVal;
+      if (attr.defesa.base !== expectedBase) {
+        console.error(`❌ Defesa base incorreta em ${t.name}: base (${attr.defesa.base}) + ${atrDefKey} (${desVal}) = ${attr.defesa.base + desVal} !== ${t.def}`);
+        passed = false;
+      }
 
       // Validar 34 perícias
       const pCount = Object.keys(pericias || {}).length;
