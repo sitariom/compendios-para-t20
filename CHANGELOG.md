@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.3.5 - 2026-11-01
+
+- **Revisão e Aprimoramento de Ícones com Novas Fontes (Wowhead / WoW Icons)**:
+  - **Ameaças e Tokens (DB #226 e DB #227)**:
+    - *Espectro do Pesadelo*: Atualizado com ícone ilustrado em cores do corcel do pesadelo (`ability_mount_nightmarehorse`), relincho aterrador (`ability_warlock_howlofterror`), devorar sonhos (`spell_nature_sleep`) e semi-incorpóreo (`spell_shadow_dispersion`).
+    - *Tyrant*: Atualizado para retrato temático de abominação mutante (`achievement_dungeon_unboundabomination`), cura acelerada biológica (`spell_nature_regeneration`), fúria bestial do Super Tyrant (`ability_druid_enrage`) e imunidade a magia (`spell_shadow_antimagicshell`).
+    - *Oxxdon*: Atualizado para topeira monstruosa colorida (`inv_pet_mole`), ferrugem com ácido corrosivo (`spell_nature_acid_01`) e antena quitinosa (`inv_misc_monsterhorn_04`).
+    - *Enxame de Armas*: Atualizado para tempestade de lâminas de aço (`ability_warrior_bladestorm`) e aparar com lâminas cruzadas (`ability_rogue_bladetwisting`).
+    - *Lynel*: Poderes complementados com sopro de fogo de dragão (`inv_fyrakk_dragonbreath`), brado indomável (`ability_warrior_battleshout`) e investida galopante (`ability_warrior_charge`).
+    - *Tropa de Mortos & Inumano*: Poder Bando atualizado com horda de mortos-vivos (`spell_deathknight_armyofthedead`) e Drenar Energia atualizado com raio de drenagem de vida (`spell_shadow_lifedrain`).
+  - **Poderes de Combate (Caverna do Saber em `Itens_T20`)**:
+    - Substituição de fallbacks genéricos de T20 por artes temáticas do acervo:
+      - *Bloqueio com Escudo Perfeito* e *Escudo Fundação*: Muralha de escudo dourada (`ability_warrior_shieldwall`).
+      - *Golpe Poderoso Explosivo I e II*: Esmagamento de colosso com impacto no solo (`ability_warrior_colossussmash`).
+      - *Combatente Sanguinário*: Frenesi de sangue (`ability_warrior_bloodfrenzy`).
+      - *Carga de Cavalaria II* e *Ginete de Guerra*: Investida de montaria de guerra blindada (`ability_mount_charger`).
+      - *Golpear e Correr* e *Atirar e Correr*: Arrancada alada de mobilidade (`ability_rogue_sprint`).
+      - *Flechada Precisa Distante I, II e III*: Disparo de precisão na mira (`ability_hunter_snipershot`).
+      - *Flechada de Impacto I, II e III*: Flecha carregada de impacto (`ability_hunter_aimedshot`).
+
 ## v1.3.4 - 2026-11-01
 
 - **Padronização e Resolução Canônica de Ícones (Tormenta20 & Game-Icons)**:
