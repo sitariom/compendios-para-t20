@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const { resolveIcon } = require('./icon-resolver');
+const { resolveIcon, resolveToken } = require('./icon-resolver');
 
 function generateId() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -115,6 +115,9 @@ function buildNpcActor({
     ? resolveIcon({ name, type: 'npc' })
     : img;
 
+  // A única fonte de tokens de atores é exclusivamente 2-Minute Tabletop
+  const tokenSrc = resolveToken({ name });
+
   const tokenDim = getTokenDimension(tamanho);
 
   const actorDoc = {
@@ -125,7 +128,7 @@ function buildNpcActor({
     prototypeToken: {
       name,
       texture: {
-        src: finalImg
+        src: tokenSrc
       },
       width: tokenDim,
       height: tokenDim

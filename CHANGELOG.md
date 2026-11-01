@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.3.6 - 2026-11-01
+
+- **Padronização Exclusiva de Tokens de Atores com 2-Minute Tabletop**:
+  - **Diretriz de Tokens**: Definido e aplicado que a fonte exclusiva para tokens de atores (`prototypeToken.texture.src`) é o acervo de tokens *top-down* transparentes em alta resolução do **2-Minute Tabletop** (`https://2minutetabletop.com/`).
+  - **Mapeamento e Download de Tokens 2MTT (`assets/tokens/`)**:
+    - *Lynel*: Token top-down de centauro draconiano/bestial (`draconiccentaur` -> `assets/tokens/lynel.png`).
+    - *Tyrant*: Token top-down de abominação de carne e músculo (`fleshabomination` -> `assets/tokens/tyrant.png`).
+    - *Espectro do Pesadelo*: Token top-down de corcel espectral macabro (`deathtouchednightmare` -> `assets/tokens/espectro-do-pesadelo.png`).
+    - *Oxxdon*: Token top-down de monstro escavador quitinoso (`bulette` -> `assets/tokens/oxxdon.png`).
+    - *Expurgo Onírico*: Token top-down de névoa abissal do vazio (`voidcloudgreater` -> `assets/tokens/expurgo-onirico.png`).
+    - *Enxame de Armas*: Token top-down de aparição de lâminas dançantes (`swordwraith` -> `assets/tokens/enxame-de-armas.png`).
+    - *Tropa de Mortos*: Token top-down de guerreiro esquelético em formação (`skeletonfighter` -> `assets/tokens/tropa-de-mortos.png`).
+    - *Inumano*: Token top-down de esqueleto blindado de elite (`skeletonarmored` -> `assets/tokens/inumano.png`).
+  - **Automação do Fluxo de Criação (`scripts/create-entry.js` e `scripts/icon-resolver.js`)**:
+    - Nova função `resolveToken({ name })` e buscador sob demanda `searchAndDownload2MinuteTabletopToken`.
+    - `buildNpcActor` garante que todo novo ator receba obrigatoriamente token 2-Minute Tabletop sincronizado com seu tamanho de grid.
+
 ## v1.3.5 - 2026-11-01
 
 - **Revisão e Aprimoramento de Ícones com Novas Fontes (Wowhead / WoW Icons)**:
