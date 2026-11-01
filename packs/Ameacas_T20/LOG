@@ -1,3 +1,9 @@
-2026/11/01-16:55:32.590542 ffff477eefc0 Recovering log #1226
-2026/11/01-16:55:32.617631 ffff477eefc0 Delete type=3 #1225
-2026/11/01-16:55:32.617801 ffff477eefc0 Delete type=0 #1226
+2026/11/01-19:25:12.695451 ffff777eefc0 Recovering log #1239
+2026/11/01-19:25:12.703604 ffff777eefc0 Delete type=3 #1237
+2026/11/01-19:25:12.704525 ffff777eefc0 Delete type=0 #1239
+2026/11/01-19:25:14.755976 ffff7545cfc0 Compacting 1@0 + 2@1 files
+2026/11/01-19:25:14.765944 ffff7545cfc0 Generated table #1242@0: 26 keys, 37090 bytes
+2026/11/01-19:25:14.826134 ffff7545cfc0 Generated table #1243@0: 5850 keys, 2146960 bytes
+2026/11/01-19:25:14.835000 ffff7545cfc0 Generated table #1244@0: 810 keys, 277800 bytes
+2026/11/01-19:25:14.835065 ffff7545cfc0 Compacted 1@0 + 2@1 files => 2461850 bytes
+2026/11/01-19:25:14.836574 ffff7545cfc0 compacted to: files[ 0 3 14 0 0 0 0 ]

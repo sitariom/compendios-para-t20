@@ -12,7 +12,8 @@ const path = require('path');
 const {
   buildItem,
   buildWeaponItem,
-  buildSpellItem
+  buildSpellItem,
+  saveToSourcePacks
 } = require('./create-entry');
 
 const PACK_ITENS = path.join(__dirname, '..', 'packs', 'Itens_T20');
@@ -786,7 +787,7 @@ async function injectItems() {
     const effectDocs = (item.effects || []).map(eff => ({
       _id: eff._id || generateId(),
       name: eff.name,
-      origin: eff.origin || `Item.${item._id}`,
+      origin: '',
       tint: eff.tint || '#ffffff',
       flags: {
         tormenta20: {
@@ -821,7 +822,29 @@ async function injectItems() {
       disabled: Boolean(eff.disabled),
       img: eff.img || item.img || 'systems/tormenta20/icons/svg/skills.svg',
       type: 'base',
-      system: {},
+      system: {
+        identifier: (eff.name || 'effect').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'effect',
+        targets: ['self'],
+        status: null,
+        onuse: Boolean(eff.flags?.tormenta20?.onuse),
+        abilityUse: {
+          description: eff.description || eff.name,
+          automatic: false,
+          aumenta: false,
+          custo: eff.flags?.tormenta20?.custo !== undefined ? eff.flags.tormenta20.custo : null,
+          names: [],
+          types: ['self']
+        },
+        aura: {
+          isAura: false,
+          range: 0,
+          behaviors: null
+        },
+        upgrade: {
+          type: null,
+          itemType: []
+        }
+      },
       changes: (eff.changes || []).map(c => ({
         key: c.key,
         mode: c.mode !== undefined ? c.mode : 2,
@@ -864,6 +887,14 @@ async function injectItems() {
       const effKey = `!items.effects!${item._id}.${eff._id}`;
       await db.put(effKey, eff);
     }
+
+    // Salva na árvore de fontes src/packs/Itens_T20
+    const embeddedSubdocs = effectDocs.map(eff => ({
+      key: `!items.effects!${item._id}.${eff._id}`,
+      typePath: '!items.effects!',
+      doc: eff
+    }));
+    saveToSourcePacks('Itens_T20', item, embeddedSubdocs);
   }
 
   await db.close();

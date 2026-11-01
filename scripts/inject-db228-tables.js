@@ -8,7 +8,7 @@
 
 const { ClassicLevel } = require('classic-level');
 const path = require('path');
-const { generateId } = require('./create-entry');
+const { generateId, saveToSourcePacks } = require('./create-entry');
 
 const PACK_TABLES = path.join(__dirname, '..', 'packs', 'Tabelas_T20');
 
@@ -96,6 +96,7 @@ async function injectTables() {
   for (const r of desabamentoResults) {
     await db.put(`!tables.results!${desabamentoTableId}.${r._id}`, r);
   }
+  saveToSourcePacks('Tabelas_T20', desabamentoTable, desabamentoResults.map(r => ({ key: `!tables.results!${desabamentoTableId}.${r._id}`, typePath: '!tables.results!', doc: r })));
   console.log('✓ Tabela "Desabamento dos Túneis (1d6)" salva em Tabelas_T20.');
 
   // 2. Tabela de Divinas Organizações de Arton (1d17)
@@ -160,6 +161,7 @@ async function injectTables() {
   for (const r of orgResults) {
     await db.put(`!tables.results!${orgTableId}.${r._id}`, r);
   }
+  saveToSourcePacks('Tabelas_T20', orgTable, orgResults.map(r => ({ key: `!tables.results!${orgTableId}.${r._id}`, typePath: '!tables.results!', doc: r })));
   console.log('✓ Tabela "Divinas Organizações de Arton (1d17)" salva em Tabelas_T20.');
 
   await db.close();
