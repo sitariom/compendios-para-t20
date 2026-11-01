@@ -781,22 +781,30 @@ async function injectItems() {
       item.system.source = SOURCE_DB228;
     }
     const key = `!items!${item._id}`;
-    await db.put(key, item);
+    
+    // Extrai os documentos de efeitos completos
+    const effectDocs = [...(item.effects || [])];
+    const effectIds = effectDocs.map(e => e._id);
+    
+    // No documento do item do compêndio, effects é estritamente um array de string IDs
+    const itemToStore = {
+      ...item,
+      effects: effectIds
+    };
+    await db.put(key, itemToStore);
     count++;
-    console.log(`✓ [${item.type}] "${item.name}" salvo em Itens_T20 (Folder: ${item.folder}, Effects: ${item.effects?.length || 0}).`);
+    console.log(`✓ [${item.type}] "${item.name}" salvo em Itens_T20 (Folder: ${item.folder}, Effects: ${effectIds.length}).`);
 
     // Limpa efeitos antigos se existirem
     for await (const [effK] of db.iterator({ gte: `!items.effects!${item._id}.`, lte: `!items.effects!${item._id}.\uffff` })) {
       await db.del(effK);
     }
 
-    // Grava efeitos embutidos no ClassicLevel
-    if (Array.isArray(item.effects)) {
-      for (const eff of item.effects) {
-        eff.origin = `Item.${item._id}`;
-        const effKey = `!items.effects!${item._id}.${eff._id}`;
-        await db.put(effKey, eff);
-      }
+    // Grava efeitos embutidos completos no ClassicLevel
+    for (const eff of effectDocs) {
+      eff.origin = `Item.${item._id}`;
+      const effKey = `!items.effects!${item._id}.${eff._id}`;
+      await db.put(effKey, eff);
     }
   }
 
