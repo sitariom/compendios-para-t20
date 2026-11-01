@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.4.7 - 2026-11-01
+
+- **Padronização Canônica de Subdocumentos e Resolução Nativa no Foundry VTT**:
+  - **Arquitetura Oficial de Subdocumentos do ClassicLevel**:
+    - Alinhamento rigoroso com a arquitetura dos 1.486 itens oficiais de `Itens_T20` (como *A Bênção de Megalokk* e *Parceiro Gambá*): no documento principal do Item em LevelDB, a propriedade `effects` armazena estritamente o array de IDs dos subdocumentos (`effects: ["effId1", ...]`), enquanto o documento do `ActiveEffect` é armazenado na chave filha `!items.effects!${itemId}.${effId}` com `origin: item.name`, `type: "base"`, `system: {}` e `flags.tormenta20` completo.
+    - Essa separação é o padrão canônico do Foundry VTT para carregar efeitos embutidos de compêndios sem falhas na indexação do LevelDB, permitindo que o Foundry resolva os efeitos na aba de Efeitos da ficha.
+
 ## v1.4.6 - 2026-11-01
 
 - **Conformidade do DataModel BaseEffect e Sincronização em `src/packs/` (Dragão Brasil #228)**:
