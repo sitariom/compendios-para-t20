@@ -318,16 +318,21 @@ async function validateItems() {
     }
 
     // Valida Efeitos Obrigatórios
-    if (!item.effects || item.effects.length === 0) {
+    const effSubdocs = [];
+    for await (const [, effVal] of db.iterator({ gte: `!items.effects!${item._id}.`, lte: `!items.effects!${item._id}.\uffff` })) {
+      effSubdocs.push(effVal);
+    }
+
+    if (!Array.isArray(item.effects) || item.effects.length === 0 || effSubdocs.length === 0) {
       console.error(`❌ Item "${name}" não possui ActiveEffects configurados!`);
       errors++;
     } else {
-      const hasChanges = item.effects.every(e => Array.isArray(e.changes) && e.changes.length > 0);
+      const hasChanges = effSubdocs.every(e => Array.isArray(e.changes));
       if (!hasChanges) {
         console.error(`❌ Item "${name}" possui efeitos sem changes válidas!`);
         errors++;
       } else {
-        console.log(`   Item "${name}" possui ${item.effects.length} ActiveEffects funcionais.`);
+        console.log(`   Item "${name}" possui ${effSubdocs.length} ActiveEffects funcionais.`);
       }
     }
 
