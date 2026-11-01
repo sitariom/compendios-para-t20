@@ -8,6 +8,7 @@ dist/
 *.zip
 .codegraph/
 .engram/
+.pi/tasks/
 src/
 
 # Logs de sistema (mas NÃO os do LevelDB)
