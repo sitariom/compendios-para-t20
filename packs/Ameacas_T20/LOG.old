@@ -1,3 +1,6 @@
-2026/11/01-15:25:51.591390 ffff52fdefc0 Recovering log #1149
-2026/11/01-15:25:51.603952 ffff52fdefc0 Delete type=0 #1149
-2026/11/01-15:25:51.604169 ffff52fdefc0 Delete type=3 #1147
+2026/11/01-15:34:59.193286 ffff62fdefc0 Recovering log #1153
+2026/11/01-15:34:59.222775 ffff62fdefc0 Delete type=0 #1153
+2026/11/01-15:34:59.224501 ffff62fdefc0 Delete type=3 #1152
+2026/11/01-15:34:59.225463 ffff62fdefc0 Delete type=2 #1133
+2026/11/01-15:34:59.226931 ffff62fdefc0 Delete type=2 #1148
+2026/11/01-15:34:59.227376 ffff62fdefc0 Delete type=2 #1132

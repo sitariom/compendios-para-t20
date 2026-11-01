@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.4.2 - 2026-11-01
+
+- **Alinhamento Canônico Total dos Atores e Organização de Compêndios (Dragão Brasil #228)**:
+  - **Ameaças (`Ameacas_T20`)**:
+    - *Paridade Estrutural Total com DB #227 (Lynel, Oxxdon, Inumano)*:
+      - `actorDoc.items`: Padronizado estritamente como array de string IDs (`[item1._id, item2._id, ...]`), com todos os subdocumentos indexados e gravados sob `!actors.items!${actorId}.${itemId}` para correta resolução nativa no Foundry VTT.
+      - `movement`: Padronizado no formato nativo T20 `{ burrow: { base, bonus: [] }, climb: { base, bonus: [] }, fly: { base, bonus: [] }, swim: { base, bonus: [] }, walk: { base, bonus: [] }, hover: false, unit: 'm', tags: [] }`.
+      - `tracos`: Implementada a função normativa `buildTracos` mapeando integralmente os 13 tipos de dano do Tormenta20 com seus sub-objetos `{ value, base, bonus: [], excecao: 0, imunidade, vulnerabilidade, danoPorDado: false }`.
+      - `modificadores`: Adicionado o dicionário completo com 20+ arrays de modificadores de sistema (`custoPM`, `atributos`, `ataque`, `cura`, `dano`, `pericias`).
+      - `prototypeToken`: Atualizado com `sight` (*darkvision*), `disposition: -1` (ou 1 para aliados), `displayBars: 40`, `bar1` (PV) e `bar2` (PM).
+      - `folder`: Configurado para `'wfWApuyngzFm4KOP'` (pasta *Dragão Brasil* em `Ameacas_T20`).
+      - *Rolagens de Ataque*: Corrigido para `[['1d20', '', ''], [pericia, '', ''], ['', '', '']]` evitando duplicação do bônus de perícia resolvido pelo Foundry.
+  - **Itens e Equipamentos (`Itens_T20`)**:
+    - Mapeamento e alocação de todos os 17 itens de *Divinas Organizações* em suas respectivas pastas oficiais (*Armas*, *Poderes*, *Magias*, *Itens Mágicos*, *Equipamentos*, *Consumível*, *Preparados*).
+  - **Tabelas de Rolagem (`Tabelas_T20`)**:
+    - Mapeamento e alocação das duas novas tabelas na pasta oficial *Tabelas T20* (`xbFP75zAd0URzuDL`).
+  - **Automação & Validação**:
+    - Scripts `create-entry.js`, `inject-db228-threats.js`, `inject-db228-items.js`, `inject-db228-tables.js`, `validate-db228-compliance.js`, `test-all-document-types.js` e `audit.js` com 100% de aprovação e zero erros.
+
 ## v1.4.1 - 2026-11-01
 
 - **Reconstrução Canônica Completa da Dragão Brasil #228 e Imposição de Schemas Estritos (OpenSpec SDD)**:

@@ -517,7 +517,7 @@ async function injectItems() {
   console.log('=== Injetando Itens, Poderes e Magias da DB #228 em Itens_T20 ===\n');
   const db = new ClassicLevel(PACK_ITENS, { valueEncoding: 'json' });
 
-  // Mapeamento de chaves conhecidas para manter estabilidade
+  // Mapeamento de chaves e pastas conhecidas para manter estabilidade e organização
   const idMap = {
     'Arco dos Arautos': '69br2Vuf11ic95OX',
     'Certificado de Conclusão': 'aBdeo9EXGf6uooEo',
@@ -538,10 +538,33 @@ async function injectItems() {
     'Bomba de Tinta': 'XeTZ3ffbj9HOzbzF'
   };
 
+  const folderMap = {
+    'Arco dos Arautos': 'VkkBiC6Epn7FfW6p', // Armas
+    'Arma Silente': 'VkkBiC6Epn7FfW6p', // Armas
+    'Certificado de Conclusão': '6HZCPG5QrmzhwmBe', // Poderes
+    'Percepção de Masmorra': '6HZCPG5QrmzhwmBe', // Poderes
+    'Previdência da Vigília': '6HZCPG5QrmzhwmBe', // Poderes
+    'Memorizar Conhecimento': 'LgQdDPaUOdMo4oAX', // Magias
+    'Chave Mestra': 'hHc3Pr3pyP7jzQUo', // Itens Mágicos
+    'Máscara do Sol Dourado': 'hHc3Pr3pyP7jzQUo', // Itens Mágicos
+    'Pingente Rubro': 'hHc3Pr3pyP7jzQUo', // Itens Mágicos
+    'Âncora Naufragista': 'hHc3Pr3pyP7jzQUo', // Itens Mágicos
+    'Bússola das Lágrimas': 'hHc3Pr3pyP7jzQUo', // Itens Mágicos
+    'Corso Sombrio': 'hHc3Pr3pyP7jzQUo', // Itens Mágicos
+    'Alma de Dragão': 'f9rwHA7dJnFLVQH1', // Equipamentos
+    'Cítola da Paz': 'f9rwHA7dJnFLVQH1', // Equipamentos
+    'Rosário da Vida': 'f9rwHA7dJnFLVQH1', // Equipamentos
+    'Bilhete de Valluk Delsori': 'ZMhIquorDsf9xEn8', // Consumível
+    'Bomba de Tinta': 'JNF6nQo2SXWlnyg1' // Preparados
+  };
+
   let count = 0;
   for (const item of DB228_ITEMS) {
     if (idMap[item.name]) {
       item._id = idMap[item.name];
+    }
+    if (folderMap[item.name]) {
+      item.folder = folderMap[item.name];
     }
     if (!item.system.source) {
       item.system.source = SOURCE_DB228;
