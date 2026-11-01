@@ -53,7 +53,14 @@ const TOKEN_2MTT_MAP = {
   'expurgo onirico': 'modules/compendios-para-t20/assets/tokens/expurgo-onirico.png',
   'enxame de armas': 'modules/compendios-para-t20/assets/tokens/enxame-de-armas.png',
   'tropa de mortos': 'modules/compendios-para-t20/assets/tokens/tropa-de-mortos.png',
-  'inumano': 'modules/compendios-para-t20/assets/tokens/inumano.png'
+  'inumano': 'modules/compendios-para-t20/assets/tokens/inumano.png',
+  'ankthyr': 'modules/compendios-para-t20/assets/tokens/ankthyr.png',
+  'enxame caustico': 'modules/compendios-para-t20/assets/tokens/enxame-caustico.png',
+  'slark': 'modules/compendios-para-t20/assets/tokens/slark.png',
+  'desabamento dos tuneis': 'modules/compendios-para-t20/assets/tokens/desabamento-dos-tuneis.png',
+  'allihennali': 'modules/compendios-para-t20/assets/tokens/allihennali.png',
+  'guaxininjas': 'modules/compendios-para-t20/assets/tokens/guaxininjas.png',
+  'reabilitador': 'modules/compendios-para-t20/assets/tokens/reabilitador.png'
 };
 
 const THREAT_MAP = {
@@ -64,7 +71,14 @@ const THREAT_MAP = {
   'expurgo onirico': 'systems/tormenta20/icons/poderes/tormenta.webp',
   'enxame de armas': 'modules/compendios-para-t20/assets/icons/ameacas/enxame-de-armas.jpg',
   'tropa de mortos': 'systems/tormenta20/icons/ameacas/falange.png',
-  'inumano': 'systems/tormenta20/icons/ameacas/esqueleto-de-elite.png'
+  'inumano': 'systems/tormenta20/icons/ameacas/esqueleto-de-elite.png',
+  'ankthyr': 'systems/tormenta20/icons/ameacas/centopeia-dragao.png',
+  'enxame caustico': 'systems/tormenta20/icons/ameacas/convocacoes/enxame-de-insetos-rubros.webp',
+  'slark': 'systems/tormenta20/icons/ameacas/trog.png',
+  'desabamento dos tuneis': 'systems/tormenta20/icons/poderes/ameacas/quebrar-tudo.webp',
+  'allihennali': 'systems/tormenta20/icons/poderes/classes/conjuradores/linhagem-feerica.webp',
+  'guaxininjas': 'systems/tormenta20/icons/poderes/classes/especialistas/rastreador.webp',
+  'reabilitador': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp'
 };
 
 const ITEM_AND_POWER_MAP = {
@@ -124,6 +138,34 @@ const ITEM_AND_POWER_MAP = {
   'cura acelerada': 'modules/compendios-para-t20/assets/icons/poderes/cura-acelerada.jpg',
   'super tyrant': 'modules/compendios-para-t20/assets/icons/poderes/super-tyrant.jpg',
   'ferrugem': 'modules/compendios-para-t20/assets/icons/poderes/ferrugem.jpg',
+
+  // DB #228
+  'arco dos arautos': 'systems/tormenta20/icons/itens/equipamentos/arco-longo.webp',
+  'certificado de conclusao': 'systems/tormenta20/icons/svg/scroll-unfurled.svg',
+  'chave mestra': 'systems/tormenta20/icons/itens/itens-magicos/espelho-do-aprisonamento.webp',
+  'bilhete de valluk delsori': 'systems/tormenta20/icons/svg/scroll-unfurled.svg',
+  'mascara do sol dourado': 'systems/tormenta20/icons/itens/itens-magicos/brincos.webp',
+  'pingente rubro': 'systems/tormenta20/icons/poderes/concedidos-tormenta.webp',
+  'alma de dragao': 'systems/tormenta20/icons/itens/itens-magicos/escudo-do-conjurador.webp',
+  'ancora naufragista': 'systems/tormenta20/icons/poderes/concedidos-mares.webp',
+  'arma silente': 'systems/tormenta20/icons/itens/equipamentos/alabarda.webp',
+  'memorizar conhecimento': 'systems/tormenta20/icons/magias/invulnerabilidade.webp',
+  'citola da paz': 'systems/tormenta20/icons/poderes/concedidos-paz.webp',
+  'percepcao de masmorra': 'systems/tormenta20/icons/poderes/concedidos-trapaca.webp',
+  'rosario da vida': 'systems/tormenta20/icons/poderes/concedidos-vida.webp',
+  'bussola das lagrimas': 'systems/tormenta20/icons/poderes/concedidos-ambicao.webp',
+  'corso sombrio': 'systems/tormenta20/icons/svg/scroll-unfurled.svg',
+  'previdencia da vigilia': 'systems/tormenta20/icons/poderes/concedidos-ressurreicao.webp',
+  'bomba de tinta': 'systems/tormenta20/icons/itens/gerais/agua-benta.webp',
+  'cuspe acido': 'modules/compendios-para-t20/assets/icons/poderes/ferrugem.jpg',
+  'espreitador subterraneo': 'systems/tormenta20/icons/poderes/ameacas/bote.webp',
+  'sentido sismico': 'systems/tormenta20/icons/poderes/ameacas/visao-ampla.webp',
+  'gosma corrosiva': 'systems/tormenta20/icons/poderes/ameacas/veneno.webp',
+  'queda livre': 'systems/tormenta20/icons/poderes/classes/combatentes/golpe-cruel.webp',
+  'saliva cegante': 'systems/tormenta20/icons/poderes/ameacas/fumos-toxicos.webp',
+  'saliva': 'systems/tormenta20/icons/poderes/ameacas/fumos-toxicos.webp',
+  'agarrar aprimorado': 'systems/tormenta20/icons/poderes/ameacas/agarrar.webp',
+  'enxame caustico': 'modules/compendios-para-t20/assets/icons/poderes/ferrugem.jpg',
 
   // Poderes de Combate e Caverna do Saber
   'retomar folego': 'systems/tormenta20/icons/poderes/classes/combatentes/durao.webp',

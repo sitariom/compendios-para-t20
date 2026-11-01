@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.4.0 - 2026-11-01
+
+- **Dragão Brasil #228 (Integração Canônica Completa)**:
+  - **Ameaças e Perigos (`Ameacas_T20`)**:
+    - *Ankthyr (ND 8)*: Predador colossal de Trebuck (Grande 2x2, 308 PV, Defesa 33 com base 31, RD 5 e ácido 5). Mordida com 4d12+24 mais 4d8 ácido, Agarrar Aprimorado (+28), Cuspe Ácido (CD 26 com 6d8+6 mais muco corrosivo por 2 turnos), Espreitador Subterrâneo (+2 ataque, +1d12 dano), Sentido Sísmico e 34 perícias canônicas deduzidas. Token top-down 2-Minute Tabletop.
+    - *Enxame Cáustico (ND 4)*: Enxame animal Grande (2x2, 140 PV, Defesa 23 com base 22, imunidade a ácido e RD 5 a armas). Dano automático de 3d8 ácido, Gosma Corrosiva e Sentido Sísmico. Token top-down 2-Minute Tabletop.
+    - *Slark (ND 1)*: Humanoide lacaio Médio (1x1, 9 PV, Defesa 15 com base 12). Garras +11 (2d6+9, 19/x3), Queda Livre (+2 ataque e +2d6 dano se surpreender) e Saliva Cegante (Reflexos CD 14). Remoção de duplicatas legadas inconsistentes. Token top-down 2-Minute Tabletop.
+    - *Desabamento dos Túneis (ND 8)*: Perigo complexo de fuga em 7 rodadas com perigos em 1d6 (Destroços, Fendas, Bloqueios e Soterramento 20d6) e 4 ações de superação (Avançar, Correr, Carregar Outro, Procurar Caminho). Token top-down 2-Minute Tabletop.
+    - *Parceiros Especiais*: Reabilitador (Juiz de Khalmyr), Allihennali (Fada curadora) e Guaxininjas (Capangas de Tamu-ra).
+  - **Itens, Poderes e Magias (`Itens_T20`)**:
+    - *17 Novos Itens de Divinas Organizações*: Arco dos Arautos (arma com Marca da Presa), Certificado de Conclusão (Poder de Destino), Chave Mestra (destrancar automático), Bilhete de Valluk Delsori (metamorfose/disfarce), Máscara do Sol Dourado (+10 Ladinagem, -2 Furtividade), Pingente Rubro (redução de perda de PM lefeu), Alma de Dragão (redução de dano elemental), Âncora Naufragista (natação e pilotagem), Arma Silente (arma de adamante com +5 Conhecimento/Guerra/Nobreza), Memorizar Conhecimento (Magia Universal 2), Cítola da Paz (músicas custam -1 PM e +5 mudar atitude), Percepção de Masmorra (Poder Concedido de Hyninn), Rosário da Vida (cura mágica aumentada por patamar), Bússola das Lágrimas, Corso Sombrio, Previdência da Vigília (Dom da Imortalidade) e Bomba de Tinta (área escorregadia e lentidão).
+  - **Diários de Bordo (`Diarios_T20`)**:
+    - *Aventura: Emergir Monstruoso (DB #228)*: Diário completo em 8 páginas HTML estruturadas com ganchos, cenas 1 a 7, desabamento e epílogo com links interativos `@UUID`.
+    - *Cenário: Divinas Organizações (DB #228)*: Diário completo em 11 páginas detalhando a história, ritos e mecânicas das 20 organizações religiosas exóticas de Arton.
+  - **Automação & Validação**:
+    - Scripts `inject-db228-threats.js`, `inject-db228-items.js`, `inject-db228-journals.js` e `validate-db228-compliance.js` com 100% de aprovação.
+
 ## v1.3.6 - 2026-11-01
 
 - **Padronização Exclusiva de Tokens de Atores com 2-Minute Tabletop**:
