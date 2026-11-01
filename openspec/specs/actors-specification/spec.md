@@ -32,8 +32,14 @@ Every Threat Actor SHALL possess all 34 Tormenta20 skills pre-calculated using t
 - **GIVEN** a threat with published skill values on its stat block
 - **WHEN** the actor's `system.pericias` dictionary is constructed
 - **THEN** all 34 skills are present with computed bonuses
-- **AND** skills listed on the published stat block have `treinado: 1`
-- **AND** unlisted skills receive appropriate half-level and attribute modifiers
+- **AND** skills listed on the published stat block have `treinado: true`
+- **AND** unlisted skills receive appropriate half-level and attribute modifiers with `treinado: false`
+
+#### Scenario: Preserving strict training status from official statblock
+- **GIVEN** a creature with or without explicit skill lines in its published statblock
+- **WHEN** skill training is mapped
+- **THEN** only skills explicitly published as trained or intrinsic (percepcao, iniciativa, or listed in the PERÍCIAS line) receive `treinado: true`
+- **AND** unmentioned skills such as Atletismo or Sobrevivência receive `treinado: false` with untrained half-level calculation
 
 ### Requirement: Creature Traits, Resistances and Immunities
 Every Threat Actor SHALL have `system.tracos` fully populated, including all 13 damage resistance categories (`tracos.resistencias`), condition and maneuver immunities (`tracos.ic`), languages (`tracos.idiomas`), and size sync (`tracos.tamanho`).
@@ -44,6 +50,12 @@ Every Threat Actor SHALL have `system.tracos` fully populated, including all 13 
 - **THEN** `system.tracos.resistencias` contains explicit damage reduction values for all 13 damage types
 - **AND** `system.tracos.ic` includes immunities to fatigue, sleep, poison, paralysis, and single-target maneuvers
 - **AND** `system.tracos.idiomas` is populated with `Nenhum` or spoken languages
+
+#### Scenario: Threat with general damage reduction vs specific type RD
+- **GIVEN** a threat published with general damage reduction (e.g. Ankthyr with "redução de dano 5")
+- **WHEN** traits are constructed
+- **THEN** general damage reduction is stored strictly in `system.tracos.resistencias.dano`
+- **AND** specific physical damage types (corte, perfuracao, impacto) are not assigned individual RD unless explicitly stated in the statblock
 
 ### Requirement: Exclusive 2-Minute Tabletop Token Mandatory Standard
 Every Actor's prototype token (`prototypeToken.texture.src`) SHALL be sourced exclusively from the 2-Minute Tabletop collection (`modules/compendios-para-t20/assets/tokens/*.png`). Generic system tokens or other third-party tokens MUST NOT be used for actor tokens. Token dimensions (`width` and `height`) SHALL match creature grid size (1x1 for Médio, 2x2 for Grande, 3x3 for Enorme, 4x4 for Colossal).

@@ -49,9 +49,7 @@ async function injectThreats() {
     fort: 21,
     refl: 8,
     vont: 15,
-    luta: 26,
-    atle: 18,
-    sobr: 12
+    luta: 26
   });
 
   const ankthyrItems = [
@@ -158,7 +156,7 @@ async function injectThreats() {
 
   const ankthyrTracos = buildTracos({
     tamanho: 'gra',
-    resistencias: { acido: 5, corte: 5, perfuracao: 5, impacto: 5 },
+    resistencias: { dano: 5, acido: 5 },
     icValue: ['agarrado', 'derrubado'],
     idiomasValue: []
   });
@@ -270,7 +268,7 @@ async function injectThreats() {
 
   const enxameTracos = buildTracos({
     tamanho: 'gra',
-    resistencias: { corte: 5, perfuracao: 5, impacto: 5 },
+    resistencias: {},
     imunidadesDano: ['acido'],
     icValue: ['agarrado', 'derrubado', 'atordoado', 'flanqueado'],
     idiomasValue: []
@@ -329,7 +327,7 @@ async function injectThreats() {
     fort: 10,
     refl: 1,
     vont: 5,
-    atle: 5
+    luta: 11
   });
 
   const slarkItems = [
