@@ -73,7 +73,15 @@ async function validateActors() {
     }
 
     if (req.type === 'npc') {
-      // 2. Valida Defesa Base Dinâmica
+      // 2. Valida Folder "Dragão Brasil" (wfWApuyngzFm4KOP)
+      if (actor.folder !== 'wfWApuyngzFm4KOP') {
+        console.error(`❌ Pasta incorreta para "${req.name}": ${actor.folder}`);
+        errors++;
+      } else {
+        console.log(`✅ Pasta "Dragão Brasil" (wfWApuyngzFm4KOP) verificada para "${req.name}".`);
+      }
+
+      // 3. Valida Defesa Base Dinâmica
       const desVal = actor.system.atributos.des.value;
       const defVal = actor.system.attributes.defesa.value;
       const defBase = actor.system.attributes.defesa.base;
@@ -85,7 +93,7 @@ async function validateActors() {
         console.log(`✅ Defesa Base correta para "${req.name}": base ${defBase} + des ${desVal} = ${defVal}`);
       }
 
-      // 3. Valida Atributos com sub-propriedades completas
+      // 4. Valida Atributos com sub-propriedades completas
       for (const atr of ['for', 'des', 'con', 'int', 'sab', 'car']) {
         const a = actor.system.atributos[atr];
         if (!a || a.value === undefined || a.base === undefined || a.racial === undefined || a.bonus === undefined) {
@@ -94,16 +102,32 @@ async function validateActors() {
         }
       }
 
-      // 4. Valida Movement como Objeto
+      // 5. Valida Movement no formato canônico T20 (base + bonus[])
       const m = actor.system.attributes?.movement;
-      if (!m || typeof m.walk !== 'number' || typeof m.burrow !== 'number' || typeof m.climb !== 'number') {
-        console.error(`❌ Movimento de "${req.name}" inválido ou ausente: ${JSON.stringify(m)}`);
+      if (!m || typeof m.walk?.base !== 'number' || typeof m.burrow?.base !== 'number' || typeof m.climb?.base !== 'number') {
+        console.error(`❌ Movimento de "${req.name}" não segue o padrão T20 base/bonus: ${JSON.stringify(m)}`);
         errors++;
       } else {
-        console.log(`✅ Movimento estruturado para "${req.name}": walk=${m.walk}m, burrow=${m.burrow}m, climb=${m.climb}m`);
+        console.log(`✅ Movimento canônico T20 para "${req.name}": walk=${m.walk.base}m, burrow=${m.burrow.base}m, climb=${m.climb.base}m`);
       }
 
-      // 5. Valida 34 Perícias
+      // 6. Valida Modificadores e 13 Tipos de Resistência
+      if (!actor.system.modificadores || !actor.system.modificadores.atributos) {
+        console.error(`❌ Objeto system.modificadores ausente em "${req.name}"!`);
+        errors++;
+      } else {
+        console.log(`✅ Objeto system.modificadores validado para "${req.name}".`);
+      }
+
+      const resKeys = Object.keys(actor.system.tracos?.resistencias || {});
+      if (resKeys.length !== 13) {
+        console.error(`❌ Resistências a dano incompletas em "${req.name}": ${resKeys.length}/13`);
+        errors++;
+      } else {
+        console.log(`✅ Todos os 13 tipos de resistência a dano presentes em "${req.name}".`);
+      }
+
+      // 7. Valida 34 Perícias
       const periciasCount = Object.keys(actor.system.pericias || {}).length;
       if (periciasCount !== 34) {
         console.error(`❌ Perícias incompletas para "${req.name}": ${periciasCount}/34`);
@@ -112,50 +136,48 @@ async function validateActors() {
         console.log(`✅ Todas as 34 perícias presentes e calculadas para "${req.name}".`);
       }
 
-      // 6. Valida Array items no Documento Principal
+      // 8. Valida Array items no Documento Principal (IDs)
       const docItemsCount = Array.isArray(actor.items) ? actor.items.length : 0;
-      if (docItemsCount < req.itemsCount) {
-        console.error(`❌ Array actor.items vazio ou insuficiente para "${req.name}": ${docItemsCount}/${req.itemsCount}`);
+      if (docItemsCount < req.itemsCount || typeof actor.items[0] !== 'string') {
+        console.error(`❌ Array actor.items inválido para "${req.name}": deve ser array de IDs de subdocumentos!`);
         errors++;
       } else {
-        console.log(`✅ Array actor.items validado para "${req.name}": ${docItemsCount} itens embutidos.`);
+        console.log(`✅ Array actor.items (IDs) validado para "${req.name}": ${docItemsCount} IDs.`);
       }
 
-      // 7. Valida Subdocumentos no ClassicLevel
+      // 9. Valida Subdocumentos no ClassicLevel
       let embeddedCount = 0;
-      for await (const [subKey] of db.iterator({ gte: `!actors.items!${actor._id}.`, lte: `!actors.items!${actor._id}.\uffff` })) {
-        if (!subKey.includes('.effects!')) embeddedCount++;
-      }
-      if (embeddedCount < req.itemsCount) {
-        console.error(`❌ Chaves !actors.items! insuficientes para "${req.name}": ${embeddedCount}/${req.itemsCount}`);
-        errors++;
-      } else {
-        console.log(`✅ Chaves de LevelDB !actors.items! validadas para "${req.name}": ${embeddedCount} subdocumentos.`);
-      }
-
-      // 8. Valida Estrutura rolls.parts nas Armas
-      for (const item of (actor.items || [])) {
-        if (item.type === 'arma') {
-          const rolls = item.system?.rolls;
-          if (!Array.isArray(rolls) || rolls.length === 0) {
-            console.error(`❌ Arma "${item.name}" em "${req.name}" não possui array rolls!`);
-            errors++;
-          } else {
-            const hasParts = rolls.every(r => Array.isArray(r.parts) && r.parts.length > 0);
-            if (!hasParts) {
-              console.error(`❌ Arma "${item.name}" em "${req.name}" possui rolls sem estrutura parts!`);
+      for await (const [subKey, subVal] of db.iterator({ gte: `!actors.items!${actor._id}.`, lte: `!actors.items!${actor._id}.\uffff` })) {
+        if (!subKey.includes('.effects!')) {
+          embeddedCount++;
+          if (subVal.type === 'arma') {
+            const rolls = subVal.system?.rolls;
+            if (!Array.isArray(rolls) || rolls.length === 0) {
+              console.error(`❌ Arma "${subVal.name}" em "${req.name}" não possui rolls!`);
               errors++;
             } else {
-              console.log(`✅ Arma "${item.name}" em "${req.name}" possui ${rolls.length} rolagens válidas com parts.`);
+              const hasParts = rolls.every(r => Array.isArray(r.parts) && r.parts.length > 0);
+              if (!hasParts) {
+                console.error(`❌ Arma "${subVal.name}" em "${req.name}" possui rolls sem structure parts!`);
+                errors++;
+              } else {
+                console.log(`   Arma subdocumento "${subVal.name}" possui ${rolls.length} rolagens válidas.`);
+              }
             }
           }
         }
       }
+      if (embeddedCount < req.itemsCount) {
+        console.error(`❌ Subdocumentos insuficientes para "${req.name}": ${embeddedCount}/${req.itemsCount}`);
+        errors++;
+      } else {
+        console.log(`✅ Subdocumentos !actors.items! validados para "${req.name}": ${embeddedCount} itens.`);
+      }
 
-      // 9. Valida Biografia Canônica com Citações em Bloco
+      // 10. Valida Biografia Canônica com Citações em Bloco
       const bio = actor.system.detalhes?.biography?.value || '';
       if (!bio.includes('blockquote') || !bio.includes('&mdash;')) {
-        console.error(`❌ Biografia de "${req.name}" não segue o padrão canônico com citações em bloco duplas!`);
+        console.error(`❌ Biografia de "${req.name}" não segue o padrão canônico com citações duplas!`);
         errors++;
       } else {
         console.log(`✅ Biografia canônica com citações duplas validada para "${req.name}".`);
