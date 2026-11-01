@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.4.5 - 2026-11-01
+
+- **Correção Definitiva de Renderização de ActiveEffects no Foundry VTT**:
+  - **Serialização de Objetos em `Itens_T20`**:
+    - Identificado e corrigido o motivo pelo qual itens apareciam sem efeitos no Foundry: a serialização anterior havia substituído a coleção embutida de efeitos por um array de strings de IDs (`effects: ['id1', ...]`), fazendo com que o Foundry VTT não conseguisse instanciar os documentos embutidos na aba de "Efeitos".
+    - Tanto `item.effects` quanto `item.system.effects` foram padronizados estritamente como **arrays de objetos completos de `ActiveEffect`** (`[ { _id, name, img, changes, transfer, flags, duration, ... } ]`), com paridade exata aos poderes funcionais da DB #227 (como *Costas Largas II* e *Esquiva II*).
+    - As chaves de subdocumentos em `!items.effects!${itemId}.${effId}` continuam preservadas para total compatibilidade com iteradores de banco de dados ClassicLevel.
+  - **Efeitos 100% Funcionais nos 20 Itens da DB #228**:
+    - Todos os 20 itens, poderes e parceiros agora exibem imediatamente seus efeitos na aba "Efeitos" da ficha do item no Foundry VTT e transferem seus bônus de forma automática quando equipados ou arrastados para a ficha de um personagem.
+
 ## v1.4.4 - 2026-11-01
 
 - **Migração de Parceiros para Poderes e Automação Rica de ActiveEffects (Dragão Brasil #228)**:
