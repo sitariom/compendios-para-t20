@@ -1,0 +1,30 @@
+schema: spec-driven
+
+context: |
+  Compêndios para Tormenta20 (Foundry VTT v12/v13, sistema tormenta20).
+  Regras Arquiteturais Críticas:
+  1. A única fonte permitida para tokens de atores
+     (prototypeToken.texture.src) é o 2-Minute Tabletop (assets/tokens/*.png).
+  2. Imagens de fichas e itens devem usar prioritariamente o acervo canônico
+     do sistema Tormenta20 (systems/tormenta20/icons/...), Wowhead ou
+     Game-Icons.
+  3. Cálculo de Defesa Base: sempre base = valor_ficha - des (devido à soma
+     dinâmica @des no prepareDefense do sistema).
+  4. Perícias de Ameaças: todas as 34 perícias preenchidas com a fórmula
+     valor_ficha - meionivel - atributo - treino.
+  5. Traços de Ameaças: preenchimento de system.tracos (resistencias com 13
+     tipos de dano, ic de imunidades a condições, idiomas, tamanho).
+  6. Compêndios em LevelDB ClassicLevel: chaves !actors!, !items!, !macros!,
+     !tables!, !journal!, !playlists! e subdocumentos !actors.items!, etc.
+  7. Auditoria mandatória com 0 erros via scripts/audit.js e conformidade com
+     validate-db227-compliance.js.
+
+rules:
+  proposal:
+    - O escopo deve detalhar conformidade com manuais canônicos e schemas
+    - Proibir o uso de placeholders visuais genéricos como mystery-man.svg
+  specs:
+    - Cenários BDD devem cobrir formato Given-When-Then com critérios claros
+    - Toda especificação de ator deve exigir token 2-Minute Tabletop
+  tasks:
+    - Tarefas atômicas e ordenadas com validação por scripts de auditoria
