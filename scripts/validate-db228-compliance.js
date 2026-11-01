@@ -38,10 +38,7 @@ async function validateActors() {
     { name: 'Ankthyr', type: 'npc', nd: '8', pv: 308, def: 33, des: 2, itemsCount: 5, tokenFile: 'ankthyr.png' },
     { name: 'Enxame Cáustico', type: 'npc', nd: '4', pv: 140, def: 23, des: 1, itemsCount: 3, tokenFile: 'enxame-caustico.png' },
     { name: 'Slark', type: 'npc', nd: '1', pv: 9, def: 15, des: 3, itemsCount: 3, tokenFile: 'slark.png' },
-    { name: 'Desabamento dos Túneis', type: 'hazard', nd: '8', tokenFile: 'desabamento-dos-tuneis.png' },
-    { name: 'Reabilitador', type: 'npc', nd: '3', itemsCount: 2, tokenFile: 'reabilitador.png' },
-    { name: 'Allihennali', type: 'npc', nd: '3', itemsCount: 3, tokenFile: 'allihennali.png' },
-    { name: 'Guaxininjas', type: 'npc', nd: '3', itemsCount: 2, tokenFile: 'guaxininjas.png' }
+    { name: 'Desabamento dos Túneis', type: 'hazard', nd: '8', tokenFile: 'desabamento-dos-tuneis.png' }
   ];
 
   const foundActors = {};
@@ -231,6 +228,16 @@ async function validateActors() {
     }
   }
 
+  // 12. Valida que Parceiros NÃO foram criados como Atores em Ameacas_T20
+  for (const forb of ['Reabilitador', 'Allihennali', 'Guaxininjas']) {
+    if (foundActors[forb]) {
+      console.error(`❌ Parceiro "${forb}" não deve existir como Ator em Ameacas_T20 (deve ser poder em Itens_T20)!`);
+      errors++;
+    } else {
+      console.log(`✅ Diretriz confirmada: Parceiro "${forb}" não existe como Ator em Ameacas_T20.`);
+    }
+  }
+
   await db.close();
   return errors;
 }
@@ -242,11 +249,14 @@ async function validateItems() {
   const requiredItems = [
     'Arco dos Arautos',
     'Certificado de Conclusão',
+    'Parceiro: Reabilitador',
     'Chave Mestra',
     'Bilhete de Valluk Delsori',
     'Máscara do Sol Dourado',
     'Pingente Rubro',
+    'Parceiro: Allihennali',
     'Alma de Dragão',
+    'Parceiro: Guaxininjas',
     'Âncora Naufragista',
     'Arma Silente',
     'Memorizar Conhecimento',
@@ -307,13 +317,24 @@ async function validateItems() {
       }
     }
 
-    // Valida Efeitos se aplicável
-    if (item.effects && item.effects.length > 0) {
+    // Valida Efeitos Obrigatórios
+    if (!item.effects || item.effects.length === 0) {
+      console.error(`❌ Item "${name}" não possui ActiveEffects configurados!`);
+      errors++;
+    } else {
       const hasChanges = item.effects.every(e => Array.isArray(e.changes) && e.changes.length > 0);
       if (!hasChanges) {
         console.error(`❌ Item "${name}" possui efeitos sem changes válidas!`);
         errors++;
+      } else {
+        console.log(`   Item "${name}" possui ${item.effects.length} ActiveEffects funcionais.`);
       }
+    }
+
+    // Valida Folder Oficial
+    if (!item.folder) {
+      console.error(`❌ Item "${name}" não está alocado em uma pasta oficial de Itens_T20!`);
+      errors++;
     }
   }
 
@@ -322,7 +343,7 @@ async function validateItems() {
     console.error(`❌ Total de itens encontrados: ${Object.keys(foundItems).length}/${requiredItems.length}`);
     errors++;
   } else {
-    console.log(`✅ Todos os 17 itens de Divinas Organizações auditados com variáveis completas e rolagens estruturadas.`);
+    console.log(`✅ Todos os 20 itens, poderes e parceiros de Divinas Organizações auditados com variáveis completas, pastas e ActiveEffects.`);
   }
 
   return errors;
