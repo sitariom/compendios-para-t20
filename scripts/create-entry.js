@@ -180,6 +180,7 @@ function getTokenDimension(tamanho) {
  * Constrói e padroniza um ActiveEffect do Foundry VTT para Tormenta20
  */
 function buildActiveEffect({
+  id = null,
   name = 'Novo Efeito',
   img = null,
   disabled = false,
@@ -187,24 +188,47 @@ function buildActiveEffect({
   changes = [],
   duration = { rounds: null, startTime: null, seconds: null, combat: null, turns: null, startRound: null, startTurn: null },
   description = '',
-  origin = null,
+  origin = '',
   transfer = true,
   statuses = [],
-  flags = { tormenta20: { transfer: true } }
+  flags = {}
 }) {
-  const _id = generateId();
+  const _id = id || generateId();
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'effect';
   return {
     _id,
     name,
     img: img || 'systems/tormenta20/icons/svg/skills.svg',
     disabled: Boolean(disabled),
     type,
-    system: {},
+    system: {
+      identifier: slug,
+      targets: ['self'],
+      status: null,
+      onuse: Boolean(flags.tormenta20?.onuse),
+      abilityUse: {
+        description: description || name,
+        automatic: false,
+        aumenta: false,
+        custo: flags.tormenta20?.custo !== undefined ? flags.tormenta20.custo : null,
+        names: [],
+        types: ['self']
+      },
+      aura: {
+        isAura: false,
+        range: 0,
+        behaviors: null
+      },
+      upgrade: {
+        type: null,
+        itemType: []
+      }
+    },
     changes: changes.map(c => ({
       key: c.key,
       mode: c.mode !== undefined ? c.mode : 2, // 2 = ADD
       value: String(c.value),
-      priority: c.priority !== undefined ? c.priority : null
+      priority: c.priority !== undefined ? c.priority : 20
     })),
     duration: {
       rounds: null,
@@ -217,13 +241,41 @@ function buildActiveEffect({
       ...duration
     },
     description: description || '',
-    origin: origin || null,
+    origin: origin || '',
     tint: '#ffffff',
     transfer: Boolean(transfer),
     statuses: statuses || [],
+    sort: 0,
     flags: {
-      tormenta20: { transfer: Boolean(transfer) },
+      tormenta20: {
+        onuse: false,
+        durationScene: false,
+        self: true,
+        attack: false,
+        skill: false,
+        ability: false,
+        power: false,
+        equipment: false,
+        spell: false,
+        consumable: false,
+        items: '',
+        aumenta: false,
+        custo: null,
+        transfer: Boolean(transfer),
+        ...(flags.tormenta20 || {})
+      },
       ...flags
+    },
+    _stats: {
+      compendiumSource: null,
+      duplicateSource: null,
+      exportSource: null,
+      coreVersion: '13.351',
+      systemId: 'tormenta20',
+      systemVersion: '1.5.015',
+      createdTime: Date.now(),
+      modifiedTime: Date.now(),
+      lastModifiedBy: 'piAgentTormenta20'
     }
   };
 }
@@ -340,12 +392,17 @@ function buildItem({
       melhorias: system.melhorias || {},
       encantos: system.encantos || {},
       rolls: finalRolls,
+      effects: effects.map(eff => buildActiveEffect({
+        ...eff,
+        img: eff.img || finalImg,
+        origin: eff.origin || ''
+      })),
       ...system
     },
     effects: effects.map(eff => buildActiveEffect({
       ...eff,
       img: eff.img || finalImg,
-      origin: eff.origin || `Item.${_id}`
+      origin: eff.origin || ''
     })),
     folder,
     sort: 0,

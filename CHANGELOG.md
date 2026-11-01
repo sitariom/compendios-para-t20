@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.4.6 - 2026-11-01
+
+- **Conformidade do DataModel BaseEffect e Sincronização em `src/packs/` (Dragão Brasil #228)**:
+  - **DataModel de ActiveEffects (`BaseEffect`)**:
+    - Ajustado o schema dos ActiveEffects para preenchimento estrito do DataModel oficial do Tormenta20 (`identifier`, `targets: ['self']`, `status: null`, `abilityUse`), `origin: ""` e `priority: 20`, impedindo rejeição de schema na ficha do Foundry VTT.
+  - **Efeitos nos Ataques e Poderes de Criaturas (`Ameacas_T20`)**:
+    - Adicionados ActiveEffects e condições para todos os poderes das ameaças: *Agarrar Aprimorado* (condição `agarrado`), *Cuspe Ácido* (dano contínuo), *Espreitador Subterrâneo* (+2 ataque), *Sentido Sísmico* (percepção às cegas), *Enxame Cáustico* (área corrosiva), *Gosma Corrosiva* (dano residual 1 rodada), *Queda Livre* (+2 ataque) e *Saliva* (condição `cego`).
+  - **Sincronização com a Árvore de Fontes (`src/packs/`)**:
+    - Todos os 20 itens de Divinas Organizações, 4 ameaças e 2 tabelas da DB #228 foram gerados e salvos em `src/packs/Itens_T20/`, `src/packs/Ameacas_T20/` e `src/packs/Tabelas_T20/` garantindo persistência tanto no código-fonte quanto nos compêndios binários LevelDB.
+
 ## v1.4.5 - 2026-11-01
 
 - **Correção Definitiva de Renderização de ActiveEffects no Foundry VTT**:

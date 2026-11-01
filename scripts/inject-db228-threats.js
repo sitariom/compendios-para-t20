@@ -20,7 +20,8 @@ const {
   buildWeaponAttack,
   buildSpecialPower,
   buildNpcActor,
-  buildHazardActor
+  buildHazardActor,
+  saveToSourcePacks
 } = require('./create-entry');
 
 const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
@@ -84,6 +85,17 @@ async function injectThreats() {
           versatil: '',
           adaptavel: ''
         }
+      ],
+      effects: [
+        {
+          name: 'Condição: Agarrado',
+          description: 'O alvo fica agarrado pelas quelíceras do Ankthyr (–2 em testes de ataque, desprevenido e não pode se mover).',
+          statuses: ['agarrado'],
+          changes: [
+            { key: 'system.attributes.defesa.bonus', mode: 2, value: '-2', priority: 20 }
+          ],
+          transfer: false
+        }
       ]
     }),
     buildSpecialPower({
@@ -120,6 +132,10 @@ async function injectThreats() {
         {
           name: 'Muco Corrosivo (Ankthyr)',
           description: 'Sofre 3d8+3 pontos de dano de ácido no início de cada um dos dois próximos turnos.',
+          duration: { rounds: 2 },
+          changes: [
+            { key: 'system.tracos.resistencias.acido.bonus', mode: 2, value: '0', priority: 20 }
+          ],
           transfer: false
         }
       ]
@@ -141,6 +157,16 @@ async function injectThreats() {
           versatil: '',
           adaptavel: ''
         }
+      ],
+      effects: [
+        {
+          name: 'Bote Subterrâneo (+2 Ataque)',
+          description: 'Recebe +2 no teste de ataque ao emergir soterrado contra um alvo.',
+          changes: [
+            { key: 'system.modificadores.ataque.cac', mode: 2, value: '2', priority: 20 }
+          ],
+          transfer: false
+        }
       ]
     }),
     buildSpecialPower({
@@ -150,7 +176,14 @@ async function injectThreats() {
       custo: 0,
       description: '<p>O ankthyr tem percepção às cegas em alcance médio, mas apenas para criaturas e objetos em contato com a mesma superfície que ele.</p>',
       flavorPhrase: 'O menor passo na superfície reverbera nas carapaças do verme subterrâneo.',
-      flavorAction: 'Detecta vibrações transmitidas pela terra e pela rocha'
+      flavorAction: 'Detecta vibrações transmitidas pela terra e pela rocha',
+      effects: [
+        {
+          name: 'Sentido Sísmico (Percepção às Cegas 18m)',
+          description: 'Percepção às cegas em alcance médio para criaturas em contato com a mesma superfície.',
+          transfer: true
+        }
+      ]
     })
   ];
 
@@ -194,6 +227,7 @@ async function injectThreats() {
   for (const ed of ankthyr.embeddedDocs) {
     await db.put(ed.key, ed.doc);
   }
+  saveToSourcePacks('Ameacas_T20', ankthyr.actorDoc, ankthyr.embeddedDocs);
   console.log(`✓ Ator "Ankthyr (ND 8)" salvo com ${ankthyr.actorDoc.items.length} ataques/poderes embutidos.`);
 
   // -------------------------------------------------------------
@@ -234,6 +268,13 @@ async function injectThreats() {
           versatil: '',
           adaptavel: ''
         }
+      ],
+      effects: [
+        {
+          name: 'Área do Enxame (Metade Dano Armas)',
+          description: 'Sofre metade do dano de ataques com armas e imune a manobras de combate.',
+          transfer: true
+        }
       ]
     }),
     buildSpecialPower({
@@ -253,6 +294,14 @@ async function injectThreats() {
           versatil: '',
           adaptavel: ''
         }
+      ],
+      effects: [
+        {
+          name: 'Gosma Corrosiva (Dano Ácido Residual)',
+          description: 'O dano de ácido persiste por 1 rodada adicional.',
+          duration: { rounds: 1 },
+          transfer: false
+        }
       ]
     }),
     buildSpecialPower({
@@ -262,7 +311,14 @@ async function injectThreats() {
       custo: 0,
       description: '<p>O enxame cáustico tem percepção às cegas em alcance médio, mas apenas para criaturas e objetos em contato com a mesma superfície que ele.</p>',
       flavorPhrase: 'Centenas de patas minúsculas sentem as pulsações rítmicas na caverna.',
-      flavorAction: 'Localiza presas pelas vibrações de seus passos no solo'
+      flavorAction: 'Localiza presas pelas vibrações de seus passos no solo',
+      effects: [
+        {
+          name: 'Sentido Sísmico (Percepção às Cegas 18m)',
+          description: 'Percepção às cegas em alcance médio para criaturas em contato com o solo.',
+          transfer: true
+        }
+      ]
     })
   ];
 
@@ -306,6 +362,7 @@ async function injectThreats() {
   for (const ed of enxame.embeddedDocs) {
     await db.put(ed.key, ed.doc);
   }
+  saveToSourcePacks('Ameacas_T20', enxame.actorDoc, enxame.embeddedDocs);
   console.log(`✓ Ator "Enxame Cáustico (ND 4)" salvo com ${enxame.actorDoc.items.length} poderes embutidos.`);
 
   // -------------------------------------------------------------
@@ -360,6 +417,16 @@ async function injectThreats() {
           versatil: '',
           adaptavel: ''
         }
+      ],
+      effects: [
+        {
+          name: 'Terreno Elevado (+2 Ataque)',
+          description: 'Recebe +2 em testes de ataque ao atacar de terreno elevado.',
+          changes: [
+            { key: 'system.modificadores.ataque.cac', mode: 2, value: '2', priority: 20 }
+          ],
+          transfer: false
+        }
       ]
     }),
     buildSpecialPower({
@@ -387,7 +454,12 @@ async function injectThreats() {
       effects: [
         {
           name: 'Cego pela Saliva do Slark',
-          description: 'A criatura fica cega por 1 rodada.',
+          description: 'A criatura fica cega por 1 rodada (–5 na Defesa, desprevenida, perde ações de percepção visual).',
+          statuses: ['cego'],
+          duration: { rounds: 1 },
+          changes: [
+            { key: 'system.attributes.defesa.bonus', mode: 2, value: '-5', priority: 20 }
+          ],
           transfer: false
         }
       ]
@@ -432,6 +504,7 @@ async function injectThreats() {
   for (const ed of slark.embeddedDocs) {
     await db.put(ed.key, ed.doc);
   }
+  saveToSourcePacks('Ameacas_T20', slark.actorDoc, slark.embeddedDocs);
   console.log(`✓ Ator "Slark (ND 1)" salvo com ${slark.actorDoc.items.length} ataques/poderes embutidos.`);
 
   // -------------------------------------------------------------
@@ -461,6 +534,7 @@ async function injectThreats() {
   desabamento.actorDoc.folder = FOLDER_DB;
 
   await db.put(`!actors!${desabamentoId}`, desabamento.actorDoc);
+  saveToSourcePacks('Ameacas_T20', desabamento.actorDoc);
   console.log(`✓ Perigo Complexo "Desabamento dos Túneis (ND 8)" salvo com sucesso.`);
 
   // Limpeza de quaisquer chaves residuais de parceiros que não devem ser atores
