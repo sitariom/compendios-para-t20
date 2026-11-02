@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.5.0 - 2026-11-01
+
+- **Fidelidade Integral às Descrições dos PDFs e Padronização Canônica Total de ActiveEffects (DB #226, #227 e #228)**:
+  - **Fidelidade Textual Integral aos PDFs Oficiais & Padrão Canônico de Biografia**:
+    - Padronização estrita de todos os 58 itens e poderes (38 poderes da DB #227 e 20 itens/parceiros da DB #228) para utilizarem **exclusivamente e integralmente o texto verbatim publicado nos PDFs oficiais**, com limpeza total de `system.chatFlavor`.
+    - Padronização rigorosa de todas as 12 ameaças e perigos (DB #226, DB #227 e DB #228) segundo o padrão canônico estabelecido: **duas citações estilizadas em blockquote** (uma citação visceral da criatura/vítima com borda `#800000` e uma citação de observação de campo do escriba goblin *Grunk Ferroforja* da Gazeta do Reinado com borda `#006400`) seguidas do **parágrafo de apresentação descritiva** em fonte Arial introduzindo a criatura em Tormenta20 com destaque em vermelho/negrito.
+  - **Reconstrução e Automação de ActiveEffects em 100% dos Poderes da DB #227 (Itens_T20)**:
+    - Todos os 38 poderes de combate da *Caverna do Saber* receberam `ActiveEffects` funcionais com a arquitetura canônica de compêndios ClassicLevel do Foundry VTT (`effects: [effId]` no documento pai e subdocumento completo em `!items.effects!${itemId}.${effId}`).
+    - Configurados modificadores reais para poderes mecânicos: *Costas Largas II* (+15 carga), *Esquiva II* (+3 Defesa e Reflexos), *Economia de Habilidade* (-1 PM), *Especialista em Coberturas* (+2 Defesa e Reflexos), *Especialista em Camuflagens* (+5 Furtividade), *Ataque com Escudo II* (0 PM), *Ataque Poderoso II* (sem penalidade), *Golpe Aéreo I* (+2 ataque por posição elevada), *Flechadas de Manobra I e II* (+2 e +5 em manobras), etc.
+  - **Revisão Integral e Enriquecimento de Ameaças da DB #226 e DB #227 (Ameacas_T20)**:
+    - **DB #226**:
+      - *Tyrant (ND 10)*: Lore integral do PDF sem citações de Grunk Ferroforja; subdocumentos `Super Tyrant` (+5 Defesa, +1d10 dano, ação extra, 18m deslocamento, sangrando), `Imunidade a Magia` e `Cura Acelerada 5` dotados de ActiveEffects funcionais.
+      - *Espectro do Pesadelo (ND 5)*: Lore integral do PDF; subdocumentos `Cascos`, `Devorar Sonhos`, `Relincho Aterrador` (apavorado/abalado CD 20), `Semi-Incorpóreo` (25% evasão), `Terror Encarnado` (+2 ataque / +1d8 trevas) e `Vulnerabilidade à Luz do Dia` (debilitado) configurados com ActiveEffects.
+      - *Come-Sonhos (ND 2)*: Lore integral e poderes `Mordida`, `Devorar Sonhos` e `Êxtase Onírico` configurados.
+      - *Expurgo Onírico (ND 4)*: Perigo complexo com regras e ações de superação 100% integrais do PDF.
+    - **DB #227**:
+      - *Lynel (ND 12)*, *Oxxdon (ND 2)*, *Enxame de Armas (ND 4)*, *Tropa de Mortos (ND 5)* e *Inumano (ND 6)*: Reconstruídos com biografias do PDF e ActiveEffects para todos os poderes mecânicos (`Brado Indomável`, `Investida Galopante`, `Coice Oportuno`, `Sopro`, `Ferrugem`, `Enxame`, `Aparar`, `Bando` e `Drenar Energia`).
+  - **Evolução das Especificações OpenSpec (SDD)**:
+    - `items-specification`: Incorporados requisitos normativos de fidelidade textual integral ao PDF (`Integral Source PDF Text Fidelity`) e imposição da arquitetura de subdocumentos de `ActiveEffects` em ClassicLevel com BaseEffect schema.
+    - `actors-specification`: Atualizados requisitos normativos para biografia estritamente baseada no lore publicado e indexação correta de subdocumentos de itens e efeitos (`!actors.items!` e `!actors.items.effects!`).
+    - Validação formal com `openspec validate --all` com 100% de aprovação (8/8 specs válidas).
+  - **Auditoria de Integridade**:
+    - Mais de 34.800 documentos auditados com 0 erros de JSON, 0 documentos sem ID e 0 pastas órfãs.
+
 ## v1.4.7 - 2026-11-01
 
 - **Padronização Canônica de Subdocumentos e Resolução Nativa no Foundry VTT**:
