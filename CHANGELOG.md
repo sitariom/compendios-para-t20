@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.5.1 - 2026-11-01
+
+- **Hotfix: Consolidação do Padrão de Biografias de Atores com Citações Duplas (DB #226, #227 e #228)**:
+  - **Padronização Visual Canônica de Ameaças**:
+    - Reafirmação e consolidação do padrão de duas citações em `blockquote` (citação visceral da criatura/vítima com borda `#800000` e citação de observação de campo do escriba goblin *Grunk Ferroforja* da Gazeta do Reinado com borda `#006400`) seguido do parágrafo de apresentação descritiva em fonte Arial destacando o nome da criatura em negrito e vermelho.
+    - Aplicado a todas as 12 ameaças e perigos das edições DB #226 (*Tyrant ND 10*, *Espectro do Pesadelo ND 5*, *Come-Sonhos ND 2*, *Expurgo Onírico ND 4*), DB #227 (*Lynel ND 12*, *Oxxdon ND 2*, *Enxame de Armas ND 4*, *Tropa de Mortos ND 5*, *Inumano ND 6*) e DB #228 (*Ankthyr ND 8*, *Enxame Cáustico ND 4*, *Slark ND 1*).
+  - **Fidelidade Integral de Itens Preservada**:
+    - Mantida a integridade estrita das descrições dos 58 itens e poderes (DB #227 e DB #228) como textos 100% integrais e verbatim dos PDFs oficiais, sem inserção de blocos decorativos fictícios.
+  - **Validação e Integridade**:
+    - 100% de aprovação nos validadores `validate-db227-compliance.js`, `validate-db228-compliance.js` e auditoria `audit.js` com 34.800+ documentos e 0 erros.
+
 ## v1.5.0 - 2026-11-01
 
 - **Fidelidade Integral às Descrições dos PDFs e Padronização Canônica Total de ActiveEffects (DB #226, #227 e #228)**:
