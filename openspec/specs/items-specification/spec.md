@@ -6,18 +6,19 @@ The items-specification capability defines the authoritative specification and q
 ## Requirements
 
 ### Requirement: General and Combat Powers Schema
-Every power item SHALL conform to the Tormenta20 Item Creator Macro V8 schemas. Powers MUST specify `system.tipo: "geral"`, a valid `system.subtipo` (`combate`, `concedido`, `tormenta`, `destino`, `magia`, `distincao`, or `origem`), execution action type (`padrao`, `movimento`, `reacao`, `livre`, or `passiva`), PM activation cost, prerequisites, and cleanly formatted HTML description with quote blocks.
+Every power item SHALL conform to the Tormenta20 Item Creator Macro V8 schemas. Powers MUST specify `system.tipo: "geral"`, a valid `system.subtipo` (`combate`, `concedido`, `tormenta`, `destino`, `magia`, `distincao`, or `origem`), execution action type (`padrao`, `movimento`, `reacao`, `livre`, or `passiva`), PM activation cost, prerequisites, and cleanly formatted HTML description faithfully reproducing the verbatim text from the source PDF. Artificial, invented, or homebrew roleplay quotes and decorative blockquotes MUST NOT be injected into `system.description.value` or `system.chatFlavor`.
 
 #### Scenario: Creating a combat power from Caverna do Saber
 - **GIVEN** a new combat power published in Dragão Brasil
 - **WHEN** the item document is constructed
 - **THEN** `system.tipo` is set to `geral`
 - **AND** `system.subtipo` is set to `combate`
-- **AND** `system.ativacao.execucao` and `system.ativacao.custo` reflect the rule text
-- **AND** `system.description.value` contains formatted HTML with prerequisites in bold
+- **AND** `system.ativacao.execucao` and `system.ativacao.custo` reflect the published rule text
+- **AND** `system.description.value` contains the verbatim PDF description text with prerequisites in bold
+- **AND** `system.chatFlavor` is empty unless the published source explicitly provides flavor text
 
 ### Requirement: Equipment, Weapons, Shields, and Armors
-Manufactured and natural weapons, armors, and shields SHALL define complete combat statistics including equipment slot, hands required (`empunhadura`), damage die, damage type (`corte`, `perfuracao`, `impacto`, etc.), critical threat range (`criticoM`) and multiplier (`criticoX`), defense bonus, armor penalty (`penalidade`), range category, and `chatFlavor`. Weapon items MUST include `rolls` with structured `parts` for attack rolls (`ataque0`) and damage rolls (`dano1`).
+Manufactured and natural weapons, armors, and shields SHALL define complete combat statistics including equipment slot, hands required (`empunhadura`), damage die, damage type (`corte`, `perfuracao`, `impacto`, etc.), critical threat range (`criticoM`) and multiplier (`criticoX`), defense bonus, armor penalty (`penalidade`), range category, and `description` faithful to the official PDF. Weapon items MUST include `rolls` with structured `parts` for attack rolls (`ataque0`) and damage rolls (`dano1`).
 
 #### Scenario: Registering a two-handed manufactured weapon
 - **GIVEN** a weapon item such as Espada Bastarda or Machado de Guerra
@@ -28,7 +29,7 @@ Manufactured and natural weapons, armors, and shields SHALL define complete comb
 - **AND** `system.dano` includes valid dice formula and damage type
 - **AND** `system.criticoM` and `system.criticoX` are numeric properties on the system root
 - **AND** `system.rolls` contains `ataque0` and `dano1` with valid `parts` arrays
-- **AND** `system.chatFlavor` contains a blockquote quote and highlighted action description
+- **AND** `system.description.value` contains the verbatim description from the source publication
 
 ### Requirement: Spell Schema and Enhancements
 Every Spell document SHALL specify its circle (`circulo`: 1 to 5), tradition (`tipo`: `arcana`, `divina`, or `universal`), school (`escola`: `abjuracao`, `convocacao`, `adivinhacao`, `encantamento`, `evocacao`, `ilusao`, `necromancia`, `transmutacao`), range, duration, target, resistance saving throw, and structured enhancements (`system.aprimoramentos`) with incremental PM costs and conditional effect descriptions.
@@ -41,14 +42,23 @@ Every Spell document SHALL specify its circle (`circulo`: 1 to 5), tradition (`t
 - **AND** each enhancement entry defines cost in PM and mechanical modification
 
 ### Requirement: Active Effects and System Automation Flags
-Items providing persistent passive bonuses, condition triggers, or temporary modifications SHALL define Active Effects with explicit changes targeting canonical Tormenta20 system keys (`system.attributes.pm.max`, `system.attributes.defesa.outros`, `system.pericias.<key>.outros`, `system.tracos.resistencias.<type>.base`), change modes (Add, Multiply, Upgrade, Override), transfer mode (`transfer: true`), and system transfer flag `flags.tormenta20.transfer: true`.
+Items providing persistent passive bonuses, condition triggers, or temporary modifications SHALL define Active Effects with explicit changes targeting canonical Tormenta20 system keys (`system.attributes.pm.max`, `system.modificadores.defesa.outros`, `system.pericias.<key>.bonus`, `system.tracos.resistencias.<type>.base`), change modes (Add, Multiply, Upgrade, Override), transfer mode (`transfer: true`), and system transfer flag `flags.tormenta20.transfer: true`.
+
+In ClassicLevel compendiums (`packs/Itens_T20`):
+- The parent Item document `item.effects` MUST strictly store an array of string IDs (`effects: ["effId1", ...]`).
+- Under NO circumstance SHALL ActiveEffect objects be embedded inline in the parent document's `effects` array, as inline objects break LevelDB indexing and fail to instantiate in Foundry VTT sheets.
+- The full ActiveEffect document MUST be stored at the dedicated child key in LevelDB:
+  `!items.effects!${itemId}.${effId}`
+- The ActiveEffect schema MUST follow the canonical Tormenta20 `BaseEffect` DataModel: `_id: effId`, `name: string`, `type: "base"`, `system: { identifier: string, targets: ['self'], status: null, abilityUse: { description, automatic: true, aumenta: false, custo: 0, names: [], types: [] } }`, `changes: [...]`, `transfer: true`, `origin: item.name`, `priority: 20`, and `flags.tormenta20: { transfer: true, duration: "passivo", origin: item.name, priority: 20 }`.
+- In the source tree (`src/packs/Itens_T20/`), the serialized JSON MUST retain `_subdocuments: { effects: [effObj, ...] }` for bidirectional sync with LevelDB.
 
 #### Scenario: Power granting bonus to Defense and Reflexes
 - **GIVEN** a combat power like Esquiva II or Costas Largas II
 - **WHEN** the item is equipped or added to an actor
-- **THEN** embedded active effects define key targets like `system.attributes.defesa.bonus`
+- **THEN** embedded active effects define key targets like `system.modificadores.defesa.outros`
 - **AND** `flags.tormenta20.transfer` is set to `true` to ensure automatic calculation on the sheet
 - **AND** each effect has valid `changes` pointing to canonical system keys
+- **AND** `item.effects` in the parent document stores only string IDs, while the child subdocument exists under `!items.effects!${itemId}.${effId}`
 
 ### Requirement: Visual Icon Resolution Standard
 Every Item document SHALL be assigned a thematic, high-contrast icon. Icons MUST be resolved prioritizing:

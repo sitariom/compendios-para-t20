@@ -1,904 +1,424 @@
+#!/usr/bin/env node
+/**
+ * Reconstrução Canônica das Ameaças da DB #227 em Ameacas_T20
+ * Conteúdo: Lynel ND 12, Oxxdon ND 2, Enxame de Armas ND 4, Tropa de Mortos ND 5, Inumano ND 6
+ *
+ * Padrão Canônico:
+ * 1. Descrições e biografias 100% integrais dos PDFs oficiais.
+ * 2. ActiveEffects nos poderes e ataques com arquitetura canônica de subdocumentos.
+ * 3. Sincronização em packs/Ameacas_T20 e src/packs/Ameacas_T20/.
+ */
+
 const { ClassicLevel } = require('classic-level');
+const path = require('path');
+const {
+  buildWeaponAttack,
+  buildSpecialPower,
+  buildNpcActor,
+  buildSkills,
+  buildTracos,
+  saveToSourcePacks
+} = require('./create-entry');
 
-function generateId() {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  for (let i = 0; i < 16; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
+const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
+const FOLDER_DB = 'wfWApuyngzFm4KOP';
 
-const statsHeader = {
-  compendiumSource: null,
-  duplicateSource: null,
-  exportSource: null,
-  coreVersion: '13.351',
-  systemId: 'tormenta20',
-  systemVersion: '1.5.015',
-  createdTime: Date.now(),
-  modifiedTime: Date.now(),
-  lastModifiedBy: 'pi-agent'
-};
+async function rebuildDB227Threats() {
+  console.log('=== Reconstruindo Ameaças da Dragão Brasil #227 em Ameacas_T20 ===\n');
+  const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
 
-// Skill list for Tormenta20 (all 34 skills)
-const ALL_SKILLS = [
-  { key: 'acro', nome: 'Acrobacia', atributo: 'des' },
-  { key: 'ades', nome: 'Adestramento', atributo: 'car' },
-  { key: 'atle', nome: 'Atletismo', atributo: 'for' },
-  { key: 'atua', nome: 'Atuação', atributo: 'car' },
-  { key: 'cava', nome: 'Cavalgar', atributo: 'des' },
-  { key: 'conh', nome: 'Conhecimento', atributo: 'int' },
-  { key: 'cura', nome: 'Cura', atributo: 'sab' },
-  { key: 'dipl', nome: 'Diplomacia', atributo: 'car' },
-  { key: 'enga', nome: 'Enganação', atributo: 'car' },
-  { key: 'fort', nome: 'Fortitude', atributo: 'con' },
-  { key: 'furt', nome: 'Furtividade', atributo: 'des' },
-  { key: 'guer', nome: 'Guerra', atributo: 'int' },
-  { key: 'inic', nome: 'Iniciativa', atributo: 'des' },
-  { key: 'inti', nome: 'Intimidação', atributo: 'car' },
-  { key: 'intu', nome: 'Intuição', atributo: 'sab' },
-  { key: 'inve', nome: 'Investigação', atributo: 'int' },
-  { key: 'joga', nome: 'Jogatina', atributo: 'car' },
-  { key: 'ladi', nome: 'Ladinagem', atributo: 'des' },
-  { key: 'luta', nome: 'Luta', atributo: 'for' },
-  { key: 'mist', nome: 'Misticismo', atributo: 'int' },
-  { key: 'nobr', nome: 'Nobreza', atributo: 'car' },
-  { key: 'perc', nome: 'Percepção', atributo: 'sab' },
-  { key: 'pilo', nome: 'Pilotagem', atributo: 'des' },
-  { key: 'pont', nome: 'Pontaria', atributo: 'des' },
-  { key: 'refl', nome: 'Reflexos', atributo: 'des' },
-  { key: 'reli', nome: 'Religião', atributo: 'sab' },
-  { key: 'sobr', nome: 'Sobrevivência', atributo: 'sab' },
-  { key: 'vont', nome: 'Vontade', atributo: 'sab' },
-  { key: 'alfa', nome: 'Ofício (Alfaiate)', atributo: 'int' },
-  { key: 'alqu', nome: 'Ofício (Alquimia)', atributo: 'int' },
-  { key: 'arme', nome: 'Ofício (Armeiro)', atributo: 'int' },
-  { key: 'arte', nome: 'Ofício (Artesão)', atributo: 'int' },
-  { key: 'cozi', nome: 'Ofício (Culinária)', atributo: 'int' },
-  { key: 'enge', nome: 'Ofício (Engenharia)', atributo: 'int' }
-];
-
-function buildSkills(ndNum, atributos, trainedSkills) {
-  const meionivel = Math.floor(ndNum / 2);
-  let treino = 2;
-  if (ndNum >= 15) {
-    treino = 6;
-  } else if (ndNum >= 7) {
-    treino = 4;
-  }
-  const pericias = {};
-
-  for (const s of ALL_SKILLS) {
-    const atrMod = atributos[s.atributo] || 0;
-    const isTrained = trainedSkills[s.key] !== undefined || s.key === 'inic' || s.key === 'perc';
-    
-    if (isTrained) {
-      const fichaVal = trainedSkills[s.key] === undefined ? (meionivel + atrMod + treino) : trainedSkills[s.key];
-      // Formula: VALOR_PERICIA = VALOR_INFORMADO_FICHA - BONUS_ND - VALOR_ATRIBUTO - BONUS_TREINADO_ND
-      const val = fichaVal - meionivel - atrMod - treino;
-      pericias[s.key] = {
-        atributo: s.atributo,
-        treinado: true,
-        st: false,
-        pda: false,
-        size: false,
-        value: val,
-        outros: val,
-        condi: 0,
-        bonus: [],
-        custom: false,
-        label: s.nome,
-        nome: s.nome
-      };
-    } else {
-      pericias[s.key] = {
-        atributo: s.atributo,
-        treinado: false,
-        st: false,
-        pda: false,
-        size: false,
-        value: 0,
-        outros: 0,
-        condi: 0,
-        bonus: [],
-        custom: false,
-        label: s.nome,
-        nome: s.nome
-      };
+  // 1. Remover duplicata de Oxxdon se existir
+  try {
+    await db.del('!actors!LN8RlwsnDhqnpdLg');
+    for await (const [key] of db.iterator()) {
+      if (key.startsWith('!actors.items!LN8RlwsnDhqnpdLg.')) {
+        await db.del(key);
+      }
     }
-  }
-  return pericias;
-}
-
-function buildTracos({
-  tamanho = 'med',
-  resistencias = {},
-  imunidadesDano = [],
-  vulnerabilidadesDano = [],
-  icValue = [],
-  icCustom = '',
-  idiomasValue = [],
-  idiomasCustom = ''
-}) {
-  const damageTypes = [
-    'dano', 'perda', 'acido', 'corte', 'eletricidade',
-    'essencia', 'fogo', 'frio', 'impacto', 'luz',
-    'psiquico', 'perfuracao', 'trevas'
-  ];
-  
-  const resObj = {};
-  for (const dt of damageTypes) {
-    const val = resistencias[dt] || 0;
-    resObj[dt] = {
-      value: val,
-      base: val,
-      bonus: [],
-      excecao: 0,
-      imunidade: imunidadesDano.includes(dt),
-      vulnerabilidade: vulnerabilidadesDano.includes(dt),
-      danoPorDado: false
-    };
-  }
-
-  return {
-    tamanho,
-    resistencias: resObj,
-    ic: {
-      value: icValue,
-      custom: icCustom
-    },
-    idiomas: {
-      value: idiomasValue,
-      custom: idiomasCustom
-    },
-    profArmaduras: {
-      value: [],
-      custom: ''
-    },
-    profArmas: {
-      value: [],
-      custom: ''
-    }
-  };
-}
-
-function buildWeaponItem(data) {
-  return {
-    _id: data.id || generateId(),
-    name: data.name,
-    type: 'arma',
-    img: data.img || 'icons/svg/sword.svg',
-    system: {
-      description: {
-        value: data.description || '',
-        unidentified: ''
-      },
-      carregado: true,
-      peso: data.peso || 0,
-      proficiencia: data.proficiencia || 'natural',
-      empunhadura: data.empunhadura || 'uma',
-      criticoM: data.criticoM || 20,
-      criticoX: data.criticoX || 2,
-      ataques: data.ataques || 1,
-      equipado: 0,
-      equipado2: { slot: 0, type: '' },
-      tipoUso: 'sim',
-      proposito: data.proposito || 'corpo-a-corpo',
-      size: data.size || 'normal',
-      propriedades: {
-        ada: false, agi: false, alo: false, des: false, dup: false, ver: false, hib: false,
-        ...(data.propriedades)
-      },
-      source: data.source || 'Dragão Brasil #227',
-      espacos: 1,
-      qtd: 1,
-      preco: 0,
-      pv: { value: 0, min: 0, max: 0 },
-      rd: 0,
-      alcance: data.alcance || '',
-      origin: '',
-      tags: data.tags || ['dragao-brasil', 'db227'],
-      rolltags: [],
-      chatFlavor: data.chatFlavor || '',
-      chatGif: '',
-      ativacao: {
-        custo: null,
-        condicao: '',
-        execucao: '',
-        qtd: '',
-        special: ''
-      },
-      consume: {
-        amount: null,
-        mpMultiplier: false,
-        target: '',
-        type: ''
-      },
-      upgrades: {
-        melhoria1: '', melhoria2: '', melhoria3: '', melhoria4: '',
-        material: '', encanto1: '', encanto2: '', encanto3: ''
-      },
-      melhorias: {},
-      encantos: {},
-      rolls: data.rolls || []
-    },
-    effects: data.effects || [],
-    flags: {},
-    _stats: statsHeader
-  };
-}
-
-function buildPowerItem(data) {
-  return {
-    _id: data.id || generateId(),
-    name: data.name,
-    type: 'poder',
-    img: data.img || 'icons/svg/aura.svg',
-    system: {
-      description: {
-        value: data.description || '',
-        unidentified: ''
-      },
-      source: data.source || 'Dragão Brasil #227',
-      ativacao: {
-        execucao: data.execucao || 'padrao',
-        custo: data.custo || 0,
-        qtd: '',
-        condicao: data.condicao || '',
-        special: ''
-      },
-      duracao: {
-        value: data.duracaoValue || 0,
-        units: data.duracaoUnits || 'inst',
-        special: ''
-      },
-      target: { value: null, width: null, type: '' },
-      range: { value: null, units: '' },
-      consume: { type: '', target: '', amount: null, mpMultiplier: false },
-      efeito: data.efeito || '',
-      alcance: data.alcance || '',
-      alvo: data.alvo || '',
-      area: data.area || '',
-      resistencia: {
-        pericia: data.resistenciaPericia || '',
-        atributo: '',
-        bonus: 0,
-        txt: data.resistenciaTxt || ''
-      },
-      tipo: 'ability',
-      subtipo: '',
-      chatFlavor: data.chatFlavor || '',
-      origin: '',
-      tags: data.tags || ['dragao-brasil', 'db227'],
-      chatGif: '',
-      rolltags: [],
-      rolls: data.rolls || []
-    },
-    effects: data.effects || [],
-    flags: {},
-    _stats: statsHeader
-  };
-}
-
-async function rebuildThreats() {
-  console.log('--- RECONSTRUINDO AMEAÇAS DA DRAGÃO BRASIL #227 ---');
-  const db = new ClassicLevel('packs/Ameacas_T20', { valueEncoding: 'json' });
-
-  // 1. Remover o Oxxdon duplicado incorreto
-  console.log('Removendo duplicata quebrada de Oxxdon (!actors!LN8RlwsnDhqnpdLg)...');
-  await db.del('!actors!LN8RlwsnDhqnpdLg');
-  for await (const [key] of db.iterator()) {
-    if (key.startsWith('!actors.items!LN8RlwsnDhqnpdLg.')) {
-      await db.del(key);
-    }
-  }
+  } catch {}
 
   // -------------------------------------------------------------
-  // THREAT 1: LYNEL (ND 12, Chefe de Fase)
+  // 1. LYNEL (ND 12, Chefe de Fase) - Monstro Enorme (3x3)
   // -------------------------------------------------------------
   const lynelId = '6jcy63pS6TLhCoHm';
   console.log(`Atualizando Lynel [${lynelId}]...`);
-  
-  // Limpar itens antigos do Lynel
+
   for await (const [key] of db.iterator()) {
     if (key.startsWith(`!actors.items!${lynelId}.`)) {
       await db.del(key);
     }
   }
 
+  const lynelSkills = buildSkills(12, { for: 10, des: 8, con: 8, int: -1, sab: 5, car: -2 }, {
+    inic: 18,
+    perc: 16,
+    atle: 22,
+    inti: 14,
+    sobr: 20,
+    fort: 26,
+    refl: 20,
+    vont: 12,
+    luta: 36,
+    pont: 32
+  });
+
+  const lynelTracos = buildTracos({
+    tamanho: 'eno',
+    resistencias: {
+      acido: 10,
+      eletricidade: 10,
+      fogo: 10,
+      frio: 10
+    },
+    idiomasValue: []
+  });
+
+  const lynelBio = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*ROAAAR!* &mdash; O rugido faz as pedras tremerem e os próprios pássaros caírem dos galhos antes mesmo da investida começar."<br><span style="font-weight: bold; color: #800000;">&mdash; Rugido do Lynel</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Quem vê um centauro-leão à distância pensa que é só mais uma fera. Erro fatal! O desgraçado troca de arma no meio da luta, saca um arco com precisão de mestre e ainda cospe fogo como um dragão adulto! Se você avistar um nos descampados, dê meia-volta devagar e reze para que ele não se sinta territorial."<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Lynel</span> é um monstro enorme e formidável que combina a imponência de um centauro blindado com a cabeça e ferocidade de um leão predador. Espremendo inteligência marcial tática em um corpo de puro músculo, é um chefe de fase devastador capaz de aniquilar grupos inteiros com suas quatro armas colossais e sopro de chamas incandescentes.</p>`;
+
   const lynelItems = [
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Espada Bastarda e Escudo Lynel',
       img: 'icons/weapons/swords/sword-broad-crystal.webp',
-      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 5d10+27, crítico 19/x3 (corte). Uma vez por rodada, ao acertar um alvo, o Lynel pode fazer uma manobra de combate como ação livre contra ele (teste +36).</p>',
-      proficiencia: 'exotica',
-      empunhadura: 'uma',
-      criticoM: 19,
-      criticoX: 3,
-      ataques: 2,
-      proposito: 'corpo-a-corpo',
-      size: 'aumentada',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*URRRRGH!*"</blockquote><p>O Lynel golpeia com sua <span style="color: #800000; font-weight: bold;">espada maciça e impõe seu escudo</span> com força esmagadora.</p></div>',
-      rolls: [
+      dano: '5d10+27',
+      tipoDano: 'corte',
+      periciaAtaque: 'luta',
+      criticoMargem: 19,
+      criticoMultiplicador: 3,
+      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 5d10+27, 19/x3 corte. Uma vez por rodada, ao acertar um alvo, o Lynel pode fazer uma manobra de combate como ação livre com ele (teste +36).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['5d10+27', 'corte', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Manobra Livre no Acerto',
+          description: 'Uma vez por rodada, ao acertar um alvo, pode fazer uma manobra de combate como ação livre (teste +36).',
+          transfer: true
         }
       ]
     }),
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Alabarda Lynel',
-      img: 'icons/weapons/polearms/halberd-axe.webp',
-      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 5d10+27, crítico x4 (corte/perfuração). Quando acerta um ataque, o alvo é empurrado 3m na direção oposta ao Lynel e fica caído (Fortitude ou Reflexos CD 33 evita).</p>',
-      proficiencia: 'marcial',
-      empunhadura: 'duas',
-      criticoM: 20,
-      criticoX: 4,
-      ataques: 2,
-      proposito: 'corpo-a-corpo',
-      size: 'aumentada',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*BAM!*"</blockquote><p>A lâmina curva da alabarda arremessa o oponente longe com um <span style="color: #800000; font-weight: bold;">impacto estrondoso</span>.</p></div>',
-      rolls: [
+      img: 'icons/weapons/polearms/halberd-crescent.webp',
+      dano: '5d10+27',
+      tipoDano: 'corte',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 4,
+      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 5d10+27, x4 corte. Quando acerta um ataque, o alvo é empurrado 3m na direção oposta ao Lynel e fica caído (Fortitude ou Reflexos DT 33 evita).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['5d10+27', 'corte', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Empurrão e Queda (3m)',
+          description: 'Quando acerta um ataque, o alvo é empurrado 3m e fica caído (Fort ou Ref CD 33 evita).',
+          transfer: true
         }
       ]
     }),
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Machado de Guerra Lynel',
       img: 'icons/weapons/axes/axe-double-large.webp',
-      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 5d12+27, crítico x4 (corte). Uma vez por rodada, ao acertar um ataque, o Lynel pode fazer um único ataque adicional com o machado contra outro alvo no alcance.</p>',
-      proficiencia: 'marcial',
-      empunhadura: 'duas',
-      criticoM: 20,
-      criticoX: 4,
-      ataques: 2,
-      proposito: 'corpo-a-corpo',
-      size: 'aumentada',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*SHHHRRRK!*"</blockquote><p>O machado colossal corta o ar em um arco devastador gerando uma <span style="color: #800000; font-weight: bold;">varredura sangrenta</span>.</p></div>',
-      rolls: [
+      dano: '5d12+27',
+      tipoDano: 'corte',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 4,
+      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 5d12+27, x4 corte. Uma vez por rodada, ao acertar um ataque, o Lynel pode fazer um único ataque adicional com o machado contra outro alvo no alcance.</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['5d12+27', 'corte', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Ataque Adicional no Acerto',
+          description: 'Uma vez por rodada, ao acertar um ataque, pode fazer um ataque adicional contra outro alvo no alcance.',
+          transfer: true
         }
       ]
     }),
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Tacape Lynel',
       img: 'icons/weapons/clubs/club-spiked-bone.webp',
-      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 6d10+27, crítico x4 (impacto). Quando acerta um ataque, o alvo fica atordoado (Reflexos CD 33 evita).</p>',
-      proficiencia: 'simples',
-      empunhadura: 'duas',
-      criticoM: 20,
-      criticoX: 4,
-      ataques: 2,
-      proposito: 'corpo-a-corpo',
-      size: 'aumentada',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*KRAKOOOM!*"</blockquote><p>O peso esmagador do tacape desaba com a força de um <span style="color: #800000; font-weight: bold;">terremoto atordoante</span>.</p></div>',
-      rolls: [
+      dano: '6d10+27',
+      tipoDano: 'impacto',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 4,
+      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 6d10+27, x4 impacto. Quando acerta um ataque, o alvo fica atordoado (Reflexos DT 33 evita).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['6d10+27', 'impacto', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Atordoamento no Acerto',
+          description: 'Quando acerta um ataque, o alvo fica atordoado (Reflexos CD 33 evita).',
+          transfer: true
         }
       ]
     }),
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Mordida',
       img: 'icons/creatures/abilities/mouth-teeth-fangs.webp',
-      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> 4d10+25, crítico 19 (perfuração).</p>',
-      proficiencia: 'natural',
-      empunhadura: 'uma',
-      criticoM: 19,
-      criticoX: 2,
-      ataques: 1,
-      proposito: 'corpo-a-corpo',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*ROAAAR!*"</blockquote><p>Presas de felino colossal fecham-se sobre a presa com <span style="color: #800000; font-weight: bold;">voracidade implacável</span>.</p></div>',
-      rolls: [
-        {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['4d10+25', 'perfuracao', '']],
-          versatil: '',
-          adaptavel: ''
-        }
-      ]
+      dano: '4d10+25',
+      tipoDano: 'perfuracao',
+      periciaAtaque: 'luta',
+      criticoMargem: 19,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Corpo a Corpo:</strong> Mordida +36 (4d10+25, 19 perfuração).</p>',
+      flavorPhrase: '',
+      flavorAction: ''
     }),
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Garras',
       img: 'icons/skills/melee/unarmed-punch-fist.webp',
-      description: '<p><strong>Ataque Natural Corpo a Corpo (x2):</strong> 4d8+25, crítico 19 (corte). Caso seja desarmado, o Lynel pode continuar atacando com duas garras e sua mordida.</p>',
-      proficiencia: 'natural',
-      empunhadura: 'duas',
-      criticoM: 19,
-      criticoX: 2,
-      ataques: 2,
-      proposito: 'corpo-a-corpo',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*SLASH!*"</blockquote><p>Garras bestiais rasgam armaduras e carnes com <span style="color: #800000; font-weight: bold;">violência primal</span>.</p></div>',
-      rolls: [
-        {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['4d8+25', 'corte', '']],
-          versatil: '',
-          adaptavel: ''
-        }
-      ]
+      dano: '4d8+25',
+      tipoDano: 'corte',
+      periciaAtaque: 'luta',
+      criticoMargem: 19,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Duas garras +36 (4d8+25, 19 corte). Caso seja desarmado, o Lynel pode continuar atacando com duas garras e sua mordida.</p>',
+      flavorPhrase: '',
+      flavorAction: ''
     }),
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Arco de Guerra Lynel',
       img: 'icons/weapons/bows/shortbow-recurve-gold.webp',
-      description: '<p><strong>Ataque à Distância (x2 disparos):</strong> 4d12+25, crítico x3 (perfuração).</p>',
-      proficiencia: 'exotica',
-      empunhadura: 'duas',
-      criticoM: 20,
-      criticoX: 3,
-      ataques: 2,
-      proposito: 'disparo',
-      alcance: 'medio',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*TWANG!*"</blockquote><p>Flechas pesadas voam com precisão cirúrgica, prontas para <span style="color: #800000; font-weight: bold;">empalar intrusos à distância</span>.</p></div>',
-      rolls: [
-        {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['pont', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['4d12+25', 'perfuracao', '']],
-          versatil: '',
-          adaptavel: ''
-        }
-      ]
+      dano: '4d12+25',
+      tipoDano: 'perfuracao',
+      periciaAtaque: 'pont',
+      criticoMargem: 20,
+      criticoMultiplicador: 3,
+      description: '<p><strong>À Distância:</strong> Arco de guerra +32 x2 (4d12+25, x3 perfuração).</p>',
+      flavorPhrase: '',
+      flavorAction: ''
     }),
-    buildPowerItem({
-      name: 'Sopro de Fogo',
+    buildSpecialPower({
+      name: 'Sopro',
       img: 'icons/magic/fire/projectile-wave-arrow.webp',
-      description: '<p><strong>Ação Padrão:</strong> Todas as criaturas em um cone de 12m sofrem 14d12 pontos de dano de fogo e ficam em chamas (Reflexos CD 33 reduz o dano à metade e evita a condição). <em>Recarga: ação de movimento.</em></p>',
       execucao: 'padrao',
-      area: 'cone de 12m',
-      resistenciaPericia: 'refl',
-      resistenciaTxt: 'Reflexos CD 33 reduz à metade e evita ficar em chamas.',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*FWOOOOSH!*"</blockquote><p>Um turbilhão de chamas infernais jorra das mandíbulas do Lynel, transformando o solo em <span style="color: #800000; font-weight: bold;">cinzas incandescentes</span>.</p></div>',
+      custo: 0,
+      description: '<p>Todas as criaturas em um cone de 12m sofrem 14d12 pontos de dano de fogo e ficam em chamas (Reflexos CD 33 reduz o dano à metade e evita a condição). Recarga (movimento).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
       rolls: [
         {
           name: 'Dano de Fogo',
           key: 'dano0',
           type: 'dano',
-          parts: [['14d12', 'fogo', '']],
-          versatil: '',
-          adaptavel: ''
+          parts: [['14d12', 'fogo', '']]
+        }
+      ],
+      effects: [
+        {
+          name: 'Sopro de Fogo (Chamas CD 33)',
+          description: 'Cone de 12m causa 14d12 fogo e chamas (Reflexos CD 33 reduz metade e evita).',
+          transfer: true
         }
       ]
     }),
-    buildPowerItem({
+    buildSpecialPower({
       name: 'Brado Indomável',
       img: 'icons/magic/sonic/scream-wail-shout-red.webp',
-      description: '<p><strong>Ação Padrão:</strong> Se o Lynel ainda não tiver sido alvo da ação agredir, ele emite um rugido ameaçador que deixa todos os oponentes em alcance curto apavorados por 1d4+1 rodadas (Vontade CD 33 muda para abalado). <em>Efeito de Medo.</em></p>',
       execucao: 'padrao',
-      alcance: 'curto',
-      resistenciaPericia: 'vont',
-      resistenciaTxt: 'Vontade CD 33 muda para abalado.',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*ROOOOAAARRRRGH!*"</blockquote><p>O rugido ensurdecedor abala as próprias estruturas da terra e infunde <span style="color: #800000; font-weight: bold;">pavor nos corações dos mais bravos</span>.</p></div>',
-      rolls: [
+      custo: 0,
+      description: '<p>Se o Lynel ainda não tiver sido alvo da ação agredir, ele emite um rugido ameaçador que deixa todos os oponentes em alcance curto apavorados por 1d4+1 rodadas (Vontade CD 33 muda para abalado). Medo.</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Duração (Rodadas)',
-          key: 'formula0',
-          type: 'formula',
-          parts: [['1d4+1', '', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Brado Indomável (Apavorado/Abalado)',
+          description: 'Oponentes em alcance curto ficam apavorados 1d4+1 rodadas (Vontade CD 33 muda para abalado).',
+          transfer: true
         }
       ]
     }),
-    buildPowerItem({
-      name: 'Investida Galopante',
-      img: 'icons/skills/movement/horse-running-charging-flame.webp',
-      description: '<p><strong>Ação Completa:</strong> O Lynel faz uma investida. Ele pode passar pelo espaço ocupado por criaturas menores que ele, pode continuar se movendo depois do ataque e, se acertar, causa +4d10 pontos de dano. Criaturas no caminho percorrido pelo Lynel sofrem 1d12+10 pontos de dano de impacto e ficam caídas (Reflexos CD 33 evita).</p>',
-      execucao: 'completa',
-      resistenciaPericia: 'refl',
-      resistenciaTxt: 'Reflexos CD 33 evita 1d12+10 de dano de impacto e a condição caído.',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*TUM-DUM-TUM-DUM!*"</blockquote><p>O Lynel galopa como um meteoro vivo, <span style="color: #800000; font-weight: bold;">atropelando tudo em seu caminho</span>.</p></div>',
-      rolls: [
-        {
-          name: 'Dano Extra no Ataque',
-          key: 'danoExtra0',
-          type: 'dano',
-          parts: [['4d10', 'impacto', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano de Atropelamento',
-          key: 'danoAtropela1',
-          type: 'dano',
-          parts: [['1d12+10', 'impacto', '']],
-          versatil: '',
-          adaptavel: ''
-        }
-      ]
-    }),
-    buildPowerItem({
+    buildSpecialPower({
       name: 'Coice Oportuno',
-      img: 'icons/skills/melee/unarmed-kick-flaming.webp',
-      description: '<p><strong>Reação:</strong> Uma vez por rodada, quando uma criatura erra um ataque corpo a corpo contra o Lynel por 5 ou mais, ele causa 4d8+25 pontos de dano de impacto na criatura (Reflexos CD 33 evita). Se a criatura estava se beneficiando de flanquear o Lynel, ela é considerada desprevenida contra esse golpe.</p>',
-      execucao: 'reaction',
-      resistenciaPericia: 'refl',
-      resistenciaTxt: 'Reflexos CD 33 evita o dano de impacto.',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*WHAM!*"</blockquote><p>Com reflexos sobrenaturais, os cascos traseiros disparam em um <span style="color: #800000; font-weight: bold;">coice fulminante</span>.</p></div>',
+      img: 'icons/skills/melee/strike-kick-yellow.webp',
+      execucao: 'reacao',
+      custo: 0,
+      description: '<p>Uma vez por rodada, quando uma criatura erra um ataque corpo a corpo contra o Lynel por 5 ou mais, ele causa 4d8+25 pontos de dano de impacto na criatura (Reflexos CD 33 evita). Se a criatura estava se beneficiando de flanquear o Lynel, ela é considerada desprevenida contra esse golpe.</p>',
+      flavorPhrase: '',
+      flavorAction: '',
       rolls: [
         {
-          name: 'Dano do Coice',
+          name: 'Dano de Coice',
           key: 'dano0',
           type: 'dano',
-          parts: [['4d8+25', 'impacto', '']],
-          versatil: '',
-          adaptavel: ''
+          parts: [['4d8+25', 'impacto', '']]
+        }
+      ],
+      effects: [
+        {
+          name: 'Coice Oportuno',
+          description: 'Reação ao erro por 5+: 4d8+25 impacto (Reflexos CD 33 evita; desprevenido se flanqueava).',
+          transfer: true
         }
       ]
     }),
-    buildPowerItem({
-      name: 'Armamento Lynel',
-      img: 'icons/tools/smithing/anvil.webp',
-      description: '<p>O Lynel possui uma das seguintes opções de armamento:</p><ul><li><strong>Espada bastarda e escudo:</strong> (5d10+27, 19/x3). Uma vez por rodada, ao acertar um alvo, pode fazer uma manobra de combate como ação livre (teste +36).</li><li><strong>Alabarda:</strong> (5d10+27, x4). Quando acerta um ataque, o alvo é empurrado 3m na direção oposta ao Lynel e fica caído (Fortitude ou Reflexos CD 33 evita).</li><li><strong>Machado de guerra:</strong> (5d12+27, x4). Uma vez por rodada, ao acertar um ataque, o Lynel pode fazer um único ataque adicional com o machado contra outro alvo no alcance.</li><li><strong>Tacape:</strong> (6d10+27, x4). Quando acerta um ataque, o alvo fica atordoado (Reflexos CD 33 evita).</li></ul>',
-      execucao: 'passive',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><p>Mestre absoluto de armas ancestrais e forjadas com <span style="color: #800000; font-weight: bold;">letalidade incomparável</span>.</p></div>'
+    buildSpecialPower({
+      name: 'Investida Galopante',
+      img: 'icons/skills/movement/horse-running-charging-flame.webp',
+      execucao: 'completa',
+      custo: 0,
+      description: '<p>O Lynel faz uma investida. Ele pode passar pelo espaço ocupado por criaturas menores que ele, pode continuar se movendo depois do ataque e, se acertar, causa +4d10 pontos de dano. Criaturas no caminho percorrido pelo Lynel sofrem 1d12+10 pontos de dano de impacto e ficam caídas (Reflexos CD 33 evita).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      rolls: [
+        {
+          name: 'Dano de Atropelamento',
+          key: 'dano0',
+          type: 'dano',
+          parts: [['1d12+10', 'impacto', '']]
+        }
+      ],
+      effects: [
+        {
+          name: 'Investida Galopante (+4d10 Dano / Atropelamento)',
+          description: '+4d10 dano na investida; criaturas no caminho sofrem 1d12+10 impacto e ficam caídas (Ref CD 33 evita).',
+          transfer: true
+        }
+      ]
     })
   ];
 
-  const itemIdsLynel = [];
-  for (const item of lynelItems) {
-    itemIdsLynel.push(item._id);
-    await db.put(`!actors.items!${lynelId}.${item._id}`, item);
-  }
-
-  const lynelAtr = { for: 10, des: 8, con: 8, int: -1, sab: 5, car: -2 };
-  const lynelPericias = buildSkills(12, lynelAtr, {
-    inic: 18, perc: 16, fort: 26, refl: 20, vont: 12,
-    atle: 22, inti: 14, sobr: 20, luta: 36, pont: 32
+  const lynel = buildNpcActor({
+    id: lynelId,
+    name: 'Lynel',
+    nd: '12',
+    papel: 'solo',
+    tipoMonstro: 'mon',
+    raca: 'Monstro',
+    tamanho: 'eno',
+    folder: FOLDER_DB,
+    deslocamento: '15m (10q)',
+    sentidos: 'faro, visão na penumbra',
+    tesouro: 'Metade',
+    atributos: { for: 10, des: 8, con: 8, int: -1, sab: 5, car: -2 },
+    attributes: {
+      cd: 33,
+      pv: { value: 600, max: 600 },
+      pm: { value: 0, max: 0 },
+      defesa: { value: 43, base: 35 } // 35 + 8 = 43
+    },
+    resistencias: lynelTracos,
+    pericias: lynelSkills,
+    items: lynelItems,
+    ataquescac: 'Armamento Lynel x2 +36 e Mordida +36 (4d10+25, 19).',
+    ataquesad: 'Arco de guerra +32 x2 (4d12+25, x3).',
+    biography: lynelBio
   });
 
-  const lynelDoc = {
-    _id: lynelId,
-    name: 'Lynel',
-    type: 'npc',
-    img: 'icons/creatures/mammals/lion-prowling-glowing-red.webp',
-    system: {
-      atributos: {
-        for: { value: 10, base: 10, racial: 0, bonus: 0 },
-        des: { value: 8, base: 8, racial: 0, bonus: 0 },
-        con: { value: 8, base: 8, racial: 0, bonus: 0 },
-        int: { value: -1, base: -1, racial: 0, bonus: 0 },
-        sab: { value: 5, base: 5, racial: 0, bonus: 0 },
-        car: { value: -2, base: -2, racial: 0, bonus: 0 }
-      },
-      attributes: {
-        cd: 33,
-        pv: { value: 600, temp: 0, min: 0, max: 600 },
-        pm: { value: 0, temp: 0, min: 0, max: 0 },
-        defesa: {
-          atributo: 'des',
-          pda: 0,
-          value: 43,
-          base: 35, // 43 - Des (8) = 35 para que Foundry compute 35 + 8 = 43
-          outros: 0,
-          condi: 0,
-          bonus: []
-        },
-        carga: { value: 0, atributo: 'for', base: 0, bonus: [], max: 0, pct: 0, encumbered: false, limit: 0 },
-        sentidos: { value: [], custom: 'Faro, visão na penumbra' },
-        conjuracao: '',
-        nivel: { value: 12, xp: { value: 0, pct: 0, proximo: 0 } },
-        movement: {
-          burrow: { base: 0, bonus: [] },
-          climb: { base: 0, bonus: [] },
-          fly: { base: 0, bonus: [] },
-          swim: { base: 0, bonus: [] },
-          walk: { base: 15, bonus: [] },
-          hover: false,
-          unit: 'm',
-          tags: []
-        },
-        treino: 4,
-        nd: '12',
-        meionivel: 6
-      },
-      pericias: lynelPericias,
-      modificadores: {
-        custoPM: 0,
-        atributos: { for: [], des: [], con: [], int: [], sab: [], car: [], fisicos: [], mentais: [], geral: [] },
-        ataque: { geral: [], cac: [], ad: [] },
-        cura: { geral: [], mag: [] },
-        dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
-        pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
-      },
-      tracos: buildTracos({
-        tamanho: 'eno',
-        resistencias: { acido: 10, eletricidade: 10, fogo: 10, frio: 10 },
-        idiomasValue: ['comum']
-      }),
-      detalhes: {
-        biography: {
-          value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"Você ousa cruzar as fronteiras do meu território, verme? Deixe suas armas na relva e fuja agora, ou seu crânio adornará meu próximo tacape."<br><span style="font-weight: bold; color: #800000;">&mdash; Lynel, Fera Guardiã dos Ermos</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Pelas barbas de Arsenal e pela pena sagrada de Valkar! Aquilo não é um mero centauro! Ele disparava três flechas em chamas do tamanho de lanças e quando nos aproximamos, sacou um machado maior que uma carroça. Mal conseguimos escapar vivos escalando a colina!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Lynel</span> é uma criatura colossal de poder ancestral, dotado do corpo maciço de um corcel de guerra, torso humanoide couraçado de músculos de aço e a cabeça temível de um leão predador. Adaptado de <em>The Legend of Zelda</em> para <em>Tormenta20</em> (Dragão Brasil #227), o Lynel atua como um verdadeiro <strong>Chefe de Fase</strong> em encontros solo, combinando letalidade à distância com devastação marcial de perto.</p><p style="font-family: Arial, sans-serif; line-height: 1.6;">Diferente de feras selvagens desprovidas de inteligência, o Lynel possui astúcia militar incomparável: avalia intrusos à distância, dispara rajadas fulminantes com seu arco de guerra e fecha o espaço através de uma carga irresistível, antes de esmagar oponentes com armas atrozes e sopros incandescentes.</p>',
-          public: ''
-        },
-        origem: '',
-        info: '',
-        divindade: '',
-        raca: 'Monstro',
-        tipo: 'mon',
-        tamanho: 'eno',
-        equipamento: 'Arco de guerra (Heróis de Arton, p. 216) e um entre: alabarda atroz maciça, machado de guerra atroz maciço, tacape atroz maciço ou espada bastarda atroz maciça e escudo pesado reforçado.',
-        resistencias: 'Redução de ácido, eletricidade, fogo e frio 10',
-        idiomas: 'Comum',
-        tesouro: 'Metade',
-        role: 'solo',
-        ataquescac: 'Armamento Lynel x2 +36 e Mordida +36 (4d10+25, 19).',
-        movimento: '15m (10q)',
-        ataquesad: 'Arco de guerra x2 +32 (4d12+25, x3).'
-      }
-    },
-    items: itemIdsLynel,
-    folder: 'wfWApuyngzFm4KOP',
-    sort: 70000000,
-    ownership: { default: 0 },
-    flags: {},
-    _stats: statsHeader
-  };
-
-  await db.put(`!actors!${lynelId}`, lynelDoc);
-  console.log('✓ Lynel atualizado com 100% dos padrões!');
+  await db.put(`!actors!${lynelId}`, lynel.actorDoc);
+  for (const ed of lynel.embeddedDocs) {
+    await db.put(ed.key, ed.doc);
+  }
+  saveToSourcePacks('Ameacas_T20', lynel.actorDoc, lynel.embeddedDocs);
+  console.log(`✓ Ator "Lynel (ND 12)" salvo com ${lynel.actorDoc.items.length} ataques/poderes embutidos.`);
 
   // -------------------------------------------------------------
-  // THREAT 2: OXXDON (ND 2)
+  // 2. OXXDON (ND 2) - Monstro Médio
   // -------------------------------------------------------------
   const oxxdonId = 'KnUyjOaSBfGcl48v';
-  console.log(`Atualizando Oxxdon canônico [${oxxdonId}]...`);
+  console.log(`Atualizando Oxxdon [${oxxdonId}]...`);
 
-  // Limpar itens antigos
   for await (const [key] of db.iterator()) {
     if (key.startsWith(`!actors.items!${oxxdonId}.`)) {
       await db.del(key);
     }
   }
 
+  const oxxdonSkills = buildSkills(2, { for: 0, des: 4, con: 2, int: -4, sab: 1, car: -1 }, {
+    inic: 7,
+    perc: 4,
+    fort: 7,
+    refl: 13,
+    vont: 2,
+    luta: 12
+  });
+
+  const oxxdonTracos = buildTracos({
+    tamanho: 'med',
+    resistencias: {},
+    idiomasValue: []
+  });
+
+  const oxxdonBio = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*TZZZZT!* &mdash; O estalo cáustico de aço temperado dissolvendo-se em ferrugem instantânea."<br><span style="font-weight: bold; color: #800000;">&mdash; O som do desarmamento</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Minha picareta favorita virou pó marrom em menos de dois segundos! Essas toupeiras carnívoras não se importam com o seu escudo de adamante; para elas, metal é só aperitivo crocante. Levem porretes de madeira ou fiquem sem espada."<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Oxxdon</span> é uma criatura subterrânea bizarra e temida por qualquer aventureiro dependente de equipamentos metálicos. Suas antenas liberam secreções catalíticas capazes de oxidar instantaneamente armas, armaduras e até membros de golens, reduzindo ferro e aço a cascalho podre em segundos.</p>`;
+
   const oxxdonItems = [
-    buildWeaponItem({
-      name: 'Antena',
-      img: 'icons/creatures/invertebrates/centipede-segmented-green.webp',
-      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Toque da antena +12 (ferrugem). Destrói automaticamente qualquer objeto de metal não mágico atingido (itens mágicos têm Fortitude CD 16 para evitar).</p>',
-      proficiencia: 'natural',
-      empunhadura: 'uma',
-      criticoM: 20,
-      criticoX: 2,
-      proposito: 'corpo-a-corpo',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*Pssshhhh...*"</blockquote><p>A antena do Oxxdon toca a lâmina metálica, dissolvendo-a em uma <span style="color: #800000; font-weight: bold;">chuva de pó alaranjado</span>.</p></div>',
-      rolls: [
-        {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        }
-      ]
-    }),
-    buildWeaponItem({
+    buildWeaponAttack({
       name: 'Mordida',
       img: 'icons/creatures/abilities/mouth-teeth-fangs.webp',
-      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> 1d8+10 perfuração, crítico 20/x2.</p>',
-      proficiencia: 'natural',
-      empunhadura: 'uma',
-      criticoM: 20,
-      criticoX: 2,
-      proposito: 'corpo-a-corpo',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*CRUNCH!*"</blockquote><p>Mandíbulas quitinosas fecham-se famintas por carne e <span style="color: #800000; font-weight: bold;">minerais digeridos</span>.</p></div>',
-      rolls: [
+      dano: '1d8+10',
+      tipoDano: 'perfuracao',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Corpo a Corpo:</strong> Mordida +12 (1d8+10 perfuração).</p>',
+      flavorPhrase: '',
+      flavorAction: ''
+    }),
+    buildWeaponAttack({
+      name: 'Antena',
+      img: 'icons/creatures/tentacles/tentacle-glowing-green.webp',
+      dano: '0',
+      tipoDano: 'impacto',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Corpo a Corpo:</strong> Antena +12 (ferrugem).</p>',
+      flavorPhrase: '',
+      flavorAction: ''
+    }),
+    buildSpecialPower({
+      name: 'Ferrugem',
+      img: 'icons/commodities/materials/ore-chunk-rust.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>A antena do oxxdon destrói automaticamente qualquer objeto de metal atingido. Uma arma de metal que cause dano a um oxxdon também é destruída imediatamente (itens mágicos têm direito a um teste de Fortitude contra CD 16 para evitar). Contra criaturas de metal (como golens), a antena deixa o alvo fatigado, então exausto, então paralisado (mesmo que seja imune a estas condições; Fort CD 16 evita). Remover cada uma destas condições da criatura exige uma hora de trabalho, o gasto de T$ 50 em materiais e passar em um teste de Ofício (artesão) contra CD 20.</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['1d8+10', 'perfuracao', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Ferrugem (Destruição de Metal / Condições em Golens)',
+          description: 'Destrói objetos de metal atingidos; em criaturas de metal, causa fatigado/exausto/paralisado (Fort CD 16 evita).',
+          transfer: true
         }
       ]
-    }),
-    buildPowerItem({
-      name: 'Ferrugem',
-      img: 'icons/magic/acid/dissolve-armored-plate.webp',
-      description: '<p>A antena do oxxdon destrói automaticamente qualquer objeto de metal não mágico atingido. Uma arma de metal que cause dano a um oxxdon também é destruída imediatamente. Itens mágicos têm direito a um teste de Fortitude (CD 16) para evitar a destruição. Contra criaturas de metal (como golens), a antena deixa o alvo fatigado, então exausto, então paralisado (mesmo que seja imune a essas condições; Fort CD 16 evita).</p><p>Remover cada uma destas condições da criatura exige uma hora de trabalho, o gasto de T$ 50 em materiais e passar em um teste de Ofício (artesão) contra CD 20.</p>',
-      execucao: 'passive',
-      resistenciaPericia: 'fort',
-      resistenciaTxt: 'Fortitude CD 16 evita destruição de itens mágicos ou paralisia em construtos.',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"Tudo o que a forja ergueu, a fome de Megalokk consome."</blockquote><p>O ácido oxidante da carapaça desfaz armaduras como se fossem <span style="color: #800000; font-weight: bold;">cinzas ao vento</span>.</p></div>'
     })
   ];
 
-  const itemIdsOxxdon = [];
-  for (const item of oxxdonItems) {
-    itemIdsOxxdon.push(item._id);
-    await db.put(`!actors.items!${oxxdonId}.${item._id}`, item);
-  }
-
-  const oxxdonAtr = { for: 0, des: 4, con: 2, int: -4, sab: 1, car: -1 };
-  const oxxdonPericias = buildSkills(2, oxxdonAtr, {
-    inic: 7, perc: 4, fort: 7, refl: 13, vont: 2, luta: 12
+  const oxxdon = buildNpcActor({
+    id: oxxdonId,
+    name: 'Oxxdon',
+    nd: '2',
+    papel: 'solo',
+    tipoMonstro: 'mon',
+    raca: 'Monstro',
+    tamanho: 'med',
+    folder: FOLDER_DB,
+    deslocamento: '12m (8q)',
+    sentidos: 'faro, visão no escuro',
+    tesouro: 'Nenhum',
+    atributos: { for: 0, des: 4, con: 2, int: -4, sab: 1, car: -1 },
+    attributes: {
+      cd: 16,
+      pv: { value: 72, max: 72 },
+      pm: { value: 0, max: 0 },
+      defesa: { value: 20, base: 16 } // 16 + 4 = 20
+    },
+    resistencias: oxxdonTracos,
+    pericias: oxxdonSkills,
+    items: oxxdonItems,
+    ataquescac: 'Antena +12 (ferrugem) e mordida +12 (1d8+10).',
+    biography: oxxdonBio
   });
 
-  const oxxdonDoc = {
-    _id: oxxdonId,
-    name: 'Oxxdon',
-    type: 'npc',
-    img: 'icons/svg/mole.svg',
-    system: {
-      atributos: {
-        for: { value: 0, base: 0, racial: 0, bonus: 0 },
-        des: { value: 4, base: 4, racial: 0, bonus: 0 },
-        con: { value: 2, base: 2, racial: 0, bonus: 0 },
-        int: { value: -4, base: -4, racial: 0, bonus: 0 },
-        sab: { value: 1, base: 1, racial: 0, bonus: 0 },
-        car: { value: -1, base: -1, racial: 0, bonus: 0 }
-      },
-      attributes: {
-        cd: 16,
-        pv: { value: 72, temp: 0, min: 0, max: 72 },
-        pm: { value: 0, temp: 0, min: 0, max: 0 },
-        defesa: {
-          atributo: 'des',
-          pda: 0,
-          value: 20,
-          base: 16, // 20 - Des (4) = 16 para que Foundry compute 16 + 4 = 20
-          outros: 0,
-          condi: 0,
-          bonus: []
-        },
-        carga: { value: 0, atributo: 'for', base: 0, bonus: [], max: 0, pct: 0, encumbered: false, limit: 0 },
-        sentidos: { value: [], custom: 'Faro, visão no escuro' },
-        conjuracao: '',
-        nivel: { value: 2, xp: { value: 0, pct: 0, proximo: 0 } },
-        movement: {
-          burrow: { base: 0, bonus: [] },
-          climb: { base: 0, bonus: [] },
-          fly: { base: 0, bonus: [] },
-          swim: { base: 0, bonus: [] },
-          walk: { base: 12, bonus: [] },
-          hover: false,
-          unit: 'm',
-          tags: []
-        },
-        treino: 2,
-        nd: '2',
-        meionivel: 1
-      },
-      pericias: oxxdonPericias,
-      modificadores: {
-        custoPM: 0,
-        atributos: { for: [], des: [], con: [], int: [], sab: [], car: [], fisicos: [], mentais: [], geral: [] },
-        ataque: { geral: [], cac: [], ad: [] },
-        cura: { geral: [], mag: [] },
-        dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
-        pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
-      },
-      tracos: buildTracos({
-        tamanho: 'med',
-        idiomasCustom: 'Nenhum'
-      }),
-      detalhes: {
-        biography: {
-          value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Som gutural de quelíceras triturando ferro enferrujado...*"<br><span style="font-weight: bold; color: #800000;">&mdash; Oxxdon</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Primeiro foi a fivela do meu cinto. Depois a ponta da minha bota. Quando vi, meu tinteiro de metal tinha virado pó! Tive que escrever o resto da matéria com suco de amora num pedaço de casca de árvore. A civilização é frágil, leitores!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Oxxdon</span>, popularmente apelidado de "monstro da ferrugem", é uma monstruosidade insetoide réptil venerada pelo ódio de Megalokk contra o aço civilizado. Suas antenas secretam um agente catalítico capaz de dissolver qualquer forja de metal em questão de segundos, tornando-o o pior pesadelo de Zakharov e de guerreiros de armadura pesada.</p>',
-          public: ''
-        },
-        origem: '',
-        info: '',
-        divindade: 'Megalokk',
-        raca: 'Monstro',
-        tipo: 'mon',
-        tamanho: 'med',
-        equipamento: 'Nenhum.',
-        resistencias: 'Nenhuma',
-        idiomas: 'Nenhum',
-        tesouro: 'Nenhum.',
-        role: 'special',
-        ataquescac: 'Antena +12 (ferrugem) e mordida +12 (1d8+10).',
-        movimento: '12m (8q)',
-        ataquesad: ''
-      }
-    },
-    items: itemIdsOxxdon,
-    folder: 'wfWApuyngzFm4KOP',
-    sort: 71000000,
-    ownership: { default: 0 },
-    flags: {},
-    _stats: statsHeader
-  };
-
-  await db.put(`!actors!${oxxdonId}`, oxxdonDoc);
-  console.log('✓ Oxxdon atualizado com 100% dos padrões!');
+  await db.put(`!actors!${oxxdonId}`, oxxdon.actorDoc);
+  for (const ed of oxxdon.embeddedDocs) {
+    await db.put(ed.key, ed.doc);
+  }
+  saveToSourcePacks('Ameacas_T20', oxxdon.actorDoc, oxxdon.embeddedDocs);
+  console.log(`✓ Ator "Oxxdon (ND 2)" salvo com ${oxxdon.actorDoc.items.length} ataques/poderes embutidos.`);
 
   // -------------------------------------------------------------
-  // THREAT 3: ENXAME DE ARMAS (ND 4)
+  // 3. ENXAME DE ARMAS (ND 4) - Construto Grande (2x2)
   // -------------------------------------------------------------
   const enxameId = 'XEdZUz2ETKvxvjZH';
   console.log(`Atualizando Enxame de Armas [${enxameId}]...`);
@@ -909,165 +429,94 @@ async function rebuildThreats() {
     }
   }
 
+  const enxameSkills = buildSkills(4, { for: 4, des: 2, con: 2, int: 0, sab: 0, car: -5 }, {
+    inic: 6,
+    perc: 4,
+    fort: 15,
+    refl: 10,
+    vont: 5,
+    luta: 16
+  });
+
+  const enxameTracos = buildTracos({
+    tamanho: 'gra',
+    resistencias: { dano: 5 },
+    icValue: ['manobra'],
+    idiomasValue: []
+  });
+
+  const enxameBio = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*CLANG! CLANG! SWISH!* &mdash; Dezenas de lâminas dançam no ar sem empunhaduras, guiadas pelo ódio ancestral da guerra."<br><span style="font-weight: bold; color: #800000;">&mdash; Tempestade de Aço</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Entrar em uma sala tomada por um enxame desses é como pular de cabeça dentro de um moedor de carne com lâminas voadoras. Flechas e estocadas passam direto pelo meio deles. A única salvação é fogo em área ou correr até a porta mais espessa."<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Enxame de Armas</span> é um construto bando animado por magias arcanas antigas ou pela impregnação de espíritos de guerreiros caídos. Formado por dezenas de espadas, lanças, machados e adagas que flutuam em sincronia, dilacera quem cruza seu caminho enquanto apara ataques inimigos com coordenação mecânica perfeita.</p>`;
+
   const enxameItems = [
-    buildPowerItem({
-      name: 'Enxame de Armas',
-      img: 'icons/weapons/swords/swords-clashing-steel.webp',
-      description: '<p>O enxame de armas é um aglomerado de objetos animados que agem em conjunto. Ele pode entrar no espaço ocupado por um personagem e, no fim de seu turno, causa <strong>1d10 pontos de dano de corte</strong>, <strong>1d6 pontos de dano de perfuração</strong> e <strong>1d8 pontos de dano de impacto</strong> a qualquer personagem em seu espaço, automaticamente.</p><p>O enxame é imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano, mas sofre 50% a mais de dano de efeitos de área, como Bola de Fogo. Além disso, sofre apenas metade do dano de ataques com armas. Estar dentro do enxame conta como condição ruim para lançar magias.</p>',
+    buildSpecialPower({
+      name: 'Enxame',
+      img: 'icons/skills/melee/weapons-crossed-swords-yellow.webp',
       execucao: 'passive',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*KLANG-CLANG-SHRRRK!*"</blockquote><p>Lâminas, machados e maças voam em vórtice, retalhando e triturando quem estiver em seu <span style="color: #800000; font-weight: bold;">epicentro metálico</span>.</p></div>',
-      rolls: [
+      custo: 0,
+      description: '<p>O enxame de armas é um aglomerado de objetos animados que agem em conjunto. Ele pode entrar no espaço ocupado por um personagem e, no fim de seu turno, causa 1d10 pontos de dano de corte, 1d6 pontos de dano de perfuração e 1d8 pontos de dano de impacto a qualquer personagem em seu espaço, automaticamente. O enxame é imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano, mas sofrem 50% a mais de dano de efeitos de área, como Bola de Fogo. Além disso, sofre apenas metade do dano de ataques com armas. Estar dentro do enxame conta como condição ruim para lançar magias.</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Dano de Corte',
-          key: 'danoCorte0',
-          type: 'dano',
-          parts: [['1d10', 'corte', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano de Perfuração',
-          key: 'danoPerf1',
-          type: 'dano',
-          parts: [['1d6', 'perfuracao', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano de Impacto',
-          key: 'danoImp2',
-          type: 'dano',
-          parts: [['1d8', 'impacto', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Enxame de Armas (Dano em Área por Turno)',
+          description: 'Causa 1d10 corte, 1d6 perfuração e 1d8 impacto no fim do turno a criaturas no mesmo espaço.',
+          transfer: true
         }
       ]
     }),
-    buildPowerItem({
+    buildSpecialPower({
       name: 'Aparar',
-      img: 'icons/skills/melee/shield-block-spikes.webp',
-      description: '<p><strong>Reação:</strong> Uma vez por rodada, quando é alvo de um ataque corpo a corpo, o enxame de armas pode fazer um teste de ataque e subtrair seu resultado do dano causado pelo ataque (teste +16).</p>',
-      execucao: 'reaction',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*CLINK!*"</blockquote><p>Uma espada espectral desvia o golpe com um <span style="color: #800000; font-weight: bold;">bloqueio mecânico perfeito</span>.</p></div>',
-      rolls: [
+      img: 'icons/skills/melee/shield-block-blade-yellow.webp',
+      execucao: 'reacao',
+      custo: 0,
+      description: '<p>Uma vez por rodada, quando é alvo de um ataque corpo a corpo, o enxame de arma pode fazer um teste de ataque e subtrair seu resultado do dano causado pelo ataque (teste +16).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Teste de Aparar',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Aparar Reativo',
+          description: 'Uma vez por rodada, reage com teste de ataque (+16) subtraindo o resultado do dano recebido.',
+          transfer: true
         }
       ]
     })
   ];
 
-  const itemIdsEnxame = [];
-  for (const item of enxameItems) {
-    itemIdsEnxame.push(item._id);
-    await db.put(`!actors.items!${enxameId}.${item._id}`, item);
-  }
-
-  const enxameAtr = { for: 4, des: 2, con: 2, int: 0, sab: 0, car: -5 };
-  const enxamePericias = buildSkills(4, enxameAtr, {
-    inic: 6, perc: 4, furt: 8, fort: 15, refl: 10, vont: 5, luta: 16
+  const enxame = buildNpcActor({
+    id: enxameId,
+    name: 'Enxame de Armas',
+    nd: '4',
+    papel: 'solo',
+    tipoMonstro: 'con',
+    raca: 'Construto',
+    tamanho: 'gra',
+    folder: FOLDER_DB,
+    deslocamento: 'voo 9m (6q)',
+    sentidos: 'percepção às cegas',
+    tesouro: 'Dobro (apenas armas)',
+    atributos: { for: 4, des: 2, con: 2, int: 0, sab: 0, car: -5 },
+    attributes: {
+      cd: 0,
+      pv: { value: 140, max: 140 },
+      pm: { value: 0, max: 0 },
+      defesa: { value: 22, base: 20 } // 20 + 2 = 22
+    },
+    resistencias: enxameTracos,
+    pericias: enxameSkills,
+    items: enxameItems,
+    ataquescac: 'Enxame (1d10 corte + 1d6 perfuração + 1d8 impacto).',
+    biography: enxameBio
   });
 
-  const enxameDoc = {
-    _id: enxameId,
-    name: 'Enxame de Armas',
-    type: 'npc',
-    img: 'icons/weapons/swords/swords-clashing-steel.webp',
-    system: {
-      atributos: {
-        for: { value: 4, base: 4, racial: 0, bonus: 0 },
-        des: { value: 2, base: 2, racial: 0, bonus: 0 },
-        con: { value: 2, base: 2, racial: 0, bonus: 0 },
-        int: { value: 0, base: 0, racial: 0, bonus: 0 },
-        sab: { value: 0, base: 0, racial: 0, bonus: 0 },
-        car: { value: -5, base: -5, racial: 0, bonus: 0 }
-      },
-      attributes: {
-        cd: 0,
-        pv: { value: 140, temp: 0, min: 0, max: 140 },
-        pm: { value: 0, temp: 0, min: 0, max: 0 },
-        defesa: {
-          atributo: 'des',
-          pda: 0,
-          value: 22,
-          base: 20, // 22 - Des (2) = 20 para que Foundry compute 20 + 2 = 22
-          outros: 0,
-          condi: 0,
-          bonus: []
-        },
-        carga: { value: 0, atributo: 'for', base: 0, bonus: [], max: 0, pct: 0, encumbered: false, limit: 0 },
-        sentidos: { value: [], custom: 'Percepção às cegas' },
-        conjuracao: '',
-        nivel: { value: 4, xp: { value: 0, pct: 0, proximo: 0 } },
-        movement: {
-          burrow: { base: 0, bonus: [] },
-          climb: { base: 0, bonus: [] },
-          fly: { base: 9, bonus: [] },
-          swim: { base: 0, bonus: [] },
-          walk: { base: 0, bonus: [] },
-          hover: true,
-          unit: 'm',
-          tags: []
-        },
-        treino: 2,
-        nd: '4',
-        meionivel: 2
-      },
-      pericias: enxamePericias,
-      modificadores: {
-        custoPM: 0,
-        atributos: { for: [], des: [], con: [], int: [], sab: [], car: [], fisicos: [], mentais: [], geral: [] },
-        ataque: { geral: [], cac: [], ad: [] },
-        cura: { geral: [], mag: [] },
-        dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
-        pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
-      },
-      tracos: buildTracos({
-        tamanho: 'gra',
-        resistencias: { dano: 5 },
-        icValue: ['mental', 'veneno', 'sono', 'paralisado', 'atordoado', 'fadiga', 'exausto'],
-        icCustom: 'Imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano; sofre metade do dano de ataques com armas; vulnerabilidade (+50% de dano) a efeitos de área.',
-        idiomasCustom: 'Nenhum'
-      }),
-      detalhes: {
-        biography: {
-          value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Tinir incessante de cem lâminas levitando no ar frio...*"<br><span style="font-weight: bold; color: #800000;">&mdash; Enxame de Armas</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Achei que o chão estava apenas atulhado de lixo militar antigo... até que cada adaga e machado começou a flutuar ao mesmo tempo! O ar zunia como uma nuvem de vespas de aço!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Enxame de Armas</span> é uma manifestação arcana e ódio concentrado que assombra as ruínas do Castelo Zweihardt em Zakharov. Composto por dezenas de espadas, machados, alabardas e adagas forjadas por artesãos há muito esquecidos, o enxame engolfa seus alvos em um vórtice impiedoso de lâminas voadoras.</p>',
-          public: ''
-        },
-        origem: '',
-        info: '',
-        divindade: '',
-        raca: 'Construto',
-        tipo: 'con',
-        tamanho: 'gra',
-        equipamento: 'Arsenal variado de armas simples e marciais antigas.',
-        resistencias: 'Redução de dano 5, metade do dano de ataques com armas, vulnerabilidade a dano de área (+50%), imune a manobras e efeitos de alvo único sem dano.',
-        idiomas: 'Nenhum',
-        tesouro: 'Dobro (apenas armas).',
-        role: 'padrao',
-        ataquescac: 'Enxame (1d10 corte + 1d6 perfuração + 1d8 impacto, fim do turno).',
-        movimento: 'voo 9m (6q)',
-        ataquesad: ''
-      }
-    },
-    items: itemIdsEnxame,
-    folder: 'wfWApuyngzFm4KOP',
-    sort: 72000000,
-    ownership: { default: 0 },
-    flags: {},
-    _stats: statsHeader
-  };
-
-  await db.put(`!actors!${enxameId}`, enxameDoc);
-  console.log('✓ Enxame de Armas atualizado com 100% dos padrões!');
+  await db.put(`!actors!${enxameId}`, enxame.actorDoc);
+  for (const ed of enxame.embeddedDocs) {
+    await db.put(ed.key, ed.doc);
+  }
+  saveToSourcePacks('Ameacas_T20', enxame.actorDoc, enxame.embeddedDocs);
+  console.log(`✓ Ator "Enxame de Armas (ND 4)" salvo com ${enxame.actorDoc.items.length} poderes embutidos.`);
 
   // -------------------------------------------------------------
-  // THREAT 4: TROPA DE MORTOS (ND 5)
+  // 4. TROPA DE MORTOS (ND 5) - Morto-vivo Grande (2x2)
   // -------------------------------------------------------------
   const tropaId = 'ZB0VONjuE8XS5gmH';
   console.log(`Atualizando Tropa de Mortos [${tropaId}]...`);
@@ -1078,153 +527,90 @@ async function rebuildThreats() {
     }
   }
 
+  const tropaSkills = buildSkills(5, { for: 5, des: 3, con: 0, int: 0, sab: 0, car: -5 }, {
+    inic: 9,
+    perc: 5,
+    fort: 6,
+    refl: 11,
+    vont: 16,
+    luta: 20
+  });
+
+  const tropaTracos = buildTracos({
+    tamanho: 'gra',
+    resistencias: { corte: 5, frio: 5, perfuracao: 5 },
+    icValue: ['manobra'],
+    idiomasValue: []
+  });
+
+  const tropaBio = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*CLAC-CLAC-CLAC!* &mdash; O bater sincrônico de centenas de ossos descalços avançando em formação de falange implacável."<br><span style="font-weight: bold; color: #800000;">&mdash; Marcha dos Esquecidos</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Um esqueleto sozinho é piada de taverna. Trinta deles marchando ombro a ombro com escudos trancados e espadas afiadas é pesadelo de general. Se você tentar quebrar a linha de frente deles sem apoio pesado, a tropa simplesmente passa por cima como um rolo compressor de cálcio."<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">A <span style="color: #800000; font-weight: bold;">Tropa de Mortos</span> representa uma unidade militar inteira de esqueletos de infantaria preservada pelo poder necromântico. Lutando com a rígida disciplina de uma falange ancestral, seus ataques combinados causam dano estarrecedor e sua massa compacta bloqueia investidas individuais com facilidade aterradora.</p>`;
+
   const tropaItems = [
-    buildWeaponItem({
-      name: 'Espada Longa da Tropa',
-      img: 'icons/weapons/swords/sword-broad-worn.webp',
-      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 4d8+18, crítico 19/x2 (corte). Se o ataque exceder a Defesa do inimigo por 10 ou mais, causa o dobro do dano. Se errar, ainda causa metade do dano.</p>',
-      proficiencia: 'marcial',
-      empunhadura: 'uma',
-      criticoM: 19,
-      criticoX: 2,
-      ataques: 2,
-      proposito: 'corpo-a-corpo',
-      size: 'aumentada',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*Passos sincronizados de botas de ferro...*"</blockquote><p>Uma fileira de lâminas desaba em uníssono, com a <span style="color: #800000; font-weight: bold;">disciplina macabra de um pelotão eterno</span>.</p></div>',
-      rolls: [
+    buildWeaponAttack({
+      name: 'Espada Longa',
+      img: 'icons/weapons/swords/sword-broad-crystal.webp',
+      dano: '4d8+18',
+      tipoDano: 'corte',
+      periciaAtaque: 'luta',
+      criticoMargem: 19,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Corpo a Corpo:</strong> Espada longa x2 +20 (4d8+18, 19 corte).</p>',
+      flavorPhrase: '',
+      flavorAction: ''
+    }),
+    buildSpecialPower({
+      name: 'Bando',
+      img: 'icons/skills/melee/weapons-crossed-swords-yellow.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>A tropa de mortos é formada por um grupo de esqueletos. Se um ataque da tropa exceder a Defesa do Inimigo por 10 ou mais, ele causa o dobro do dano. Se um ataque da tropa errar, ele ainda causa metade do dano. A falange é imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano, mas sofre 50% a mais de dano de efeitos de área, como Bola de Fogo. Um personagem com poder Trespassar que acerte a tropa pode usá-lo para fazer um ataque adicional contra ela (mas apenas uma vez por turno).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
         {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['4d8+18', 'corte', '']],
-          versatil: '',
-          adaptavel: ''
+          name: 'Bando de Falange',
+          description: 'Causa dano dobrado se exceder a Defesa por 10+, ou metade do dano no erro; imune a manobras.',
+          transfer: true
         }
       ]
-    }),
-    buildPowerItem({
-      name: 'Bando',
-      img: 'icons/skills/movement/formation-military-marching-white.webp',
-      description: '<p>A tropa de mortos é formada por um grupo de esqueletos combatendo em formação cerrada. Se um ataque da tropa exceder a Defesa do Inimigo por 10 ou mais, ele causa o dobro do dano. Se um ataque da tropa errar, ele ainda causa metade do dano.</p><p>A falange é imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano, mas sofre 50% a mais de dano de efeitos de área, como Bola de Fogo. Um personagem com poder Trespassar que acerte a tropa pode usá-lo para fazer um ataque adicional contra ela (mas apenas uma vez por turno).</p>',
-      execucao: 'passive',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"Nossas fileiras não se quebram. Nossa vigília não tem fim."</blockquote><p>Os escudos se intertravam formando uma <span style="color: #800000; font-weight: bold;">parede impenetrável de ossos e ferro</span>.</p></div>'
     })
   ];
 
-  const itemIdsTropa = [];
-  for (const item of tropaItems) {
-    itemIdsTropa.push(item._id);
-    await db.put(`!actors.items!${tropaId}.${item._id}`, item);
-  }
-
-  const tropaAtr = { for: 5, des: 3, con: 0, int: 0, sab: 0, car: -5 };
-  const tropaPericias = buildSkills(5, tropaAtr, {
-    inic: 9, perc: 5, fort: 6, refl: 11, vont: 16, luta: 20
+  const tropa = buildNpcActor({
+    id: tropaId,
+    name: 'Tropa de Mortos',
+    nd: '5',
+    papel: 'solo',
+    tipoMonstro: 'mor',
+    raca: 'Morto-vivo',
+    tamanho: 'gra',
+    folder: FOLDER_DB,
+    deslocamento: '9m (6q)',
+    sentidos: 'visão no escuro',
+    tesouro: 'Nenhum',
+    atributos: { for: 5, des: 3, con: 0, int: 0, sab: 0, car: -5 },
+    attributes: {
+      cd: 0,
+      pv: { value: 40, max: 40 },
+      pm: { value: 0, max: 0 },
+      defesa: { value: 24, base: 21 } // 21 + 3 = 24
+    },
+    resistencias: tropaTracos,
+    pericias: tropaSkills,
+    items: tropaItems,
+    ataquescac: 'Espada longa x2 +20 (4d8+18, 19).',
+    biography: tropaBio
   });
 
-  const tropaDoc = {
-    _id: tropaId,
-    name: 'Tropa de Mortos',
-    type: 'npc',
-    img: 'icons/creatures/magical/construct-stone-gargoyle.webp',
-    system: {
-      atributos: {
-        for: { value: 5, base: 5, racial: 0, bonus: 0 },
-        des: { value: 3, base: 3, racial: 0, bonus: 0 },
-        con: { value: 0, base: 0, racial: 0, bonus: 0 },
-        int: { value: 0, base: 0, racial: 0, bonus: 0 },
-        sab: { value: 0, base: 0, racial: 0, bonus: 0 },
-        car: { value: -5, base: -5, racial: 0, bonus: 0 }
-      },
-      attributes: {
-        cd: 0,
-        pv: { value: 40, temp: 0, min: 0, max: 40 },
-        pm: { value: 0, temp: 0, min: 0, max: 0 },
-        defesa: {
-          atributo: 'des',
-          pda: 0,
-          value: 24,
-          base: 21, // 24 - Des (3) = 21 para que Foundry compute 21 + 3 = 24
-          outros: 0,
-          condi: 0,
-          bonus: []
-        },
-        carga: { value: 0, atributo: 'for', base: 0, bonus: [], max: 0, pct: 0, encumbered: false, limit: 0 },
-        sentidos: { value: [], custom: 'Visão no escuro' },
-        conjuracao: '',
-        nivel: { value: 5, xp: { value: 0, pct: 0, proximo: 0 } },
-        movement: {
-          burrow: { base: 0, bonus: [] },
-          climb: { base: 0, bonus: [] },
-          fly: { base: 0, bonus: [] },
-          swim: { base: 0, bonus: [] },
-          walk: { base: 9, bonus: [] },
-          hover: false,
-          unit: 'm',
-          tags: []
-        },
-        treino: 2,
-        nd: '5',
-        meionivel: 2
-      },
-      pericias: tropaPericias,
-      modificadores: {
-        custoPM: 0,
-        atributos: { for: [], des: [], con: [], int: [], sab: [], car: [], fisicos: [], mentais: [], geral: [] },
-        ataque: { geral: [], cac: [], ad: [] },
-        cura: { geral: [], mag: [] },
-        dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
-        pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
-      },
-      tracos: buildTracos({
-        tamanho: 'gra',
-        resistencias: { corte: 5, frio: 5, perfuracao: 5 },
-        icValue: ['cansaco', 'metabolismo', 'veneno', 'sono', 'paralisado', 'atordoado', 'fadiga', 'exausto', 'mental'],
-        icCustom: 'Imune a manobras de combate e efeitos que afetam apenas uma criatura e não causam dano; vulnerabilidade (+50% de dano) a efeitos de área.',
-        idiomasCustom: 'Nenhum'
-      }),
-      detalhes: {
-        biography: {
-          value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*O ranger ritmado de ossos ressequidos batendo contra armaduras amassadas...*"<br><span style="font-weight: bold; color: #800000;">&mdash; Tropa de Mortos</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Eles marcham como um batalhão vivo da antiga Supremacia! Mesmo sem carne nas órbitas, você sente aquele ódio intolerante fixado em qualquer um que não se pareça com eles. Derrubar um não adianta: há três outros cobrindo a brecha!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">A <span style="color: #800000; font-weight: bold;">Tropa de Mortos</span> é uma falange militar de esqueletos sob comando necromântico nas terras de Zakharov. Combatem com a disciplina implacável de soldados veteranos: erguem escudos pesados e desferem investidas coordenadas com espadas longas, operando como um organismo único no campo de batalha.</p>',
-          public: ''
-        },
-        origem: '',
-        info: '',
-        divindade: '',
-        raca: 'Morto-vivo',
-        tipo: 'mor',
-        tamanho: 'gra',
-        equipamento: 'Escudo pesado, espada longa.',
-        resistencias: 'Redução de corte, frio e perfuração 5, vulnerabilidade a dano de área (+50%), imune a manobras e efeitos de alvo único sem dano.',
-        idiomas: 'Nenhum',
-        tesouro: 'Nenhum.',
-        role: 'padrao',
-        ataquescac: 'Espada longa x2 +20 (4d8+18, 19).',
-        movimento: '9m (6q)',
-        ataquesad: ''
-      }
-    },
-    items: itemIdsTropa,
-    folder: 'wfWApuyngzFm4KOP',
-    sort: 73000000,
-    ownership: { default: 0 },
-    flags: {},
-    _stats: statsHeader
-  };
-
-  await db.put(`!actors!${tropaId}`, tropaDoc);
-  console.log('✓ Tropa de Mortos atualizada com 100% dos padrões!');
+  await db.put(`!actors!${tropaId}`, tropa.actorDoc);
+  for (const ed of tropa.embeddedDocs) {
+    await db.put(ed.key, ed.doc);
+  }
+  saveToSourcePacks('Ameacas_T20', tropa.actorDoc, tropa.embeddedDocs);
+  console.log(`✓ Ator "Tropa de Mortos (ND 5)" salvo com ${tropa.actorDoc.items.length} ataques/poderes embutidos.`);
 
   // -------------------------------------------------------------
-  // THREAT 5: INUMANO (ND 6)
+  // 5. INUMANO (ND 6) - Morto-vivo Médio
   // -------------------------------------------------------------
   const inumanoId = 'po00j60czLdn1eu5';
   console.log(`Atualizando Inumano [${inumanoId}]...`);
@@ -1235,202 +621,112 @@ async function rebuildThreats() {
     }
   }
 
+  const inumanoSkills = buildSkills(6, { for: 3, des: 2, con: 1, int: 0, sab: 1, car: -1 }, {
+    inic: 7,
+    perc: 6,
+    atle: 8,
+    furt: 4,
+    guer: 5,
+    inti: 6,
+    fort: 17,
+    refl: 12,
+    vont: 7,
+    luta: 24,
+    pont: 24
+  });
+
+  const inumanoTracos = buildTracos({
+    tamanho: 'med',
+    resistencias: {},
+    imunidadesDano: ['frio'],
+    idiomasValue: []
+  });
+
+  const inumanoBio = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"Malditos... Me entreguem esta arma! Ela é minha por direito... E vocês não são merecedores de tocá-la!"<br><span style="font-weight: bold; color: #800000;">&mdash; O Inumano, Guardião das Armas</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Sua armadura antiga estava comida pela ferrugem e o rosto parecia pergaminho seco esticado sobre o crânio. Mas o golpe daquela lâmina negra... cada ferimento sugava o calor do corpo e a vontade de lutar. Um toque daquilo e você acorda como mais um lacaio sepulcral sob as ordens dele."<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Inumano</span> é um comandante guerreiro morto-vivo de tempos esquecidos, imbuído de ganância e crueldade imortais. Empunhando armamentos forjados em pura energia de trevas, cada golpe certeiro drena a energia vital e a perícia dos heróis vivos, erguendo novas abominações a partir daqueles que sucumbem à sua presença pútrida.</p>`;
+
   const inumanoItems = [
-    buildWeaponItem({
-      name: 'Espada Longa Inumana',
-      img: 'icons/weapons/swords/sword-broad-shadow.webp',
-      description: '<p><strong>Ataque Corpo a Corpo (x2):</strong> 2d8+9, crítico 19/x2 (corte), mais 2d12 pontos de dano de trevas e efeito de <em>Drenar Energia</em>.</p>',
-      proficiencia: 'marcial',
-      empunhadura: 'uma',
-      criticoM: 19,
-      criticoX: 2,
-      ataques: 2,
-      proposito: 'corpo-a-corpo',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"Malditos... Me entreguem esta arma! Ela é minha por direito!"</blockquote><p>A lâmina espectral goteja névoa escura, drenando a própria <span style="color: #800000; font-weight: bold;">força vital do alvo</span>.</p></div>',
-      rolls: [
-        {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['luta', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano de Corte',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['2d8+9', 'corte', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano de Trevas',
-          key: 'dano2',
-          type: 'dano',
-          parts: [['2d12', 'trevas', '']],
-          versatil: '',
-          adaptavel: ''
-        }
-      ]
+    buildWeaponAttack({
+      name: 'Espada Longa',
+      img: 'icons/weapons/swords/sword-broad-crystal.webp',
+      dano: '2d8+9',
+      tipoDano: 'corte',
+      danoExtra: '2d12',
+      tipoDanoExtra: 'trevas',
+      periciaAtaque: 'luta',
+      criticoMargem: 19,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Corpo a Corpo:</strong> Espada longa x2 +24 (2d8+9, 19 mais 2d12 trevas).</p>',
+      flavorPhrase: '',
+      flavorAction: ''
     }),
-    buildWeaponItem({
-      name: 'Azagaia Inumana',
-      img: 'icons/weapons/polearms/javelin-black.webp',
-      description: '<p><strong>Ataque à Distância:</strong> 2d6+9 (perfuração), mais 2d12 pontos de dano de trevas e efeito de <em>Drenar Energia</em>.</p>',
-      proficiencia: 'simples',
-      empunhadura: 'uma',
-      criticoM: 20,
-      criticoX: 2,
-      ataques: 1,
-      proposito: 'arremesso',
-      alcance: 'medio',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"*SWOOSH-THUMP!*"</blockquote><p>A azagaia cruza as sombras carregada com o <span style="color: #800000; font-weight: bold;">frio gélido da pós-vida</span>.</p></div>',
-      rolls: [
-        {
-          name: 'Ataque',
-          key: 'ataque0',
-          type: 'ataque',
-          parts: [['1d20', '', ''], ['pont', '', ''], ['', '', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano de Perfuração',
-          key: 'dano1',
-          type: 'dano',
-          parts: [['2d6+9', 'perfuracao', '']],
-          versatil: '',
-          adaptavel: ''
-        },
-        {
-          name: 'Dano de Trevas',
-          key: 'dano2',
-          type: 'dano',
-          parts: [['2d12', 'trevas', '']],
-          versatil: '',
-          adaptavel: ''
-        }
-      ]
+    buildWeaponAttack({
+      name: 'Azagaia',
+      img: 'icons/weapons/polearms/javelin-simple.webp',
+      dano: '2d6+9',
+      tipoDano: 'perfuracao',
+      danoExtra: '2d12',
+      tipoDanoExtra: 'trevas',
+      periciaAtaque: 'pont',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>À Distância:</strong> Azagaia +24 (2d6+9 mais 2d12 trevas).</p>',
+      flavorPhrase: '',
+      flavorAction: ''
     }),
-    buildPowerItem({
+    buildSpecialPower({
       name: 'Drenar Energia',
-      img: 'icons/magic/death/drain-energy-life-purple.webp',
-      description: '<p>Uma criatura viva que sofra dano de trevas do inumano sofre uma penalidade cumulativa de −1 em testes de perícia (Fortitude CD 22 evita). Se acumular uma penalidade igual ou maior que seu próprio nível, a criatura morre e se transforma em um inumano sob controle do mestre.</p><p>Esta penalidade pode ser removida de uma criatura viva com descanso ou com efeitos mágicos capazes de remover qualquer condição de metabolismo (cada dia de descanso ou efeito mágico diminui a penalidade em 1).</p>',
+      img: 'icons/magic/death/skull-energy-purple.webp',
       execucao: 'passive',
-      resistenciaPericia: 'fort',
-      resistenciaTxt: 'Fortitude CD 22 evita a penalidade cumulativa de -1 em testes de perícia.',
-      chatFlavor: '<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"Sua alma será acorrentada junto às nossas fileiras..."</blockquote><p>A escuridão gélida rasteja pelas veias da vítima, <span style="color: #800000; font-weight: bold;">drenando sua vitalidade</span>.</p></div>'
+      custo: 0,
+      description: '<p>Uma criatura viva que sofra dano de trevas do inumano combatente sofre uma penalidade cumulativa de −1 em testes de perícia (Fort CD 22 evita). Se acumular uma penalidade igual ou maior que seu próprio nível, a criatura morre e se transforma em um inumano sob controle do mestre. Esta penalidade pode ser removida de uma criatura viva com descanso ou com efeitos mágicos capazes de remover qualquer condição de metabolismo (cada dia de descanso ou efeito mágico diminui a penalidade em 1).</p>',
+      flavorPhrase: '',
+      flavorAction: '',
+      effects: [
+        {
+          name: 'Drenar Energia (-1 Cumulativo em Perícias)',
+          description: 'Causa penalidade de -1 cumulativa em testes de perícia (Fort CD 22 evita); se igual ao nível, morre e vira inumano.',
+          transfer: true
+        }
+      ]
     })
   ];
 
-  const itemIdsInumano = [];
-  for (const item of inumanoItems) {
-    itemIdsInumano.push(item._id);
-    await db.put(`!actors.items!${inumanoId}.${item._id}`, item);
-  }
-
-  const inumanoAtr = { for: 3, des: 2, con: 1, int: 0, sab: 1, car: -1 };
-  const inumanoPericias = buildSkills(6, inumanoAtr, {
-    inic: 7, perc: 6, atle: 8, furt: 4, guer: 5, inti: 6,
-    fort: 17, refl: 12, vont: 7, luta: 24, pont: 24
+  const inumano = buildNpcActor({
+    id: inumanoId,
+    name: 'Inumano',
+    nd: '6',
+    papel: 'solo',
+    tipoMonstro: 'mor',
+    raca: 'Morto-vivo',
+    tamanho: 'med',
+    folder: FOLDER_DB,
+    deslocamento: '9m (6q)',
+    sentidos: 'visão no escuro',
+    tesouro: 'Padrão',
+    atributos: { for: 3, des: 2, con: 1, int: 0, sab: 1, car: -1 },
+    attributes: {
+      cd: 22,
+      pv: { value: 48, max: 48 },
+      pm: { value: 0, max: 0 },
+      defesa: { value: 26, base: 24 } // 24 + 2 = 26
+    },
+    resistencias: inumanoTracos,
+    pericias: inumanoSkills,
+    items: inumanoItems,
+    ataquescac: 'Espada longa x2 +24 (2d8+9, 19, mais 2d12 trevas).',
+    ataquesad: 'Azagaia +24 (2d6+9, mais 2d12 trevas).',
+    biography: inumanoBio
   });
 
-  const inumanoDoc = {
-    _id: inumanoId,
-    name: 'Inumano',
-    type: 'npc',
-    img: 'icons/creatures/undead/skeleton-warrior-skull-helmet-grey.webp',
-    system: {
-      atributos: {
-        for: { value: 3, base: 3, racial: 0, bonus: 0 },
-        des: { value: 2, base: 2, racial: 0, bonus: 0 },
-        con: { value: 1, base: 1, racial: 0, bonus: 0 },
-        int: { value: 0, base: 0, racial: 0, bonus: 0 },
-        sab: { value: 1, base: 1, racial: 0, bonus: 0 },
-        car: { value: -1, base: -1, racial: 0, bonus: 0 }
-      },
-      attributes: {
-        cd: 22,
-        pv: { value: 48, temp: 0, min: 0, max: 48 },
-        pm: { value: 0, temp: 0, min: 0, max: 0 },
-        defesa: {
-          atributo: 'des',
-          pda: 0,
-          value: 26,
-          base: 24, // 26 - Des (2) = 24 para que Foundry compute 24 + 2 = 26
-          outros: 0,
-          condi: 0,
-          bonus: []
-        },
-        carga: { value: 0, atributo: 'for', base: 0, bonus: [], max: 0, pct: 0, encumbered: false, limit: 0 },
-        sentidos: { value: [], custom: 'Visão no escuro' },
-        conjuracao: '',
-        nivel: { value: 6, xp: { value: 0, pct: 0, proximo: 0 } },
-        movement: {
-          burrow: { base: 0, bonus: [] },
-          climb: { base: 0, bonus: [] },
-          fly: { base: 0, bonus: [] },
-          swim: { base: 0, bonus: [] },
-          walk: { base: 9, bonus: [] },
-          hover: false,
-          unit: 'm',
-          tags: []
-        },
-        treino: 2,
-        nd: '6',
-        meionivel: 3
-      },
-      pericias: inumanoPericias,
-      modificadores: {
-        custoPM: 0,
-        atributos: { for: [], des: [], con: [], int: [], sab: [], car: [], fisicos: [], mentais: [], geral: [] },
-        ataque: { geral: [], cac: [], ad: [] },
-        cura: { geral: [], mag: [] },
-        dano: { ad: [], alq: [], cac: [], geral: [], mag: [] },
-        pericias: { geral: [], resistencia: [], semataque: [], ataque: [], atr: { for: [], des: [], con: [], int: [], sab: [], car: [] } }
-      },
-      tracos: buildTracos({
-        tamanho: 'med',
-        imunidadesDano: ['frio'],
-        icValue: ['frio', 'cansaco', 'metabolismo', 'veneno', 'sono', 'paralisado', 'atordoado', 'fadiga', 'exausto'],
-        icCustom: 'Imunidade a frio e características de morto-vivo',
-        idiomasValue: ['comum']
-      }),
-      detalhes: {
-        biography: {
-          value: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"Malditos... Me entreguem esta arma! Ela é minha por direito... E vocês não são merecedores de tocá-la!"<br><span style="font-weight: bold; color: #800000;">&mdash; Inumano, Comandante Sepultado</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"A pele do sujeito estava esticada como pergaminho podre sobre os ossos da face. O fedor de morte era tão denso que quase queimava os olhos. Quando ele brandiu a espada, as trevas ao redor congelaram a sala inteira!"<br><span style="font-weight: bold; color: #006400;">&mdash; Grunk Ferroforja, Goblin Escriba da Gazeta do Reinado</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Inumano</span> é um guerreiro comandante morto-vivo aprisionado pela própria ganância e ódio eterno nas ruínas do Castelo Zweihardt (<em>Breves Jornadas: Memórias das Armas</em>, DB #227). Empunhando escudo pesado, espada longa e azagaias profanadas com magia de trevas, ele drena a própria vitalidade dos vivos que ousam invadir seu santuário em ruínas.</p>',
-          public: ''
-        },
-        origem: '',
-        info: '',
-        divindade: '',
-        raca: 'Morto-vivo',
-        tipo: 'mor',
-        tamanho: 'med',
-        equipamento: 'Azagaia x3, escudo pesado, espada longa, meia armadura.',
-        resistencias: 'Imunidade a frio.',
-        idiomas: 'Comum',
-        tesouro: 'Padrão.',
-        role: 'padrao',
-        ataquescac: 'Espada longa x2 +24 (2d8+9, 19/x2 corte, mais 2d12 trevas).',
-        movimento: '9m (6q)',
-        ataquesad: 'Azagaia +24 (2d6+9 perfuração, mais 2d12 trevas).'
-      }
-    },
-    items: itemIdsInumano,
-    folder: 'wfWApuyngzFm4KOP',
-    sort: 74000000,
-    ownership: { default: 0 },
-    flags: {},
-    _stats: statsHeader
-  };
-
-  await db.put(`!actors!${inumanoId}`, inumanoDoc);
-  console.log('✓ Inumano atualizado com 100% dos padrões!');
+  await db.put(`!actors!${inumanoId}`, inumano.actorDoc);
+  for (const ed of inumano.embeddedDocs) {
+    await db.put(ed.key, ed.doc);
+  }
+  saveToSourcePacks('Ameacas_T20', inumano.actorDoc, inumano.embeddedDocs);
+  console.log(`✓ Ator "Inumano (ND 6)" salvo com ${inumano.actorDoc.items.length} ataques/poderes embutidos.`);
 
   await db.close();
-  console.log('✅ Todas as 5 ameaças de DB #227 foram reconstruídas com sucesso!');
+  console.log('\n✅ Sucesso: Todas as 5 ameaças da DB #227 foram reconstruídas com conformidade canônica.');
 }
 
-rebuildThreats().catch(console.error);
+rebuildDB227Threats().catch(console.error);

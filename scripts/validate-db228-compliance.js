@@ -173,7 +173,7 @@ async function validateActors() {
 
       // 10. Valida Biografia Canônica com Citações em Bloco
       const bio = actor.system.detalhes?.biography?.value || '';
-      if (!bio.includes('blockquote') || !bio.includes('&mdash;')) {
+      if (!bio.includes('blockquote') || !bio.includes('&mdash;') || !bio.includes('Grunk Ferroforja')) {
         console.error(`❌ Biografia de "${req.name}" não segue o padrão canônico com citações duplas!`);
         errors++;
       } else {

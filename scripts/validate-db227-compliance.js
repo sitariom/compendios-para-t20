@@ -70,10 +70,10 @@ async function validateCompliance() {
         }
       }
 
-      // Validar biografia (formato de 2 citações + lore)
+      // Validar biografia (formato canônico de 2 citações + lore descritivo)
       const bio = sys.detalhes?.biography?.value || '';
       if (!bio.includes('blockquote') || !bio.includes('Grunk Ferroforja')) {
-        console.error(`❌ Biografia fora do padrão em ${t.name}`);
+        console.error(`❌ Biografia fora do padrão de citações duplas em ${t.name}`);
         passed = false;
       }
 
@@ -139,10 +139,6 @@ async function validateCompliance() {
       if (val.type !== 'poder') { console.error(`❌ Tipo inválido: ${val.type}`); passed = false; }
       if (sys.tipo !== 'geral') { console.error(`❌ system.tipo inválido em ${val.name}: ${sys.tipo}`); passed = false; }
       if (sys.subtipo !== 'combate') { console.error(`❌ system.subtipo inválido em ${val.name}: ${sys.subtipo}`); passed = false; }
-      if (!sys.chatFlavor || !sys.chatFlavor.includes('blockquote')) {
-        console.error(`❌ chatFlavor fora do padrão em ${val.name}`);
-        passed = false;
-      }
       if (!sys.description.value.includes('Pré-requisito')) {
         console.error(`❌ Descrição sem pré-requisito em ${val.name}`);
         passed = false;

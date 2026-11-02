@@ -6,14 +6,16 @@ The actors-specification capability defines the authoritative specification and 
 ## Requirements
 
 ### Requirement: Canonical Threat and NPC Data Schema
-Every Actor of type `npc` SHALL conform strictly to the Tormenta20 Foundry VTT system data model and canonical Threat Creator Macro v6 specifications. Each threat MUST include structured details (`nd`, `role`, `tipo`, `tamanho`), complete ability scores (`for`, `des`, `con`, `int`, `sab`, `car`) with `value`, `base`, `racial: 0`, and `bonus: 0`, core attributes (`pv`, `pm`, `defesa`, `cd`), full movement speeds object (`walk`, `burrow`, `climb`, `fly`, `swim`, `hover: false`, `unit: "m"`), and biography formatted with dual blockquotes.
+Every Actor of type `npc` SHALL conform strictly to the Tormenta20 Foundry VTT system data model and canonical Threat Creator Macro v6 specifications. Each threat MUST include structured details (`nd`, `role`, `tipo`, `tamanho`), complete ability scores (`for`, `des`, `con`, `int`, `sab`, `car`) with `value`, `base`, `racial: 0`, and `bonus: 0`, core attributes (`pv`, `pm`, `defesa`, `cd`), full movement speeds object (`walk`, `burrow`, `climb`, `fly`, `swim`, `hover: false`, `unit: "m"`), and biography formatted strictly according to the canonical dual-blockquote standard: a primary atmospheric/creature quote (`border-left: 5px solid #800000`), an in-world field observer quote canonically featuring goblin chronicler Grunk Ferroforja (`border-left: 5px solid #006400`), and an Arial descriptive presentation paragraph introducing the creature with its name highlighted in bold red (`color: #800000; font-weight: bold;`).
 
 #### Scenario: Creating a canonical threat actor
 - **GIVEN** a threat defined in an official Tormenta20 publication or Dragão Brasil
 - **WHEN** the actor document is constructed
 - **THEN** details contain valid `nd`, `papel` (solo, lacaio, padrao), `tipo`, and `tamanho`
 - **AND** ability scores and attributes are strictly formatted with numeric `value` and `max` fields
-- **AND** biography contains formatted HTML blockquotes without unescaped raw markup
+- **AND** biography contains dual blockquotes with distinct border colors (`#800000` and `#006400`)
+- **AND** the second blockquote attributes field observations to Grunk Ferroforja
+- **AND** a descriptive presentation paragraph introduces the creature's physiology and Tormenta20 adaptation
 
 ### Requirement: Dynamic Defense Base Calculation
 Because the Tormenta20 system dynamically computes total Defense via `prepareDefense` as `defesa.base + @des + outros`, the actor's stored `system.attributes.defesa.base` SHALL be set strictly to `defesa_ficha - destreza` to prevent duplicate Dexterity addition.
@@ -67,7 +69,7 @@ Every Actor's prototype token (`prototypeToken.texture.src`) SHALL be sourced ex
 - **AND** `prototypeToken.width` and `prototypeToken.height` match the creature's grid dimension
 
 ### Requirement: Embedded Attacks and Creature Powers
-A Threat's natural weapons, manufactured weapons, and special powers SHALL be stored both as embedded subdocuments inside the actor's `items` array and as persistent LevelDB entries under `!actors.items!${actorId}.${itemId}`. All weapon attacks MUST define `rolls` with structured `parts` (`ataque0` and `dano1`), `criticoM`, `criticoX`, and `chatFlavor`. All powers MUST define execution type, PM cost, `chatFlavor`, and ActiveEffects when applicable.
+A Threat's natural weapons, manufactured weapons, and special powers SHALL be stored as child subdocuments inside LevelDB under `!actors.items!${actorId}.${itemId}`, and the parent Actor document `actor.items` MUST strictly contain the array of string item IDs. All weapon attacks MUST define `rolls` with structured `parts` (`ataque0` and `dano1`), `criticoM`, and `criticoX`. All powers and attacks MUST feature descriptions faithful to the source PDF. Special powers and attacks with conditions or mechanical modifications MUST define functional `ActiveEffects` saved as subdocuments under `!actors.items.effects!${actorId}.${itemId}.${effectId}`.
 
 #### Scenario: Threat executes an attack roll
 - **GIVEN** an embedded weapon or natural attack in an actor document
@@ -76,8 +78,9 @@ A Threat's natural weapons, manufactured weapons, and special powers SHALL be st
 - **AND** attack roll formula and damage rolls are populated with appropriate bonus formulas
 - **AND** `system.rolls` contains `ataque0` and `dano1` with valid `parts`
 - **AND** `system.criticoM` and `system.criticoX` are numeric properties on the system root
-- **AND** `system.chatFlavor` contains blockquote quote and highlighted action text
-- **AND** the actor's primary document `items` array contains the weapon document
+- **AND** `system.description.value` contains verbatim text from the source publication
+- **AND** the actor's primary document `items` array contains strictly string IDs
+- **AND** child subdocuments are indexed under `!actors.items!${actorId}.${itemId}` and `!actors.items.effects!${actorId}.${itemId}.${effectId}`
 
 ### Requirement: Partners, Familiars, and Mounts Created as Powers
 When source material introduces a Partner (Parceiro), Familiar, or Mount (Montaria) providing bonuses or abilities to characters, it SHALL NOT be created as an Actor in `Ameacas_T20`. Instead, it MUST be created as an Item of type `poder` with `system.subtipo: "parceiro"` in `packs/Itens_T20` within the canonical "Parceiros" folder (`0uRx5Efj3tk7P5Xr`), equipped with structured `ActiveEffects` and activation rules.
