@@ -18,63 +18,59 @@ async function injectTables() {
 
   // 1. Tabela de Efeitos do Desabamento (1d6)
   const desabamentoTableId = 'TbDesabamento228';
-  const desabamentoResults = [
+  const desabamentoResultsRaw = [
     {
-      _id: generateId(),
-      type: 0,
       text: '<strong>1-2) Destroços:</strong> Destroços caem do teto. Cada personagem deve fazer um teste de <strong>Reflexos (CD 25)</strong>. Se falhar, sofre 4d6 pontos de dano de impacto (8d6 se falhar por 10 ou mais).',
       img: 'systems/tormenta20/icons/poderes/ameacas/quebrar-tudo.webp',
-      documentCollection: null,
-      documentId: null,
       weight: 2,
-      range: [1, 2],
-      drawn: false,
-      flags: {}
+      range: [1, 2]
     },
     {
-      _id: generateId(),
-      type: 0,
       text: '<strong>3-4) Fenda no Chão:</strong> Rachaduras se abrem no solo da caverna. Cada personagem deve fazer um teste de <strong>Acrobacia ou Atletismo (CD 25)</strong>. Se falhar, tropeça e sofre –5 em sua próxima ação contra o perigo. Se falhar por 10 ou mais, cai e perde sua ação nesta rodada.',
       img: 'systems/tormenta20/icons/poderes/ameacas/terremoto.webp',
-      documentCollection: null,
-      documentId: null,
       weight: 2,
-      range: [3, 4],
-      drawn: false,
-      flags: {}
+      range: [3, 4]
     },
     {
-      _id: generateId(),
-      type: 0,
       text: '<strong>5) Bloqueio:</strong> Um desabamento vai bloquear o caminho! O personagem pode desistir desta rota e procurar outra (perde a ação nesta rodada, mas age normalmente a partir da próxima) ou tentar correr antes do fechamento com <strong>Atletismo (CD 25)</strong>. Se falhar, perde a ação e sofre 8d6 pontos de dano de impacto.',
       img: 'systems/tormenta20/icons/poderes/ameacas/bloqueio.webp',
-      documentCollection: null,
-      documentId: null,
       weight: 1,
-      range: [5, 5],
-      drawn: false,
-      flags: {}
+      range: [5, 5]
     },
     {
-      _id: generateId(),
-      type: 0,
       text: '<strong>6) Passagem Livre:</strong> Este trecho de túnel é mais resistente, mas as paredes estão perto de ruir. Os personagens não sofrem qualquer efeito danoso neste turno, mas devem continuar correndo ou serão soterrados ao fim da 7ª rodada.',
       img: 'systems/tormenta20/icons/svg/stairs.svg',
-      documentCollection: null,
-      documentId: null,
       weight: 1,
-      range: [6, 6],
-      drawn: false,
-      flags: {}
+      range: [6, 6]
     }
   ];
+
+  const desabamentoResults = desabamentoResultsRaw.map(r => ({
+    _id: generateId(),
+    type: 'text',
+    text: r.text,
+    description: r.text,
+    img: r.img,
+    documentCollection: null,
+    documentId: null,
+    weight: r.weight,
+    range: r.range,
+    drawn: false,
+    name: '',
+    flags: {}
+  }));
+
+  // Limpa resultados antigos
+  for await (const [oldKey] of db.iterator({ gte: `!tables.results!${desabamentoTableId}.`, lte: `!tables.results!${desabamentoTableId}.\uffff` })) {
+    await db.del(oldKey);
+  }
 
   const desabamentoTable = {
     _id: desabamentoTableId,
     name: 'Desabamento dos Túneis: Efeitos por Rodada (DB #228)',
     img: 'systems/tormenta20/icons/poderes/ameacas/quebrar-tudo.webp',
     description: '<p>Tabela oficial de perigo complexo para a fuga dos <em>Subterrâneos de Trebuck</em> (Dragão Brasil #228). No início de cada rodada, role 1d6 para determinar o evento de desabamento.</p>',
-    results: desabamentoResults,
+    results: desabamentoResults.map(r => r._id),
     formula: '1d6',
     replacement: true,
     displayRoll: true,
@@ -123,23 +119,30 @@ async function injectTables() {
 
   const orgResults = orgNames.map(o => ({
     _id: generateId(),
-    type: 0,
+    type: 'text',
     text: `<strong>${o.name}:</strong> ${o.desc}`,
+    description: `<strong>${o.name}:</strong> ${o.desc}`,
     img: 'systems/tormenta20/icons/svg/scroll-unfurled.svg',
     documentCollection: null,
     documentId: null,
     weight: 1,
     range: o.range,
     drawn: false,
+    name: '',
     flags: {}
   }));
+
+  // Limpa resultados antigos
+  for await (const [oldKey] of db.iterator({ gte: `!tables.results!${orgTableId}.`, lte: `!tables.results!${orgTableId}.\uffff` })) {
+    await db.del(oldKey);
+  }
 
   const orgTable = {
     _id: orgTableId,
     name: 'Divinas Organizações de Arton (DB #228)',
     img: 'systems/tormenta20/icons/svg/holy-symbol.svg',
     description: '<p>Tabela de rolagem (1d17) para sortear encontros, missões ou patronos religiosos baseados nas organizações da Dragão Brasil #228.</p>',
-    results: orgResults,
+    results: orgResults.map(r => r._id),
     formula: '1d17',
     replacement: true,
     displayRoll: true,
