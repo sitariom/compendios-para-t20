@@ -60,7 +60,13 @@ const TOKEN_2MTT_MAP = {
   'desabamento dos tuneis': 'modules/compendios-para-t20/assets/tokens/desabamento-dos-tuneis.png',
   'allihennali': 'modules/compendios-para-t20/assets/tokens/allihennali.png',
   'guaxininjas': 'modules/compendios-para-t20/assets/tokens/guaxininjas.png',
-  'reabilitador': 'modules/compendios-para-t20/assets/tokens/reabilitador.png'
+  'reabilitador': 'modules/compendios-para-t20/assets/tokens/reabilitador.png',
+  // DB #229
+  'defensor rochoso desperto': 'modules/compendios-para-t20/assets/tokens/defensor-rochoso-desperto.png',
+  'defensor rochoso': 'modules/compendios-para-t20/assets/tokens/defensor-rochoso-desperto.png',
+  'revoada de serpes': 'modules/compendios-para-t20/assets/tokens/revoada-de-serpes.png',
+  'presa do grande basilisco': 'modules/compendios-para-t20/assets/tokens/presa-do-grande-basilisco.png',
+  'basilisco ancestral': 'modules/compendios-para-t20/assets/tokens/basilisco-ancestral.png'
 };
 
 const THREAT_MAP = {
@@ -78,7 +84,13 @@ const THREAT_MAP = {
   'desabamento dos tuneis': 'systems/tormenta20/icons/poderes/ameacas/quebrar-tudo.webp',
   'allihennali': 'systems/tormenta20/icons/poderes/classes/conjuradores/linhagem-feerica.webp',
   'guaxininjas': 'systems/tormenta20/icons/poderes/classes/especialistas/rastreador.webp',
-  'reabilitador': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp'
+  'reabilitador': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp',
+  // DB #229
+  'defensor rochoso desperto': 'systems/tormenta20/icons/ameacas/golem-de-ferro.png',
+  'defensor rochoso': 'systems/tormenta20/icons/ameacas/golem-de-ferro.png',
+  'revoada de serpes': 'systems/tormenta20/icons/ameacas/serpe.png',
+  'presa do grande basilisco': 'systems/tormenta20/icons/ameacas/cultista-da-traicao.png',
+  'basilisco ancestral': 'systems/tormenta20/icons/ameacas/basilisco.png'
 };
 
 const ITEM_AND_POWER_MAP = {
@@ -157,6 +169,42 @@ const ITEM_AND_POWER_MAP = {
   'corso sombrio': 'systems/tormenta20/icons/svg/scroll-unfurled.svg',
   'previdencia da vigilia': 'systems/tormenta20/icons/poderes/concedidos-ressurreicao.webp',
   'bomba de tinta': 'systems/tormenta20/icons/itens/gerais/agua-benta.webp',
+
+  // DB #229
+  'olho de basilisco ancestral': 'systems/tormenta20/icons/itens/gerais/gemas-preciosas.webp',
+  'olho de basilisco': 'systems/tormenta20/icons/itens/gerais/gemas-preciosas.webp',
+  'couro de basilisco ancestral': 'systems/tormenta20/icons/itens/gerais/couro-de-basilisco.webp',
+  'couro de basilisco': 'systems/tormenta20/icons/itens/gerais/couro-de-basilisco.webp',
+  'peconha concentrada': 'systems/tormenta20/icons/itens/gerais/veneno.webp',
+  'peconha potente': 'systems/tormenta20/icons/itens/gerais/veneno.webp',
+  'machado de batalha do culto do basilisco': 'systems/tormenta20/icons/itens/equipamentos/machado-de-batalha.webp',
+  'machado de batalha do culto': 'systems/tormenta20/icons/itens/equipamentos/machado-de-batalha.webp',
+  'parceiro: arius gorgonius dubitatius': 'systems/tormenta20/icons/poderes/classes/especialistas/conhecimento-de-lendas.webp',
+  'arius gorgonius dubitatius': 'systems/tormenta20/icons/poderes/classes/especialistas/conhecimento-de-lendas.webp',
+  'arius': 'systems/tormenta20/icons/poderes/classes/especialistas/conhecimento-de-lendas.webp',
+  'parceira: aylarianna purpurea (ayla)': 'systems/tormenta20/icons/poderes/classes/conjuradores/linhagem-feerica.webp',
+  'aylarianna purpurea': 'systems/tormenta20/icons/poderes/classes/conjuradores/linhagem-feerica.webp',
+  'ayla': 'systems/tormenta20/icons/poderes/classes/conjuradores/linhagem-feerica.webp',
+  'parceiro: ignis crae': 'systems/tormenta20/icons/poderes/concedidos/dom-da-ressurreicao.webp',
+  'ignis crae': 'systems/tormenta20/icons/poderes/concedidos/dom-da-ressurreicao.webp',
+  'ignis': 'systems/tormenta20/icons/poderes/concedidos/dom-da-ressurreicao.webp',
+  'parceira: kir’zanaath odello (kiki)': 'systems/tormenta20/icons/poderes/classes/especialistas/inspiracao.webp',
+  'kir’zanaath odello': 'systems/tormenta20/icons/poderes/classes/especialistas/inspiracao.webp',
+  'kiki': 'systems/tormenta20/icons/poderes/classes/especialistas/inspiracao.webp',
+  'parceiro: rexthor': 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-poderoso.webp',
+  'rexthor': 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-poderoso.webp',
+  'parceiro: kemooz pensativo': 'systems/tormenta20/icons/magias/criar-elementos.webp',
+  'kemooz pensativo': 'systems/tormenta20/icons/magias/criar-elementos.webp',
+  'kemooz': 'systems/tormenta20/icons/magias/criar-elementos.webp',
+  'parceiro: filhote de grifo': 'systems/tormenta20/icons/itens/gerais/grifo.webp',
+  'filhote de grifo': 'systems/tormenta20/icons/itens/gerais/grifo.webp',
+  'parceiro: defensor rochoso desperto': 'systems/tormenta20/icons/poderes/classes/combatentes/bloqueio-com-escudo.webp',
+  'natureza abascanta': 'systems/tormenta20/icons/poderes/ameacas/resistencia-magia.webp',
+  'imobilidade': 'systems/tormenta20/icons/poderes/ameacas/forma.webp',
+  'pancada atordoante': 'systems/tormenta20/icons/poderes/ameacas/pancada.webp',
+  'odio sordido': 'systems/tormenta20/icons/poderes/ameacas/golpe-cruel.webp',
+  'vitalidade peconhenta': 'systems/tormenta20/icons/poderes/classes/combatentes/retomar-folego.webp',
+  'olhar petrificante': 'systems/tormenta20/icons/poderes/ameacas/olhar-aterrador.webp',
   'cuspe acido': 'modules/compendios-para-t20/assets/icons/poderes/ferrugem.jpg',
   'espreitador subterraneo': 'systems/tormenta20/icons/poderes/ameacas/bote.webp',
   'sentido sismico': 'systems/tormenta20/icons/poderes/ameacas/visao-ampla.webp',
