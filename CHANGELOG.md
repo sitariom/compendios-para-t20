@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.6.2 - 2026-11-07
+
+- **Hotfix: Resolução de Subdocumentos em Diários e Tabelas no Foundry VTT (DB #228 e DB #229)**:
+  - **Arquitetura Oficial de Subdocumentos de Diários (`JournalEntry`)**:
+    - Corrigida a propriedade `pages` nos documentos principais de `Diarios_T20` (`JrnlOlhoBasilisco229` e `JrnlCaesColinas229`): alinhada ao padrão estrito do Foundry VTT ClassicLevel, armazenando exclusivamente o array de IDs de páginas (`pages: [pageId1, pageId2, ...]`) em vez de objetos inteiros.
+    - As páginas completas são resolvidas nativamente pelo Foundry a partir das chaves filhas `!journal.pages!${journalId}.${pageId}`, eliminando o problema de diários que abriam vazios na interface.
+  - **Arquitetura Oficial de Subdocumentos de Tabelas de Rolagem (`RollTable`)**:
+    - Corrigida a propriedade `results` nos documentos principais de `Tabelas_T20` (`TbEncontrosSang229`, `TbDesabamento228` e `TbDivOrgArton228`): agora armazena estritamente o array de IDs dos resultados (`results: [resultId1, resultId2, ...]`).
+    - Adequado o schema de `TableResult` para o padrão Foundry v11/v12/v13 (`type: "text"` com campos `text` e `description`), permitindo que a janela da tabela renderize imediatamente todas as linhas de resultados e sorteios.
+  - **Validação e Integridade**:
+    - Validador `validate-db229-compliance.js` atualizado para testar ativamente a resolução e integridade de conteúdo de todas as páginas e linhas de tabelas no banco de dados.
+    - 100% de aprovação e integridade confirmada em todos os 6 compêndios.
+
 ## v1.6.1 - 2026-11-07
 
 - **Hotfix: Deduplicação e Imposição de Mapeamento Fixo de IDs em `Itens_T20` (DB #229)**:

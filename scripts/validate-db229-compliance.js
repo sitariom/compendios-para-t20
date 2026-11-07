@@ -335,20 +335,47 @@ async function validateJournalsAndTables() {
     if (k.startsWith('!journal!') && !k.startsWith('!journal.pages!')) {
       if (v.name === 'Aventura: O Olho do Basilisco (DB #229)') {
         foundOlho = true;
-        if (v.pages.length !== 8) {
-          console.error(`❌ Diário "O Olho do Basilisco" deve ter 8 páginas, obteve ${v.pages.length}`);
+        if (v.pages.length !== 8 || typeof v.pages[0] !== 'string') {
+          console.error(`❌ Diário "O Olho do Basilisco" deve ter 8 IDs de páginas (string), obteve ${v.pages.length} (tipo: ${typeof v.pages[0]})`);
           errors++;
         } else {
-          console.log(`✅ Diário "O Olho do Basilisco" possui 8 páginas validadas.`);
+          console.log(`✅ Diário "O Olho do Basilisco" possui 8 IDs de páginas validados.`);
+          // Valida presença de cada subdocumento de página
+          for (const pId of v.pages) {
+            try {
+              const page = await dbJournals.get(`!journal.pages!${v._id}.${pId}`);
+              if (!page || !page.text?.content) {
+                console.error(`❌ Página "${pId}" de "O Olho do Basilisco" está vazia!`);
+                errors++;
+              }
+            } catch {
+              console.error(`❌ Subdocumento de página "!journal.pages!${v._id}.${pId}" não encontrado no LevelDB!`);
+              errors++;
+            }
+          }
+          console.log(`✅ Todas as 8 páginas de "O Olho do Basilisco" existem no LevelDB com conteúdo.`);
         }
       }
       if (v.name === 'Cenário: Os Cães das Colinas (DB #229)') {
         foundCaes = true;
-        if (v.pages.length !== 6) {
-          console.error(`❌ Diário "Os Cães das Colinas" deve ter 6 páginas, obteve ${v.pages.length}`);
+        if (v.pages.length !== 6 || typeof v.pages[0] !== 'string') {
+          console.error(`❌ Diário "Os Cães das Colinas" deve ter 6 IDs de páginas (string), obteve ${v.pages.length} (tipo: ${typeof v.pages[0]})`);
           errors++;
         } else {
-          console.log(`✅ Diário "Os Cães das Colinas" possui 6 páginas validadas.`);
+          console.log(`✅ Diário "Os Cães das Colinas" possui 6 IDs de páginas validados.`);
+          for (const pId of v.pages) {
+            try {
+              const page = await dbJournals.get(`!journal.pages!${v._id}.${pId}`);
+              if (!page || !page.text?.content) {
+                console.error(`❌ Página "${pId}" de "Os Cães das Colinas" está vazia!`);
+                errors++;
+              }
+            } catch {
+              console.error(`❌ Subdocumento de página "!journal.pages!${v._id}.${pId}" não encontrado no LevelDB!`);
+              errors++;
+            }
+          }
+          console.log(`✅ Todas as 6 páginas de "Os Cães das Colinas" existem no LevelDB com conteúdo.`);
         }
       }
     }
@@ -369,11 +396,25 @@ async function validateJournalsAndTables() {
     if (k.startsWith('!tables!') && !k.startsWith('!tables.results!')) {
       if (v.name === 'Encontros nas Montanhas Sanguinárias (DB #229)') {
         foundTable = true;
-        if (v.results.length !== 6 || v.formula !== '1d6') {
-          console.error(`❌ Tabela de Encontros deve ter fórmula 1d6 e 6 resultados, obteve formula=${v.formula}, results=${v.results.length}`);
+        if (v.results.length !== 6 || typeof v.results[0] !== 'string' || v.formula !== '1d6') {
+          console.error(`❌ Tabela de Encontros deve ter fórmula 1d6 e 6 IDs de resultados (string), obteve formula=${v.formula}, results=${v.results.length} (tipo: ${typeof v.results[0]})`);
           errors++;
         } else {
-          console.log(`✅ Tabela "Encontros nas Montanhas Sanguinárias" possui fórmula 1d6 e 6 resultados validados.`);
+          console.log(`✅ Tabela "Encontros nas Montanhas Sanguinárias" possui fórmula 1d6 e 6 IDs de resultados validados.`);
+          // Valida presença de cada subdocumento de resultado
+          for (const rId of v.results) {
+            try {
+              const res = await dbTables.get(`!tables.results!${v._id}.${rId}`);
+              if (!res || !res.text || !res.description || res.type !== 'text') {
+                console.error(`❌ Resultado "${rId}" da tabela é inválido ou vazio: type=${res?.type}`);
+                errors++;
+              }
+            } catch {
+              console.error(`❌ Subdocumento de resultado "!tables.results!${v._id}.${rId}" não encontrado no LevelDB!`);
+              errors++;
+            }
+          }
+          console.log(`✅ Todos os 6 resultados de "Encontros nas Montanhas Sanguinárias" existem no LevelDB com texto e descrição.`);
         }
       }
     }

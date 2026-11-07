@@ -158,6 +158,11 @@ async function injectJournals() {
     const pages = [];
     const embeddedDocs = [];
 
+    // Limpa páginas anteriores para evitar órfãs
+    for await (const [oldKey] of db.iterator({ gte: `!journal.pages!${journalId}.`, lte: `!journal.pages!${journalId}.\uffff` })) {
+      await db.del(oldKey);
+    }
+
     for (let i = 0; i < j.pages.length; i++) {
       const p = j.pages[i];
       const pageId = generateId();
@@ -188,10 +193,11 @@ async function injectJournals() {
       });
     }
 
+    const pageIds = pages.map(p => p._id);
     const journalDoc = {
       _id: journalId,
       name: j.name,
-      pages,
+      pages: pageIds,
       folder: j.folder,
       sort: 700000,
       ownership: { default: 0 },
