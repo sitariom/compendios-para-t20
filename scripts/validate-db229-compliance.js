@@ -233,10 +233,12 @@ async function validateItems() {
   ];
 
   const foundItems = {};
+  const itemCounts = {};
   for await (const [key, value] of db.iterator()) {
     if (key.startsWith('!items!') && !key.startsWith('!items.effects!')) {
       if (value && value.name) {
         foundItems[value.name] = { ...value, dbKey: key };
+        itemCounts[value.name] = (itemCounts[value.name] || 0) + 1;
       }
     }
   }
@@ -301,6 +303,17 @@ async function validateItems() {
       continue;
     }
     console.log(`✅ Item de aventura "${iName}" encontrado (tipo: ${item.type}).`);
+  }
+
+  // Valida que NENHUM item da DB #229 possui duplicatas no compêndio
+  for (const name of [...requiredPartners, ...requiredItems]) {
+    const count = itemCounts[name] || 0;
+    if (count > 1) {
+      console.error(`❌ Item "${name}" possui ${count} cópias duplicadas no compêndio!`);
+      errors++;
+    } else if (count === 1) {
+      console.log(`✅ Item "${name}" verificado como estritamente único (1 cópia).`);
+    }
   }
 
   await db.close();

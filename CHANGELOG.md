@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.6.1 - 2026-11-07
+
+- **Hotfix: Deduplicação e Imposição de Mapeamento Fixo de IDs em `Itens_T20` (DB #229)**:
+  - **Eliminação de Cópias Duplicadas**:
+    - Identificada e corrigida a ocorrência de itens duplicados no compêndio `Itens_T20` e na árvore de fontes `src/packs/Itens_T20/`, decorrente da geração dinâmica de IDs aleatórios em múltiplas execuções do script de injeção.
+    - Expurgadas em definitivo as 13 chaves duplicadas do LevelDB e seus respectivos subdocumentos de `ActiveEffects`, além da remoção dos 13 arquivos JSON excedentes em `src/packs/Itens_T20/`.
+  - **Idempotência Estrita no Script de Injeção (`scripts/inject-db229-items.js`)**:
+    - Implementação da tabela determinística `DB229_ID_MAP` fixando permanentemente os IDs canônicos dos 8 parceiros e 5 itens de aventura de acordo com os links `@UUID` já integrados nos diários e tabelas.
+    - Inclusão de rotina automatizada de pré-purga de chaves legadas e duplicatas (`DUPLICATE_IDS_TO_PURGE`).
+  - **Validação Automatizada de Unicidade (`scripts/validate-db229-compliance.js`)**:
+    - Incorporada verificação estrita de cardinalidade: o validador agora audita a contagem exata de cópias de cada item no compêndio e reprova formalmente qualquer registro com mais de 1 documento.
+    - 100% de aprovação e contagem rigorosa de 2.717 documentos principais em `Itens_T20`.
+
 ## v1.6.0 - 2026-11-07
 
 - **Dragão Brasil #229 (Integração Canônica Completa de Ameaças, Parceiros, Itens e Aventura)**:
