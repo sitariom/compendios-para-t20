@@ -1,6 +1,45 @@
 # Changelog
 
-## v1.5.1 - 2026-11-01
+## v1.6.0 - 2026-11-07
+
+- **Dragão Brasil #229 (Integração Canônica Completa de Ameaças, Parceiros, Itens e Aventura)**:
+  - **Ameaças e Criaturas (`Ameacas_T20`)**:
+    - *Defensor Rochoso Desperto (ND 8)*: Construto Médio (320 PV, Defesa 33 base 33 + Des 0, RD 10 geral, imunidade a atordoado e petrificado). Ataque natural *Duas pancadas +26* (4d8+19, x3 com `rolls.parts`), *Imobilidade* (camuflagem Percepção CD 35), *Natureza Abascanta* (50% de ignorar magias exceto Despedaçar) e *Pancada Atordoante* (Fort CD 26 evita). Token top-down 2-Minute Tabletop (*Gemstone Guardian*).
+    - *Revoada de Serpes (ND 8)*: Monstro Enorme 3x3 (320 PV, Defesa 33 base 32 + Des 1, deslocamento 9m e voo 18m, imunidade a paralisia). *Mordida +26* (2d6+12), *Ferrão +26* (1d8+12 mais veneno), *Agarrar Aprimorado* (+31) e *Peçonha Concentrada* (1d12 PV/rodada por 3 rodadas, Fort CD 26 reduz). Token top-down 2MTT (*Young Wyvern*).
+    - *Presa do Grande Basilisco (ND 3)*: Humanoide Médio (21 PV, Defesa 20 base 18 + Des 2). *Machado de batalha +10* (1d8+5 mais veneno, 20/x3), *Ódio Sórdido* (+2 ataque e +1d6 dano contra flanqueados ou sob condição), *Vitalidade Peçonhenta* (cura 1d12 PV com efeitos de veneno) e *Peçonha Concentrada* (CD 19). Token top-down 2MTT (*Cultist*).
+    - *Basilisco Ancestral (ND 9)*: Monstro Enorme 3x3 (370 PV, Defesa 33 base 31 + Des 2, deslocamento 9m e natação 9m, RD 10, imunidade a metamorfose, resistência a veneno +10). *Mordida +27* (4d8+25 mais veneno), *Olhar Petrificante* (Reflexos CD 28; falha: lento, se já lento petrifica), *Sopro* (cone 9m, 3d12 imediato + 3d12/rodada de envenenado, Fort CD 28 reduz à metade e evita condição) e *Peçonha Potente* (2d12 PV/rodada por 3 rodadas, Fort CD 28 reduz). Token top-down 2MTT (*Sea Basilisk*).
+    - Todas as ameaças configuradas com 34 perícias deduzidas com fórmula padrão, Defesa Base dinâmica (`base + des = value`), traits de 13 tipos de dano e biografias canônicas com citações duplas (`#800000` / `#006400`) e apresentação em Arial.
+  - **Parceiros Especiais & Aventura (`Itens_T20`)**:
+    - **Diretriz Canônica Respeitada**: 100% dos parceiros criados estritamente como itens de `type: "poder"` com `system.subtipo: "parceiro"` na pasta canônica *Parceiros* (`0uRx5Efj3tk7P5Xr`), com zero parceiros instanciados como atores.
+    - *5 Parceiros Especiais de Os Cães das Colinas*:
+      - *Arius Gorgonius Dubitatius*: Iniciante (+2 em Conhecimento, Nobreza, Misticismo e Religião), Veterano (+3 nas perícias e resistências), Mestre (+4 nas perícias, resistências e rolagens de dano).
+      - *Aylarianna Purpúrea (Ayla)*: Iniciante (+2 em Enganação e Ladinagem, preparado alquímico até T$ 150), Veterano (+3 nas perícias, poção até T$ 300), Mestre (+4 nas perícias, -1 PM em magias de ilusão, muda preços em 20% ou 30% a seu favor).
+      - *Ignis Crae*: Iniciante (+2 na Defesa, resistências e RD 2), Veterano (+3 na Defesa, resistências e RD 3), Mestre (+5 na Defesa, +5 resistências e +10 RD compartilhado com aliado adjacente).
+      - *Kir’zanaath Odello (Kiki)*: Iniciante (+2 em Atuação, Investigação e Culinária), Veterano (+3 nas perícias, substitui Percepção e Intuição por Investigação), Mestre (+4 nas perícias, Inspiração de bardo).
+      - *Rexthor*: Iniciante (+2 em Luta, +1d8 em rolagem de dano 1x/rodada), Veterano (+3 em Luta, Furtividade e Percepção), Mestre (+4 nas perícias, nunca surpreendido e imune a flanqueamento).
+    - *3 Parceiros de Breves Jornadas*:
+      - *Defensor Rochoso Desperto*: Parceiro guardião veterano (+3 Defesa e resistências).
+      - *Kemooz Pensativo*: Gênio da terra iniciante (cria cubos de terra com RD 5 e 30 PV).
+      - *Filhote de Grifo*: Montaria iniciante (+3m deslocamento terrestre).
+    - *5 Itens, Matérias-Primas, Venenos e Armas*:
+      - *Olho de Basilisco Ancestral*: Órgão lendário para rituais de reversão de petrificações antigas.
+      - *Couro de Basilisco Ancestral*: Matéria-prima superior avaliada em T$ 2.000 para fabricação de armaduras.
+      - *Peçonha Concentrada*: Veneno com dano de 1d12 PV/rodada por 3 rodadas (CD 26).
+      - *Peçonha Potente*: Veneno com dano de 2d12 PV/rodada por 3 rodadas (CD 28).
+      - *Machado de Batalha do Culto do Basilisco*: Arma marcial com estrutura `rolls.parts` completa.
+    - Todos os itens configurados com descrições verbatim dos PDFs oficiais e subdocumentos ClassicLevel de `ActiveEffects` em `!items.effects!itemId.effId`.
+  - **Diários de Bordo (`Diarios_T20`)**:
+    - *Aventura: O Olho do Basilisco (DB #229)*: Diário em 8 páginas cobrindo Resumo, Cenas 1 a 6 e Epílogo com links interativos `@UUID` para atores, itens e tabelas.
+    - *Cenário: Os Cães das Colinas (DB #229)*: Diário em 6 páginas detalhando o romance de Denise Flaibam e a biografia completa dos 5 heróis.
+  - **Tabelas de Rolagem (`Tabelas_T20`)**:
+    - *Encontros nas Montanhas Sanguinárias (DB #229)*: Tabela oficial 1d6 abrangendo Escalada Perigosa, Ninho de Grifo, Revoada de Serpes, Peregrinação Druida, Kemooz Pensativo e Rastejante Voraz.
+  - **Especificações OpenSpec SDD & CodeGraph**:
+    - Evolução das living specs `actors-specification` e `items-specification` com requisitos normativos para a DB #229.
+    - OpenSpec change `integrate-dragao-brasil-229` arquivada com sucesso (`openspec validate --all` 100% aprovado).
+    - Grafo AST do CodeGraph sincronizado.
+  - **Auditoria & Integridade**:
+    - 5.915 documentos principais (43.472 registros LevelDB no total).
+    - 0 erros de JSON, 0 IDs faltantes e 0 pastas órfãs na auditoria geral (`audit.js` e `validate-db229-compliance.js`).
 
 - **Hotfix: Consolidação do Padrão de Biografias de Atores com Citações Duplas (DB #226, #227 e #228)**:
   - **Padronização Visual Canônica de Ameaças**:
