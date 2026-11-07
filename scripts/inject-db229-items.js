@@ -27,16 +27,50 @@
  */
 
 const { ClassicLevel } = require('classic-level');
+const fs = require('fs');
 const path = require('path');
 const {
   buildItem,
   buildWeaponItem,
-  buildActiveEffect,
   saveToSourcePacks
 } = require('./create-entry');
 
 const PACK_ITENS = path.join(__dirname, '..', 'packs', 'Itens_T20');
 const SOURCE_DB229 = 'Dragão Brasil #229';
+
+// Mapeamento Canônico de IDs Fixos para a DB #229 (Garante Idempotência Estrita)
+const DB229_ID_MAP = {
+  'Parceiro: Arius Gorgonius Dubitatius': '7fXXbH9usmth8bMe',
+  'Parceira: Aylarianna Purpúrea (Ayla)': 'lO9YvTIyEqsmyUT8',
+  'Parceiro: Ignis Crae': 'N5PbJ86ouA83AIth',
+  'Parceira: Kir’zanaath Odello (Kiki)': 'eD2XJH2Xzs0pXwk1',
+  'Parceiro: Rexthor': 'JI4lGueF8aMSruWC',
+  'Parceiro: Defensor Rochoso Desperto': '1L1EEvnpav0XONsU',
+  'Parceiro: Kemooz Pensativo': 'vBMc9AAxnTi4LYqZ',
+  'Parceiro: Filhote de Grifo': 'heA8oQwmkuwDszHV',
+  'Olho de Basilisco Ancestral': 'A7XXqzcilQFS6Nh9',
+  'Couro de Basilisco Ancestral': 'uCGImb2DmCZfW42N',
+  'Peçonha Concentrada': 'TCMrwRlPK87zGYMd',
+  'Peçonha Potente': '4XKmGHsOYphYdf2h',
+  'Machado de Batalha do Culto do Basilisco': 'E5ARH2Hpt3RdsBrS'
+};
+
+// IDs gerados inadvertidamente por execuções sem mapa fixo
+const DUPLICATE_IDS_TO_PURGE = [
+  't9y6iLCCfGWHicnh',
+  '9OZ0q0lqfbo5Shx8',
+  'SHsmZrxg5ui4HODF',
+  'juLCsmUjr0UH31c7',
+  'KcSf44sES4nWriuA',
+  '8EzSM2fn2iozqv0V',
+  'i1aLcuH9PeeOvf0L',
+  'OTwoUNQl2K8k8Weg',
+  'xeC1y2pxdCGlsKNj',
+  'TmLsPjqUz0cGI6w4',
+  'ow33mTzwuRsUBavx',
+  'tphDODescEJXoWu0',
+  '8jQgvVuu1kry1tQw'
+];
 
 // Pastas Oficiais em Itens_T20
 const FOLDER_PARCEIROS = '0uRx5Efj3tk7P5Xr';
@@ -586,8 +620,40 @@ async function injectItems() {
   console.log('=== Injetando Itens, Parceiros e Venenos da DB #229 em Itens_T20 ===\n');
   const db = new ClassicLevel(PACK_ITENS, { valueEncoding: 'json' });
 
+  // 1. Purga registros duplicados de IDs gerados em execuções anteriores
+  console.log('Purgando registros duplicados de execuções anteriores...');
+  for (const dupId of DUPLICATE_IDS_TO_PURGE) {
+    try {
+      await db.del(`!items!${dupId}`);
+    } catch {
+      // Ignora se não existir
+    }
+    for await (const [effK] of db.iterator({ gte: `!items.effects!${dupId}.`, lte: `!items.effects!${dupId}.\uffff` })) {
+      await db.del(effK);
+    }
+  }
+
+  const srcDir = path.join(__dirname, '..', 'src', 'packs', 'Itens_T20');
+  if (fs.existsSync(srcDir)) {
+    const files = fs.readdirSync(srcDir);
+    for (const f of files) {
+      for (const dupId of DUPLICATE_IDS_TO_PURGE) {
+        if (f.includes(dupId)) {
+          fs.unlinkSync(path.join(srcDir, f));
+          console.log(`Removido arquivo duplicado: ${f}`);
+        }
+      }
+    }
+  }
+
   let count = 0;
   for (const item of DB229_ITEMS) {
+    if (DB229_ID_MAP[item.name]) {
+      item._id = DB229_ID_MAP[item.name];
+    }
+    if (item.name === 'Machado de Batalha do Culto do Basilisco') {
+      item.system.source = `${SOURCE_DB229} (O Olho do Basilisco)`;
+    }
     const key = `!items!${item._id}`;
 
     // Constrói os subdocumentos de efeitos no padrão canônico ClassicLevel
@@ -698,4 +764,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { injectItems, DB229_ITEMS };
+module.exports = { injectItems, DB229_ITEMS, DB229_ID_MAP, DUPLICATE_IDS_TO_PURGE };
