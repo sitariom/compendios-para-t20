@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.7.1 - 2026-11-08
+
+- **Hotfix: Revisão Canônica de Ataques, Descrições de Itens, Páginas de Diários e Rótulos de Tabelas (DB #229 e #230)**:
+  - **Ameaças (`Ameacas_T20`)**:
+    - *Mestre do Pesadelo (ND 15)*: Instanciadas todas as quatro caudas como armas embutidas individuais (*Cauda-Espinho Titânica*, *Cauda-Ferrão Virulenta*, *Cauda-Lâmina Enorme*, *Cauda-Tentáculo Colossal*) e preenchido o sumário de ataque à distância em `ataquesad`.
+    - *Danos Adicionais em `rolls.parts`*: Inclusão das fórmulas de danos secundários em ataques híbridos: trevas em *Tenente Onírico* (2d6 trevas), *Nócnam Mur* (6d6 trevas) e *Sacerdote Caído* (1d12 trevas); psíquico na Cauda-Tentáculo do *Coletor do Pesadelo* (4d6 psíquico); e veneno contínuo nas caudas-ferrão do *Zangão* (1d12) e *Pesadelo Polivalente* (2d12).
+    - *Ataques à Distância*: Mapeamento correto de `ataquesad`, `alcance` e `proposito: 'tiro'` com perícia `pont` para as armas de projétil/arremesso (*Azagaias de Gaardak*, *Adagas de Arzak*, *Funda dos Goblins*, *Arco Curto do Ginete* e *Sopro do Basilisco Ancestral*).
+  - **Itens (`Itens_T20`)**:
+    - Corrigido o schema de descrição em todos os 9 itens, equipamentos e poderes da DB #230 para `system.description.value`, assegurando que o texto enriquecido seja renderizado na ficha do Foundry VTT.
+  - **Diários (`Diarios_T20`)**:
+    - Ajustado `ownership: { default: -1 }` em todas as páginas de diários da DB #229 e DB #230, garantindo herança de permissão do `JournalEntry` e eliminando bloqueios de visualização.
+  - **Tabelas de Rolagem (`Tabelas_T20`)**:
+    - Preenchido o campo `name` em todos os resultados (`TableResult`) da DB #229 e DB #230, permitindo visualização imediata do título nas listas e no chat.
+  - **Validação e Qualidade**:
+    - Validador `validate-db230-compliance.js` expandido para 992 asserções ativas com 100% de aprovação (0 erros). Base total com 5.931 documentos principais (43.544 registros LevelDB) auditados com 0 erros.
+
 ## v1.7.0 - 2026-11-08
 
 - **Dragão Brasil #230 (Integração Canônica Completa de Ameaças, Itens, Diários e Tabelas)**:
