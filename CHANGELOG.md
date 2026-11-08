@@ -1,5 +1,51 @@
 # Changelog
 
+## v1.7.0 - 2026-11-08
+
+- **Dragão Brasil #230 (Integração Canônica Completa de Ameaças, Itens, Diários e Tabelas)**:
+  - **Ameaças e Criaturas (`Ameacas_T20`)**:
+    - Inclusão de **14 ameaças oficiais** completas na pasta *Dragão Brasil* (`wfWApuyngzFm4KOP`), com 34 perícias dinâmicas, defesas dinâmicas (`base + des === value`), tokens top-down 2-Minute Tabletop exclusivos e biografias canônicas com citações duplas (`#800000` e `#006400`) e apresentação em Arial:
+      - *O Reino dos Pesadelos (10 Criaturas de Rafael Dei Svaldi)*:
+        - **Zangão do Pesadelo (ND 5)**: Construto Médio (140 PV, Defesa 24 base 19 + Des 5, deslocamento 15m, RD 5/mágico, cura acelerada 5). Ataques naturais *Mordida +17*, *Cauda-Espinho* (à distância), *Cauda-Ferrão* (peçonha concentrada), *Cauda-Lâmina* (18/x3), *Cauda-Tentáculo* (agarrar teste +19) e *Mente Alienígena* (choque psíquico 6d6, Von CD 20).
+        - **Coletor do Pesadelo (ND 6)**: Construto Médio (160 PV, Defesa 25 base 21 + Des 4, RD 5/mágico, cura acelerada 5). *Mordida +18*, *Cauda-Tentáculo +18* (1d8+10 mais 4d6 psíquico), *Agarrar Aprimorado* (+20) e *Drenar Sonhos* (drena 2d6/4d6 PM, alquebrado ou roubo permanente de sonhos, Von CD 24).
+        - **Ceifador do Pesadelo (ND 8)**: Construto Médio (280 PV, Defesa 33 base 27 + Des 6, RD 10/mágico, cura acelerada 5). *Mordida +26*, *Cauda-Lâmina +26* (4d6+20 corte, 18/x3) e *Mente Alienígena* (choque psíquico 8d6, Von CD 26).
+        - **Pesadelo Polivalente (ND 10)**: Construto Grande (370 PV, Defesa 36 base 30 + Des 6, RD 10/mágico, cura acelerada 10). *Mordida +29*, quatro ataques de cauda (+29 em cada), *Pesadelo Combinado* (duas naturezas) e *Mente Alienígena* (10d6 psíquico, Von CD 28).
+        - **Mestre do Pesadelo (ND 15)**: Construto Enorme (780 PV, Defesa 48 base 45 + Des 3, RD 20/mágico, cura acelerada 20). *Mordida +43*, *Duas Garras +43*, quatro caudas (+43), *Natureza Onírica* (50% de ignorar dano/magia), *Manifestar Pesadelo* (magias de ilusão sem gastar PM, CD 38), *Mente Alienígena Suprema* (15d6 psíquico) e despojo *Centelha Onírica* (CD 30 para extrair).
+        - **Lanceiro Onírico (ND 2)**: Construto Médio (16 PV, Defesa 19 base 18 + Des 1). *Lança +14*, *Cauda-Lâmina +14* e *Assalto Assustador* (+2 ataque/dano no 1º turno).
+        - **Ginete Onírico (ND 3)**: Construto Médio (24 PV, Defesa 21 base 20 + Des 1). *Lança de Cavalaria +16* (2d8+4, x3, alcance 3m), *Ginete do Pesadelo* (estabilidade automática) e *Carga Aterradora* (deslocamento 12m, movimento extra e +1d6 dano montado).
+        - **Sargento Onírico (ND 4)**: Construto Médio (140 PV, Defesa 23 base 22 + Des 1). *Espada Bastarda +16* (2d6+5, 19/x3), *Fome de Sonhos* (bônus igual ao PM gasto pelo alvo), *Golpe Amedrontador* (vulnerável) e *Negação da Morte* (mantém aliado com 1 PV).
+        - **Tenente Onírico (ND 6)**: Construto Médio (220 PV, Defesa 27 base 26 + Des 1, RD 5). *Espada Bastarda +20* (mais 2d6 trevas), *Estratégia do Medo* (dois dados em ataques contra quem não for imune a medo), aura *Partilhar Fome* (30m) e *Negação da Morte*.
+        - **Nócnam Mur, o Pesadelo Amalgamado (ND 18)**: Construto Grande (1.080 PV, Defesa 56 base 55 + Des 1, RD 10, fortificação 50%). *Espada Bastarda Titânica +49* (3d12+20, 19/x3 mais 6d6 trevas com dados explosivos por *Força dos Titãs*), *Quatro Tentáculos-Cauda +49* (3d8+15 corte, 18/x3 mais 6d6 trevas, alcance 6m), *Despertar Temor* (CD 47, desvantagem em testes e perda de PM), *Pesadelo Amalgamado* (todas as 4 naturezas) e *Varrer*.
+      - *Breves Jornadas: A Corrida Brutal (4 Criaturas de Daniel Duran)*:
+        - **Sacerdote Caído (ND 5)**: Humanoide Bugbear Médio (45 PV, Defesa 23 base 21 + Des 2, 22 PM). *Foice Negra x2 +20* (2d8+13, x3 mais 1d12 trevas), *Êxtase no Medo* (metade do dano de alvos com medo), *Refestelar-se em Sangue* (recupera 5 PM em críticos ou mortes) e magias de trevas *Toque Vampírico* e *Vitalidade Fantasma* (CD 20).
+        - **Três Goblins em um Gorlogg (ND 7)**: Animal Grande (300 PV, Defesa 30 base 25 + Des 5). *Mordida x2 +24* (3d8+16, x4 com agarrar +26), *Funda x3 +20*, *Lançamento de Bombas* (12d6 de impacto em área, Ref CD 22) e *Vai, Vai, Vai!* (movimento adicional).
+        - **Arzak (ND 8)**: Humanoide Hobgoblin Médio (250 PV, Defesa 31 base 26 + Des 5, evasão aprimorada). *Kum’shrak Eviscerador x3 +24* (1d8+10 corte, x3 mais sangrando), *Assassinar* (dobra dados de Furtivo para 12d6 ou 16d6 montado), *Manobras Evasivas* e *Um com as Sombras*.
+        - **Gaardak (ND 8)**: Humanoide Bugbear Médio (320 PV, Defesa 33 base 29 + Des 4, escavação e natação 6m). *Ataque Desarmado x3 +24*, *Azagaias +26* com *Arremesso Devastador* (derrubar/empurrar teste +28), contra-ataque reativo *Lento Demais!* e *Poderio Muscular*.
+  - **Itens, Veículos, Consumíveis e Parceiros (`Itens_T20`)**:
+    - Inclusão de **9 novos documentos** com mapeamento determinístico de IDs fixos (`DB230_ID_MAP`) e subdocumentos ClassicLevel de ActiveEffects (`!items.effects!itemId.effId`):
+      - *Parceira: Rotsheel*: Parceira Combatente Veterana hobgoblin em `0uRx5Efj3tk7P5Xr` (+2 em testes de ataque, +1 na margem de ameaça e +5 em testes de Pilotagem/Sobrevivência).
+      - *Carruagem Duyshidakk*: Veículo blindado Enorme (Defesa 25, 200 PV, RD 10, capacidade 100 espaços e +10 contra manobras para derrubar).
+      - *Machado do Campeão de Tyrondir*: Machado de guerra aumentado atroz formidável (3d6 corte, 19/x3, +2 no ataque e dano).
+      - *Kum’shrak Eviscerador*: Arma exótica duyshidakk de corte (1d8 corte, 19/x3, causa sangramento).
+      - *Centelha Onírica*: Despojo de Mestre do Pesadelo permitindo absorver e conjurar uma magia de ilusão de até 2º círculo.
+      - *Sonho Resgatado: Sonho de Amor*: Concede +1 PM a cada dois níveis.
+      - *Sonho Resgatado: Sonho de Aprendizado*: Concede +2 permanente em três perícias treinadas.
+      - *Sonho Resgatado: Sonho de Destruição*: Concede +1 PV por nível de personagem.
+      - *Pesadelo Onírico: Sonho Perdido*: Condição e desvantagem decorrente de sonhos drenados pelo Coletor do Pesadelo.
+  - **Diários Estruturados (`Diarios_T20`)**:
+    - Inclusão de **2 diários completos** com `pages` em conformidade com o Hotfix v1.6.2 (arrays de string IDs):
+      - *O Reino dos Pesadelos (DB #230)*: 7 páginas de lore sobre o reino onírico, Soberana Judara, criaturas, Ferren Asloth, os Sislach e os mercenários oníricos.
+      - *Aventura: A Corrida Brutal (DB #230)*: 5 páginas estruturadas com a corrida em Tyrondir, concorrentes, regras de perseguição e confronto com os sacerdotes caídos.
+  - **Tabelas de Rolagem (`Tabelas_T20`)**:
+    - Inclusão de **4 tabelas oficiais** com `results` estritamente como arrays de string IDs e schema `TableResult` em `type: "text"`:
+      - *Natureza do Pesadelo (DB #230)* (1d4): Desastre, Fracasso, Perseguição e Morte.
+      - *Ganchos do Pesadelo em Aslothia (DB #230)* (1d6): 6 ganchos de aventura contra o Arquilich.
+      - *Encontros da Corrida Brutal (DB #230)* (1d6): 6 obstáculos e emboscadas durante a corrida.
+      - *Sonhos Roubados pelo Coletor (DB #230)* (1d4): Definição aleatória do sonho roubado.
+  - **Validação e Qualidade**:
+    - Criado validador automatizado `scripts/validate-db230-compliance.js` com **913 verificações ativas** e **0 erros** (100% de aprovação).
+    - Base total expandida para **5.931 documentos principais** (43.526 registros LevelDB) com 0 erros de integridade.
+
 ## v1.6.2 - 2026-11-07
 
 - **Hotfix: Resolução de Subdocumentos em Diários e Tabelas no Foundry VTT (DB #228 e DB #229)**:

@@ -34,3 +34,13 @@ Journal pages referencing creatures, weapons, spells, or roll tables SHALL use F
 - **WHEN** the journal page is read in Foundry VTT
 - **THEN** the creature name is an active `@UUID` compendium link
 - **AND** clicking the link opens the corresponding actor sheet from `Ameacas_T20`
+
+### Requirement: Dragão Brasil #230 Journals Subdocument Architecture
+All journals from Dragão Brasil #230 (*O Reino dos Pesadelos*, *Aventura: A Corrida Brutal*) SHALL be stored in `packs/Diarios_T20` inside the canonical *Dragão Brasil* folder. Conforming to Hotfix v1.6.2, `JournalEntry.pages` MUST strictly be an array of string IDs (`[pageId1, pageId2, ...]`), with the full page subdocument stored under `!journal.pages!journalId.pageId`.
+
+#### Scenario: Journal pages resolution
+- **GIVEN** a journal from DB #230
+- **WHEN** inspected in the LevelDB pack
+- **THEN** `pages` contains string IDs only
+- **AND** all corresponding page keys exist in LevelDB with formatted HTML content
+
