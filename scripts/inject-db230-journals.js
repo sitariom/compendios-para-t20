@@ -33,7 +33,7 @@ const DB230_JOURNALS = [
   // 1. O REINO DOS PESADELOS (DB #230)
   // =========================================================================
   {
-    id: 'JrnlReinoPesad230',
+    id: 'jReinoPesad230AA',
     name: 'O Reino dos Pesadelos (DB #230)',
     folder: FOLDER_LIVROS,
     pages: [
@@ -57,17 +57,17 @@ const DB230_JOURNALS = [
         content: `<h2>Criaturas e Soldados do Pesadelo</h2>
 <p>As legiões forjadas no reino onírico possuem corpos caninos esqueléticos translúcidos, ossos metálicos e caudas especializadas:</p>
 <ul>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KZangPes230A]{Zangão do Pesadelo (ND 5)}:</strong> O soldado de linha, adaptável com cauda-espinho, ferrão venenoso, cauda-lâmina ou tentáculo.</li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KColePes230B]{Coletor do Pesadelo (ND 6)}:</strong> Especializado em drenar pontos de mana e roubar os sonhos definitivos de suas vítimas.</li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KCeifPes230C]{Ceifador do Pesadelo (ND 8)}:</strong> Máquina assassina ágil dotada de cauda-lâmina cortante 18/x3.</li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KPoliPes230D]{Pesadelo Polivalente (ND 10)}:</strong> Bípede colossal com quatro caudas ativas e regeneração acelerada.</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KZangPes230AA]{Zangão do Pesadelo (ND 5)}:</strong> O soldado de linha, adaptável com cauda-espinho, ferrão venenoso, cauda-lâmina ou tentáculo.</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KColePes230AA]{Coletor do Pesadelo (ND 6)}:</strong> Especializado em drenar pontos de mana e roubar os sonhos definitivos de suas vítimas.</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KCeifPes230AA]{Ceifador do Pesadelo (ND 8)}:</strong> Máquina assassina ágil dotada de cauda-lâmina cortante 18/x3.</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KPoliPes230AA]{Pesadelo Polivalente (ND 10)}:</strong> Bípede colossal com quatro caudas ativas e regeneração acelerada.</li>
 </ul>`
       },
       {
         name: 'Mestres do Pesadelo e Despojos',
         content: `<h2>Os Mestres do Pesadelo & A Centelha Onírica</h2>
-<p>Entidades gigantescas de ND 15 (@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KMestPes230E]{Mestre do Pesadelo}), personificações vivas de Desastre, Fracasso, Perseguição e Morte. Possuem 50% de chance de ignorar dano mundano ou mágico e conjuram magias de ilusão livremente.</p>
-<p>Ao derrotar um Mestre, aventureiros habilidosos podem extrair a <strong>@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KCentelha230]{Centelha Onírica}</strong> (CD 30), catalisador alquímico capaz de conceder magias de ilusão permanentemente.</p>`
+<p>Entidades gigantescas de ND 15 (@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KMestPes230AA]{Mestre do Pesadelo}), personificações vivas de Desastre, Fracasso, Perseguição e Morte. Possuem 50% de chance de ignorar dano mundano ou mágico e conjuram magias de ilusão livremente.</p>
+<p>Ao derrotar um Mestre, aventureiros habilidosos podem extrair a <strong>@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KCentelha230A]{Centelha Onírica}</strong> (CD 30), catalisador alquímico capaz de conceder magias de ilusão permanentemente.</p>`
       },
       {
         name: 'Ferren Asloth e o Plano do Arquilich',
@@ -88,11 +88,11 @@ const DB230_JOURNALS = [
         content: `<h2>Exércitos de Necromancia e Pesadelo</h2>
 <p>Criados a partir de cadáveres de guerreiros fundidos com energia de soldados do pesadelo, os mercenários preservam armaduras militares e armas pesadas:</p>
 <ul>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KLancOni230F]{Lanceiro Onírico (ND 2)}</strong></li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGineOni230G]{Ginete Onírico (ND 3)}</strong></li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KSargOni230H]{Sargento Onírico (ND 4)}</strong></li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KTeneOni230I]{Tenente Onírico (ND 6)}</strong></li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KNocnMur230J]{Nócnam Mur, o Pesadelo Amalgamado (ND 18)}:</strong> Galokk reanimado e general implacável dotado de quatro tentáculos-cauda de alcance 6m e CD 47 em seus terrores.</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KLancOni230AA]{Lanceiro Onírico (ND 2)}</strong></li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGineOni230AA]{Ginete Onírico (ND 3)}</strong></li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KSargOni230AA]{Sargento Onírico (ND 4)}</strong></li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KTeneOni230AA]{Tenente Onírico (ND 6)}</strong></li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KNocnMur230AA]{Nócnam Mur, o Pesadelo Amalgamado (ND 18)}:</strong> Galokk reanimado e general implacável dotado de quatro tentáculos-cauda de alcance 6m e CD 47 em seus terrores.</li>
 </ul>`
       }
     ]
@@ -102,7 +102,7 @@ const DB230_JOURNALS = [
   // 2. AVENTURA: A CORRIDA BRUTAL (DB #230)
   // =========================================================================
   {
-    id: 'JrnlCorridaBrut230',
+    id: 'jCorridaBrut230A',
     name: 'Aventura: A Corrida Brutal (DB #230)',
     folder: FOLDER_LIVROS,
     pages: [
@@ -122,9 +122,9 @@ const DB230_JOURNALS = [
         content: `<h2>A Bandeirada Inicial e Concorrentes</h2>
 <p>A corrida utiliza as regras de perseguição e veículos de <em>Heróis de Arton</em> (p. 241). Os principais competidores são:</p>
 <ul>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGaarda230N]{Gaardak (ND 8)}:</strong> Bugbear furioso capaz de manobras de choque e arremesso de azagaias (+20 na corrida).</li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGobGorl230L]{Três Goblins em um Gorlogg (ND 7)}:</strong> Krigg, Progg e Nregg disparando barragens de bombas alquímicas (+16 na corrida).</li>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KArzak230M]{Arzak (ND 8)}:</strong> Assassino hobgoblin silencioso com seu <em>kum’shrak eviscerador</em> (+18 na corrida).</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGaarda230AAA]{Gaardak (ND 8)}:</strong> Bugbear furioso capaz de manobras de choque e arremesso de azagaias (+20 na corrida).</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGobGorl230AA]{Três Goblins em um Gorlogg (ND 7)}:</strong> Krigg, Progg e Nregg disparando barragens de bombas alquímicas (+16 na corrida).</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KArzak230AAAA]{Arzak (ND 8)}:</strong> Assassino hobgoblin silencioso com seu <em>kum’shrak eviscerador</em> (+18 na corrida).</li>
   <li><strong>Dok:</strong> Inventor kliren e sua aranha-golem a vapor (+16 na corrida).</li>
   <li><strong>Pottak:</strong> Piloto aeronauta goblin em seu ornitóptero (+14 na corrida).</li>
 </ul>`
@@ -134,7 +134,7 @@ const DB230_JOURNALS = [
         content: `<h2>O Ataque dos Sacerdotes Caídos</h2>
 <p>Ao se aproximarem da linha de chegada, a celebração é interrompida por colunas de fumaça e gritos de massacre. Fanáticos bugbears devotados a Ragnar atacam o acampamento:</p>
 <ul>
-  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KSaceCai230K]{Sacerdote Caído (ND 5)}:</strong> Quatro cultistas armados com foices negras e drenos de vitalidade.</li>
+  <li><strong>@UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KSaceCai230AA]{Sacerdote Caído (ND 5)}:</strong> Quatro cultistas armados com foices negras e drenos de vitalidade.</li>
   <li><strong>Poças de Lodo Negro:</strong> Áreas de 3m de lado de substância profana. Entrar em contato exige Fortitude CD 35 ou perda de 10d12 PV (falha pode reduzir diretamente a –10 PV).</li>
 </ul>`
       },
@@ -142,7 +142,7 @@ const DB230_JOURNALS = [
         name: 'Epílogo & Recompensas',
         content: `<h2>O Machado do Campeão</h2>
 <p>Pela bravura ao defender o acampamento e expurgar o culto nefando de Ragnar, os personagens são coroados campeões unânimes da corrida.</p>
-<p>Eles recebem o formidável <strong>@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KMachadoT230]{Machado do Campeão de Tyrondir}</strong> (3d6 corte, 19/x3) e avançam diretamente para o <strong>10º nível</strong> de personagem.</p>`
+<p>Eles recebem o formidável <strong>@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KMachadoT230A]{Machado do Campeão de Tyrondir}</strong> (3d6 corte, 19/x3) e avançam diretamente para o <strong>10º nível</strong> de personagem.</p>`
       }
     ]
   }

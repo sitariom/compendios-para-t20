@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.7.2 - 2026-11-08
+
+- **Hotfix Estrutural: Padronização Universal de IDs Estritamente com 16 Caracteres para o Foundry VTT (DB #229 e #230)**:
+  - **Resolução de Visibilidade em Diários e Tabelas de Rolagem**:
+    - Identificada a causa raiz de diários e tabelas não serem indexados pelo Foundry VTT: no core do Foundry (`foundry.data.validators.isValidId`), todos os IDs de documentos primários em compêndios ClassicLevel devem ter rigorosamente **16 caracteres alfanuméricos** (`/^[a-zA-Z0-9]{16}$/`). IDs manuais legados como `JrnlReinoPesad230` (17 chars), `JrnlOlhoBasilisco229` (20 chars), `TbNaturezaPesad230` (18 chars), etc., eram sumariamente descartados pelo compendium indexer.
+    - Expurgadas em definitivo as chaves antigas com comprimento diferente de 16 caracteres de todos os bancos LevelDB e arquivos de fontes.
+    - Padronizados todos os IDs para exatamente 16 caracteres:
+      - *Diários*: `jReinoPesad230AA`, `jCorridaBrut230A`, `jOlhoBasilis229A`, `jCaesColinas229A`.
+      - *Tabelas*: `tNaturezaP230AAA`, `tGanchosP230AAAA`, `tCorridaBrut230A`, `tSonhosRoub230AA`, `tEncontrosS229AA`.
+      - *Ameaças*: `gq8KZangPes230AA`, `gq8KColePes230AA`, `gq8KCeifPes230AA`, `gq8KPoliPes230AA`, `gq8KMestPes230AA`, `gq8KLancOni230AA`, `gq8KGineOni230AA`, `gq8KSargOni230AA`, `gq8KTeneOni230AA`, `gq8KNocnMur230AA`, `gq8KSaceCai230AA`, `gq8KGobGorl230AA`, `gq8KArzak230AAAA`, `gq8KGaarda230AAA`, `gq8KDefRoch229AA`, `gq8KRevSerp229AA`, `gq8KPreBas229AAA`, `gq8KBasAnc229AAA`.
+      - *Itens*: `gq8KMachadoT230A`, `gq8KKumshrak230A`, `gq8KCentelha230A`, `gq8KSonhoAmo230A`, `gq8KSonhoApr230A`, `gq8KSonhoDes230A`, `gq8KPesadPer230A`.
+  - **Sincronização Completa de Links `@UUID`**:
+    - Todos os links `@UUID` entre diários, tabelas, ameaças e itens foram sincronizados com os novos IDs canônicos.
+  - **Validação e Auditoria Global**:
+    - Auditoria em todos os 6 compêndios atestou **0 IDs inválidos em todo o repositório** (100% dos documentos principais em conformidade).
+    - Validadores `validate-db230-compliance.js` (1.021 checagens) e `validate-db229-compliance.js` aprovados com 100% de sucesso.
+
 ## v1.7.1 - 2026-11-08
 
 - **Hotfix: Revisão Canônica de Ataques, Descrições de Itens, Páginas de Diários e Rótulos de Tabelas (DB #229 e #230)**:

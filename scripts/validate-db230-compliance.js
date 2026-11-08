@@ -50,23 +50,24 @@ async function validateActors() {
   const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
 
   const requiredThreats = [
-    { id: 'gq8KZangPes230A', name: 'Zangão do Pesadelo', nd: '5', tamanho: 'med' },
-    { id: 'gq8KColePes230B', name: 'Coletor do Pesadelo', nd: '6', tamanho: 'med' },
-    { id: 'gq8KCeifPes230C', name: 'Ceifador do Pesadelo', nd: '8', tamanho: 'med' },
-    { id: 'gq8KPoliPes230D', name: 'Pesadelo Polivalente', nd: '10', tamanho: 'grd' },
-    { id: 'gq8KMestPes230E', name: 'Mestre do Pesadelo', nd: '15', tamanho: 'enor' },
-    { id: 'gq8KLancOni230F', name: 'Lanceiro Onírico', nd: '2', tamanho: 'med' },
-    { id: 'gq8KGineOni230G', name: 'Ginete Onírico', nd: '3', tamanho: 'med' },
-    { id: 'gq8KSargOni230H', name: 'Sargento Onírico', nd: '4', tamanho: 'med' },
-    { id: 'gq8KTeneOni230I', name: 'Tenente Onírico', nd: '6', tamanho: 'med' },
-    { id: 'gq8KNocnMur230J', name: 'Nócnam Mur, o Pesadelo Amalgamado', nd: '18', tamanho: 'grd' },
-    { id: 'gq8KSaceCai230K', name: 'Sacerdote Caído', nd: '5', tamanho: 'med' },
-    { id: 'gq8KGobGorl230L', name: 'Três Goblins em um Gorlogg', nd: '7', tamanho: 'grd' },
-    { id: 'gq8KArzak230M', name: 'Arzak', nd: '8', tamanho: 'med' },
-    { id: 'gq8KGaarda230N', name: 'Gaardak', nd: '8', tamanho: 'med' }
+    { id: 'gq8KZangPes230AA', name: 'Zangão do Pesadelo', nd: '5', tamanho: 'med' },
+    { id: 'gq8KColePes230AA', name: 'Coletor do Pesadelo', nd: '6', tamanho: 'med' },
+    { id: 'gq8KCeifPes230AA', name: 'Ceifador do Pesadelo', nd: '8', tamanho: 'med' },
+    { id: 'gq8KPoliPes230AA', name: 'Pesadelo Polivalente', nd: '10', tamanho: 'grd' },
+    { id: 'gq8KMestPes230AA', name: 'Mestre do Pesadelo', nd: '15', tamanho: 'enor' },
+    { id: 'gq8KLancOni230AA', name: 'Lanceiro Onírico', nd: '2', tamanho: 'med' },
+    { id: 'gq8KGineOni230AA', name: 'Ginete Onírico', nd: '3', tamanho: 'med' },
+    { id: 'gq8KSargOni230AA', name: 'Sargento Onírico', nd: '4', tamanho: 'med' },
+    { id: 'gq8KTeneOni230AA', name: 'Tenente Onírico', nd: '6', tamanho: 'med' },
+    { id: 'gq8KNocnMur230AA', name: 'Nócnam Mur, o Pesadelo Amalgamado', nd: '18', tamanho: 'grd' },
+    { id: 'gq8KSaceCai230AA', name: 'Sacerdote Caído', nd: '5', tamanho: 'med' },
+    { id: 'gq8KGobGorl230AA', name: 'Três Goblins em um Gorlogg', nd: '7', tamanho: 'grd' },
+    { id: 'gq8KArzak230AAAA', name: 'Arzak', nd: '8', tamanho: 'med' },
+    { id: 'gq8KGaarda230AAA', name: 'Gaardak', nd: '8', tamanho: 'med' }
   ];
 
   for (const req of requiredThreats) {
+    assert(req.id.length === 16 && /^[a-zA-Z0-9]{16}$/.test(req.id), `ID canônico de 16 caracteres para ${req.name}: "${req.id}"`);
     let doc;
     try {
       doc = await db.get(`!actors!${req.id}`);
@@ -165,16 +166,17 @@ async function validateItems() {
   const requiredItems = [
     { id: 'gq8KPRotsheel230', name: 'Parceira: Rotsheel', type: 'poder', folder: '0uRx5Efj3tk7P5Xr', minEff: 2 },
     { id: 'gq8KCarruagem230', name: 'Carruagem Duyshidakk', type: 'equipamento', folder: 'f9rwHA7dJnFLVQH1', minEff: 1 },
-    { id: 'gq8KMachadoT230', name: 'Machado do Campeão de Tyrondir', type: 'arma', folder: 'VkkBiC6Epn7FfW6p', minEff: 1 },
-    { id: 'gq8KKumshrak230', name: 'Kum’shrak Eviscerador', type: 'arma', folder: 'VkkBiC6Epn7FfW6p', minEff: 1 },
-    { id: 'gq8KCentelha230', name: 'Centelha Onírica', type: 'consumivel', folder: 'ZMhIquorDsf9xEn8', minEff: 0 },
-    { id: 'gq8KSonhoAmo230', name: 'Sonho Resgatado: Sonho de Amor', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 },
-    { id: 'gq8KSonhoApr230', name: 'Sonho Resgatado: Sonho de Aprendizado', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 },
-    { id: 'gq8KSonhoDes230', name: 'Sonho Resgatado: Sonho de Destruição', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 },
-    { id: 'gq8KPesadPer230', name: 'Pesadelo Onírico: Sonho Perdido', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 }
+    { id: 'gq8KMachadoT230A', name: 'Machado do Campeão de Tyrondir', type: 'arma', folder: 'VkkBiC6Epn7FfW6p', minEff: 1 },
+    { id: 'gq8KKumshrak230A', name: 'Kum’shrak Eviscerador', type: 'arma', folder: 'VkkBiC6Epn7FfW6p', minEff: 1 },
+    { id: 'gq8KCentelha230A', name: 'Centelha Onírica', type: 'consumivel', folder: 'ZMhIquorDsf9xEn8', minEff: 0 },
+    { id: 'gq8KSonhoAmo230A', name: 'Sonho Resgatado: Sonho de Amor', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 },
+    { id: 'gq8KSonhoApr230A', name: 'Sonho Resgatado: Sonho de Aprendizado', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 },
+    { id: 'gq8KSonhoDes230A', name: 'Sonho Resgatado: Sonho de Destruição', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 },
+    { id: 'gq8KPesadPer230A', name: 'Pesadelo Onírico: Sonho Perdido', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 1 }
   ];
 
   for (const req of requiredItems) {
+    assert(req.id.length === 16 && /^[a-zA-Z0-9]{16}$/.test(req.id), `ID canônico de 16 caracteres para ${req.name}: "${req.id}"`);
     let doc;
     try {
       doc = await db.get(`!items!${req.id}`);
@@ -229,11 +231,12 @@ async function validateJournalsAndTables() {
   const dbJournals = new ClassicLevel(PACK_JOURNALS, { valueEncoding: 'json' });
 
   const requiredJournals = [
-    { id: 'JrnlReinoPesad230', name: 'O Reino dos Pesadelos (DB #230)', minPages: 7 },
-    { id: 'JrnlCorridaBrut230', name: 'Aventura: A Corrida Brutal (DB #230)', minPages: 5 }
+    { id: 'jReinoPesad230AA', name: 'O Reino dos Pesadelos (DB #230)', minPages: 7 },
+    { id: 'jCorridaBrut230A', name: 'Aventura: A Corrida Brutal (DB #230)', minPages: 5 }
   ];
 
   for (const req of requiredJournals) {
+    assert(req.id.length === 16 && /^[a-zA-Z0-9]{16}$/.test(req.id), `ID canônico de 16 caracteres para ${req.name}: "${req.id}"`);
     let doc;
     try {
       doc = await dbJournals.get(`!journal!${req.id}`);
@@ -268,13 +271,14 @@ async function validateJournalsAndTables() {
   const dbTables = new ClassicLevel(PACK_TABELAS, { valueEncoding: 'json' });
 
   const requiredTables = [
-    { id: 'TbNaturezaPesad230', name: 'Natureza do Pesadelo (DB #230)', minResults: 4 },
-    { id: 'TbGanchosPesad230', name: 'Ganchos do Pesadelo em Aslothia (DB #230)', minResults: 6 },
-    { id: 'TbCorridaBrut230', name: 'Encontros da Corrida Brutal (DB #230)', minResults: 6 },
-    { id: 'TbSonhosRoubad230', name: 'Sonhos Roubados pelo Coletor (DB #230)', minResults: 4 }
+    { id: 'tNaturezaP230AAA', name: 'Natureza do Pesadelo (DB #230)', minResults: 4 },
+    { id: 'tGanchosP230AAAA', name: 'Ganchos do Pesadelo em Aslothia (DB #230)', minResults: 6 },
+    { id: 'tCorridaBrut230A', name: 'Encontros da Corrida Brutal (DB #230)', minResults: 6 },
+    { id: 'tSonhosRoub230AA', name: 'Sonhos Roubados pelo Coletor (DB #230)', minResults: 4 }
   ];
 
   for (const req of requiredTables) {
+    assert(req.id.length === 16 && /^[a-zA-Z0-9]{16}$/.test(req.id), `ID canônico de 16 caracteres para ${req.name}: "${req.id}"`);
     let doc;
     try {
       doc = await dbTables.get(`!tables!${req.id}`);

@@ -1,4 +1,4 @@
-2026/11/08-02:23:03.193762 ffff6dfbefc0 Recovering log #1634
-2026/11/08-02:23:03.222127 ffff6dfbefc0 Delete type=0 #1634
-2026/11/08-02:23:03.222260 ffff6dfbefc0 Delete type=3 #1633
-2026/11/08-02:23:07.149780 ffff4f460fc0 Moved #1629 to level-1 136053 bytes OK: files[ 0 1 13 0 0 0 0 ]
+2026/11/08-14:10:54.206092 ffff43ffefc0 Recovering log #1688
+2026/11/08-14:10:54.212961 ffff43ffefc0 Delete type=0 #1688
+2026/11/08-14:10:54.213069 ffff43ffefc0 Delete type=3 #1687
+2026/11/08-14:10:57.571203 ffff42bb5fc0 Moved #1681 to level-1 139350 bytes OK: files[ 0 1 14 0 0 0 0 ]

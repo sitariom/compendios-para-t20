@@ -54,7 +54,7 @@ async function injectThreats() {
   // =========================================================================
   // 1. ZANGÃO DO PESADELO (ND 5) - Construto Médio
   // =========================================================================
-  const zangaoId = 'gq8KZangPes230A';
+  const zangaoId = 'gq8KZangPes230AA';
   console.log(`Configurando Zangão do Pesadelo [${zangaoId}]...`);
   const zangaoSkills = buildSkills(5, { for: 4, des: 5, con: 2, int: -2, sab: 1, car: -3 }, {
     inic: 9,
@@ -201,7 +201,7 @@ async function injectThreats() {
   // =========================================================================
   // 2. COLETOR DO PESADELO (ND 6) - Construto Médio
   // =========================================================================
-  const coletorId = 'gq8KColePes230B';
+  const coletorId = 'gq8KColePes230AA';
   console.log(`Configurando Coletor do Pesadelo [${coletorId}]...`);
   const coletorSkills = buildSkills(6, { for: 2, des: 4, con: 2, int: -2, sab: 2, car: -2 }, {
     inic: 9,
@@ -319,7 +319,7 @@ async function injectThreats() {
   // =========================================================================
   // 3. CEIFADOR DO PESADELO (ND 8) - Construto Médio
   // =========================================================================
-  const ceifadorId = 'gq8KCeifPes230C';
+  const ceifadorId = 'gq8KCeifPes230AA';
   console.log(`Configurando Ceifador do Pesadelo [${ceifadorId}]...`);
   const ceifadorSkills = buildSkills(8, { for: 5, des: 6, con: 3, int: -1, sab: 1, car: -3 }, {
     inic: 14,
@@ -418,7 +418,7 @@ async function injectThreats() {
   // =========================================================================
   // 4. PESADELO POLIVALENTE (ND 10) - Construto Grande
   // =========================================================================
-  const polivalenteId = 'gq8KPoliPes230D';
+  const polivalenteId = 'gq8KPoliPes230AA';
   console.log(`Configurando Pesadelo Polivalente [${polivalenteId}]...`);
   const polivalenteSkills = buildSkills(10, { for: 7, des: 6, con: 5, int: -2, sab: 1, car: -3 }, {
     inic: 15,
@@ -554,7 +554,7 @@ async function injectThreats() {
   // =========================================================================
   // 5. MESTRE DO PESADELO (ND 15) - Construto Enorme
   // =========================================================================
-  const mestreId = 'gq8KMestPes230E';
+  const mestreId = 'gq8KMestPes230AA';
   console.log(`Configurando Mestre do Pesadelo [${mestreId}]...`);
   const mestreSkills = buildSkills(15, { for: 11, des: 3, con: 6, int: 4, sab: 3, car: 5 }, {
     inic: 16,
@@ -709,7 +709,7 @@ async function injectThreats() {
   // =========================================================================
   // 6. LANCEIRO ONÍRICO (ND 2) - Construto Médio
   // =========================================================================
-  const lanceiroId = 'gq8KLancOni230F';
+  const lanceiroId = 'gq8KLancOni230AA';
   console.log(`Configurando Lanceiro Onírico [${lanceiroId}]...`);
   const lanceiroSkills = buildSkills(2, { for: 3, des: 1, con: 3, int: -2, sab: 0, car: -3 }, {
     inic: 4,
@@ -793,7 +793,7 @@ async function injectThreats() {
   // =========================================================================
   // 7. GINETE ONÍRICO (ND 3) - Construto Médio
   // =========================================================================
-  const gineteId = 'gq8KGineOni230G';
+  const gineteId = 'gq8KGineOni230AA';
   console.log(`Configurando Ginete Onírico [${gineteId}]...`);
   const gineteSkills = buildSkills(3, { for: 3, des: 1, con: 3, int: -2, sab: 0, car: -3 }, {
     inic: 4,
@@ -896,7 +896,7 @@ async function injectThreats() {
   // =========================================================================
   // 8. SARGENTO ONÍRICO (ND 4) - Construto Médio
   // =========================================================================
-  const sargentoId = 'gq8KSargOni230H';
+  const sargentoId = 'gq8KSargOni230AA';
   console.log(`Configurando Sargento Onírico [${sargentoId}]...`);
   const sargentoSkills = buildSkills(4, { for: 4, des: 1, con: 4, int: -2, sab: 0, car: -1 }, {
     inic: 5,
@@ -994,7 +994,7 @@ async function injectThreats() {
   // =========================================================================
   // 9. TENENTE ONÍRICO (ND 6) - Construto Médio
   // =========================================================================
-  const tenenteId = 'gq8KTeneOni230I';
+  const tenenteId = 'gq8KTeneOni230AA';
   console.log(`Configurando Tenente Onírico [${tenenteId}]...`);
   const tenenteSkills = buildSkills(6, { for: 4, des: 1, con: 4, int: -1, sab: 0, car: -1 }, {
     inic: 6,
@@ -1096,7 +1096,7 @@ async function injectThreats() {
   // =========================================================================
   // 10. NÓCNAM MUR, O PESADELO AMALGAMADO (ND 18) - Construto Grande
   // =========================================================================
-  const nocnamId = 'gq8KNocnMur230J';
+  const nocnamId = 'gq8KNocnMur230AA';
   console.log(`Configurando Nócnam Mur [${nocnamId}]...`);
   const nocnamSkills = buildSkills(18, { for: 9, des: 1, con: 6, int: -1, sab: 0, car: -1 }, {
     inic: 16,
@@ -1219,7 +1219,7 @@ async function injectThreats() {
   // =========================================================================
   // 11. SACERDOTE CAÍDO (ND 5) - Humanoide (bugbear) Médio
   // =========================================================================
-  const sacerdoteId = 'gq8KSaceCai230K';
+  const sacerdoteId = 'gq8KSaceCai230AA';
   console.log(`Configurando Sacerdote Caído [${sacerdoteId}]...`);
   const sacerdoteSkills = buildSkills(5, { for: 3, des: 2, con: 2, int: -1, sab: 2, car: -2 }, {
     inic: 6,
@@ -1310,7 +1310,7 @@ async function injectThreats() {
   // =========================================================================
   // 12. TRÊS GOBLINS EM UM GORLOGG (ND 7) - Animal Grande
   // =========================================================================
-  const goblinsGorloggId = 'gq8KGobGorl230L';
+  const goblinsGorloggId = 'gq8KGobGorl230AA';
   console.log(`Configurando Três Goblins em um Gorlogg [${goblinsGorloggId}]...`);
   const goblinsSkills = buildSkills(7, { for: 6, des: 5, con: 6, int: -4, sab: 2, car: -2 }, {
     inic: 4,
@@ -1425,7 +1425,7 @@ async function injectThreats() {
   // =========================================================================
   // 13. ARZAK (ND 8) - Humanoide (hobgoblin) Médio
   // =========================================================================
-  const arzakId = 'gq8KArzak230M';
+  const arzakId = 'gq8KArzak230AAAA';
   console.log(`Configurando Arzak [${arzakId}]...`);
   const arzakSkills = buildSkills(8, { for: 5, des: 5, con: 5, int: 2, sab: 2, car: 0 }, {
     inic: 13,
@@ -1536,7 +1536,7 @@ async function injectThreats() {
   // =========================================================================
   // 14. GAARDAK (ND 8) - Humanoide (bugbear) Médio
   // =========================================================================
-  const gaardakId = 'gq8KGaarda230N';
+  const gaardakId = 'gq8KGaarda230AAA';
   console.log(`Configurando Gaardak [${gaardakId}]...`);
   const gaardakSkills = buildSkills(8, { for: 5, des: 4, con: 3, int: -1, sab: 1, car: 1 }, {
     inic: 12,

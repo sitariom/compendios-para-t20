@@ -25,7 +25,7 @@ const statsHeader = {
 
 const DB229_JOURNALS = [
   {
-    id: 'JrnlOlhoBasilisco229',
+    id: 'jOlhoBasilis229A',
     name: 'Aventura: O Olho do Basilisco (DB #229)',
     folder: FOLDER_LIVROS,
     pages: [
@@ -44,7 +44,7 @@ const DB229_JOURNALS = [
         content: `<h3>Cena 1: Altas Confusões em Trag’Merah</h3>
 <p>A imensa ossada no horizonte de Trag’Merah saúda caçadores e exploradores. Servindo de sede da Guilda Mon’han, a cidade vive do comércio de carcaças, troféus e equipamentos de caça. Em meio ao vaivém de mercadores, barracas são derrubadas por uma figura cinzenta empunhando espada e escudo: à primeira vista uma estátua, mas viva e em movimento desorientado.</p>
 <blockquote><p>"O monstro não parece atacar por maldade: seus olhos opacos transmitem puro terror e confusão descontrolada!"</p></blockquote>
-<p><strong>Encontro:</strong> @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KDefRoch229A]{Defensor Rochoso Desperto (ND 8)}.</p>
+<p><strong>Encontro:</strong> @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KDefRoch229AA]{Defensor Rochoso Desperto (ND 8)}.</p>
 <p><strong>Resolução Pacífica:</strong> No início de cada turno, teste de <em>Intuição (CD 20)</em>. Vencer em dois testes de <em>Diplomacia</em> opostos à Vontade (+15) ou lançar a magia <em>Tranquilidade</em> com aprimoramento encerra o combate sem baixas.</p>`
       },
       {
@@ -64,11 +64,11 @@ const DB229_JOURNALS = [
         name: 'Cena 4: Rastros nas Sanguinárias',
         content: `<h3>Cena 4: Rastros nas Sanguinárias</h3>
 <p>Rastrear o ninho da fera requer navegar desfiladeiros traiçoeiros. Isso constitui um <strong>Teste Estendido de Sobrevivência (CD 25, 5 sucessos)</strong>, onde cada rolagem representa um dia de marcha. Falhas causam perda de 2d6 PV para todos.</p>
-<p>A cada dia, role 1d6 na @UUID[Compendium.compendios-para-t20.Tabelas_T20.RollTable.TbEncontrosSang229]{Tabela de Encontros nas Montanhas Sanguinárias}:</p>
+<p>A cada dia, role 1d6 na @UUID[Compendium.compendios-para-t20.Tabelas_T20.RollTable.tEncontrosS229AA]{Tabela de Encontros nas Montanhas Sanguinárias}:</p>
 <ul>
 <li><strong>1) Escalada Perigosa:</strong> 3 testes de Atletismo CD 25. Queda causa 3d6 PV + 3d6 por sucesso anterior.</li>
 <li><strong>2) Ninho Vazio:</strong> 1d4 ovos de grifo. Podem eclodir como @UUID[Compendium.compendios-para-t20.Itens_T20.Item.heA8oQwmkuwDszHV]{Parceiro: Filhote de Grifo}.</li>
-<li><strong>3) Revoada de Serpes:</strong> Ataque em rasante de @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KRevSerp229A]{Revoada de Serpes (ND 8)}.</li>
+<li><strong>3) Revoada de Serpes:</strong> Ataque em rasante de @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KRevSerp229AA]{Revoada de Serpes (ND 8)}.</li>
 <li><strong>4) Peregrinação Druida:</strong> Devotas da Mãe Jaguar concedem descanso superior e curam 4d8+4 PV.</li>
 <li><strong>5) Kemooz Pensativo:</strong> Gênio da terra ancestral. 3 testes de Diplomacia opostos a Vontade (+15) o convencem a servir como @UUID[Compendium.compendios-para-t20.Itens_T20.Item.vBMc9AAxnTi4LYqZ]{Parceiro: Kemooz Pensativo}.</li>
 <li><strong>6) Rastejante Voraz:</strong> Centopeia-dragão escava sob os pés dos personagens.</li>
@@ -78,7 +78,7 @@ const DB229_JOURNALS = [
         name: 'Cena 5: Presas Peçonhentas',
         content: `<h3>Cena 5: Presas Peçonhentas</h3>
 <p>Na última noite antes de atingirem a ravina pantanosa, cultistas fanáticos que misturam ritos de Megalokk e Sszzaas cercam o acampamento nas sombras.</p>
-<p><strong>Encontro:</strong> Quatro cultistas @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KPreBas229A]{Presa do Grande Basilisco (ND 3)} atacam de surpresa em flanco.</p>
+<p><strong>Encontro:</strong> Quatro cultistas @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KPreBas229AAA]{Presa do Grande Basilisco (ND 3)} atacam de surpresa em flanco.</p>
 <blockquote><p>"Atenção: as lâminas untadas com @UUID[Compendium.compendios-para-t20.Itens_T20.Item.TCMrwRlPK87zGYMd]{Peçonha Concentrada} curam os próprios cultistas em vez de feri-los graças à sua Vitalidade Peçonhenta!"</p></blockquote>`
       },
       {
@@ -86,7 +86,7 @@ const DB229_JOURNALS = [
         content: `<h3>Cena 6: Predador Predado</h3>
 <p>A ravina profunda assemelha-se a um cemitério gótico esculpido em calcário: carcaças petrificadas de gigantes, mantícoras e serpes atestam a proximidade do monstro.</p>
 <p><strong>Abordagem Tática:</strong> Um teste de <em>Sobrevivência (CD 25)</em> e <em>Furtividade</em> oposta à Percepção permite surpreender o monstro no primeiro turno.</p>
-<p><strong>Clímax:</strong> Confronto com o terrível @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KBasAnc229A]{Basilisco Ancestral (ND 9)}.</p>
+<p><strong>Clímax:</strong> Confronto com o terrível @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KBasAnc229AAA]{Basilisco Ancestral (ND 9)}.</p>
 <p><strong>Despojos e Recompensas:</strong></p>
 <ul>
 <li>@UUID[Compendium.compendios-para-t20.Itens_T20.Item.A7XXqzcilQFS6Nh9]{Olho de Basilisco Ancestral} (Sobrevivência CD 24 ou Cura CD 30 para extrair).</li>
@@ -105,7 +105,7 @@ const DB229_JOURNALS = [
     ]
   },
   {
-    id: 'JrnlCaesColinas229',
+    id: 'jCaesColinas229A',
     name: 'Cenário: Os Cães das Colinas (DB #229)',
     folder: FOLDER_LIVROS,
     pages: [
