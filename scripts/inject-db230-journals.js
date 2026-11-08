@@ -180,7 +180,7 @@ async function injectJournals() {
         src: null,
         system: {},
         sort: (i + 1) * 100000,
-        ownership: { default: 0 },
+        ownership: { default: -1 },
         flags: {},
         _stats: statsHeader
       };

@@ -22,11 +22,11 @@
  *    - Gaardak (ND 8) - Humanoide (bugbear) Médio
  *
  * Padrão Canônico Estrito:
+ * - Todos os ataques corpo a corpo e à distância criados como armas embutidas com rolls.parts
+ * - Danos adicionais (trevas, psíquico, veneno) devidamente computados em rolls.parts
  * - 34 Perícias calculadas dinamicamente
  * - Defesa Base Dinâmica (defesa.base = defesa.value - des)
- * - Traços com imunidades, tipos de dano e tamanhos
- * - Ataques embutidos com estrutura rolls.parts
- * - Biografias canônicas com citações duplas (#800000 e #006400) + Arial
+ * - Campos ataquescac e ataquesad preenchidos com os sumários canônicos
  * - Tokens top-down exclusivos do 2-Minute Tabletop
  * - Persistência dupla em packs/Ameacas_T20 e src/packs/Ameacas_T20/
  */
@@ -46,7 +46,7 @@ const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
 const FOLDER_DB = 'wfWApuyngzFm4KOP'; // Pasta canônica "Dragão Brasil" em Ameacas_T20
 
 async function injectThreats() {
-  console.log('=== Injetando 14 Ameaças da DB #230 em Ameacas_T20 (Padrão Canônico DB #227/#228/#229) ===\n');
+  console.log('=== Injetando 14 Ameaças da DB #230 em Ameacas_T20 (Padrão Canônico Revisado) ===\n');
   const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
 
   const actorsToInject = [];
@@ -65,7 +65,8 @@ async function injectThreats() {
     atle: 8,
     furt: 9,
     sobr: 5,
-    luta: 17
+    luta: 17,
+    pont: 17
   });
 
   const zangaoItems = [
@@ -86,10 +87,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/espinho.webp',
       dano: '2d6+8',
       tipoDano: 'perfuração',
-      periciaAtaque: 'pontaria',
+      periciaAtaque: 'pont',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural à Distância:</strong> Dano 2d6+8 perfuração, alcance curto. A cauda é um ataque à distância que pode ser usado como parte da mesma ação agredir que a mordida.</p>',
+      alcance: 'curto',
+      proposito: 'tiro',
+      description: '<p><strong>Ataque Natural à Distância:</strong> Cauda-espinho +17 (2d6+8 perfuração, alcance curto). A cauda é um ataque à distância que pode ser usado como parte da mesma ação agredir que a mordida.</p>',
       flavorPhrase: '*THWIP!* Uma rajada de espinhos pontiagudos é disparada da ponta da cauda flexível!',
       flavorAction: 'Dispara espinhos ósseos à distância contra o inimigo'
     }),
@@ -98,10 +101,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/peconha.webp',
       dano: '1d6+4',
       tipoDano: 'perfuração',
+      danoExtra: '1d12',
+      tipoDanoExtra: 'veneno',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Dano 1d6+4 perfuração, mais peçonha concentrada (perde 1d12 pontos de vida por rodada durante 3 rodadas, Fort CD 20 reduz para 1 rodada).</p>',
+      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Cauda-ferrão +17 (1d6+4 perfuração, mais peçonha concentrada 1d12 PV/rodada por 3 rodadas, Fort CD 20 reduz para 1 rodada).</p>',
       flavorPhrase: '*SHHK!* O ferrão inocula uma peçonha onírica corrosiva e letal!',
       flavorAction: 'Golpeia com seu ferrão envenenado inoculando peçonha concentrada'
     }),
@@ -113,7 +118,7 @@ async function injectThreats() {
       periciaAtaque: 'luta',
       criticoMargem: 18,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Dano 2d8+11 corte, margem de ameaça 18/x3.</p>',
+      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Cauda-lâmina +17 (2d8+11 corte, margem de ameaça 18/x3).</p>',
       flavorPhrase: '*SWISH!* A lâmina de osso metálico corta o ar e a armadura com precisão cirúrgica!',
       flavorAction: 'Desfere um golpe cortante devastador com sua cauda-lâmina'
     }),
@@ -125,7 +130,7 @@ async function injectThreats() {
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Dano 1d8+8 impacto, mais agarrar aprimorado (teste +19).</p>',
+      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Cauda-tentáculo +17 (1d8+8 impacto, mais agarrar aprimorado teste +19).</p>',
       flavorPhrase: '*SNAP!* O tentáculo envolve a presa em um abraço viscoso e implacável!',
       flavorAction: 'Enlaça a vítima com sua cauda-tentáculo'
     }),
@@ -134,9 +139,7 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/cauda.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Cada zangão do pesadelo possui um tipo de cauda, conforme sua função: Cauda-espinho, Cauda-ferrão, Cauda-lâmina ou Cauda-tentáculo.</p>',
-      flavorPhrase: 'A anatomia do zangão reflete a mente mórbida de seu criador nas forjas oníricas.',
-      flavorAction: 'Manifesta sua especialização de cauda em combate'
+      description: '<p>Cada zangão do pesadelo possui um tipo de cauda, conforme sua função: Cauda-espinho, Cauda-ferrão, Cauda-lâmina ou Cauda-tentáculo.</p>'
     }),
     buildSpecialPower({
       name: 'Mente Alienígena',
@@ -146,9 +149,7 @@ async function injectThreats() {
       cd: 20,
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 20 reduz à metade e evita as condições.',
-      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o zangão, ela é atingida por um terrível choque de retorno. A criatura sofre 6d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 20 reduz à metade e evita as condições).</p>',
-      flavorPhrase: 'A mente do agressor é invadida pelo vazio aterrorizante e gélido do Reino dos Pesadelos!',
-      flavorAction: 'Rechaça invasões mentais desferindo choque psíquico violento',
+      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o zangão, ela sofre 6d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 20 reduz à metade e evita as condições).</p>',
       rolls: [
         {
           name: 'Choque de Retorno (6d6 Psíquico)',
@@ -157,15 +158,6 @@ async function injectThreats() {
           parts: [['6d6', 'psíquico', '']],
           versatil: '',
           adaptavel: ''
-        }
-      ],
-      effects: [
-        {
-          name: 'Condição: Atordoado e Abalado',
-          description: 'Atordoado por 1 rodada e abalado.',
-          statuses: ['atordoado', 'abalado'],
-          duration: { rounds: 1 },
-          transfer: false
         }
       ]
     })
@@ -202,6 +194,7 @@ async function injectThreats() {
     pericias: zangaoSkills,
     items: zangaoItems,
     ataquescac: 'Mordida +17 (2d8+11) e cauda +17.',
+    ataquesad: 'Cauda-espinho +17 (2d6+8 perfuração, alcance curto).',
     biography: zangaoBio
   });
 
@@ -240,10 +233,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/tentaculo.webp',
       dano: '1d8+10',
       tipoDano: 'impacto',
+      danoExtra: '4d6',
+      tipoDanoExtra: 'psíquico',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Cauda-tentáculo +18 (1d8+10 mais 4d6 psíquico), mais agarrar aprimorado (teste +20).</p>',
+      description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Cauda-tentáculo +18 (1d8+10 impacto mais 4d6 psíquico), mais agarrar aprimorado (teste +20).</p>',
       flavorPhrase: '*THWIP!* O tentáculo envolve a presa enquanto descarrega energia mental abrasadora!',
       flavorAction: 'Agarra e drena a mente do alvo com sua cauda-tentáculo'
     }),
@@ -252,9 +247,7 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/agarrar.webp',
       execucao: 'free',
       custo: 0,
-      description: '<p>Se o coletor do pesadelo acertar um ataque de cauda-tentáculo, pode fazer um teste de manobra agarrar como ação livre (teste +20).</p>',
-      flavorPhrase: 'Tentáculos serpentinos se apertam como torniquetes ao redor da vítima!',
-      flavorAction: 'Inicia manobra de agarrar imediata com sua cauda-tentáculo'
+      description: '<p>Se o coletor do pesadelo acertar um ataque de cauda-tentáculo, pode fazer um teste de manobra agarrar como ação livre (teste +20).</p>'
     }),
     buildSpecialPower({
       name: 'Drenar Sonhos',
@@ -265,8 +258,6 @@ async function injectThreats() {
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 24 reduz a perda à metade e evita a condição ou perda do sonho.',
       description: '<p>O coletor drena os sonhos de uma criatura agarrada. A vítima perde 2d6 PM (ou 4d6 se estiver inconsciente) e fica alquebrada. Se já estiver alquebrada, em vez disso ela perde um de seus sonhos (Von CD 24 reduz a perda à metade e evita a condição ou perda do sonho).</p>',
-      flavorPhrase: 'Filamentos luminescentes de memórias e esperanças são sugados para dentro do núcleo translúcido do coletor!',
-      flavorAction: 'Extrai a energia onírica mais íntima da vítima agarrada',
       rolls: [
         {
           name: 'Dreno de PM (2d6)',
@@ -275,14 +266,6 @@ async function injectThreats() {
           parts: [['2d6', 'psíquico', '']],
           versatil: '',
           adaptavel: ''
-        }
-      ],
-      effects: [
-        {
-          name: 'Condição: Alquebrado',
-          description: 'A criatura fica alquebrada por dreno de sonhos.',
-          statuses: ['alquebrado'],
-          transfer: false
         }
       ]
     }),
@@ -294,9 +277,7 @@ async function injectThreats() {
       cd: 24,
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 24 reduz à metade e evita as condições.',
-      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o coletor, ela é atingida por um terrível choque de retorno. A criatura sofre 6d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 24 reduz à metade e evita as condições).</p>',
-      flavorPhrase: 'A mente invasora entra em curto-circuito diante dos horrores inconcebíveis do Reino dos Pesadelos!',
-      flavorAction: 'Devolve o influxo mental na forma de agonia psíquica devastadora'
+      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o coletor, ela sofre 6d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 24 reduz à metade e evita as condições).</p>'
     })
   ];
 
@@ -330,7 +311,8 @@ async function injectThreats() {
     resistencias: coletorTracos,
     pericias: coletorSkills,
     items: coletorItems,
-    ataquescac: 'Mordida +18 (4d8+10) e cauda-tentáculo +18 (1d8+10 mais 4d6 psíquico).',
+    ataquescac: 'Mordida +18 (4d8+10) e cauda-tentáculo +18 (1d8+10 mais 4d6 psíquico, mais agarrar +20).',
+    ataquesad: '',
     biography: coletorBio
   });
 
@@ -384,9 +366,7 @@ async function injectThreats() {
       cd: 26,
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 26 reduz à metade e evita as condições.',
-      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o ceifador, ela é atingida por um terrível choque de retorno. A criatura sofre 8d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 26 reduz à metade e evita as condições).</p>',
-      flavorPhrase: 'O retorno psíquico ecoa nas têmporas do conjurador como um sino fúnebre ensurdecedor!',
-      flavorAction: 'Castiga conjuradores mentais com choque psíquico violento',
+      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o ceifador, ela sofre 8d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 26 reduz à metade e evita as condições).</p>',
       rolls: [
         {
           name: 'Choque de Retorno (8d6 Psíquico)',
@@ -431,6 +411,7 @@ async function injectThreats() {
     pericias: ceifadorSkills,
     items: ceifadorItems,
     ataquescac: 'Mordida +26 (3d8+20) e cauda-lâmina +26 (4d6+20 corte, 18/x3).',
+    ataquesad: '',
     biography: ceifadorBio
   });
 
@@ -448,7 +429,8 @@ async function injectThreats() {
     atle: 18,
     furt: 17,
     sobr: 12,
-    luta: 29
+    luta: 29,
+    pont: 29
   });
 
   const polivalenteItems = [
@@ -464,34 +446,29 @@ async function injectThreats() {
       flavorPhrase: '*CRUNCH!* Mandíbulas descomunais trituram ossos e escudos com violência bárbara!',
       flavorAction: 'Desfere uma mordida colossal com presas de ferro e osso'
     }),
-    buildSpecialPower({
-      name: 'Múltiplas Caudas',
-      img: 'systems/tormenta20/icons/poderes/ameacas/cauda.webp',
-      execucao: 'passive',
-      custo: 0,
-      description: '<p>O pesadelo polivalente possui quatro caudas e, quando faz um ataque corpo a corpo, ataca uma vez com cada uma delas (+29):</p><ul><li><strong>Cauda-espinho:</strong> Dano 2d6+5 perfuração, alcance curto (ataque à distância).</li><li><strong>Cauda-ferrão:</strong> Dano 1d6+5 perfuração, mais peçonha concentrada (perde 2d12 PV por rodada durante 3 rodadas, Fort CD 28 reduz para 1 rodada).</li><li><strong>Cauda-lâmina:</strong> Dano 3d8+10 corte, 18/x3.</li><li><strong>Cauda-tentáculo:</strong> Dano 1d6+5 esmagamento, mais agarrar aprimorado (teste +33).</li></ul>',
-      flavorPhrase: 'Quatro apêndices letais chicoteiam em sincronia perfeita, cobrindo todos os ângulos!',
-      flavorAction: 'Executa uma dança mortífera com seus quatro apêndices caudais'
-    }),
     buildWeaponAttack({
       name: 'Cauda-Espinho',
       img: 'systems/tormenta20/icons/poderes/ameacas/espinho.webp',
       dano: '2d6+5',
       tipoDano: 'perfuração',
-      periciaAtaque: 'pontaria',
+      periciaAtaque: 'pont',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque de Cauda:</strong> +29 (2d6+5 perfuração, alcance curto).</p>'
+      alcance: 'curto',
+      proposito: 'tiro',
+      description: '<p><strong>Ataque de Cauda à Distância:</strong> Cauda-espinho +29 (2d6+5 perfuração, alcance curto).</p>'
     }),
     buildWeaponAttack({
       name: 'Cauda-Ferrão',
       img: 'systems/tormenta20/icons/poderes/ameacas/peconha.webp',
       dano: '1d6+5',
       tipoDano: 'perfuração',
+      danoExtra: '2d12',
+      tipoDanoExtra: 'veneno',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque de Cauda:</strong> +29 (1d6+5 perfuração mais peçonha concentrada 2d12 PV/rodada por 3 rodadas, Fort CD 28 reduz para 1 rodada).</p>'
+      description: '<p><strong>Ataque de Cauda Corpo a Corpo:</strong> Cauda-ferrão +29 (1d6+5 perfuração mais peçonha concentrada 2d12 PV/rodada durante 3 rodadas, Fort CD 28 reduz para 1 rodada).</p>'
     }),
     buildWeaponAttack({
       name: 'Cauda-Lâmina',
@@ -501,7 +478,7 @@ async function injectThreats() {
       periciaAtaque: 'luta',
       criticoMargem: 18,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque de Cauda:</strong> +29 (3d8+10 corte, 18/x3).</p>'
+      description: '<p><strong>Ataque de Cauda Corpo a Corpo:</strong> Cauda-lâmina +29 (3d8+10 corte, 18/x3).</p>'
     }),
     buildWeaponAttack({
       name: 'Cauda-Tentáculo',
@@ -511,16 +488,21 @@ async function injectThreats() {
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque de Cauda:</strong> +29 (1d6+5 impacto mais agarrar aprimorado, teste +33).</p>'
+      description: '<p><strong>Ataque de Cauda Corpo a Corpo:</strong> Cauda-tentáculo +29 (1d6+5 impacto, mais agarrar aprimorado teste +33).</p>'
+    }),
+    buildSpecialPower({
+      name: 'Múltiplas Caudas',
+      img: 'systems/tormenta20/icons/poderes/ameacas/cauda.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>O pesadelo polivalente possui quatro caudas e, quando faz um ataque corpo a corpo, ataca uma vez com cada uma delas (+29).</p>'
     }),
     buildSpecialPower({
       name: 'Pesadelo Combinado',
       img: 'systems/tormenta20/icons/poderes/ameacas/pesadelo.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>O pesadelo recebe duas habilidades de Natureza do Pesadelo (CD 28): Pesadelo de Desastre, Pesadelo de Fracasso, Pesadelo de Perseguição ou Pesadelo de Morte.</p>',
-      flavorPhrase: 'Combina as assinaturas necromecânicas dos próprios Mestres do Pesadelo.',
-      flavorAction: 'Manifesta duas naturezas aterrorizantes em seus ataques'
+      description: '<p>O pesadelo recebe duas habilidades de Natureza do Pesadelo (CD 28): Pesadelo de Desastre, Fracasso, Perseguição ou Morte.</p>'
     }),
     buildSpecialPower({
       name: 'Mente Alienígena',
@@ -530,9 +512,7 @@ async function injectThreats() {
       cd: 28,
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 28 reduz à metade e evita as condições.',
-      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o pesadelo polivalente, ela é atingida por um terrível choque de retorno. A criatura sofre 10d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 28 reduz à metade e evita as condições).</p>',
-      flavorPhrase: 'A mente do conjurador é sugada por um abismo de pesadelos combinados!',
-      flavorAction: 'Desfere retaliação psíquica avassaladora de 10d6 de dano'
+      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o pesadelo polivalente, ela sofre 10d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 28 reduz à metade e evita as condições).</p>'
     })
   ];
 
@@ -566,7 +546,8 @@ async function injectThreats() {
     resistencias: polivalenteTracos,
     pericias: polivalenteSkills,
     items: polivalenteItems,
-    ataquescac: 'Mordida +29 (3d8+10) e quatro caudas +29.',
+    ataquescac: 'Mordida +29 (3d8+10) e quatro caudas +29 (um ataque de cada).',
+    ataquesad: 'Cauda-espinho +29 (2d6+5 perfuração, alcance curto).',
     biography: polivalenteBio
   });
 
@@ -585,7 +566,8 @@ async function injectThreats() {
     guer: 19,
     inti: 23,
     intu: 18,
-    luta: 43
+    luta: 43,
+    pont: 43
   });
 
   const mestreItems = [
@@ -611,21 +593,63 @@ async function injectThreats() {
       criticoMultiplicador: 2,
       description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Duas garras +43 (2d8+10 corte).</p>'
     }),
+    buildWeaponAttack({
+      name: 'Cauda-Espinho Titânica',
+      img: 'systems/tormenta20/icons/poderes/ameacas/espinho.webp',
+      dano: '3d8+10',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'pont',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      alcance: 'médio',
+      proposito: 'tiro',
+      description: '<p><strong>Ataque de Cauda à Distância:</strong> Cauda-espinho +43 (3d8+10 perfuração, alcance médio).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Cauda-Ferrão Virulenta',
+      img: 'systems/tormenta20/icons/poderes/ameacas/peconha.webp',
+      dano: '2d8+10',
+      tipoDano: 'perfuração',
+      danoExtra: '3d12',
+      tipoDanoExtra: 'veneno',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque de Cauda Corpo a Corpo:</strong> Cauda-ferrão +43 (2d8+10 perfuração mais peçonha virulenta 3d12 PV/rodada por 3 rodadas, Fort CD 38 reduz para 1 rodada).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Cauda-Lâmina Enorme',
+      img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
+      dano: '4d8+20',
+      tipoDano: 'corte',
+      periciaAtaque: 'luta',
+      criticoMargem: 18,
+      criticoMultiplicador: 3,
+      description: '<p><strong>Ataque de Cauda Corpo a Corpo:</strong> Cauda-lâmina +43 (4d8+20 corte, 18/x3).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Cauda-Tentáculo Colossal',
+      img: 'systems/tormenta20/icons/poderes/ameacas/tentaculo.webp',
+      dano: '2d8+10',
+      tipoDano: 'impacto',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque de Cauda Corpo a Corpo:</strong> Cauda-tentáculo +43 (2d8+10 impacto, mais agarrar aprimorado teste +50).</p>'
+    }),
     buildSpecialPower({
       name: 'Múltiplas Caudas Enormes',
       img: 'systems/tormenta20/icons/poderes/ameacas/cauda.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>O Mestre possui quatro caudas mortíferas (+43):</p><ul><li><strong>Cauda-espinho:</strong> Dano 3d8+10 perfuração, alcance médio.</li><li><strong>Cauda-ferrão:</strong> Dano 2d8+10 perfuração, mais peçonha virulenta (perde 3d12 PV por rodada durante 3 rodadas, Fort CD 38 reduz para 1 rodada).</li><li><strong>Cauda-lâmina:</strong> Dano 4d8+20 corte, 18/x3.</li><li><strong>Cauda-tentáculo:</strong> Dano 2d8+10 esmagamento, mais agarrar aprimorado (teste +50).</li></ul>'
+      description: '<p>O Mestre possui quatro caudas mortíferas (+43): Cauda-espinho (3d8+10, alcance médio), Cauda-ferrão (2d8+10 mais veneno 3d12), Cauda-lâmina (4d8+20, 18/x3) e Cauda-tentáculo (2d8+10 mais agarrar +50).</p>'
     }),
     buildSpecialPower({
       name: 'Natureza Onírica',
       img: 'systems/tormenta20/icons/poderes/ameacas/fantasma.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>O Mestre tem 50% de chance de ignorar dano, condições e penalidades causadas por efeitos mundanos ou mágicos, como se estivesse sob a forma etérea.</p>',
-      flavorPhrase: 'Sua forma oscila entre a realidade palpável e a névoa intangível do Reino dos Pesadelos!',
-      flavorAction: 'Desvanece parcialmente da realidade física ignorando golpes e magias'
+      description: '<p>O Mestre tem 50% de chance de ignorar dano, condições e penalidades causadas por efeitos mundanos ou mágicos, como se estivesse sob a forma etérea.</p>'
     }),
     buildSpecialPower({
       name: 'Manifestar Pesadelo',
@@ -633,9 +657,7 @@ async function injectThreats() {
       execucao: 'standard',
       custo: 0,
       cd: 38,
-      description: '<p>O Mestre do Pesadelo pode lançar a magia <em>Sonho</em>, bem como qualquer magia de ilusão, como um feiticeiro de 15º nível sem gastar PM (CD 38).</p>',
-      flavorPhrase: 'Mundos oníricos e miragens pavorosas ganham forma sólida diante dos olhos mortais!',
-      flavorAction: 'Manifesta magias de ilusão e pesadelos com poder arcano supremo'
+      description: '<p>O Mestre do Pesadelo pode lançar a magia <em>Sonho</em>, bem como qualquer magia de ilusão, como um feiticeiro de 15º nível sem gastar PM (CD 38).</p>'
     }),
     buildSpecialPower({
       name: 'Mente Alienígena Suprema',
@@ -645,9 +667,7 @@ async function injectThreats() {
       cd: 38,
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 38 reduz à metade e evita as condições.',
-      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o mestre, ela sofre 15d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 38 reduz à metade e evita as condições).</p>',
-      flavorPhrase: 'A mente mortal é estilhaçada em mil pedaços diante do senhor dos pesadelos!',
-      flavorAction: 'Descarrega uma tempestade psíquica punitiva de 15d6'
+      description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o mestre, ela sofre 15d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 38 reduz à metade e evita as condições).</p>'
     })
   ];
 
@@ -681,7 +701,8 @@ async function injectThreats() {
     resistencias: mestreTracos,
     pericias: mestreSkills,
     items: mestreItems,
-    ataquescac: 'Mordida +43 (4d8+20), duas garras +43 (2d8+10) e quatro caudas +43.',
+    ataquescac: 'Mordida +43 (4d8+20), duas garras +43 (2d8+10) e quatro caudas +43 (um ataque de cada).',
+    ataquesad: 'Cauda-espinho +43 (3d8+10 perfuração, alcance médio).',
     biography: mestreBio
   });
 
@@ -730,9 +751,7 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/investida.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Em seu primeiro turno de combate, o lanceiro onírico recebe +2 em testes de ataque e rolagens de dano contra criaturas que não sejam imunes a medo. Medo.</p>',
-      flavorPhrase: 'O choque inicial de sua marcha sombria abala os ânimos dos mais bravos!',
-      flavorAction: 'Avança com ferocidade aterrorizante em seu primeiro turno de combate'
+      description: '<p>Em seu primeiro turno de combate, o lanceiro onírico recebe +2 em testes de ataque e rolagens de dano contra criaturas que não sejam imunes a medo. Medo.</p>'
     })
   ];
 
@@ -767,6 +786,7 @@ async function injectThreats() {
     pericias: lanceiroSkills,
     items: lanceiroItems,
     ataquescac: 'Lança +14 (2d6+4) e cauda-lâmina +14 (2d6+4 corte, 18/x3).',
+    ataquesad: '',
     biography: lanceiroBio
   });
 
@@ -783,7 +803,8 @@ async function injectThreats() {
     vont: 9,
     atle: 6,
     cava: 6,
-    luta: 16
+    luta: 16,
+    pont: 14
   });
 
   const gineteItems = [
@@ -809,23 +830,31 @@ async function injectThreats() {
       criticoMultiplicador: 3,
       description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Cauda-lâmina +16 (2d6+4 corte, 18/x3).</p>'
     }),
+    buildWeaponAttack({
+      name: 'Arco Curto',
+      img: 'systems/tormenta20/icons/armas/arco-curto.webp',
+      dano: '1d6+3',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'pont',
+      criticoMargem: 20,
+      criticoMultiplicador: 3,
+      alcance: 'médio',
+      proposito: 'tiro',
+      description: '<p><strong>Ataque à Distância:</strong> Arco curto +14 (1d6+3 perfuração, x3, alcance médio).</p>'
+    }),
     buildSpecialPower({
       name: 'Ginete do Pesadelo',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>O ginete onírico passa automaticamente em testes de Cavalgar para não cair da montaria quando sofre dano, e não sofre penalidades para atacar à distância enquanto montado.</p>',
-      flavorPhrase: 'Ele e sua montaria de pesadelo agem como um único organismo predatório.',
-      flavorAction: 'Mantém estabilidade equestre impecável mesmo sob saraivada de golpes'
+      description: '<p>O ginete onírico passa automaticamente em testes de Cavalgar para não cair da montaria quando sofre dano, e não sofre penalidades para atacar à distância enquanto montado.</p>'
     }),
     buildSpecialPower({
       name: 'Carga Aterradora',
       img: 'systems/tormenta20/icons/poderes/ameacas/investida.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Enquanto estiver montado, o deslocamento do ginete se torna 12m, ele recebe uma ação de movimento extra por turno (apenas para se deslocar) e seus ataques corpo a corpo causam +1d6 pontos de dano.</p>',
-      flavorPhrase: 'O trote trovejante atropela formações e espalha o caos na vanguarda inimiga!',
-      flavorAction: 'Desencadeia uma carga brutal com bônus de velocidade e dano'
+      description: '<p>Enquanto estiver montado, o deslocamento do ginete se torna 12m, ele recebe uma ação de movimento extra por turno (apenas para se deslocar) e seus ataques corpo a corpo causam +1d6 pontos de dano.</p>'
     })
   ];
 
@@ -859,7 +888,8 @@ async function injectThreats() {
     resistencias: gineteTracos,
     pericias: gineteSkills,
     items: gineteItems,
-    ataquescac: 'Lança +16 (2d8+4, x3, alcance 3m) e cauda-lâmina +16 (2d6+4 corte, 18/x3).',
+    ataquescac: 'Lança de cavalaria +16 (2d8+4, x3, alcance 3m) e cauda-lâmina +16 (2d6+4 corte, 18/x3).',
+    ataquesad: 'Arco curto +14 (1d6+3 perfuração, x3, alcance médio).',
     biography: gineteBio
   });
 
@@ -908,27 +938,21 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Quando ataca uma criatura, o sargento onírico recebe um bônus no teste de ataque e na rolagem de dano igual ao total de PM que aquela criatura gastou desde o turno anterior do sargento.</p>',
-      flavorPhrase: 'Quanto mais magia o adversário queima, mais faminto e implacável o sargento se torna!',
-      flavorAction: 'Empodera seus ataques alimentando-se dos pontos de mana gastos pelo alvo'
+      description: '<p>Quando ataca uma criatura, o sargento onírico recebe um bônus no teste de ataque e na rolagem de dano igual ao total de PM que aquela criatura gastou desde o turno anterior do sargento.</p>'
     }),
     buildSpecialPower({
       name: 'Golpe Amedrontador',
       img: 'systems/tormenta20/icons/poderes/ameacas/medo.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Uma criatura que não seja imune a medo e que sofra dano do sargento onírico fica vulnerável. Medo.</p>',
-      flavorPhrase: 'O ferimento reverbera na alma da vítima deixando-a indefesa diante de novos ataques!',
-      flavorAction: 'Impõe a condição vulnerável ao atingir seu inimigo'
+      description: '<p>Uma criatura que não seja imune a medo e que sofra dano do sargento onírico fica vulnerável. Medo.</p>'
     }),
     buildSpecialPower({
       name: 'Negação da Morte',
       img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
       execucao: 'reaction',
       custo: 0,
-      description: '<p>Se outro mercenário onírico em alcance médio for reduzido a 0 PV ou menos, em vez disso aquela criatura é reduzida a 1 PV. O sargento pode usar esta habilidade uma vez por cena por mercenário.</p>',
-      flavorPhrase: '“Levante-se e lute pelo Arquilich!” Uma injeção de energia necromântica impede o colapso do aliado!',
-      flavorAction: 'Impede a destruição de um aliado mercenário mantendo-o com 1 PV'
+      description: '<p>Se outro mercenário onírico em alcance médio for reduzido a 0 PV ou menos, em vez disso aquela criatura é reduzida a 1 PV. O sargento pode usar esta habilidade uma vez por cena por mercenário.</p>'
     })
   ];
 
@@ -963,6 +987,7 @@ async function injectThreats() {
     pericias: sargentoSkills,
     items: sargentoItems,
     ataquescac: 'Espada bastarda +16 (2d6+5, 19/x3) e cauda-lâmina +16 (2d6+5 corte, 18/x3).',
+    ataquesad: '',
     biography: sargentoBio
   });
 
@@ -989,10 +1014,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/armas/espada-bastarda.webp',
       dano: '2d10+10',
       tipoDano: 'corte',
+      danoExtra: '2d6',
+      tipoDanoExtra: 'trevas',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Corpo a Corpo:</strong> Espada bastarda maciça +20 (2d10+10, 19/x3, mais 2d6 trevas).</p>',
+      description: '<p><strong>Ataque Corpo a Corpo:</strong> Espada bastarda maciça +20 (2d10+10 corte, 19/x3, mais 2d6 trevas).</p>',
       flavorPhrase: '*SLASH!* Energia negra profana envolve a lâmina maciça!',
       flavorAction: 'Golpeia com sua espada bastarda impregnada de energia de trevas'
     }),
@@ -1001,6 +1028,8 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
       dano: '2d10+10',
       tipoDano: 'corte',
+      danoExtra: '2d6',
+      tipoDanoExtra: 'trevas',
       periciaAtaque: 'luta',
       criticoMargem: 18,
       criticoMultiplicador: 3,
@@ -1011,18 +1040,14 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/estrategia.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Quando o tenente onírico ou outro mercenário onírico em alcance médio faz um ataque contra uma criatura que não seja imune a medo, este atacante rola dois dados e usa o melhor resultado. Medo.</p>',
-      flavorPhrase: 'O pavor paralisante dos inimigos abre brechas mortais em suas defesas!',
-      flavorAction: 'Coordena sua unidade concedendo vantagem de dois dados em ataques'
+      description: '<p>Quando o tenente onírico ou outro mercenário onírico em alcance médio faz um ataque contra uma criatura que não seja imune a medo, este atacante rola dois dados e usa o melhor resultado. Medo.</p>'
     }),
     buildSpecialPower({
       name: 'Fome de Sonhos e Partilhar Fome',
       img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>O tenente emana uma aura com 30m de raio. Ele e outros mercenários oníricos dentro desta área recebem um bônus no teste de ataque e na rolagem de dano igual ao total de PM que o alvo gastou desde o turno anterior do tenente.</p>',
-      flavorPhrase: 'A sede de drenar sonhos é projetada em onda voraz para todos os aliados!',
-      flavorAction: 'Compartilha o bônus predador de mana com toda a sua tropa'
+      description: '<p>O tenente emana uma aura com 30m de raio. Ele e outros mercenários oníricos dentro desta área recebem um bônus no teste de ataque e na rolagem de dano igual ao total de PM que o alvo gastou desde o turno anterior do tenente.</p>'
     }),
     buildSpecialPower({
       name: 'Negação da Morte',
@@ -1064,6 +1089,7 @@ async function injectThreats() {
     pericias: tenenteSkills,
     items: tenenteItems,
     ataquescac: 'Espada bastarda +20 (2d10+10, 19/x3, mais 2d6 trevas) e cauda-lâmina +20 (2d10+10 corte, 18/x3, mais 2d6 trevas).',
+    ataquesad: '',
     biography: tenenteBio
   });
 
@@ -1090,10 +1116,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/armas/espada-bastarda.webp',
       dano: '3d12+20',
       tipoDano: 'corte',
+      danoExtra: '6d6',
+      tipoDanoExtra: 'trevas',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Corpo a Corpo:</strong> Espada bastarda maciça formidável aumentada +49 (3d12+20, 19/x3, mais 6d6 trevas).</p>',
+      description: '<p><strong>Ataque Corpo a Corpo:</strong> Espada bastarda maciça formidável aumentada +49 (3d12+20 corte, 19/x3, mais 6d6 trevas).</p>',
       flavorPhrase: '*BOOOM!* A lâmina titânica fende a terra e estilhaça defesas sob uma cascata de energia de trevas!',
       flavorAction: 'Desfere um golpe monumental com sua espada bastarda aumentada'
     }),
@@ -1102,9 +1130,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/tentaculo.webp',
       dano: '3d8+15',
       tipoDano: 'corte',
+      danoExtra: '6d6',
+      tipoDanoExtra: 'trevas',
       periciaAtaque: 'luta',
       criticoMargem: 18,
       criticoMultiplicador: 3,
+      alcance: '6m',
       description: '<p><strong>Ataque Natural Corpo a Corpo:</strong> Quatro tentáculos-cauda +49 (3d8+15 corte, 18/x3, mais 6d6 trevas, alcance 6m).</p>',
       flavorPhrase: 'Quatro tentáculos blindados com protuberâncias ósseas fatiam e empalam alvos à distância!',
       flavorAction: 'Ataca simultaneamente com seus quatro tentáculos-cauda de alcance 6m'
@@ -1117,9 +1148,7 @@ async function injectThreats() {
       cd: 47,
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 47 evita os efeitos na rodada (dois sucessos seguidos encerram o efeito).',
-      description: '<p>Se Nócnam Mur acertar dois ataques de tentáculo-cauda em uma mesma criatura na mesma rodada, ele implanta um pesadelo na mente dela. Quando sofre este efeito, e no início de cada um dos seus turnos até o fim da cena, a vítima deve fazer um teste de Vontade (CD 47). Se falhar, perde 1d4 PM e, pelo restante da rodada, sempre que fizer um teste, rola dois dados e usa o pior resultado. Nócnam Mur pode usar esta habilidade uma vez por turno.</p>',
-      flavorPhrase: 'O terror absoluto consome a sanidade da vítima em visões inescapáveis de morte e ruína!',
-      flavorAction: 'Implanta um pesadelo invasivo na mente da vítima com seus tentáculos'
+      description: '<p>Se Nócnam Mur acertar dois ataques de tentáculo-cauda em uma mesma criatura na mesma rodada, ele implanta um pesadelo na mente dela. A vítima perde 1d4 PM por turno e rola dois dados usando o pior resultado (Vontade CD 47 evita).</p>'
     }),
     buildSpecialPower({
       name: 'Estratégia do Medo & Fome de Sonhos',
@@ -1133,9 +1162,7 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/forca.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Sempre que Nócnam Mur rolar o resultado máximo em um dado de dano de sua espada bastarda, ele rola um dado extra e soma o resultado ao dano causado (efeito explosivo).</p>',
-      flavorPhrase: 'A força titânica do galokk ecoa destruição explosiva em cada corte crítico!',
-      flavorAction: 'Explode os dados máximos de dano adicionando rolagens extras'
+      description: '<p>Sempre que Nócnam Mur rolar o resultado máximo em um dado de dano de sua espada bastarda, ele rola um dado extra e soma o resultado ao dano causado (efeito explosivo).</p>'
     }),
     buildSpecialPower({
       name: 'Pesadelo Amalgamado',
@@ -1185,6 +1212,7 @@ async function injectThreats() {
     pericias: nocnamSkills,
     items: nocnamItems,
     ataquescac: 'Espada bastarda +49 (3d12+20, 19/x3, mais 6d6 trevas) e quatro tentáculos-cauda +49 (3d8+15 corte, 18/x3, mais 6d6 trevas, alcance 6m).',
+    ataquesad: '',
     biography: nocnamBio
   });
 
@@ -1211,10 +1239,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/armas/foice.webp',
       dano: '2d8+13',
       tipoDano: 'corte',
+      danoExtra: '1d12',
+      tipoDanoExtra: 'trevas',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Corpo a Corpo:</strong> Foice negra x2 +20 (2d8+13, x3, mais 1d12 trevas).</p>',
+      description: '<p><strong>Ataque Corpo a Corpo:</strong> Foice negra x2 +20 (2d8+13 corte, x3, mais 1d12 trevas).</p>',
       flavorPhrase: '*SLASH!* O gume negro da foice racha ossos e resvala em energia profana de trevas!',
       flavorAction: 'Desfere dois golpes impiedosos com sua foice negra consagrada a Ragnar'
     }),
@@ -1223,18 +1253,14 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/medo.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>O sacerdote caído sofre metade do dano de criaturas sob algum efeito de medo.</p>',
-      flavorPhrase: 'O pavor alheio atua como um escudo místico que dissipa a força dos golpes recebidos!',
-      flavorAction: 'Reduz à metade todo dano proveniente de adversários amedrontados'
+      description: '<p>O sacerdote caído sofre metade do dano de criaturas sob algum efeito de medo.</p>'
     }),
     buildSpecialPower({
       name: 'Refestelar-se em Sangue',
       img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
       execucao: 'reaction',
       custo: 0,
-      description: '<p>Quando faz um acerto crítico ou reduz uma criatura a 0 PV ou menos, o sacerdote recupera 5 PM.</p>',
-      flavorPhrase: 'O espalhar de sangue revigora a fé mórbida e devolve energia mística ao cultista!',
-      flavorAction: 'Recupera 5 PM em resposta ao derramamento crítico de sangue'
+      description: '<p>Quando faz um acerto crítico ou reduz uma criatura a 0 PV ou menos, o sacerdote recupera 5 PM.</p>'
     }),
     buildSpecialPower({
       name: 'Foice Negra (Magias de Clérigo)',
@@ -1242,7 +1268,7 @@ async function injectThreats() {
       execucao: 'standard',
       custo: 5,
       cd: 20,
-      description: '<p>Enquanto estiver empunhando a Foice Negra, o sacerdote caído pode lançar como clérigo de 6º nível (CD 20):</p><ul><li><strong>Toque Vampírico (5 PM):</strong> Ataque corpo a corpo. Causa 6d6 dano de trevas extra (Fort reduz à metade) e cura metade do dano de trevas causado.</li><li><strong>Vitalidade Fantasma (6 PM):</strong> Esfera de 6m de raio centrada no sacerdote. Criaturas vivas sofrem 1d10 trevas (Fort reduz à metade) e o sacerdote recebe PV temporários iguais ao dano total causado.</li></ul>'
+      description: '<p>Enquanto estiver empunhando a Foice Negra, o sacerdote caído pode lançar como clérigo de 6º nível (CD 20): Toque Vampírico (5 PM) e Vitalidade Fantasma (6 PM).</p>'
     })
   ];
 
@@ -1277,6 +1303,7 @@ async function injectThreats() {
     pericias: sacerdoteSkills,
     items: sacerdoteItems,
     ataquescac: 'Foice negra x2 +20 (2d8+13, x3, mais 1d12 trevas).',
+    ataquesad: '',
     biography: sacerdoteBio
   });
 
@@ -1315,10 +1342,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/armas/funda.webp',
       dano: '2d4+10',
       tipoDano: 'impacto',
-      periciaAtaque: 'pontaria',
+      periciaAtaque: 'pont',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque à Distância:</strong> Funda x3 +20 (2d4+10 impacto).</p>',
+      alcance: 'médio',
+      proposito: 'tiro',
+      description: '<p><strong>Ataque à Distância:</strong> Funda x3 +20 (2d4+10 impacto, alcance médio).</p>',
       flavorPhrase: '*WHIRRR-SNAP!* Pedregulhos zunem das fundas dos pequenos artilheiros!',
       flavorAction: 'Os três goblins disparam três tiros consecutivos de funda'
     }),
@@ -1331,8 +1360,6 @@ async function injectThreats() {
       resistenciaPericia: 'refl',
       resistenciaTxt: 'Reflexos CD 22 reduz à metade.',
       description: '<p>Os goblins lançam bombas em um ponto em alcance curto. Criaturas a até 3m desse ponto sofrem 12d6 pontos de dano de impacto (Ref CD 22 reduz à metade). Recarga (ação padrão).</p>',
-      flavorPhrase: '“PEGA A FUSA CURTA! JOGA LÁÁÁ!” *KABUUUUM!* Uma explosão de estilhaços e fogo cobre a pista!',
-      flavorAction: 'Arremessam um cacho de bombas alquímicas causando 12d6 de dano em área',
       rolls: [
         {
           name: 'Explosão de Bombas (12d6 Impacto)',
@@ -1349,16 +1376,14 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/velocidade.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Os três goblins em um gorlogg podem fazer uma ação de movimento adicional por turno, apenas para se deslocar, se não tiverem usado o ataque de mordida.</p>',
-      flavorPhrase: 'Pancadas nas ancas do gorlogg fazem a besta acelerar como um aríete desgovernado!',
-      flavorAction: 'Obtém movimento extra galopando pela pista de corrida'
+      description: '<p>Os três goblins em um gorlogg podem fazer uma ação de movimento adicional por turno, apenas para se deslocar, se não tiverem usado o ataque de mordida.</p>'
     }),
     buildSpecialPower({
       name: 'Os Três Goblins',
       img: 'systems/tormenta20/icons/poderes/ameacas/imunidade.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Os goblins sabem evitar serem acertados na garupa do gorlogg, sendo imunes a dano até que o gorlogg seja derrotado, mas ainda podem ser afetados por efeitos mentais (Vontade +5; se afetados, a criatura inteira fica confusa e imóvel por 1d4 rodadas).</p>'
+      description: '<p>Os goblins sabem evitar serem acertados na garupa do gorlogg, sendo imunes a dano até que o gorlogg seja derrotado, mas ainda podem ser afetados por efeitos mentais (Vontade +5).</p>'
     })
   ];
 
@@ -1392,7 +1417,8 @@ async function injectThreats() {
     resistencias: goblinsTracos,
     pericias: goblinsSkills,
     items: goblinsItems,
-    ataquescac: 'Mordida x2 +24 (3d8+16, x4).',
+    ataquescac: 'Mordida x2 +24 (3d8+16, x4 com agarrar +26).',
+    ataquesad: 'Funda x3 +20 (2d4+10 impacto, alcance médio) ou Lançamento de Bombas (12d6 impacto em área curta, Ref CD 22 reduz à metade).',
     biography: goblinsBio
   });
 
@@ -1435,26 +1461,26 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/armas/adaga.webp',
       dano: '1d4+8',
       tipoDano: 'perfuração',
-      periciaAtaque: 'pontaria',
+      periciaAtaque: 'pont',
       criticoMargem: 19,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque à Distância:</strong> Adaga x2 +22 (1d4+8 perfuração, 19/x2).</p>'
+      alcance: 'curto',
+      proposito: 'tiro',
+      description: '<p><strong>Ataque à Distância:</strong> Adaga x2 +22 (1d4+8 perfuração, 19/x2, alcance curto).</p>'
     }),
     buildSpecialPower({
       name: 'Assassinar',
       img: 'systems/tormenta20/icons/poderes/ameacas/assassinar.webp',
       execucao: 'move',
       custo: 0,
-      description: '<p>Arzak analisa uma criatura em alcance curto. Em seu primeiro Ataque Furtivo que causar dano a ela até o fim do seu próximo turno, ele dobra os dados de dano do Ataque Furtivo (passando para 12d6 ou 16d6 se montado).</p>',
-      flavorPhrase: 'Os olhos frios do assassino estudam as costelas do alvo encontrando o ponto fatal exato.',
-      flavorAction: 'Mira as frestas da armadura para desferir um assassinato cirúrgico'
+      description: '<p>Arzak analisa uma criatura em alcance curto. Em seu primeiro Ataque Furtivo que causar dano a ela até o fim do seu próximo turno, ele dobra os dados de dano do Ataque Furtivo (12d6 ou 16d6 se montado).</p>'
     }),
     buildSpecialPower({
       name: 'Ataque Furtivo +6d6',
       img: 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Uma vez por rodada, quando atinge uma criatura desprevenida ou flanqueada com um ataque corpo a corpo ou em alcance curto, Arzak causa +6d6 pontos de dano extra de corte/perfuração (+8d6 se estiver montado).</p>'
+      description: '<p>Uma vez por rodada, quando atinge uma criatura desprevenida ou flanqueada com um ataque corpo a corpo ou em alcance curto, Arzak causa +6d6 pontos de dano extra (+8d6 se montado).</p>'
     }),
     buildSpecialPower({
       name: 'Manobras Evasivas & Sangrento',
@@ -1468,7 +1494,7 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/furtividade.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Arzak nunca fica surpreendido ou flanqueado e não sofre penalidades por se mover com seu deslocamento normal em Furtividade. Em testes de Reflexos para reduzir dano à metade, não sofre dano se passar e sofre metade se falhar.</p>'
+      description: '<p>Arzak nunca fica surpreendido ou flanqueado e não sofre penalidades por se mover com seu deslocamento normal em Furtividade. Evasão Aprimorada reduz dano de Reflexos a zero (se passar) ou metade (se falhar).</p>'
     })
   ];
 
@@ -1503,6 +1529,7 @@ async function injectThreats() {
     pericias: arzakSkills,
     items: arzakItems,
     ataquescac: 'Kum’shrak x3 +24 (1d8+10 corte, x3, mais sangrando).',
+    ataquesad: 'Adaga x2 +22 (1d4+8 perfuração, 19/x2, alcance curto).',
     biography: arzakBio
   });
 
@@ -1542,10 +1569,12 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/armas/lanca.webp',
       dano: '3d6+10',
       tipoDano: 'perfuração',
-      periciaAtaque: 'pontaria',
+      periciaAtaque: 'pont',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque à Distância:</strong> Duas azagaias +26 (3d6+10 perfuração).</p>',
+      alcance: 'curto',
+      proposito: 'tiro',
+      description: '<p><strong>Ataque à Distância:</strong> Duas azagaias +26 (3d6+10 perfuração mais manobra derrubar/empurrar teste +28, alcance curto).</p>',
       flavorPhrase: '*THWACK!* O arremesso da azagaia empala o alvo arremessando-o para trás!',
       flavorAction: 'Dispara duas azagaias pesadas com força estarrecedora'
     }),
@@ -1554,9 +1583,7 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/arremesso.webp',
       execucao: 'free',
       custo: 0,
-      description: '<p>Se acertar uma criatura com o ataque de azagaia, Gaardak pode fazer uma manobra derrubar ou empurrar (teste +28) contra a criatura atingida como ação livre.</p>',
-      flavorPhrase: 'O projétil atinge com tanta inércia que prostra ou arrasta o inimigo!',
-      flavorAction: 'Realiza manobra derrubar ou empurrar imediata com teste +28'
+      description: '<p>Se acertar uma criatura com o ataque de azagaia, Gaardak pode fazer uma manobra derrubar ou empurrar (teste +28) contra a criatura atingida como ação livre.</p>'
     }),
     buildSpecialPower({
       name: 'Lento Demais! & Fluxo de Movimento',
@@ -1604,7 +1631,8 @@ async function injectThreats() {
     resistencias: gaardakTracos,
     pericias: gaardakSkills,
     items: gaardakItems,
-    ataquescac: 'Ataque desarmado x3 +24 (2d8+8).',
+    ataquescac: 'Ataque desarmado x3 +24 (2d8+8 impacto).',
+    ataquesad: 'Duas azagaias +26 (3d6+10 perfuração mais manobra derrubar/empurrar teste +28, alcance curto).',
     biography: gaardakBio
   });
 
@@ -1642,6 +1670,7 @@ async function injectThreats() {
       pericias: actor.pericias,
       items: actor.items,
       ataquescac: actor.ataquescac,
+      ataquesad: actor.ataquesad,
       biography: actor.biography
     });
 
@@ -1655,7 +1684,7 @@ async function injectThreats() {
 
     // 5. Espelhar em src/packs/Ameacas_T20
     saveToSourcePacks('Ameacas_T20', built.actorDoc, built.embeddedDocs);
-    console.log(`✓ Ator "${actor.name} (ND ${actor.nd})" salvo em src/packs/Ameacas_T20 com ${built.embeddedDocs.length} subdocumentos.`);
+    console.log(`✓ Ator "${actor.name} (ND ${actor.nd})" salvo com ${built.embeddedDocs.length} subdocumentos.`);
   }
 
   await db.close();

@@ -201,12 +201,16 @@ async function injectTables() {
 
     for (const r of t.results) {
       const resultId = generateId();
+      const cleanName = r.text.replace(/<[^>]+>/g, '').split(':')[0].trim();
       const resultDoc = {
         _id: resultId,
         type: 'text',
+        name: cleanName,
         text: r.text,
         description: r.text,
         img: r.img,
+        documentCollection: null,
+        documentId: null,
         weight: 1,
         range: r.range,
         drawn: false,

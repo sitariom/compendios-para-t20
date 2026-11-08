@@ -450,8 +450,16 @@ async function injectItems() {
     }
 
     // Grava o item principal no LevelDB (effects contém array com os IDs dos efeitos)
+    const descText = item.system.descricao || item.system.description?.value || '';
     const itemToStore = {
       ...item,
+      system: {
+        ...item.system,
+        description: {
+          value: descText,
+          unidentified: ''
+        }
+      },
       effects: effectDocs.map(e => e._id)
     };
 

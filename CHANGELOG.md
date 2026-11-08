@@ -42,9 +42,14 @@
       - *Ganchos do Pesadelo em Aslothia (DB #230)* (1d6): 6 ganchos de aventura contra o Arquilich.
       - *Encontros da Corrida Brutal (DB #230)* (1d6): 6 obstáculos e emboscadas durante a corrida.
       - *Sonhos Roubados pelo Coletor (DB #230)* (1d4): Definição aleatória do sonho roubado.
-  - **Validação e Qualidade**:
-    - Criado validador automatizado `scripts/validate-db230-compliance.js` com **913 verificações ativas** e **0 erros** (100% de aprovação).
-    - Base total expandida para **5.931 documentos principais** (43.526 registros LevelDB) com 0 erros de integridade.
+  - **Validação, Auditoria e Refinamento Canônico de Ataques**:
+    - **Revisão Completa de Ataques (DB #229 e #230)**: Instanciados todos os ataques corporais e à distância que estavam ausentes ou incompletos (todas as 4 caudas do Mestre do Pesadelo criadas como armas individuais, arco curto do Ginete, azagaias de Gaardak, funda e bombas dos Goblins, adagas de Arzak, e sopro do Basilisco Ancestral).
+    - **Danos Adicionais em `rolls.parts`**: Mapeados os dados adicionais de trevas (Tenente, Nócnam Mur, Sacerdote Caído), psíquico (Coletor) e veneno contínuo (Zangão, Polivalente, Basilisco) diretamente nas fórmulas de dano.
+    - **Correção de Descrições de Itens**: Corrigido o schema para `system.description.value` em todos os itens de `Itens_T20`, garantindo renderização rica no Foundry VTT.
+    - **Permissões de Diários**: Páginas de diário atualizadas com `ownership: { default: -1 }` garantindo herança e visibilidade sem bloqueios.
+    - **Rótulos de Tabelas de Rolagem**: Campo `name` populado em todos os `TableResult` para exibição correta no menu e chat.
+    - Criado validador automatizado `scripts/validate-db230-compliance.js` com **992 verificações ativas** e **0 erros** (100% de aprovação).
+    - Base total expandida para **5.931 documentos principais** (43.544 registros LevelDB) com 0 erros de integridade.
 
 ## v1.6.2 - 2026-11-07
 

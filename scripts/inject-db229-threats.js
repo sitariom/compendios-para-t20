@@ -181,6 +181,7 @@ async function injectThreats() {
     pericias: defensorSkills,
     items: defensorItems,
     ataquescac: 'Duas pancadas +26 (4d8+19, x3).',
+    ataquesad: '',
     biography: defensorBio
   });
 
@@ -341,7 +342,8 @@ async function injectThreats() {
     resistencias: revoadaTracos,
     pericias: revoadaSkills,
     items: revoadaItems,
-    ataquescac: 'Mordida +26 (2d6+12) e ferrão +26 (1d8+12 mais veneno).',
+    ataquescac: 'Mordida +26 (2d6+12 mais agarrar +31) e ferrão +26 (1d8+12 mais peçonha concentrada 1d12).',
+    ataquesad: '',
     biography: revoadaBio
   });
 
@@ -513,7 +515,8 @@ async function injectThreats() {
     resistencias: presaTracos,
     pericias: presaSkills,
     items: presaItems,
-    ataquescac: 'Machado de batalha +10 (1d8+5 mais veneno).',
+    ataquescac: 'Machado de batalha +10 (1d8+5 mais peçonha concentrada 1d12).',
+    ataquesad: '',
     biography: presaBio
   });
 
@@ -734,7 +737,8 @@ async function injectThreats() {
     resistencias: basiliscoTracos,
     pericias: basiliscoSkills,
     items: basiliscoItems,
-    ataquescac: 'Mordida +27 (4d8+25 mais veneno).',
+    ataquescac: 'Mordida +27 (4d8+25 mais peçonha potente 2d12).',
+    ataquesad: 'Sopro (cone 9m, perda 3d12 PV mais envenenado 3d12 PV/rodada por 3 rodadas, Fort CD 28 reduz à metade e evita condição, recarga movimento).',
     biography: basiliscoBio
   });
 

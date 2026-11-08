@@ -94,18 +94,44 @@ async function validateActors() {
       assert(pericias[sk.key] && pericias[sk.key].value !== undefined, `Perícia "${sk.key}" calculada em ${req.name}`);
     }
 
-    // Validação de Subdocumentos embutidos de itens
+    // Validação de Subdocumentos embutidos de itens e ataques
     assert(Array.isArray(doc.items) && doc.items.length > 0, `doc.items é array com IDs em ${req.name} (tamanho: ${doc.items?.length})`);
     let foundSubdocs = 0;
+    let weaponCount = 0;
     for await (const [k, v] of db.iterator({ gte: `!actors.items!${req.id}.`, lte: `!actors.items!${req.id}.\uffff` })) {
       foundSubdocs++;
       assert(v && v._id && v.name && v.type, `Subdocumento válido em ${k}`);
       if (v.type === 'arma') {
+        weaponCount++;
         const rolls = v.system?.rolls;
         assert(Array.isArray(rolls) && rolls.length > 0, `Arma "${v.name}" com rolls.parts em ${req.name}`);
+
+        // Validação de dano adicional em criaturas específicas
+        if (req.name === 'Tenente Onírico' && (v.name.includes('Espada') || v.name.includes('Cauda-Lâmina'))) {
+          assert(rolls.some(r => r.parts?.some(p => p[1] === 'trevas')), `Dano de trevas presente em "${v.name}" de ${req.name}`);
+        }
+        if (req.name === 'Nócnam Mur, o Pesadelo Amalgamado' && (v.name.includes('Espada') || v.name.includes('Tentáculos'))) {
+          assert(rolls.some(r => r.parts?.some(p => p[1] === 'trevas')), `Dano de trevas presente em "${v.name}" de ${req.name}`);
+        }
+        if (req.name === 'Sacerdote Caído' && v.name.includes('Foice')) {
+          assert(rolls.some(r => r.parts?.some(p => p[1] === 'trevas')), `Dano de trevas presente em "${v.name}" de ${req.name}`);
+        }
+        if (req.name === 'Coletor do Pesadelo' && v.name.includes('Tentáculo')) {
+          assert(rolls.some(r => r.parts?.some(p => p[1] === 'psíquico')), `Dano psíquico presente em "${v.name}" de ${req.name}`);
+        }
       }
     }
     assert(foundSubdocs === doc.items.length, `Total de subdocs bate com doc.items em ${req.name} (${foundSubdocs}/${doc.items.length})`);
+
+    // Validação de Mestre do Pesadelo ter todas as 6 armas (mordida, garras e 4 caudas)
+    if (req.name === 'Mestre do Pesadelo') {
+      assert(weaponCount >= 6, `Mestre do Pesadelo possui todas as armas e caudas criadas (esperado >=6, obtido ${weaponCount})`);
+    }
+
+    // Validação de ataques à distância em criaturas que possuem projéteis/cauda-espinho
+    if (['Zangão do Pesadelo', 'Pesadelo Polivalente', 'Mestre do Pesadelo', 'Ginete Onírico', 'Três Goblins em um Gorlogg', 'Arzak', 'Gaardak'].includes(req.name)) {
+      assert(Boolean(doc.system?.detalhes?.ataquesad), `ataquesad preenchido para criatura com ataque à distância (${req.name})`);
+    }
 
     // Validação de Token Top-down 2MTT
     const tokenSrc = doc.prototypeToken?.texture?.src;
@@ -160,6 +186,10 @@ async function validateItems() {
     assert(doc.name === req.name, `Nome do item: esperado "${req.name}", obtido "${doc.name}"`);
     assert(doc.type === req.type, `Tipo do item para ${req.name}: esperado "${req.type}", obtido "${doc.type}"`);
     assert(doc.folder === req.folder, `Pasta de ${req.name}: esperada "${req.folder}", obtida "${doc.folder}"`);
+
+    // Validação de Descrição Rich Text oficial do sistema T20
+    const descValue = doc.system?.description?.value;
+    assert(typeof descValue === 'string' && descValue.length > 20, `system.description.value devidamente preenchido em "${req.name}" (len: ${descValue?.length || 0})`);
 
     // Validação de ActiveEffects
     const effects = doc.effects || [];
@@ -228,6 +258,7 @@ async function validateJournalsAndTables() {
         continue;
       }
       assert(pageDoc && pageDoc.name && pageDoc.type === 'text', `Página válida ${pageKey}`);
+      assert(pageDoc.ownership?.default === -1, `Página herda permissão (ownership.default === -1) em ${pageKey}`);
     }
     console.log(`  ✓ Diário "${req.name}" com ${doc.pages.length} páginas 100% canônico.`);
   }
@@ -268,6 +299,7 @@ async function validateJournalsAndTables() {
         continue;
       }
       assert(resDoc && resDoc.type === 'text' && resDoc.description, `Resultado válido ${resKey}`);
+      assert(Boolean(resDoc.name), `Resultado possui campo "name" preenchido em ${resKey}`);
     }
     console.log(`  ✓ Tabela "${req.name}" com ${doc.results.length} resultados 100% canônica.`);
   }

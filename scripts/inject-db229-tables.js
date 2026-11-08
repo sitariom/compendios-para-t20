@@ -53,6 +53,7 @@ async function injectTables() {
   const tableResults = tableResultsRaw.map(r => ({
     _id: generateId(),
     type: 'text',
+    name: r.text.replace(/<[^>]+>/g, '').split(':')[0].trim(),
     text: r.text,
     description: r.text,
     img: r.img,
@@ -61,7 +62,6 @@ async function injectTables() {
     weight: 1,
     range: r.range,
     drawn: false,
-    name: '',
     flags: {},
     _stats: {
       coreVersion: '13.351',
