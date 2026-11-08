@@ -106,7 +106,23 @@ const THREAT_MAP = {
   'defensor rochoso': 'systems/tormenta20/icons/ameacas/golem-de-ferro.png',
   'revoada de serpes': 'systems/tormenta20/icons/ameacas/serpe.png',
   'presa do grande basilisco': 'systems/tormenta20/icons/ameacas/cultista-da-traicao.png',
-  'basilisco ancestral': 'systems/tormenta20/icons/ameacas/basilisco.png'
+  'basilisco ancestral': 'systems/tormenta20/icons/ameacas/basilisco.png',
+  // DB #230
+  'zangao do pesadelo': 'systems/tormenta20/icons/ameacas/convocacoes/enxame-de-insetos-rubros.webp',
+  'coletor do pesadelo': 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
+  'ceifador do pesadelo': 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
+  'pesadelo polivalente': 'modules/compendios-para-t20/assets/icons/ameacas/tyrant.jpg',
+  'mestre do pesadelo': 'modules/compendios-para-t20/assets/icons/ameacas/espectro-do-pesadelo.jpg',
+  'lanceiro onirico': 'systems/tormenta20/icons/armas/lanca.webp',
+  'ginete onirico': 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
+  'sargento onirico': 'systems/tormenta20/icons/armas/espada-bastarda.webp',
+  'tenente onirico': 'systems/tormenta20/icons/ameacas/falange.png',
+  'nocnam mur': 'systems/tormenta20/icons/ameacas/esqueleto-de-elite.png',
+  'nocnam mur o pesadelo amalgamado': 'systems/tormenta20/icons/ameacas/esqueleto-de-elite.png',
+  'sacerdote caido': 'systems/tormenta20/icons/ameacas/cultista-da-traicao.png',
+  'tres goblins em um gorlogg': 'systems/tormenta20/icons/poderes/ameacas/explosao.webp',
+  'arzak': 'systems/tormenta20/icons/poderes/ameacas/assassinar.webp',
+  'gaardak': 'systems/tormenta20/icons/poderes/ameacas/furia.webp'
 };
 
 const ITEM_AND_POWER_MAP = {
