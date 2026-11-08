@@ -1,0 +1,22 @@
+# Tasks: Integração Dragão Brasil #230
+
+- [x] 1. Ameaças (`Ameacas_T20`)
+  - [x] 1.1 Gerar e mapear tokens 2MTT para as 14 ameaças em `assets/tokens/`
+  - [x] 1.2 Desenvolver script `scripts/inject-db230-threats.js` com as 14 fichas completas, 34 perícias, defesas dinâmicas, `rolls.parts` e biografias com citação dupla
+  - [x] 1.3 Executar injeção em `packs/Ameacas_T20` e espelhar em `src/packs/Ameacas_T20`
+- [x] 2. Itens, Parceiros e Poderes (`Itens_T20`)
+  - [x] 2.1 Definir mapeamento estático de IDs (`DB230_ID_MAP`) para garantir idempotência estrita
+  - [x] 2.2 Desenvolver script `scripts/inject-db230-items.js` com a parceira Rotsheel, veículos, armas, consumíveis e poderes oníricos com ActiveEffects
+  - [x] 2.3 Executar injeção em `packs/Itens_T20` e espelhar em `src/packs/Itens_T20`
+- [x] 3. Diários e Tabelas de Rolagem (`Diarios_T20` e `Tabelas_T20`)
+  - [x] 3.1 Desenvolver script `scripts/inject-db230-journals.js` com os 3 diários e páginas em subdocumentos
+  - [x] 3.2 Desenvolver script `scripts/inject-db230-tables.js` com as 4 tabelas e resultados em subdocumentos
+  - [x] 3.3 Executar injeção nos compêndios correspondentes
+- [x] 4. Validação e Qualidade
+  - [x] 4.1 Desenvolver `scripts/validate-db230-compliance.js`
+  - [x] 4.2 Executar validação e corrigir quaisquer desvios até 100% de aprovação
+  - [x] 4.3 Executar `node scripts/stats.js` e auditar registros
+- [x] 5. Consolidação e Release
+  - [x] 5.1 Atualizar `package.json` e `module.json` para `v1.7.0`
+  - [x] 5.2 Atualizar `CHANGELOG.md` com as novas adições
+  - [x] 5.3 Sincronizar especificações vivas OpenSpec

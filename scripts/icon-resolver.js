@@ -66,7 +66,23 @@ const TOKEN_2MTT_MAP = {
   'defensor rochoso': 'modules/compendios-para-t20/assets/tokens/defensor-rochoso-desperto.png',
   'revoada de serpes': 'modules/compendios-para-t20/assets/tokens/revoada-de-serpes.png',
   'presa do grande basilisco': 'modules/compendios-para-t20/assets/tokens/presa-do-grande-basilisco.png',
-  'basilisco ancestral': 'modules/compendios-para-t20/assets/tokens/basilisco-ancestral.png'
+  'basilisco ancestral': 'modules/compendios-para-t20/assets/tokens/basilisco-ancestral.png',
+  // DB #230
+  'zangao do pesadelo': 'modules/compendios-para-t20/assets/tokens/zangao-do-pesadelo.png',
+  'coletor do pesadelo': 'modules/compendios-para-t20/assets/tokens/coletor-do-pesadelo.png',
+  'ceifador do pesadelo': 'modules/compendios-para-t20/assets/tokens/ceifador-do-pesadelo.png',
+  'pesadelo polivalente': 'modules/compendios-para-t20/assets/tokens/pesadelo-polivalente.png',
+  'mestre do pesadelo': 'modules/compendios-para-t20/assets/tokens/mestre-do-pesadelo.png',
+  'lanceiro onirico': 'modules/compendios-para-t20/assets/tokens/lanceiro-onirico.png',
+  'ginete onirico': 'modules/compendios-para-t20/assets/tokens/ginete-onirico.png',
+  'sargento onirico': 'modules/compendios-para-t20/assets/tokens/sargento-onirico.png',
+  'tenente onirico': 'modules/compendios-para-t20/assets/tokens/tenente-onirico.png',
+  'nocnam mur': 'modules/compendios-para-t20/assets/tokens/nocnam-mur.png',
+  'nocnam mur o pesadelo amalgamado': 'modules/compendios-para-t20/assets/tokens/nocnam-mur.png',
+  'sacerdote caido': 'modules/compendios-para-t20/assets/tokens/sacerdote-caido.png',
+  'tres goblins em um gorlogg': 'modules/compendios-para-t20/assets/tokens/tres-goblins-em-um-gorlogg.png',
+  'arzak': 'modules/compendios-para-t20/assets/tokens/arzak.png',
+  'gaardak': 'modules/compendios-para-t20/assets/tokens/gaardak.png'
 };
 
 const THREAT_MAP = {
