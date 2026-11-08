@@ -16,7 +16,7 @@ async function injectTables() {
   console.log('=== Injetando Tabelas de Rolagem da DB #229 em Tabelas_T20 ===\n');
   const db = new ClassicLevel(PACK_TABLES, { valueEncoding: 'json' });
 
-  const tableId = 'TbEncontrosSang229';
+  const tableId = 'tEncontrosS229AA';
   const tableResultsRaw = [
     {
       text: '<strong>1) Escalada Perigosa:</strong> Não há outra forma de avançar que não seja para cima. Os personagens devem passar em três testes de <strong>Atletismo (CD 25)</strong>. Falhar representa uma queda que causa 3d6 pontos de dano de impacto, +3d6 por sucesso obtido anteriormente. Personagens com deslocamento de voo podem ignorar os testes respeitando limites de carga.',
@@ -29,7 +29,7 @@ async function injectTables() {
       range: [2, 2]
     },
     {
-      text: '<strong>3) Revoada de Serpes:</strong> O bater ensurdecedor de dezenas de asas de couro ecoa pelas fendas. Uma @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KRevSerp229A]{Revoada de Serpes (ND 8)} faminta atacará a área em 1d4 rodadas, permitindo que os heróis se preparem ou busquem abrigo.',
+      text: '<strong>3) Revoada de Serpes:</strong> O bater ensurdecedor de dezenas de asas de couro ecoa pelas fendas. Uma @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KRevSerp229AA]{Revoada de Serpes (ND 8)} faminta atacará a área em 1d4 rodadas, permitindo que os heróis se preparem ou busquem abrigo.',
       img: 'systems/tormenta20/icons/ameacas/serpe.png',
       range: [3, 3]
     },

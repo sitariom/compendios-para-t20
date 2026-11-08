@@ -36,13 +36,13 @@ const SOURCE_DB230 = 'Dragão Brasil #230';
 const DB230_ID_MAP = {
   'Parceira: Rotsheel': 'gq8KPRotsheel230',
   'Carruagem Duyshidakk': 'gq8KCarruagem230',
-  'Machado do Campeão de Tyrondir': 'gq8KMachadoT230',
-  'Kum’shrak Eviscerador': 'gq8KKumshrak230',
-  'Centelha Onírica': 'gq8KCentelha230',
-  'Sonho Resgatado: Sonho de Amor': 'gq8KSonhoAmo230',
-  'Sonho Resgatado: Sonho de Aprendizado': 'gq8KSonhoApr230',
-  'Sonho Resgatado: Sonho de Destruição': 'gq8KSonhoDes230',
-  'Pesadelo Onírico: Sonho Perdido': 'gq8KPesadPer230'
+  'Machado do Campeão de Tyrondir': 'gq8KMachadoT230A',
+  'Kum’shrak Eviscerador': 'gq8KKumshrak230A',
+  'Centelha Onírica': 'gq8KCentelha230A',
+  'Sonho Resgatado: Sonho de Amor': 'gq8KSonhoAmo230A',
+  'Sonho Resgatado: Sonho de Aprendizado': 'gq8KSonhoApr230A',
+  'Sonho Resgatado: Sonho de Destruição': 'gq8KSonhoDes230A',
+  'Pesadelo Onírico: Sonho Perdido': 'gq8KPesadPer230A'
 };
 
 // Pastas Oficiais em Itens_T20

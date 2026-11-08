@@ -39,7 +39,7 @@ async function injectThreats() {
   // -------------------------------------------------------------
   // 1. DEFENSOR ROCHOSO DESPERTO (ND 8) - Construto Médio (1x1)
   // -------------------------------------------------------------
-  const defensorId = 'gq8KDefRoch229A';
+  const defensorId = 'gq8KDefRoch229AA';
   console.log(`Limpando e reconstruindo Defensor Rochoso Desperto [${defensorId}]...`);
 
   for await (const [key] of db.iterator()) {
@@ -195,7 +195,7 @@ async function injectThreats() {
   // -------------------------------------------------------------
   // 2. REVOADA DE SERPES (ND 8) - Monstro Enorme (3x3)
   // -------------------------------------------------------------
-  const revoadaId = 'gq8KRevSerp229A';
+  const revoadaId = 'gq8KRevSerp229AA';
   console.log(`Limpando e reconstruindo Revoada de Serpes [${revoadaId}]...`);
 
   for await (const [key] of db.iterator()) {
@@ -357,7 +357,7 @@ async function injectThreats() {
   // -------------------------------------------------------------
   // 3. PRESA DO GRANDE BASILISCO (ND 3) - Humanoide Médio (1x1)
   // -------------------------------------------------------------
-  const presaId = 'gq8KPreBas229A';
+  const presaId = 'gq8KPreBas229AAA';
   console.log(`Limpando e reconstruindo Presa do Grande Basilisco [${presaId}]...`);
 
   for await (const [key] of db.iterator()) {
@@ -530,7 +530,7 @@ async function injectThreats() {
   // -------------------------------------------------------------
   // 4. BASILISCO ANCESTRAL (ND 9) - Monstro Enorme (3x3)
   // -------------------------------------------------------------
-  const basiliscoId = 'gq8KBasAnc229A';
+  const basiliscoId = 'gq8KBasAnc229AAA';
   console.log(`Limpando e reconstruindo Basilisco Ancestral [${basiliscoId}]...`);
 
   for await (const [key] of db.iterator()) {

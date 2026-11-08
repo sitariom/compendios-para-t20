@@ -36,7 +36,7 @@ const DB230_TABLES = [
   // 1. NATUREZA DO PESADELO (1d4)
   // =========================================================================
   {
-    id: 'TbNaturezaPesad230',
+    id: 'tNaturezaP230AAA',
     name: 'Natureza do Pesadelo (DB #230)',
     formula: '1d4',
     img: 'systems/tormenta20/icons/poderes/ameacas/mente-alienigena.webp',
@@ -69,7 +69,7 @@ const DB230_TABLES = [
   // 2. GANCHOS DO PESADELO EM ASLOTHIA (1d6)
   // =========================================================================
   {
-    id: 'TbGanchosPesad230',
+    id: 'tGanchosP230AAAA',
     name: 'Ganchos do Pesadelo em Aslothia (DB #230)',
     formula: '1d6',
     img: 'systems/tormenta20/icons/poderes/ameacas/sonho.webp',
@@ -112,24 +112,24 @@ const DB230_TABLES = [
   // 3. ENCONTROS DA CORRIDA BRUTAL (1d6)
   // =========================================================================
   {
-    id: 'TbCorridaBrut230',
+    id: 'tCorridaBrut230A',
     name: 'Encontros da Corrida Brutal (DB #230)',
     formula: '1d6',
     img: 'systems/tormenta20/icons/itens/equipamentos/carroca.webp',
     description: '<p>Tabela de obstáculos e encontros durante as manobras e perseguições veiculares da Corrida Brutal nas Ruínas de Tyrondir.</p>',
     results: [
       {
-        text: '<strong>1) Emboscada de Gaardak:</strong> O bugbear @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGaarda230N]{Gaardak} arremessa azagaias pesadas (teste +28 para derrubar/empurrar veículo).',
+        text: '<strong>1) Emboscada de Gaardak:</strong> O bugbear @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGaarda230AAA]{Gaardak} arremessa azagaias pesadas (teste +28 para derrubar/empurrar veículo).',
         img: 'systems/tormenta20/icons/armas/lanca.webp',
         range: [1, 1]
       },
       {
-        text: '<strong>2) Salva de Bombas dos Goblins:</strong> @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGobGorl230L]{Três Goblins em um Gorlogg} disparam bombas na pista (12d6 de impacto, Ref CD 22 reduz à metade).',
+        text: '<strong>2) Salva de Bombas dos Goblins:</strong> @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGobGorl230AA]{Três Goblins em um Gorlogg} disparam bombas na pista (12d6 de impacto, Ref CD 22 reduz à metade).',
         img: 'systems/tormenta20/icons/poderes/ameacas/explosao.webp',
         range: [2, 2]
       },
       {
-        text: '<strong>3) Ataque Furtivo de Arzak:</strong> O assassino @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KArzak230M]{Arzak} emparelha com seu veículo e ataca com seu <em>kum’shrak eviscerador</em>.',
+        text: '<strong>3) Ataque Furtivo de Arzak:</strong> O assassino @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KArzak230AAAA]{Arzak} emparelha com seu veículo e ataca com seu <em>kum’shrak eviscerador</em>.',
         img: 'systems/tormenta20/icons/armas/foice.webp',
         range: [3, 3]
       },
@@ -155,24 +155,24 @@ const DB230_TABLES = [
   // 4. SONHOS ROUBADOS PELO COLETOR (1d4)
   // =========================================================================
   {
-    id: 'TbSonhosRoubad230',
+    id: 'tSonhosRoub230AA',
     name: 'Sonhos Roubados pelo Coletor (DB #230)',
     formula: '1d4',
     img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
-    description: '<p>Tabela para determinar aleatoriamente a natureza do maior sonho roubado de um aventureiro por um @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KColePes230B]{Coletor do Pesadelo}.</p>',
+    description: '<p>Tabela para determinar aleatoriamente a natureza do maior sonho roubado de um aventureiro por um @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KColePes230AA]{Coletor do Pesadelo}.</p>',
     results: [
       {
-        text: '<strong>1) Sonho de Amor:</strong> Você sonhava em ser amado. Perda de PM igual ao nível de personagem e pesadelos de solidão (@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoAmo230]{Sonho Resgatado: Sonho de Amor}).',
+        text: '<strong>1) Sonho de Amor:</strong> Você sonhava em ser amado. Perda de PM igual ao nível de personagem e pesadelos de solidão (@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoAmo230A]{Sonho Resgatado: Sonho de Amor}).',
         img: 'systems/tormenta20/icons/poderes/concedidos/cura.webp',
         range: [1, 1]
       },
       {
-        text: '<strong>2) Sonho de Aprendizado:</strong> Você sonhava em dominar um ofício ou técnica. Sofre penalidade de –2 em três perícias treinadas e pesadelos de incompetência (@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoApr230]{Sonho Resgatado: Sonho de Aprendizado}).',
+        text: '<strong>2) Sonho de Aprendizado:</strong> Você sonhava em dominar um ofício ou técnica. Sofre penalidade de –2 em três perícias treinadas e pesadelos de incompetência (@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoApr230A]{Sonho Resgatado: Sonho de Aprendizado}).',
         img: 'systems/tormenta20/icons/poderes/concedidos/conhecimento.webp',
         range: [2, 2]
       },
       {
-        text: '<strong>3) Sonho de Destruição:</strong> Você sonhava em destruir algo ou se vingar. Perda de PV igual ao seu nível e pesadelos com sua própria ruína (@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoDes230]{Sonho Resgatado: Sonho de Destruição}).',
+        text: '<strong>3) Sonho de Destruição:</strong> Você sonhava em destruir algo ou se vingar. Perda de PV igual ao seu nível e pesadelos com sua própria ruína (@UUID[Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoDes230A]{Sonho Resgatado: Sonho de Destruição}).',
         img: 'systems/tormenta20/icons/poderes/concedidos/destruicao.webp',
         range: [3, 3]
       },
