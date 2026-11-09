@@ -1,0 +1,21 @@
+# Tasks: Integração Dragão Brasil #232
+
+- [x] 1. Assets Visuais e Mapeamento de Ícones
+  - [x] 1.1 Gerar e mapear tokens circulares 2MTT transparentes para as 15 ameaças em `assets/tokens/`
+  - [x] 1.2 Atualizar `scripts/icon-resolver.js` com mapeamentos em `TOKEN_2MTT_MAP` e `THREAT_MAP`
+- [x] 2. Ameaças e NPCs (`packs/Ameacas_T20`)
+  - [x] 2.1 Desenvolver `scripts/inject-db232-threats.js` com as 15 fichas completas, incluindo poderes atômicos desmembrados, magias individuais no Xamã Finntroll, perícias situacionais com `custom: true`, e texto integral em `system.detalhes.resistencias`
+  - [x] 2.2 Executar injeção em `packs/Ameacas_T20` e espelhar em `src/packs/Ameacas_T20/`
+- [x] 3. Itens e Poderes de Licantropia (`packs/Itens_T20`)
+  - [x] 3.1 Desenvolver `scripts/inject-db232-items.js` com os 13 poderes e regras de licantropia (Controlar Licantropia, Aversão a Mitral, Empatia Animal, Maldição da Licantropia, Sentidos Aguçados, Forma Híbrida e as 5 Formas de Fera: Lobo, Onça, Rato, Selako, Texugo)
+  - [x] 3.2 Executar injeção em `packs/Itens_T20` e espelhar em `src/packs/Itens_T20/`
+- [x] 4. Diários e Tabelas de Rolagem (`packs/Diarios_T20` e `packs/Tabelas_T20`)
+  - [x] 4.1 Desenvolver `scripts/inject-db232-journals.js` com 3 diários e 17 páginas em subdocumentos ClassicLevel
+  - [x] 4.2 Desenvolver `scripts/inject-db232-tables.js` com 4 tabelas de rolagem (1d6) e 24 resultados em subdocumentos com campo `name`
+  - [x] 4.3 Executar injeções nos compêndios correspondentes
+- [x] 5. Validação e Qualidade
+  - [x] 5.1 Desenvolver `scripts/validate-db232-compliance.js` cobrindo 100% dos requisitos normativos
+  - [x] 5.2 Executar validação com 100% de aprovação e rodar `scripts/audit.js` atestando 0 erros
+- [x] 6. Consolidação e Release v1.9.0
+  - [x] 6.1 Atualizar `module.json`, `package.json` e `CHANGELOG.md` para `v1.9.0`
+  - [x] 6.2 Sincronizar CodeGraph e arquivar mudança OpenSpec
