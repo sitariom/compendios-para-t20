@@ -21,7 +21,7 @@ try {
   if (fs.existsSync(GAME_ICONS_INDEX_PATH)) {
     gameIconsCatalog = JSON.parse(fs.readFileSync(GAME_ICONS_INDEX_PATH, 'utf-8')).catalog;
   }
-} catch (e) {
+} catch {
   // Ignora se não carregou
 }
 
@@ -93,7 +93,23 @@ const TOKEN_2MTT_MAP = {
   'bianco': 'modules/compendios-para-t20/assets/tokens/bianco.png',
   'rojo': 'modules/compendios-para-t20/assets/tokens/rojo.png',
   'manticora zumbi': 'modules/compendios-para-t20/assets/tokens/manticora-zumbi.png',
-  'morrise': 'modules/compendios-para-t20/assets/tokens/morrise.png'
+  'morrise': 'modules/compendios-para-t20/assets/tokens/morrise.png',
+  // DB #232
+  'lobisomem predador urbano': 'modules/compendios-para-t20/assets/tokens/lobisomem-predador-urbano.png',
+  'lobisomem cacador de recompensas': 'modules/compendios-para-t20/assets/tokens/lobisomem-cacador-de-recompensas.png',
+  'licantropo rato comedor de restos': 'modules/compendios-para-t20/assets/tokens/licantropo-rato-comedor-de-restos.png',
+  'licantropo rato infiltrador veterano': 'modules/compendios-para-t20/assets/tokens/licantropo-rato-infiltrador-veterano.png',
+  'licantropo onca pirata de rio': 'modules/compendios-para-t20/assets/tokens/licantropo-onca-pirata-de-rio.png',
+  'licantropo onca lutador de arena': 'modules/compendios-para-t20/assets/tokens/licantropo-onca-lutador-de-arena.png',
+  'licantropo texugo furioso': 'modules/compendios-para-t20/assets/tokens/licantropo-texugo-furioso.png',
+  'licantropo texugo servo da noite': 'modules/compendios-para-t20/assets/tokens/licantropo-texugo-servo-da-noite.png',
+  'licantropo selako farejador de sangue': 'modules/compendios-para-t20/assets/tokens/licantropo-selako-farejador-de-sangue.png',
+  'licantropo selako terror dos mares': 'modules/compendios-para-t20/assets/tokens/licantropo-selako-terror-dos-mares.png',
+  'mamae glop': 'modules/compendios-para-t20/assets/tokens/mamae-glop.png',
+  'estirge': 'modules/compendios-para-t20/assets/tokens/estirge.png',
+  'perdigueiro troll': 'modules/compendios-para-t20/assets/tokens/perdigueiro-troll.png',
+  'ginete de troll purista': 'modules/compendios-para-t20/assets/tokens/ginete-de-troll-purista.png',
+  'xama finntroll': 'modules/compendios-para-t20/assets/tokens/xama-finntroll.png'
 };
 
 const THREAT_MAP = {
@@ -144,7 +160,23 @@ const THREAT_MAP = {
   'bianco': 'systems/tormenta20/icons/ameacas/aparicao.png',
   'rojo': 'systems/tormenta20/icons/poderes/ameacas/pancada.webp',
   'manticora zumbi': 'systems/tormenta20/icons/ameacas/manticora.png',
-  'morrise': 'systems/tormenta20/icons/ameacas/necromante-veterano.png'
+  'morrise': 'systems/tormenta20/icons/ameacas/necromante-veterano.png',
+  // DB #232
+  'lobisomem predador urbano': 'systems/tormenta20/icons/ameacas/lobo.png',
+  'lobisomem cacador de recompensas': 'systems/tormenta20/icons/ameacas/lobo-das-cavernas.png',
+  'licantropo rato comedor de restos': 'systems/tormenta20/icons/ameacas/rato-gigante.png',
+  'licantropo rato infiltrador veterano': 'systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp',
+  'licantropo onca pirata de rio': 'systems/tormenta20/icons/ameacas/lobo-crocodilo.png',
+  'licantropo onca lutador de arena': 'systems/tormenta20/icons/poderes/classes/combatentes/estilo-desarmado.webp',
+  'licantropo texugo furioso': 'systems/tormenta20/icons/poderes/classes/combatentes/furia.webp',
+  'licantropo texugo servo da noite': 'systems/tormenta20/icons/magias/escuridao.webp',
+  'licantropo selako farejador de sangue': 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+  'licantropo selako terror dos mares': 'systems/tormenta20/icons/ameacas/troll-aquatico.png',
+  'mamae glop': 'systems/tormenta20/icons/ameacas/glop.png',
+  'estirge': 'systems/tormenta20/icons/ameacas/besouro-aberrante.png',
+  'perdigueiro troll': 'systems/tormenta20/icons/ameacas/troll-subterraneo.png',
+  'ginete de troll purista': 'systems/tormenta20/icons/ameacas/troll.png',
+  'xama finntroll': 'systems/tormenta20/icons/ameacas/finntroll-feitor.png'
 };
 
 const ITEM_AND_POWER_MAP = {

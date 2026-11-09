@@ -1,5 +1,33 @@
 # Changelog
 
+## v1.9.0 - 2026-11-09
+
+- **Dragão Brasil #232 (Integração Canônica Completa de Ameaças, Itens, Diários e Tabelas)**:
+  - **Ameaças e Criaturas (`packs/Ameacas_T20`)**:
+    - Inclusão de **15 ameaças e NPCs canônicos** na pasta *Dragão Brasil* (`wfWApuyngzFm4KOP`):
+      - *Licantropos Artonianos*: **Lobisomem Predador Urbano (ND 4)**, **Lobisomem Caçador de Recompensas (ND 9)**, **Licantropo Rato Comedor de Restos (ND 1)**, **Licantropo Rato Infiltrador Veterano (ND 7)**, **Licantropo Onça Pirata de Rio (ND 7)**, **Licantropo Onça Lutador de Arena (ND 11)**, **Licantropo Texugo Furioso (ND 5)**, **Licantropo Texugo Servo da Noite (ND 8)**, **Licantropo Selako Farejador de Sangue (ND 3)** e **Licantropo Selako Terror dos Mares (ND 9)**.
+      - *Breves Jornadas: Monstros e Homens*: **Mamãe Glop (ND 2)**, **Estirge (ND 1)**, **Perdigueiro Troll (ND 1)**, **Ginete de Troll Purista (ND 2)** e o conjurador **Xamã Finntroll (ND 2)**.
+    - Todos os 15 atores possuem IDs estritos de 16 caracteres alfanuméricos (`/^[a-zA-Z0-9]{16}$/`), 34 perícias sob `system.pericias`, defesa base dinâmica (`defesa.base + des === defesa.value`), ataques em armas com `rolls.parts`, magias individuais no Xamã Finntroll e no Licantropo Texugo Servo da Noite, traços e imunidades preenchidos no DataModel, texto integral verbatim em `system.detalhes.resistencias`, desagregação atômica estrita de habilidades e tokens circulares transparentes 2MTT dedicados.
+  - **Itens e Poderes (`packs/Itens_T20`)**:
+    - Inclusão de **13 novos registros canônicos de licantropia**:
+      - *Poder de Destino*: **Controlar Licantropia**.
+      - *Poderes e Traços*: **Aversão a Mitral**, **Empatia Animal**, **Maldição da Licantropia**, **Sentidos Aguçados**, **Transformação Incontrolável**, **Forma Híbrida** e as 5 **Formas de Fera** (*Lobo*, *Onça*, *Rato*, *Selako*, *Texugo*).
+      - *Perigo/Maldição*: **Maldição: Licantropia**.
+  - **Diários (`packs/Diarios_T20`)**:
+    - Inclusão de **3 Diários oficiais** estruturados com 19 páginas em subdocumentos ClassicLevel sob `!journal.pages!` com `ownership.default: -1`:
+      - **Cenário: Licantropos Artonianos (DB #232)** (9 páginas completas).
+      - **Aventura: Monstros e Homens (DB #232)** (9 páginas completas com cenas e epílogo).
+      - **Gazeta do Reinado — Edição 164 (DB #232)** (1 página com notícias de Arton).
+  - **Tabelas de Rolagem (`packs/Tabelas_T20`)**:
+    - Inclusão de **4 Tabelas de Rolagem** com fórmula `1d6` e 24 resultados em subdocumentos sob `!tables.results!` com campo `name`:
+      - **Linhagens e Formas de Licantropia (DB #232)** (6 resultados).
+      - **Encontros com Licantropos em Arton (DB #232)** (6 resultados).
+      - **Encontros na Floresta em Monstros e Homens (DB #232)** (6 resultados).
+      - **Ganchos de Aventura com Licantropos (DB #232)** (6 resultados).
+  - **Validação e Integridade**:
+    - Novo validador `scripts/validate-db232-compliance.js` com **1.136 asserções aprovadas com 100% de sucesso**.
+    - 0 erros de JSON, 0 IDs faltantes e 0 pastas órfãs na auditoria geral.
+
 ## v1.8.2 - 2026-11-09
 
 - **Release Oficial v1.8.2 — Desagregação Atômica de Habilidades e Texto Integral de Resistências (DB #226 a #231)**:
