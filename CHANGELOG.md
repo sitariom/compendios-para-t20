@@ -1,6 +1,39 @@
 # Changelog
 
-## v1.7.2 - 2026-11-08
+## v1.8.0 - 2026-11-09
+
+- **Dragão Brasil #231 (Integração Canônica Completa de Ameaças, Itens, Diários e Tabelas)**:
+  - **Ameaças e Criaturas (`packs/Ameacas_T20`)**:
+    - Inclusão de **10 ameaças e NPCs oficiais** na pasta *Dragão Brasil* (`wfWApuyngzFm4KOP`):
+      - *A Vastidão Dourada de Halak-Tûr*: **Arraia-Seca (ND 3)**, **Anshira (ND 9)**, **Caçador de Condenados (ND 11)**, **Constritora Arenosa (ND 9)**, **Ressecado Saqueador (ND 4)** e **Ressecado Líder (ND 4 Solo)**.
+      - *Breves Jornadas: Circo Sombrio*: **Bianco (ND 2)**, **Rojo (ND 2)**, **Mantícora Zumbi (ND 3)** e **Morrise (ND 3)**.
+    - Todos os atores possuem rigorosamente IDs primários com 16 caracteres alfanuméricos (`/^[a-zA-Z0-9]{16}$/`), 34 perícias sob `system.pericias`, defesa base dinâmica (`defesa.base + des === defesa.value`), ataques corporificados em armas embutidas com `rolls.parts` e danos adicionais (trevas, sangramento), biografias com citações duplas (#800000 e #006400) e tokens circulares 2MTT transparentes dedicados em `assets/tokens/`.
+  - **Itens, Classes, Poderes e Origens (`packs/Itens_T20`)**:
+    - Inclusão de **18 novos registros canônicos**:
+      - *Classe Variante*: **Miragem (Caçador)** com habilidades de classe exclusivas (**Dança da Areia**, **Cortina de Poeira**, **Passo do Deserto**, **Mestre do Deserto**).
+      - *Novos Poderes de Caçador*: **Arsenal do Deserto**, **Escaramuça Distante**, **Passo Duplo**, **Passos Precisos** e **Tesouros da Natureza**.
+      - *Poder Concedido*: **Canção da Pedra** (Allihanna e Megalokk) para druidas.
+      - *Raça Variante*: **Sahiri** (Dahllan) com **Animar Rochas** e **Proteção da Terra**.
+      - *Origens Regionais de Halak-Tûr*: **Criança do Crepúsculo**, **Nascido nas Estepes** e **Nômade Ferani**.
+      - *Equipamentos e Despojos*: **Presa de Ônix** e **Símbolo Sagrado de Azgher**.
+    - Todos com `system.description.value`, IDs determinísticos de 16 caracteres e subdocumentos de `ActiveEffects` canônicos em `!items.effects!`.
+  - **Diários (`packs/Diarios_T20`)**:
+    - Inclusão de **3 Diários oficiais** estruturados com subdocumentos de páginas em `!journal.pages!`:
+      - **A Vastidão Dourada de Halak-Tûr (DB #231)** (9 páginas completas cobrindo introdução, geografia, povos ferani e dai-kerat, tradições, religião, locais de interesse e bestiário).
+      - **Aventura: Circo Sombrio (DB #231)** (6 páginas com resumo, Cenas 1 a 4, atrações de Tenebra e epílogo).
+      - **Gazeta do Reinado — Edição 163 (DB #231)** (2 páginas com as notícias do triunfo de Mestre Arsenal e os certames do senado táurico).
+    - Todas as 17 páginas configuradas com herança de permissão `ownership: { default: -1 }`.
+  - **Tabelas de Rolagem (`packs/Tabelas_T20`)**:
+    - Inclusão de **4 Tabelas de Rolagem** com fórmula `1d6` e resultados em subdocumentos em `!tables.results!`:
+      - **Previsões de Selina (DB #231)** (3 resultados mecânicos para leitura da sorte no Circo Sombrio).
+      - **Encontros Diurnos em Halak-Tûr (DB #231)** (6 encontros nas dunas e cânions sob o sol de Azgher).
+      - **Encontros Noturnos em Halak-Tûr (DB #231)** (6 perigos sob a noite gélida de Tenebra).
+      - **Ganchos de Aventura em Halak-Tûr (DB #231)** (6 sementes de tramas e intrigas no deserto).
+    - Todos os 21 resultados com IDs de 16 caracteres e campo `name` devidamente preenchido.
+  - **Validação e Qualidade**:
+    - Novo validador `scripts/validate-db231-compliance.js` com **818 asserções estritas aprovadas com 100% de sucesso**.
+    - Zero regressões em `validate-db230-compliance.js` (1.021 verificações) e `validate-db229-compliance.js`.
+    - Auditoria geral via `scripts/audit.js` com 0 erros de JSON, 0 IDs faltantes e 0 pastas órfãs nos 6 compêndios.
 
 - **Hotfix Estrutural: Padronização Universal de IDs Estritamente com 16 Caracteres para o Foundry VTT (DB #229 e #230)**:
   - **Resolução de Visibilidade em Diários e Tabelas de Rolagem**:
