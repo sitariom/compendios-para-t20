@@ -216,6 +216,7 @@ async function injectThreats() {
       defesa: { value: 33, base: 31 } // 31 + 2 = 33
     },
     resistencias: ankthyrTracos,
+    resistenciasTexto: 'redução de dano 5, redução de ácido 5',
     pericias: ankthyrSkills,
     items: ankthyrItems,
     ataquescac: 'Mordida +26 (4d12+24 mais 4d8 ácido, 20).',
@@ -352,6 +353,7 @@ async function injectThreats() {
       defesa: { value: 23, base: 22 } // 22 + 1 = 23
     },
     resistencias: enxameTracos,
+    resistenciasTexto: 'imunidade a ácido, agarrado, derrubado, atordoado e flanqueado',
     pericias: enxameSkills,
     items: enxameItems,
     ataquescac: 'Dano automático de ácido 3d8 ao fim do turno.',
@@ -494,6 +496,7 @@ async function injectThreats() {
       defesa: { value: 15, base: 12 } // 12 + 3 = 15
     },
     resistencias: slarkTracos,
+    resistenciasTexto: 'redução de ácido 5',
     pericias: slarkSkills,
     items: slarkItems,
     ataquescac: 'Garras +11 (2d6+9, 19/x3).',

@@ -178,6 +178,7 @@ async function injectThreats() {
       defesa: { value: 33, base: 33 } // 33 + 0 = 33
     },
     resistencias: defensorTracos,
+    resistenciasTexto: 'imunidade a atordoado e petrificado, redução de dano 10, Natureza Abascanta (50% evasão mágica)',
     pericias: defensorSkills,
     items: defensorItems,
     ataquescac: 'Duas pancadas +26 (4d8+19, x3).',
@@ -340,6 +341,7 @@ async function injectThreats() {
       defesa: { value: 33, base: 32 } // 32 + 1 = 33
     },
     resistencias: revoadaTracos,
+    resistenciasTexto: 'imunidade a paralisia, traços de bando (metade dano de armas, +50% dano em área)',
     pericias: revoadaSkills,
     items: revoadaItems,
     ataquescac: 'Mordida +26 (2d6+12 mais agarrar +31) e ferrão +26 (1d8+12 mais peçonha concentrada 1d12).',
@@ -513,6 +515,7 @@ async function injectThreats() {
       defesa: { value: 20, base: 18 } // 18 + 2 = 20
     },
     resistencias: presaTracos,
+    resistenciasTexto: 'Vitalidade Peçonhenta (recupera 1d12 PV com veneno)',
     pericias: presaSkills,
     items: presaItems,
     ataquescac: 'Machado de batalha +10 (1d8+5 mais peçonha concentrada 1d12).',
@@ -735,6 +738,7 @@ async function injectThreats() {
       defesa: { value: 33, base: 31 } // 31 + 2 = 33
     },
     resistencias: basiliscoTracos,
+    resistenciasTexto: 'imunidade a metamorfose, redução de dano 10, resistência a veneno +10',
     pericias: basiliscoSkills,
     items: basiliscoItems,
     ataquescac: 'Mordida +27 (4d8+25 mais peçonha potente 2d12).',

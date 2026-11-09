@@ -194,6 +194,7 @@ async function injectThreats() {
       defesa: { value: 24, base: 19 } // 24 - 5 = 19
     },
     resistencias: zangaoTracos,
+    resistenciasTexto: 'cura acelerada 5, imunidade a ácido, efeitos mentais, eletricidade, encantamento, medo e trevas, redução de dano 5/mágico',
     pericias: zangaoSkills,
     items: zangaoItems,
     ataquescac: 'Mordida +17 (2d8+11) e cauda +17.',
@@ -314,6 +315,7 @@ async function injectThreats() {
       defesa: { value: 25, base: 21 } // 25 - 4 = 21
     },
     resistencias: coletorTracos,
+    resistenciasTexto: 'cura acelerada 5, imunidade a ácido, efeitos mentais, eletricidade, encantamento, medo e trevas, redução de dano 5/mágico',
     pericias: coletorSkills,
     items: coletorItems,
     ataquescac: 'Mordida +18 (4d8+10) e cauda-tentáculo +18 (1d8+10 mais 4d6 psíquico, mais agarrar +20).',
@@ -415,6 +417,7 @@ async function injectThreats() {
       defesa: { value: 33, base: 27 } // 33 - 6 = 27
     },
     resistencias: ceifadorTracos,
+    resistenciasTexto: 'cura acelerada 5, imunidade a ácido, efeitos mentais, eletricidade, encantamento, medo e trevas, redução de dano 10/mágico',
     pericias: ceifadorSkills,
     items: ceifadorItems,
     ataquescac: 'Mordida +26 (3d8+20) e cauda-lâmina +26 (4d6+20 corte, 18/x3).',
@@ -553,6 +556,7 @@ async function injectThreats() {
       defesa: { value: 36, base: 30 } // 36 - 6 = 30
     },
     resistencias: polivalenteTracos,
+    resistenciasTexto: 'cura acelerada 5, imunidade a ácido, efeitos mentais, eletricidade, encantamento, medo e trevas, redução de dano 10/mágico',
     pericias: polivalenteSkills,
     items: polivalenteItems,
     ataquescac: 'Mordida +29 (3d8+10) e quatro caudas +29 (um ataque de cada).',
@@ -722,6 +726,7 @@ async function injectThreats() {
       defesa: { value: 48, base: 45 } // 48 - 3 = 45
     },
     resistencias: mestreTracos,
+    resistenciasTexto: 'cura acelerada 20, imunidade a ácido, efeitos mentais, eletricidade, encantamento, medo e trevas, redução de dano 20/mágico, 50% de chance de ignorar dano não mágico ou não luz',
     pericias: mestreSkills,
     items: mestreItems,
     ataquescac: 'Mordida +43 (4d8+20), duas garras +43 (2d8+10) e quatro caudas +43 (um ataque de cada).',
@@ -806,6 +811,7 @@ async function injectThreats() {
       defesa: { value: 19, base: 18 } // 19 - 1 = 18
     },
     resistencias: lanceiroTracos,
+    resistenciasTexto: 'imunidade a ácido, efeitos mentais, eletricidade, encantamento e trevas',
     pericias: lanceiroSkills,
     items: lanceiroItems,
     ataquescac: 'Lança +14 (2d6+4) e cauda-lâmina +14 (2d6+4 corte, 18/x3).',
@@ -909,6 +915,7 @@ async function injectThreats() {
       defesa: { value: 21, base: 20 } // 21 - 1 = 20
     },
     resistencias: gineteTracos,
+    resistenciasTexto: 'imunidade a ácido, efeitos mentais, eletricidade, encantamento e trevas',
     pericias: gineteSkills,
     items: gineteItems,
     ataquescac: 'Lança de cavalaria +16 (2d8+4, x3, alcance 3m) e cauda-lâmina +16 (2d6+4 corte, 18/x3).',
@@ -1007,6 +1014,7 @@ async function injectThreats() {
       defesa: { value: 23, base: 22 } // 23 - 1 = 22
     },
     resistencias: sargentoTracos,
+    resistenciasTexto: 'imunidade a ácido, efeitos mentais, eletricidade, encantamento e trevas',
     pericias: sargentoSkills,
     items: sargentoItems,
     ataquescac: 'Espada bastarda +16 (2d6+5, 19/x3) e cauda-lâmina +16 (2d6+5 corte, 18/x3).',
@@ -1066,11 +1074,18 @@ async function injectThreats() {
       description: '<p>Quando o tenente onírico ou outro mercenário onírico em alcance médio faz um ataque contra uma criatura que não seja imune a medo, este atacante rola dois dados e usa o melhor resultado. Medo.</p>'
     }),
     buildSpecialPower({
-      name: 'Fome de Sonhos e Partilhar Fome',
+      name: 'Fome de Sonhos',
       img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>O tenente emana uma aura com 30m de raio. Ele e outros mercenários oníricos dentro desta área recebem um bônus no teste de ataque e na rolagem de dano igual ao total de PM que o alvo gastou desde o turno anterior do tenente.</p>'
+      description: '<p>Quando ataca uma criatura, o tenente onírico recebe um bônus no teste de ataque e na rolagem de dano igual ao total de PM que aquela criatura gastou desde o turno anterior do tenente.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Partilhar Fome',
+      img: 'systems/tormenta20/icons/poderes/classes/combatentes/lideranca.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>O tenente emana uma aura com 30m de raio que compartilha o bônus de Fome de Sonhos com outros mercenários oníricos dentro desta área.</p>'
     }),
     buildSpecialPower({
       name: 'Negação da Morte',
@@ -1110,6 +1125,7 @@ async function injectThreats() {
       defesa: { value: 27, base: 26 } // 27 - 1 = 26
     },
     resistencias: tenenteTracos,
+    resistenciasTexto: 'imunidade a ácido, efeitos mentais, eletricidade, encantamento, medo e trevas, redução de dano 5',
     pericias: tenenteSkills,
     items: tenenteItems,
     ataquescac: 'Espada bastarda +20 (2d10+10, 19/x3, mais 2d6 trevas) e cauda-lâmina +20 (2d10+10 corte, 18/x3, mais 2d6 trevas).',
@@ -1175,11 +1191,18 @@ async function injectThreats() {
       description: '<p>Se Nócnam Mur acertar dois ataques de tentáculo-cauda em uma mesma criatura na mesma rodada, ele implanta um pesadelo na mente dela. A vítima perde 1d4 PM por turno e rola dois dados usando o pior resultado (Vontade CD 47 evita).</p>'
     }),
     buildSpecialPower({
-      name: 'Estratégia do Medo & Fome de Sonhos',
+      name: 'Estratégia do Medo',
       img: 'systems/tormenta20/icons/poderes/ameacas/estrategia.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Nócnam Mur e aliados em alcance médio atacam com dois dados contra quem não for imune a medo. Além disso, Nócnam Mur recebe bônus de acerto e dano igual ao total de PM gastos pelo alvo desde o seu último turno, compartilhando esta aura em 30m.</p>'
+      description: '<p>Nócnam Mur e aliados em alcance médio rolam dois dados e usam o melhor resultado em ataques contra criaturas que não sejam imunes a medo.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Fome de Sonhos',
+      img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>Nócnam Mur recebe bônus de acerto e dano igual ao total de PM gastos pelo alvo desde o seu último turno, compartilhando esta aura em 30m com aliados.</p>'
     }),
     buildSpecialPower({
       name: 'Força dos Titãs',
@@ -1197,11 +1220,25 @@ async function injectThreats() {
       description: '<p>Nócnam Mur possui todas as habilidades de Natureza do Pesadelo (Pesadelo de Desastre, Fracasso, Perseguição e Morte) com CD 47.</p>'
     }),
     buildSpecialPower({
-      name: 'Varrer & Negação da Morte',
+      name: 'Varrer',
       img: 'systems/tormenta20/icons/poderes/ameacas/varredura.webp',
       execucao: 'free',
       custo: 0,
-      description: '<p>Uma vez por rodada, ao reduzir uma criatura a 0 PV ou menos com um ataque corpo a corpo, Nócnam Mur realiza um ataque adicional livre. Além disso, como reação, impede a morte de um mercenário onírico deixando-o com 1 PV.</p>'
+      description: '<p>Uma vez por rodada, ao reduzir uma criatura a 0 PV ou menos com um ataque corpo a corpo, Nócnam Mur realiza um ataque corpo a corpo adicional como ação livre.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Negação da Morte',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      execucao: 'reaction',
+      custo: 0,
+      description: '<p>Como reação, se um mercenário onírico em alcance médio for reduzido a 0 PV ou menos, Nócnam Mur impede sua morte deixando-o com 1 PV.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Fortificação 50%',
+      img: 'systems/tormenta20/icons/poderes/classes/combatentes/solidez.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>Nócnam Mur possui 50% de chance de ignorar o dano extra de acertos críticos e ataques furtivos.</p>'
     })
   ];
 
@@ -1234,6 +1271,7 @@ async function injectThreats() {
       defesa: { value: 56, base: 55 } // 56 - 1 = 55
     },
     resistencias: nocnamTracos,
+    resistenciasTexto: 'fortificação 50%, imunidade a ácido, efeitos mentais, eletricidade, encantamento, medo e trevas, redução de dano 10',
     pericias: nocnamSkills,
     items: nocnamItems,
     ataquescac: 'Espada bastarda +49 (3d12+20, 19/x3, mais 6d6 trevas) e quatro tentáculos-cauda +49 (3d8+15 corte, 18/x3, mais 6d6 trevas, alcance 6m).',
@@ -1353,6 +1391,7 @@ async function injectThreats() {
       defesa: { value: 23, base: 21 } // 23 - 2 = 21
     },
     resistencias: sacerdoteTracos,
+    resistenciasTexto: 'resistência a medo +2',
     pericias: sacerdoteSkills,
     items: sacerdoteItems,
     ataquescac: 'Foice negra x2 +20 (2d8+13, x3, mais 1d12 trevas).',
@@ -1468,6 +1507,7 @@ async function injectThreats() {
       defesa: { value: 30, base: 25 } // 30 - 5 = 25
     },
     resistencias: goblinsTracos,
+    resistenciasTexto: 'Goblins imunes a dano na garupa',
     pericias: goblinsSkills,
     items: goblinsItems,
     ataquescac: 'Mordida x2 +24 (3d8+16, x4 com agarrar +26).',
@@ -1536,18 +1576,32 @@ async function injectThreats() {
       description: '<p>Uma vez por rodada, quando atinge uma criatura desprevenida ou flanqueada com um ataque corpo a corpo ou em alcance curto, Arzak causa +6d6 pontos de dano extra (+8d6 se montado).</p>'
     }),
     buildSpecialPower({
-      name: 'Manobras Evasivas & Sangrento',
+      name: 'Manobras Evasivas',
       img: 'systems/tormenta20/icons/poderes/ameacas/evasao.webp',
       execucao: 'reaction',
       custo: 0,
-      description: '<p>Uma vez por rodada, substitui um teste de resistência por um teste de Cavalgar (+13). Enquanto montado, seu deslocamento se torna 12m, ganha ação de movimento extra e +2d6 no Ataque Furtivo.</p>'
+      description: '<p>Uma vez por rodada, quando faz um teste de resistência, Arzak substitui este teste por um teste de Cavalgar (+13).</p>'
     }),
     buildSpecialPower({
-      name: 'Um com as Sombras & Evasão Aprimorada',
+      name: 'Sangrento',
+      img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>Enquanto estiver montado, o deslocamento de Arzak se torna 12m, ele recebe uma ação de movimento extra por turno (apenas para se deslocar) e +2d6 em seu Ataque Furtivo.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Um com as Sombras',
       img: 'systems/tormenta20/icons/poderes/ameacas/furtividade.webp',
       execucao: 'passive',
       custo: 0,
-      description: '<p>Arzak nunca fica surpreendido ou flanqueado e não sofre penalidades por se mover com seu deslocamento normal em Furtividade. Evasão Aprimorada reduz dano de Reflexos a zero (se passar) ou metade (se falhar).</p>'
+      description: '<p>Arzak nunca fica surpreendido ou flanqueado e não sofre penalidades por se mover com seu deslocamento normal em Furtividade.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Evasão Aprimorada',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/evasao.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>Quando sofre um efeito que permite um teste de Reflexos para reduzir o dano à metade, Arzak não sofre dano algum se passar, e sofre apenas metade do dano se falhar.</p>'
     })
   ];
 
@@ -1579,6 +1633,7 @@ async function injectThreats() {
       defesa: { value: 31, base: 26 } // 31 - 5 = 26
     },
     resistencias: arzakTracos,
+    resistenciasTexto: 'evasão aprimorada',
     pericias: arzakSkills,
     items: arzakItems,
     ataquescac: 'Kum’shrak x3 +24 (1d8+10 corte, x3, mais sangrando).',
@@ -1639,18 +1694,32 @@ async function injectThreats() {
       description: '<p>Se acertar uma criatura com o ataque de azagaia, Gaardak pode fazer uma manobra derrubar ou empurrar (teste +28) contra a criatura atingida como ação livre.</p>'
     }),
     buildSpecialPower({
-      name: 'Lento Demais! & Fluxo de Movimento',
+      name: 'Lento Demais!',
       img: 'systems/tormenta20/icons/poderes/ameacas/contra-ataque.webp',
       execucao: 'reaction',
       custo: 0,
-      description: '<p>Uma vez por rodada, ao ser alvo de ataque corpo a corpo, Gaardak faz teste de ataque oposto. Se vencer, evita o dano e contra-ataca. Além disso, pode intercalar movimento antes e depois de sua ação padrão.</p>'
+      description: '<p>Uma vez por rodada, quando é alvo de um ataque corpo a corpo, Gaardak pode fazer um teste de ataque oposto ao resultado deste ataque. Se vencer, ele evita o dano e pode fazer um ataque corpo a corpo contra o atacante como reação.</p>'
     }),
     buildSpecialPower({
-      name: 'Poderio Muscular & Êxtase no Medo',
+      name: 'Fluxo de Movimento',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>Gaardak pode intercalar sua ação de movimento com uma ação padrão, podendo mover-se parte de seu deslocamento antes da ação, e o restante após.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Poderio Muscular',
       img: 'systems/tormenta20/icons/poderes/ameacas/furia.webp',
       execucao: 'standard',
       custo: 0,
-      description: '<p>Gaardak recebe deslocamento +9m e +10 em Atletismo até o fim da cena (fica fraco depois). Sofre metade do dano de criaturas sob efeito de medo.</p>'
+      description: '<p>Gaardak recebe deslocamento +9m e +10 em Atletismo até o fim da cena (fica fraco depois).</p>'
+    }),
+    buildSpecialPower({
+      name: 'Êxtase no Medo',
+      img: 'systems/tormenta20/icons/poderes/ameacas/medo.webp',
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>Gaardak sofre metade do dano de criaturas sob algum efeito de medo.</p>'
     })
   ];
 
@@ -1682,6 +1751,7 @@ async function injectThreats() {
       defesa: { value: 33, base: 29 } // 33 - 4 = 29
     },
     resistencias: gaardakTracos,
+    resistenciasTexto: 'resistência a medo +2',
     pericias: gaardakSkills,
     items: gaardakItems,
     ataquescac: 'Ataque desarmado x3 +24 (2d8+8 impacto).',
@@ -1720,6 +1790,7 @@ async function injectThreats() {
       atributos: actor.atributos,
       attributes: actor.attributes,
       resistencias: actor.resistencias,
+      resistenciasTexto: actor.resistenciasTexto,
       pericias: actor.pericias,
       items: actor.items,
       ataquescac: actor.ataquescac,

@@ -298,6 +298,7 @@ async function rebuildDB227Threats() {
       defesa: { value: 43, base: 35 } // 35 + 8 = 43
     },
     resistencias: lynelTracos,
+    resistenciasTexto: 'redução de ácido, eletricidade, fogo e frio 10',
     pericias: lynelSkills,
     items: lynelItems,
     ataquescac: 'Armamento Lynel x2 +36 e Mordida +36 (4d10+25, 19).',
@@ -404,6 +405,7 @@ async function rebuildDB227Threats() {
       defesa: { value: 20, base: 16 } // 16 + 4 = 20
     },
     resistencias: oxxdonTracos,
+    resistenciasTexto: 'ferrugem (destrói metal)',
     pericias: oxxdonSkills,
     items: oxxdonItems,
     ataquescac: 'Antena +12 (ferrugem) e mordida +12 (1d8+10).',
@@ -502,6 +504,7 @@ async function rebuildDB227Threats() {
       defesa: { value: 22, base: 20 } // 20 + 2 = 22
     },
     resistencias: enxameTracos,
+    resistenciasTexto: 'redução de dano 5, imunidade a manobras e efeitos de alvo único',
     pericias: enxameSkills,
     items: enxameItems,
     ataquescac: 'Enxame (1d10 corte + 1d6 perfuração + 1d8 impacto).',
@@ -596,6 +599,7 @@ async function rebuildDB227Threats() {
       defesa: { value: 24, base: 21 } // 21 + 3 = 24
     },
     resistencias: tropaTracos,
+    resistenciasTexto: 'redução de corte, frio e perfuração 5, imunidade a manobras',
     pericias: tropaSkills,
     items: tropaItems,
     ataquescac: 'Espada longa x2 +20 (4d8+18, 19).',
@@ -711,6 +715,7 @@ async function rebuildDB227Threats() {
       defesa: { value: 26, base: 24 } // 24 + 2 = 26
     },
     resistencias: inumanoTracos,
+    resistenciasTexto: 'imunidade a frio',
     pericias: inumanoSkills,
     items: inumanoItems,
     ataquescac: 'Espada longa x2 +24 (2d8+9, 19, mais 2d12 trevas).',
