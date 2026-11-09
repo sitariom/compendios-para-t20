@@ -1,6 +1,6 @@
 {
   "name": "compendios-para-t20",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20 no Foundry VTT.",
   "scripts": {
     "stats": "node scripts/stats.js",
@@ -8,6 +8,7 @@
     "search": "node scripts/search.js",
     "validate:db229": "node scripts/validate-db229-compliance.js",
     "validate:db230": "node scripts/validate-db230-compliance.js",
+    "validate:db231": "node scripts/validate-db231-compliance.js",
     "unpack": "node scripts/unpack.js",
     "pack": "node scripts/pack.js",
     "zip": "zip -r module.zip . -x \".git/*\" \".github/*\" \".gitignore\" \"LICENSE\" \"README.md\" \"node_modules/*\" \"src/*\" \".codegraph/*\" \".pi/*\" \".engram/*\" \".ruff_cache/*\""

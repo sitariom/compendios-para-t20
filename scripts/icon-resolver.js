@@ -82,7 +82,18 @@ const TOKEN_2MTT_MAP = {
   'sacerdote caido': 'modules/compendios-para-t20/assets/tokens/sacerdote-caido.png',
   'tres goblins em um gorlogg': 'modules/compendios-para-t20/assets/tokens/tres-goblins-em-um-gorlogg.png',
   'arzak': 'modules/compendios-para-t20/assets/tokens/arzak.png',
-  'gaardak': 'modules/compendios-para-t20/assets/tokens/gaardak.png'
+  'gaardak': 'modules/compendios-para-t20/assets/tokens/gaardak.png',
+  // DB #231
+  'arraia seca': 'modules/compendios-para-t20/assets/tokens/arraia-seca.png',
+  'anshira': 'modules/compendios-para-t20/assets/tokens/anshira.png',
+  'cacador de condenados': 'modules/compendios-para-t20/assets/tokens/cacador-de-condenados.png',
+  'constritora arenosa': 'modules/compendios-para-t20/assets/tokens/constritora-arenosa.png',
+  'ressecado saqueador': 'modules/compendios-para-t20/assets/tokens/ressecado-saqueador.png',
+  'ressecado lider': 'modules/compendios-para-t20/assets/tokens/ressecado-lider.png',
+  'bianco': 'modules/compendios-para-t20/assets/tokens/bianco.png',
+  'rojo': 'modules/compendios-para-t20/assets/tokens/rojo.png',
+  'manticora zumbi': 'modules/compendios-para-t20/assets/tokens/manticora-zumbi.png',
+  'morrise': 'modules/compendios-para-t20/assets/tokens/morrise.png'
 };
 
 const THREAT_MAP = {
@@ -122,7 +133,18 @@ const THREAT_MAP = {
   'sacerdote caido': 'systems/tormenta20/icons/ameacas/cultista-da-traicao.png',
   'tres goblins em um gorlogg': 'systems/tormenta20/icons/poderes/ameacas/explosao.webp',
   'arzak': 'systems/tormenta20/icons/poderes/ameacas/assassinar.webp',
-  'gaardak': 'systems/tormenta20/icons/poderes/ameacas/furia.webp'
+  'gaardak': 'systems/tormenta20/icons/poderes/ameacas/furia.webp',
+  // DB #231
+  'arraia seca': 'systems/tormenta20/icons/poderes/ameacas/ferrao.webp',
+  'anshira': 'systems/tormenta20/icons/poderes/classes/conjuradores/linhagem-feerica.webp',
+  'cacador de condenados': 'systems/tormenta20/icons/ameacas/nagah-guardiao.png',
+  'constritora arenosa': 'systems/tormenta20/icons/ameacas/sucuri.png',
+  'ressecado saqueador': 'systems/tormenta20/icons/ameacas/esqueleto.png',
+  'ressecado lider': 'systems/tormenta20/icons/ameacas/esqueleto-de-elite.png',
+  'bianco': 'systems/tormenta20/icons/ameacas/aparicao.png',
+  'rojo': 'systems/tormenta20/icons/poderes/ameacas/pancada.webp',
+  'manticora zumbi': 'systems/tormenta20/icons/ameacas/manticora.png',
+  'morrise': 'systems/tormenta20/icons/ameacas/necromante-veterano.png'
 };
 
 const ITEM_AND_POWER_MAP = {
