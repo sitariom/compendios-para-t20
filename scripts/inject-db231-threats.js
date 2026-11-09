@@ -5,22 +5,24 @@
  * Conteúdo:
  * 1. A Vastidão Dourada de Halak-Tûr (6 Ameaças de Rafael Dei Svaldi)
  *    - Arraia-Seca (ND 3) - Monstro Médio
- *    - Anshira (ND 9) - Espírito Médio
+ *    - Anshira (ND 9) - Espírito Médio (5 Magias individuais + Furtividade em Deserto)
  *    - Caçador de Condenados (ND 11) - Morto-vivo Grande
- *    - Constritora Arenosa (ND 9) - Monstro Grande
- *    - Ressecado Saqueador (ND 4) - Morto-vivo Médio
- *    - Ressecado Líder (ND 4) - Morto-vivo Médio Solo
+ *    - Constritora Arenosa (ND 9) - Monstro Grande (Imunidades + Furtividade em Deserto)
+ *    - Ressecado Saqueador (ND 4) - Morto-vivo Médio (Imune Frio + Vuln Fogo)
+ *    - Ressecado Líder (ND 4 Solo) - Morto-vivo Médio Solo (Imune Frio + Vuln Fogo)
  *
  * 2. Breves Jornadas: Circo Sombrio (4 Ameaças/NPCs de Tenebra)
- *    - Bianco (ND 2) - Morto-vivo Médio
- *    - Rojo (ND 2) - Morto-vivo Médio
- *    - Mantícora Zumbi (ND 3) - Morto-vivo Grande
- *    - Morrise (ND 3) - Humanoide Médio
+ *    - Bianco (ND 2) - Morto-vivo Médio (4 Magias de Truque Circense)
+ *    - Rojo (ND 2) - Morto-vivo Médio (Violência Cômica + Cascudo)
+ *    - Mantícora Zumbi (ND 3) - Morto-vivo Grande (Garras + Mordida + Fraqueza Zumbi)
+ *    - Morrise (ND 3) - Humanoide Médio (5 Magias individuais + Passo Sombrio + Transferir Sofrimento)
  *
  * Conformidade Canônica:
  * - IDs estritos de 16 caracteres alfanuméricos (/^[a-zA-Z0-9]{16}$/)
  * - Defesa Base Dinâmica (defesa.base + des = defesa.value)
- * - 34 perícias sob system.pericias
+ * - 34 perícias sob system.pericias + subdocumentos de perícias situacionais
+ * - Magias individuais como itens de tipo "magia" (SpellData DataModel)
+ * - Imunidades/Vulnerabilidades estruturadas no DataModel de resistências e ic
  * - Ataques e armas como subdocumentos com rolls.parts
  * - Biografias com citações duplas (#800000 e #006400)
  * - Tokens 2MTT circulares exclusivos em assets/tokens/
@@ -33,6 +35,7 @@ const {
   buildTracos,
   buildWeaponAttack,
   buildSpecialPower,
+  buildSpellItem,
   buildNpcActor,
   saveToSourcePacks
 } = require('./create-entry');
@@ -41,7 +44,7 @@ const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
 const FOLDER_DB = 'wfWApuyngzFm4KOP'; // Pasta canônica "Dragão Brasil"
 
 async function injectThreats() {
-  console.log('=== Injetando 10 Ameaças da DB #231 em Ameacas_T20 ===\n');
+  console.log('=== Injetando 10 Ameaças da DB #231 em Ameacas_T20 (Padrão Rigoroso Atualizado) ===\n');
   const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
 
   const actorsToInject = [];
@@ -63,8 +66,8 @@ async function injectThreats() {
 
   const arraiaTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 0, fogo: 5 },
-    ic: [],
+    resistencias: { fogo: 5 },
+    icValue: [],
     idiomasValue: []
   });
 
@@ -132,7 +135,7 @@ async function injectThreats() {
   });
 
   // =========================================================================
-  // 2. ANSHIRA (ND 9) - Espírito Médio
+  // 2. ANSHIRA (ND 9) - Espírito Médio (5 Magias Individuais + Furtividade em Deserto)
   // =========================================================================
   const anshiraId = 'gq8231AnshiraAAA';
   console.log(`Configurando Anshira [${anshiraId}]...`);
@@ -148,13 +151,23 @@ async function injectThreats() {
     intu: 14,
     mist: 9,
     sobr: 16
+  }, {
+    furt_deserto: {
+      label: 'Furtividade (Desertos)',
+      atributo: 'des',
+      value: 16,
+      outros: 5,
+      treinado: true,
+      custom: true
+    }
   });
 
   const anshiraTracos = buildTracos({
     tamanho: 'med',
     resistencias: { dano: 5 },
-    ic: ['acido', 'efeitos mentais'],
-    idiomasValue: []
+    imunidadesDano: ['acido'],
+    icValue: ['mental'],
+    excecoes: { dano: 0 }
   });
 
   const anshiraItems = [
@@ -179,12 +192,69 @@ async function injectThreats() {
       actionType: 'passive',
       description: '<p>O espírito da anshira abrange a caverna onde vive. Se destruída, renasce em 2d4 dias no ponto mais profundo. Não pode se afastar mais de 2km da entrada sem sofrer 8d6 PV/hora. A única forma definitiva de matá-la é provocar um desmoronamento enquanto ela está fora da caverna.</p>'
     }),
-    buildSpecialPower({
-      name: 'Magias de Donzela das Rochas (CD 32)',
-      img: 'systems/tormenta20/icons/magias/controlar-terra.webp',
-      type: 'magia',
-      actionType: 'action',
-      description: '<p>Conjuradora de 9º nível (CD 32). Conhece e lança: <em>Comando</em> (4 PM), <em>Controlar Terra</em> (9 PM), <em>Enfeitiçar</em> (1 PM), <em>Pele de Pedra</em> (6 PM) e <em>Tranquilidade</em> (2 PM).</p>'
+    // 5 Magias Individuais de Conjuradora de 9º Nível (CD 32)
+    buildSpellItem({
+      name: 'Comando',
+      circulo: 1,
+      tipo: 'div',
+      escola: 'enc',
+      execucao: 'action',
+      custoPM: 4,
+      alcance: 'curto',
+      alvo: 'duas criaturas',
+      duracao: 'round',
+      resistencia: 'Vontade anula',
+      description: '<p>No início do seu próximo turno, duas criaturas em alcance curto ficam pasmas por 1 rodada (Von CD 32 evita; cada criatura só pode ficar pasma por esta magia uma vez por cena).</p>'
+    }),
+    buildSpellItem({
+      name: 'Controlar Terra',
+      circulo: 3,
+      tipo: 'div',
+      escola: 'tra',
+      execucao: 'action',
+      custoPM: 9,
+      alcance: 'longo',
+      area: '9 cubos de 1,5m',
+      duracao: 'scene',
+      description: '<p>A anshira transforma 9 cubos de terra com 1,5m de lado em alcance longo em uma parede (RD 8 e 50 PV) que fornece cobertura total. Ela pode aplicar outros efeitos aos cubos.</p>'
+    }),
+    buildSpellItem({
+      name: 'Enfeitiçar',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'enc',
+      execucao: 'action',
+      custoPM: 1,
+      alcance: 'curto',
+      alvo: '1 humanoide',
+      duracao: 'scene',
+      resistencia: 'Vontade anula',
+      description: '<p>Um humanoide em alcance curto fica enfeitiçado (Von CD 32 evita). Ações hostis contra o alvo ou seus aliados dissipam a magia.</p>'
+    }),
+    buildSpellItem({
+      name: 'Pele de Pedra',
+      circulo: 2,
+      tipo: 'div',
+      escola: 'tra',
+      execucao: 'action',
+      custoPM: 6,
+      alcance: 'pessoal',
+      alvo: 'você',
+      duracao: 'scene',
+      description: '<p>A anshira recebe redução de dano 5 até o fim da cena.</p>'
+    }),
+    buildSpellItem({
+      name: 'Tranquilidade',
+      circulo: 1,
+      tipo: 'div',
+      escola: 'enc',
+      execucao: 'action',
+      custoPM: 2,
+      alcance: 'curto',
+      alvo: '1 criatura',
+      duracao: 'scene',
+      resistencia: 'Vontade parcial',
+      description: '<p>Até o fim da cena, uma criatura em alcance curto tem sua atitude mudada para indiferente e não pode atacar ou realizar qualquer ação hostil (Von CD 32 reduz para penalidade de –2 em testes de ataque). Ações hostis contra o alvo ou seus aliados dissipam a magia.</p>'
     })
   ];
 
@@ -235,7 +305,7 @@ async function injectThreats() {
   const cacadorTracos = buildTracos({
     tamanho: 'grd',
     resistencias: { corte: 5, frio: 5, perfuracao: 5 },
-    ic: [],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
@@ -342,7 +412,7 @@ async function injectThreats() {
   });
 
   // =========================================================================
-  // 4. CONSTRITORA ARENOSA (ND 9) - Monstro Grande
+  // 4. CONSTRITORA ARENOSA (ND 9) - Monstro Grande (Imunidades + Furtividade em Deserto)
   // =========================================================================
   const constritoraId = 'gq8231ConstAreAA';
   console.log(`Configurando Constritora Arenosa [${constritoraId}]...`);
@@ -354,12 +424,21 @@ async function injectThreats() {
     vont: 9,
     furt: 8,
     luta: 26
+  }, {
+    furt_deserto: {
+      label: 'Furtividade (Deserto)',
+      atributo: 'des',
+      value: 13,
+      outros: 5,
+      treinado: true,
+      custom: true
+    }
   });
 
   const constritoraTracos = buildTracos({
     tamanho: 'grd',
-    resistencias: { dano: 0 },
-    ic: ['acido', 'eletricidade', 'metamorfose', 'trevas'],
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['metamorfose'],
     idiomasValue: []
   });
 
@@ -387,6 +466,13 @@ async function injectThreats() {
       type: 'poder',
       actionType: 'action',
       description: '<p>Pode se transformar em pilha de areia imóvel (Percepção CD 35 ou CD 40 no deserto para notar). Pode escorrer por qualquer fresta como grão de areia.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Fortificação 75%',
+      img: 'systems/tormenta20/icons/poderes/classes/combatentes/solidez.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>A constritora arenosa possui 75% de chance de ignorar o dano adicional de acertos críticos e ataques furtivos.</p>'
     }),
     buildSpecialPower({
       name: 'Vulnerabilidade Hídrica',
@@ -425,7 +511,7 @@ async function injectThreats() {
   });
 
   // =========================================================================
-  // 5. RESSECADO SAQUEADOR (ND 4) - Morto-vivo Médio
+  // 5. RESSECADO SAQUEADOR (ND 4) - Morto-vivo Médio (Imune Frio + Vuln Fogo)
   // =========================================================================
   const ressecSaqId = 'gq8231RessecSaqA';
   console.log(`Configurando Ressecado Saqueador [${ressecSaqId}]...`);
@@ -445,7 +531,9 @@ async function injectThreats() {
   const ressecSaqTracos = buildTracos({
     tamanho: 'med',
     resistencias: { corte: 5, perfuracao: 5 },
-    ic: ['frio'],
+    imunidadesDano: ['frio'],
+    vulnerabilidadesDano: ['fogo'],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
@@ -518,7 +606,7 @@ async function injectThreats() {
   });
 
   // =========================================================================
-  // 6. RESSECADO LÍDER (ND 4 SOLO) - Morto-vivo Médio Solo
+  // 6. RESSECADO LÍDER (ND 4 SOLO) - Morto-vivo Médio Solo (Imune Frio + Vuln Fogo)
   // =========================================================================
   const ressecLidId = 'gq8231RessecLidA';
   console.log(`Configurando Ressecado Líder [${ressecLidId}]...`);
@@ -539,7 +627,9 @@ async function injectThreats() {
   const ressecLidTracos = buildTracos({
     tamanho: 'med',
     resistencias: { corte: 5, perfuracao: 5 },
-    ic: ['frio'],
+    imunidadesDano: ['frio'],
+    vulnerabilidadesDano: ['fogo'],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
@@ -619,26 +709,26 @@ async function injectThreats() {
   });
 
   // =========================================================================
-  // 7. BIANCO (ND 2) - Morto-vivo Médio
+  // 7. BIANCO (ND 2) - Morto-vivo Médio (4 Magias de Truque Circense)
   // =========================================================================
   const biancoId = 'gq8231BiancoAAAA';
   console.log(`Configurando Bianco [${biancoId}]...`);
-  const biancoSkills = buildSkills(2, { for: 1, des: 4, con: 1, int: 1, sab: 2, car: 0 }, {
+  const biancoSkills = buildSkills(2, { for: -1, des: 4, con: 1, int: -1, sab: 3, car: 2 }, {
     inic: 7,
     perc: 6,
     fort: 2,
     refl: 12,
     vont: 8,
-    acro: 8,
-    enga: 15,
-    furt: 12,
+    acro: 10,
+    atua: 6,
+    enga: 8,
+    furt: 10,
     luta: 8
   });
 
   const biancoTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 0 },
-    ic: [],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
@@ -665,7 +755,58 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Bianco não sofre penalidade em testes de Furtividade por se mover na sua velocidade normal.</p>'
+      description: '<p>Bianco não sofre penalidade em testes de Furtividade por se mover na sua velocidade normal e reduz a penalidade por atacar e fazer outras ações chamativas para –10.</p>'
+    }),
+    // 4 Magias de Truque Circense (CD 18)
+    buildSpellItem({
+      name: 'Área Escorregadia',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'con',
+      execucao: 'action',
+      custoPM: 2,
+      alcance: 'curto',
+      area: 'quadrado de 4,5m',
+      duracao: 'scene',
+      resistencia: 'Reflexos evita',
+      description: '<p>Criaturas numa área de 4,5m de lado em alcance curto ficam caídas (Ref CD 18 evita). Nas rodadas seguintes, criaturas que tentem se movimentar pela área devem fazer um teste de Acrobacia para equilíbrio (CD 15).</p>'
+    }),
+    buildSpellItem({
+      name: 'Hipnotismo',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'enc',
+      execucao: 'action',
+      custoPM: 1,
+      alcance: 'curto',
+      alvo: '1 humanoide',
+      duracao: 'round',
+      resistencia: 'Vontade evita',
+      description: '<p>Um humanoide em alcance curto fica fascinado por 1d4 rodadas (Von CD 18 evita e deixa imune por 1 dia).</p>'
+    }),
+    buildSpellItem({
+      name: 'Imagem Espelhada',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'ilu',
+      execucao: 'action',
+      custoPM: 1,
+      alcance: 'pessoal',
+      alvo: 'você',
+      duracao: 'scene',
+      description: '<p>Três cópias ilusórias de Bianco surgem ao seu redor, concedendo +6 na Defesa. Cada vez que um ataque erra Bianco, uma das cópias desaparece e o bônus na Defesa diminui em 2.</p>'
+    }),
+    buildSpellItem({
+      name: 'Primor Atlético',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'tra',
+      execucao: 'action',
+      custoPM: 2,
+      alcance: 'pessoal',
+      alvo: 'você',
+      duracao: 'scene',
+      description: '<p>Até o fim da cena, Bianco recebe deslocamento +9m, +10 em Atletismo e pode escalar paredes sem teste e sem ficar desprevenido.</p>'
     })
   ];
 
@@ -682,7 +823,7 @@ async function injectThreats() {
     deslocamento: '12m (8q)',
     sentidos: 'visão no escuro',
     tesouro: 'Metade',
-    atributos: { for: 1, des: 4, con: 1, int: 1, sab: 2, car: 0 },
+    atributos: { for: -1, des: 4, con: 1, int: -1, sab: 3, car: 2 },
     attributes: {
       pv: { value: 45, max: 45 },
       pm: { value: 8, max: 8 },
@@ -696,31 +837,32 @@ async function injectThreats() {
   });
 
   // =========================================================================
-  // 8. ROJO (ND 2) - Morto-vivo Médio
+  // 8. ROJO (ND 2) - Morto-vivo Médio (Violência Cômica + Cascudo)
   // =========================================================================
   const rojoId = 'gq8231RojoAAAAAA';
   console.log(`Configurando Rojo [${rojoId}]...`);
-  const rojoSkills = buildSkills(2, { for: 5, des: 0, con: 4, int: -2, sab: 0, car: -2 }, {
+  const rojoSkills = buildSkills(2, { for: 5, des: 1, con: 4, int: -3, sab: 0, car: 1 }, {
     inic: 2,
     perc: 1,
     fort: 12,
     refl: 8,
     vont: 2,
-    atle: 11,
-    inti: 8,
+    acro: 4,
+    atle: 8,
+    atua: 4,
     luta: 10
   });
 
   const rojoTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 5 },
-    ic: [],
+    resistencias: { corte: 0, impacto: 0, perfuracao: 0 },
+    icValue: ['mental'],
     idiomasValue: []
   });
 
   const rojoItems = [
     buildWeaponAttack({
-      name: 'Pancada',
+      name: 'Duas Pancadas',
       img: 'systems/tormenta20/icons/poderes/ameacas/pancada.webp',
       dano: '1d8+5',
       tipoDano: 'impacto',
@@ -734,11 +876,18 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/solidez.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Rojo reduz todo dano sofrido em 5 (<strong>RD 5</strong>).</p>'
+      description: '<p>Rojo reduz todo dano de corte, impacto e perfuração que sofre à metade.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Violência Cômica',
+      img: 'systems/tormenta20/icons/poderes/classes/combatentes/furia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>Sempre que sofre dano, Rojo recebe um bônus de <strong>+1 em testes de ataque e rolagens de dano</strong> até o fim da cena (até um máximo de +5). Se esse bônus chegar a +5, seu tamanho muda para Grande (–2 Furtividade, +2 manobras, dano aumenta +1 passo) e suas pancadas causam +1d6 trevas. Se passar 1 rodada sem sofrer dano, perde o bônus.</p>'
     })
   ];
 
-  const rojoBio = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Alto e musculoso em vestes pretas e roxas bufantes, exibe um sorriso rubro grotesco pintado sobre a carne putrefata.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Memórias do Circo Sombrio</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Sua casca morta ignora golpes leves. Concentre magias ou golpes pesados para quebrar sua resistência de 5 pontos."<br><span style="font-weight: bold; color: #006400;">&mdash; Caçador de Mortos-Vivos</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O brutamontes <span style="color: #800000; font-weight: bold;">Rojo</span> (ND 2) é o leão-de-chácara do circo de Tenebra, combinando 80 PV e redução de dano 5 com pancadas brutais.</p>`;
+  const rojoBio = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Alto e musculoso em vestes pretas e roxas bufantes, exibe um sorriso rubro grotesco pintado sobre a carne putrefata.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Memórias do Circo Sombrio</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Sua casca morta ignora golpes leves. Concentre magias ou golpes pesados para quebrar sua resistência."<br><span style="font-weight: bold; color: #006400;">&mdash; Caçador de Mortos-Vivos</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O brutamontes <span style="color: #800000; font-weight: bold;">Rojo</span> (ND 2) é o leão-de-chácara do circo de Tenebra, combinando 80 PV e redução à metade com pancadas e Violência Cômica escalonável.</p>`;
 
   actorsToInject.push({
     id: rojoId,
@@ -751,11 +900,11 @@ async function injectThreats() {
     deslocamento: '9m (6q)',
     sentidos: 'visão no escuro',
     tesouro: 'Metade',
-    atributos: { for: 5, des: 0, con: 4, int: -2, sab: 0, car: -2 },
+    atributos: { for: 5, des: 1, con: 4, int: -3, sab: 0, car: 1 },
     attributes: {
       pv: { value: 80, max: 80 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 18, base: 18 } // 18 - 0 = 18
+      defesa: { value: 18, base: 17 } // 18 - 1 = 17
     },
     resistencias: rojoTracos,
     pericias: rojoSkills,
@@ -765,11 +914,11 @@ async function injectThreats() {
   });
 
   // =========================================================================
-  // 9. MANTÍCORA ZUMBI (ND 3) - Morto-vivo Grande
+  // 9. MANTÍCORA ZUMBI (ND 3) - Morto-vivo Grande (Garras + Mordida + Fraqueza Zumbi)
   // =========================================================================
   const manticoraId = 'gq8231ManticZumb';
   console.log(`Configurando Mantícora Zumbi [${manticoraId}]...`);
-  const manticoraSkills = buildSkills(3, { for: 4, des: 1, con: 3, int: -4, sab: 0, car: -4 }, {
+  const manticoraSkills = buildSkills(3, { for: 6, des: 0, con: 4, int: -5, sab: -1, car: 0 }, {
     inic: 4,
     perc: 3,
     fort: 14,
@@ -781,14 +930,13 @@ async function injectThreats() {
 
   const manticoraTracos = buildTracos({
     tamanho: 'grd',
-    resistencias: { dano: 0 },
-    ic: [],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
   const manticoraItems = [
     buildWeaponAttack({
-      name: 'Garras',
+      name: 'Duas Garras',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
       dano: '1d8+8',
       tipoDano: 'corte',
@@ -797,12 +945,29 @@ async function injectThreats() {
       criticoMultiplicador: 2,
       description: '<p><strong>Ataque Natural (x2):</strong> Duas garras +16 (1d8+8 corte).</p>'
     }),
+    buildWeaponAttack({
+      name: 'Mordida',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      dano: '1d10+8',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Natural:</strong> Mordida +16 (1d10+8 perfuração).</p>'
+    }),
     buildSpecialPower({
       name: 'Espinhos Putrefatos',
       img: 'systems/tormenta20/icons/poderes/ameacas/espinho.webp',
       type: 'poder',
       actionType: 'action',
-      description: '<p>Uma vez por rodada, a mantícora dispara uma rajada de espinhos podres em um cone de 9m. Criaturas na área sofrem <strong>3d6+3 pontos de dano de perfuração</strong> (Ref CD 15 reduz à metade).</p>'
+      description: '<p>Uma vez por cena, a mantícora zumbi dispara 1d4 espinhos de sua cauda. Cada espinho atinge uma criatura em alcance médio, causando <strong>1d6+3 pontos de dano de perfuração e 1d6 pontos de dano de trevas</strong> (Ref CD 17 reduz todo o dano à metade).</p>'
+    }),
+    buildSpecialPower({
+      name: 'Fraqueza Zumbi',
+      img: 'systems/tormenta20/icons/poderes/ameacas/fraqueza-zumbi.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>A mantícora zumbi sofre o dobro de dano de acertos críticos ou de ataques desferidos contra seu cérebro (Defesa 30).</p>'
     })
   ];
 
@@ -819,45 +984,43 @@ async function injectThreats() {
     deslocamento: '6m (4q), voo 9m (6q)',
     sentidos: 'visão no escuro',
     tesouro: 'Nenhum',
-    atributos: { for: 4, des: 1, con: 3, int: -4, sab: 0, car: -4 },
+    atributos: { for: 6, des: 0, con: 4, int: -5, sab: -1, car: 0 },
     attributes: {
-      cd: 15,
+      cd: 17,
       pv: { value: 27, max: 27 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 20, base: 19 } // 20 - 1 = 19
+      defesa: { value: 20, base: 20 } // 20 - 0 = 20
     },
     resistencias: manticoraTracos,
     pericias: manticoraSkills,
     items: manticoraItems,
-    ataquescac: 'Duas garras +16 (1d8+8 corte).',
-    ataquesad: 'Espinhos Putrefatos (Cone de 9m, Ref CD 15, 3d6+3 perfuração).',
+    ataquescac: 'Duas garras +16 (1d8+8 corte) e mordida +16 (1d10+8 perfuração).',
+    ataquesad: 'Espinhos Putrefatos (1d4 alvos em alcance médio, Ref CD 17, 1d6+3 perf + 1d6 trevas).',
     biography: manticoraBio
   });
 
   // =========================================================================
-  // 10. MORRISE (ND 3) - Humanoide Médio
+  // 10. MORRISE (ND 3) - Humanoide Médio (5 Magias Individuais + Passo Sombrio + Transferir)
   // =========================================================================
   const morriseId = 'gq8231MorriseAAA';
   console.log(`Configurando Morrise [${morriseId}]...`);
-  const morriseSkills = buildSkills(3, { for: 1, des: 2, con: 1, int: 2, sab: 2, car: 4 }, {
+  const morriseSkills = buildSkills(3, { for: 1, des: 2, con: 0, int: 3, sab: 2, car: 5 }, {
     inic: 5,
     perc: 5,
     fort: 2,
     refl: 10,
     vont: 15,
-    atua: 14,
-    dipl: 14,
-    enga: 14,
-    mist: 9,
-    reli: 9,
+    acro: 3,
+    ades: 3,
+    atua: 3,
+    mist: 3,
+    reli: 3,
     luta: 12
   });
 
   const morriseTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 0 },
-    ic: [],
-    idiomasValue: []
+    idiomasValue: ['comum']
   });
 
   const morriseItems = [
@@ -881,11 +1044,83 @@ async function injectThreats() {
       description: '<p>Morrise gasta 2 PM para estalar seu chicote sombrio. Ele e todos os seus aliados em alcance curto recebem <strong>+2 em testes de perícia</strong> até o fim da cena.</p>'
     }),
     buildSpecialPower({
-      name: 'Magias Sombrias de Tenebra (CD 18)',
-      img: 'systems/tormenta20/icons/magias/escuridao.webp',
-      type: 'magia',
-      actionType: 'action',
-      description: '<p>Morrise lança magias devotadas à Deusa da Noite (CD 18). Conhece: <em>Escuridão</em>, <em>Raio do Enfraquecimento</em>, <em>Vitalidade Fantasmagórica</em>.</p>'
+      name: 'Passo Sombrio',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp',
+      type: 'poder',
+      actionType: 'free',
+      description: '<p>Morrise gasta 2 PM para se teletransportar como ação livre para um espaço desocupado em alcance curto.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Transferir Sofrimento',
+      img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
+      type: 'poder',
+      actionType: 'reaction',
+      description: '<p>Uma vez por rodada, quando Morrise sofre uma condição ou dano, como reação ele transfere para a mantícora zumbi.</p>'
+    }),
+    // 5 Magias de Conjurador Feiticeiro de 3º Nível (CD 20, 3 PM)
+    buildSpellItem({
+      name: 'Amedrontar',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'nec',
+      execucao: 'action',
+      custoPM: 3,
+      alcance: 'curto',
+      alvo: '1 animal ou humanoide',
+      duracao: 'scene',
+      resistencia: 'Vontade parcial',
+      description: '<p>Um animal ou humanoide em alcance curto fica apavorado por 1d4+1 rodadas e depois abalado (Von CD 20 reduz para abalado por 1d4 rodadas).</p>'
+    }),
+    buildSpellItem({
+      name: 'Escuridão',
+      circulo: 2,
+      tipo: 'arc',
+      escola: 'nec',
+      execucao: 'action',
+      custoPM: 3,
+      alcance: 'curto',
+      alvo: '1 objeto',
+      duracao: 'scene',
+      description: '<p>Até o fim da cena, um objeto em alcance curto emana escuridão total em um raio de 6m, bloqueando a visão na área e através dela.</p>'
+    }),
+    buildSpellItem({
+      name: 'Infligir Ferimentos',
+      circulo: 1,
+      tipo: 'div',
+      escola: 'nec',
+      execucao: 'action',
+      custoPM: 3,
+      alcance: 'toque',
+      alvo: '1 criatura',
+      duracao: 'inst',
+      resistencia: 'Fortitude reduz à metade',
+      rolls: [{ name: 'Dano', type: 'dano', parts: [['3d8+3', 'trevas', '']] }],
+      description: '<p>Uma criatura adjacente sofre 3d8+3 pontos de dano de trevas (Fort CD 20 reduz à metade).</p>'
+    }),
+    buildSpellItem({
+      name: 'Raio do Enfraquecimento',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'nec',
+      execucao: 'action',
+      custoPM: 3,
+      alcance: 'curto',
+      alvo: '1 criatura',
+      duracao: 'scene',
+      resistencia: 'Fortitude parcial',
+      description: '<p>Uma criatura em alcance curto fica exausta (Fort CD 20 reduz para fatigada).</p>'
+    }),
+    buildSpellItem({
+      name: 'Vitalidade Fantasma',
+      circulo: 1,
+      tipo: 'arc',
+      escola: 'nec',
+      execucao: 'action',
+      custoPM: 3,
+      alcance: 'pessoal',
+      alvo: 'você',
+      duracao: 'scene',
+      description: '<p>Morrise recebe 3d10 PV temporários.</p>'
     })
   ];
 
@@ -901,10 +1136,10 @@ async function injectThreats() {
     tamanho: 'med',
     deslocamento: '9m (6q)',
     sentidos: 'visão no escuro',
-    tesouro: 'Nenhum',
-    atributos: { for: 1, des: 2, con: 1, int: 2, sab: 2, car: 4 },
+    tesouro: 'Dobro',
+    atributos: { for: 1, des: 2, con: 0, int: 3, sab: 2, car: 5 },
     attributes: {
-      cd: 18,
+      cd: 20,
       pv: { value: 70, max: 70 },
       pm: { value: 23, max: 23 },
       defesa: { value: 20, base: 18 } // 20 - 2 = 18
@@ -913,7 +1148,7 @@ async function injectThreats() {
     pericias: morriseSkills,
     items: morriseItems,
     ataquescac: 'Chicote +12 (1d4+8 corte, mais 2d6 trevas).',
-    ataquesad: 'Estalo do Chicote (2 PM, +2 perícia em área).',
+    ataquesad: 'Estalo do Chicote (2 PM, +2 perícia em área), Magias (CD 20).',
     biography: morriseBio
   });
 

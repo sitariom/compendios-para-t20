@@ -54,7 +54,7 @@ async function validateActors() {
     { id: 'gq8KColePes230AA', name: 'Coletor do Pesadelo', nd: '6', tamanho: 'med' },
     { id: 'gq8KCeifPes230AA', name: 'Ceifador do Pesadelo', nd: '8', tamanho: 'med' },
     { id: 'gq8KPoliPes230AA', name: 'Pesadelo Polivalente', nd: '10', tamanho: 'grd' },
-    { id: 'gq8KMestPes230AA', name: 'Mestre do Pesadelo', nd: '15', tamanho: 'enor' },
+    { id: 'gq8KMestPes230AA', name: 'Mestre do Pesadelo', nd: '15', tamanho: 'eno' },
     { id: 'gq8KLancOni230AA', name: 'Lanceiro Onírico', nd: '2', tamanho: 'med' },
     { id: 'gq8KGineOni230AA', name: 'Ginete Onírico', nd: '3', tamanho: 'med' },
     { id: 'gq8KSargOni230AA', name: 'Sargento Onírico', nd: '4', tamanho: 'med' },
@@ -99,8 +99,11 @@ async function validateActors() {
     assert(Array.isArray(doc.items) && doc.items.length > 0, `doc.items é array com IDs em ${req.name} (tamanho: ${doc.items?.length})`);
     let foundSubdocs = 0;
     let weaponCount = 0;
+    let spellCount = 0;
+    const subdocNames = [];
     for await (const [k, v] of db.iterator({ gte: `!actors.items!${req.id}.`, lte: `!actors.items!${req.id}.\uffff` })) {
       foundSubdocs++;
+      subdocNames.push(v.name);
       assert(v && v._id && v.name && v.type, `Subdocumento válido em ${k}`);
       if (v.type === 'arma') {
         weaponCount++;
@@ -120,13 +123,36 @@ async function validateActors() {
         if (req.name === 'Coletor do Pesadelo' && v.name.includes('Tentáculo')) {
           assert(rolls.some(r => r.parts?.some(p => p[1] === 'psíquico')), `Dano psíquico presente em "${v.name}" de ${req.name}`);
         }
+      } else if (v.type === 'magia') {
+        spellCount++;
+        assert(v.system && v.system.circulo && v.system.escola && v.system.tipo, `Magia "${v.name}" com schema válido em ${req.name}`);
       }
     }
     assert(foundSubdocs === doc.items.length, `Total de subdocs bate com doc.items em ${req.name} (${foundSubdocs}/${doc.items.length})`);
 
-    // Validação de Mestre do Pesadelo ter todas as 6 armas (mordida, garras e 4 caudas)
+    // Validação de Imunidades Canônicas da DB #230
+    const tracos = doc.system?.tracos || {};
+    const res = tracos.resistencias || {};
+    const icVal = tracos.ic?.value || [];
+
+    if (['Zangão do Pesadelo', 'Coletor do Pesadelo', 'Ceifador do Pesadelo', 'Pesadelo Polivalente', 'Mestre do Pesadelo', 'Lanceiro Onírico', 'Ginete Onírico', 'Sargento Onírico', 'Tenente Onírico', 'Nócnam Mur, o Pesadelo Amalgamado'].includes(req.name)) {
+      assert(res.acido?.imunidade === true, `${req.name} possui imunidade a ácido`);
+      assert(res.eletricidade?.imunidade === true, `${req.name} possui imunidade a eletricidade`);
+      assert(res.trevas?.imunidade === true, `${req.name} possui imunidade a trevas`);
+      assert(icVal.includes('mental'), `${req.name} possui imunidade a efeitos mentais em ic.value`);
+    }
+
+    if (req.name === 'Sacerdote Caído') {
+      assert(spellCount === 2, `Sacerdote Caído possui 2 magias individuais de clérigo (encontradas ${spellCount})`);
+      assert(subdocNames.includes('Toque Vampírico'), `Sacerdote Caído possui magia Toque Vampírico`);
+      assert(subdocNames.includes('Vitalidade Fantasma'), `Sacerdote Caído possui magia Vitalidade Fantasma`);
+    }
+
+    // Validação de Mestre do Pesadelo ter todas as 6 armas (mordida, garras e 4 caudas) mais magia Sonho
     if (req.name === 'Mestre do Pesadelo') {
       assert(weaponCount >= 6, `Mestre do Pesadelo possui todas as armas e caudas criadas (esperado >=6, obtido ${weaponCount})`);
+      assert(subdocNames.includes('Sonho'), `Mestre do Pesadelo possui magia Sonho`);
+      assert(subdocNames.includes('Natureza Onírica'), `Mestre do Pesadelo possui Natureza Onírica`);
     }
 
     // Validação de ataques à distância em criaturas que possuem projéteis/cauda-espinho

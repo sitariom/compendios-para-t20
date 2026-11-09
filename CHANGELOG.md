@@ -31,9 +31,16 @@
       - **Ganchos de Aventura em Halak-Tûr (DB #231)** (6 sementes de tramas e intrigas no deserto).
     - Todos os 21 resultados com IDs de 16 caracteres e campo `name` devidamente preenchido.
   - **Validação e Qualidade**:
-    - Novo validador `scripts/validate-db231-compliance.js` com **818 asserções estritas aprovadas com 100% de sucesso**.
-    - Zero regressões em `validate-db230-compliance.js` (1.021 verificações) e `validate-db229-compliance.js`.
+    - Novo validador `scripts/validate-db231-compliance.js` com **875 asserções estritas aprovadas com 100% de sucesso**.
+    - Zero regressões em `validate-db230-compliance.js` (1.072 verificações), `validate-db229-compliance.js` e `validate-db228-compliance.js`.
     - Auditoria geral via `scripts/audit.js` com 0 erros de JSON, 0 IDs faltantes e 0 pastas órfãs nos 6 compêndios.
+  - **Imposição Canônica de Schemas de Atores, Magias e Perícias (DB #226 a #231)**:
+    - **Magias Canônicas**: Conjuradores (Anshira, Morrise, Sacerdote Caído e Bianco) agora possuem suas magias instanciadas como itens individuais do tipo `magia` em estrita conformidade com o DataModel `SpellData` (círculo, tipo `arc`/`div`, escola, ativação, resistência e rolagens).
+    - **Imunidades e Vulnerabilidades**: Mapeadas diretamente nas flags booleanas `imunidade: true` e `vulnerabilidade: true` sob `system.tracos.resistencias[damageType]` (ex: frio e fogo nos Ressecados, trevas/ácido/eletricidade nos Pesadelos e Construtos).
+    - **Imunidades a Condições**: Populadas no array `system.tracos.ic.value` com normalização de termos canônicos (mental, metamorfose, paralisado, etc.).
+    - **Perícias Situacionais**: Criação de subentradas com `custom: true` e labels descritivos (ex: `Furtividade (Desertos)` na Anshira e Constritora Arenosa).
+    - **Poderes Restaurados**: Inclusão de *Passo Sombrio* e *Transferir Sofrimento* em Morrise, *Violência Cômica* em Rojo, *Fraqueza Zumbi* na Mantícora Zumbi e *Natureza Onírica* no Mestre do Pesadelo.
+    - **Living Specs OpenSpec**: Adicionados requisitos formais nos cadernos de Atores e Itens (`actors-specification` e `items-specification`).
 
 - **Hotfix Estrutural: Padronização Universal de IDs Estritamente com 16 Caracteres para o Foundry VTT (DB #229 e #230)**:
   - **Resolução de Visibilidade em Diários e Tabelas de Rolagem**:
