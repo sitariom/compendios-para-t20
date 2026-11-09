@@ -84,20 +84,23 @@ async function validateActors() {
     assert(def && def.value !== undefined && def.base !== undefined, `Defesa estruturada em ${req.name}`);
     assert(def.base + des === def.value, `Defesa dinâmica coerente em ${req.name}: base (${def.base}) + des (${des}) = value (${def.value})`);
 
-    // Validação das 34 perícias sob system.pericias
+    // Validação das 34 perícias padrão sob system.pericias (mais eventuais perícias situacionais)
     const pericias = doc.system?.pericias || {};
     const skillKeys = Object.keys(pericias);
-    assert(skillKeys.length === 34, `34 perícias presentes em ${req.name} (encontradas ${skillKeys.length})`);
+    assert(skillKeys.length >= 34, `Pelo menos 34 perícias presentes em ${req.name} (encontradas ${skillKeys.length})`);
     for (const sk of ALL_SKILLS) {
-      assert(pericias[sk.key] && pericias[sk.key].value !== undefined, `Perícia "${sk.key}" calculada em ${req.name}`);
+      assert(pericias[sk.key] && pericias[sk.key].value !== undefined, `Perícia padrão "${sk.key}" calculada em ${req.name}`);
     }
 
     // Validação de Subdocumentos embutidos
     assert(Array.isArray(doc.items) && doc.items.length > 0, `doc.items é array com IDs em ${req.name} (tamanho: ${doc.items?.length})`);
     let foundSubdocs = 0;
     let weaponCount = 0;
+    let spellCount = 0;
+    const subdocNames = [];
     for await (const [k, v] of db.iterator({ gte: `!actors.items!${req.id}.`, lte: `!actors.items!${req.id}.\uffff` })) {
       foundSubdocs++;
+      subdocNames.push(v.name);
       assert(v && v._id && v.name && v.type, `Subdocumento válido em ${k}`);
       if (v.type === 'arma') {
         weaponCount++;
@@ -108,9 +111,60 @@ async function validateActors() {
         if (['Ressecado Saqueador', 'Ressecado Líder', 'Morrise'].includes(req.name) && (v.name.includes('Cimitarra') || v.name.includes('Arco') || v.name.includes('Chicote'))) {
           assert(rolls.some(r => r.parts?.some(p => p[1] === 'trevas')), `Dano de trevas presente em "${v.name}" de ${req.name}`);
         }
+      } else if (v.type === 'magia') {
+        spellCount++;
+        assert(v.system && v.system.circulo && v.system.escola && v.system.tipo, `Magia "${v.name}" com schema válido em ${req.name}`);
       }
     }
     assert(foundSubdocs === doc.items.length, `Total de subdocs bate com doc.items em ${req.name} (${foundSubdocs}/${doc.items.length})`);
+
+    // Validações Canônicas Específicas por Criatura
+    const tracos = doc.system?.tracos || {};
+    const res = tracos.resistencias || {};
+    const icVal = tracos.ic?.value || [];
+
+    if (req.name === 'Anshira') {
+      assert(res.acido?.imunidade === true, `Anshira possui imunidade a ácido em system.tracos.resistencias.acido`);
+      assert(icVal.includes('mental'), `Anshira possui imunidade a efeitos mentais em ic.value`);
+      assert(pericias.furt_deserto && pericias.furt_deserto.value === 16, `Anshira possui perícia situacional Furtividade (Desertos) = 16`);
+      assert(spellCount === 5, `Anshira possui exatamente 5 magias individuais como itens de tipo "magia" (encontradas ${spellCount})`);
+    }
+
+    if (req.name === 'Constritora Arenosa') {
+      assert(res.acido?.imunidade === true, `Constritora Arenosa possui imunidade a ácido`);
+      assert(res.eletricidade?.imunidade === true, `Constritora Arenosa possui imunidade a eletricidade`);
+      assert(res.trevas?.imunidade === true, `Constritora Arenosa possui imunidade a trevas`);
+      assert(icVal.includes('metamorfose'), `Constritora Arenosa possui imunidade a metamorfose`);
+      assert(pericias.furt_deserto && pericias.furt_deserto.value === 13, `Constritora Arenosa possui perícia situacional Furtividade (Deserto) = 13`);
+      assert(subdocNames.includes('Fortificação 75%'), `Constritora Arenosa possui poder Fortificação 75%`);
+      assert(subdocNames.includes('Vulnerabilidade Hídrica'), `Constritora Arenosa possui poder Vulnerabilidade Hídrica`);
+    }
+
+    if (req.name === 'Ressecado Saqueador' || req.name === 'Ressecado Líder') {
+      assert(res.frio?.imunidade === true, `${req.name} possui imunidade a frio`);
+      assert(res.fogo?.vulnerabilidade === true, `${req.name} possui vulnerabilidade a fogo em resistencias.fogo.vulnerabilidade`);
+    }
+
+    if (req.name === 'Bianco') {
+      assert(spellCount === 4, `Bianco possui 4 magias simuladas de Truque Circense (encontradas ${spellCount})`);
+    }
+
+    if (req.name === 'Rojo') {
+      assert(subdocNames.includes('Violência Cômica'), `Rojo possui poder Violência Cômica`);
+      assert(subdocNames.includes('Cascudo'), `Rojo possui poder Cascudo`);
+    }
+
+    if (req.name === 'Mantícora Zumbi') {
+      assert(subdocNames.includes('Fraqueza Zumbi'), `Mantícora Zumbi possui poder Fraqueza Zumbi`);
+      assert(subdocNames.includes('Mordida'), `Mantícora Zumbi possui ataque de Mordida`);
+      assert(subdocNames.includes('Duas Garras'), `Mantícora Zumbi possui ataque de Duas Garras`);
+    }
+
+    if (req.name === 'Morrise') {
+      assert(subdocNames.includes('Passo Sombrio'), `Morrise possui poder Passo Sombrio`);
+      assert(subdocNames.includes('Transferir Sofrimento'), `Morrise possui poder Transferir Sofrimento`);
+      assert(spellCount === 5, `Morrise possui exatamente 5 magias individuais como itens de tipo "magia" (encontradas ${spellCount})`);
+    }
 
     // Caçador de Condenados tem 5 armas (Cimitarra, Foice, Maça, Machadinha, Cauda)
     if (req.name === 'Caçador de Condenados') {

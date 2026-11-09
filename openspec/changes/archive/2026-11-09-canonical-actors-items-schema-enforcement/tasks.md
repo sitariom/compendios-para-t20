@@ -1,0 +1,24 @@
+# Tasks: Imposição Canônica de Schemas de Atores, Magias e Perícias (DB #226 a #231)
+
+- [x] 1. Refatoração do Motor Central (`scripts/create-entry.js`)
+  - [x] 1.1 Atualizar `buildTracos` para normalizar automaticamente `imunidadesDano`, `vulnerabilidadesDano` e `ic.value` / `ic.custom`
+  - [x] 1.2 Atualizar `buildSpellItem` com schema canônico de `SpellData` do Tormenta20 (`circulo`, `tipo: 'arc'|'div'|'uni'`, `escola`, `ativacao`, `resistencia`, `rolls`)
+  - [x] 1.3 Atualizar `buildNpcActor` para instanciar subdocumentos de tipo `magia` e preservar perícias situacionais com `custom: true`
+- [x] 2. Correção e Reconstrução da DB #231 (`scripts/inject-db231-threats.js`)
+  - [x] 2.1 Atualizar Anshira com 5 magias individuais, perícia em deserto, imunidades e resistências canônicas
+  - [x] 2.2 Atualizar Constritora Arenosa com imunidades a dano/condição e perícia em deserto
+  - [x] 2.3 Atualizar Ressecados com imunidade a frio e vulnerabilidade a fogo
+  - [x] 2.4 Atualizar Morrise com 5 magias individuais, Passo Sombrio e Transferir Sofrimento
+  - [x] 2.5 Atualizar Bianco com 4 magias de Truque Circense
+  - [x] 2.6 Atualizar Rojo com Violência Cômica e Cascudo à metade
+  - [x] 2.7 Atualizar Mantícora Zumbi com Fraqueza Zumbi
+- [x] 3. Correção e Reconstrução da DB #230 (`scripts/inject-db230-threats.js`)
+  - [x] 3.1 Atualizar criaturas do pesadelo e mercenários oníricos com imunidades a ácido, eletricidade, trevas, mental e medo
+  - [x] 3.2 Atualizar Sacerdote Caído com magias individuais de clérigo (Toque Vampírico e Vitalidade Fantasma)
+  - [x] 3.3 Atualizar Mestre do Pesadelo com magia Sonho e Natureza Onírica
+- [x] 4. Correção e Reconstrução das DBs #226 a #229
+  - [x] 4.1 Revisar e garantir conformidade de traços em DB #229, #228, #227 e #226
+- [x] 5. Validação, Documentação e Sincronização
+  - [x] 5.1 Atualizar validadores automatizados com asserções estritas para magias, vulnerabilidades e perícias situacionais
+  - [x] 5.2 Executar validações de 226 a 231 e auditoria geral com 100% de aprovação
+  - [x] 5.3 Atualizar especificações vivas OpenSpec, CodeGraph e memórias persistentes

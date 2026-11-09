@@ -152,7 +152,7 @@ async function injectThreats() {
   const defensorTracos = buildTracos({
     tamanho: 'med',
     resistencias: { dano: 10 },
-    ic: ['atordoado', 'petrificado'],
+    icValue: ['atordoado', 'petrificado', 'mental'],
     idiomasValue: []
   });
 
@@ -314,7 +314,7 @@ async function injectThreats() {
 
   const revoadaTracos = buildTracos({
     tamanho: 'eno',
-    ic: ['paralisia'],
+    icValue: ['paralisado'],
     idiomasValue: []
   });
 

@@ -38,6 +38,7 @@ const {
   buildTracos,
   buildWeaponAttack,
   buildSpecialPower,
+  buildSpellItem,
   buildNpcActor,
   saveToSourcePacks
 } = require('./create-entry');
@@ -165,8 +166,10 @@ async function injectThreats() {
 
   const zangaoTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: '5/ mágico' },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'medo', 'trevas'],
+    resistencias: { dano: 5 },
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental', 'medo'],
+    icCustom: 'cura acelerada 5',
     idiomasValue: []
   });
 
@@ -283,8 +286,10 @@ async function injectThreats() {
 
   const coletorTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: '5/ mágico' },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'medo', 'trevas'],
+    resistencias: { dano: 5 },
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental', 'medo'],
+    icCustom: 'cura acelerada 5',
     idiomasValue: []
   });
 
@@ -382,8 +387,10 @@ async function injectThreats() {
 
   const ceifadorTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: '10/ mágico' },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'medo', 'trevas'],
+    resistencias: { dano: 10 },
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental', 'medo'],
+    icCustom: 'cura acelerada 5',
     idiomasValue: []
   });
 
@@ -518,8 +525,10 @@ async function injectThreats() {
 
   const polivalenteTracos = buildTracos({
     tamanho: 'grd',
-    resistencias: { dano: '10/ mágico' },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'medo', 'trevas'],
+    resistencias: { dano: 10 },
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental', 'medo'],
+    icCustom: 'cura acelerada 5',
     idiomasValue: []
   });
 
@@ -668,13 +677,27 @@ async function injectThreats() {
       resistenciaPericia: 'vont',
       resistenciaTxt: 'Vontade CD 38 reduz à metade e evita as condições.',
       description: '<p>Quando uma criatura usa um efeito mental ou de encantamento contra o mestre, ela sofre 15d6 pontos de dano psíquico e fica atordoada por 1 rodada e abalada (Von CD 38 reduz à metade e evita as condições).</p>'
+    }),
+    buildSpellItem({
+      name: 'Sonho',
+      circulo: 5,
+      tipo: 'arc',
+      escola: 'ilu',
+      execucao: 'action',
+      custoPM: 0,
+      alcance: 'ilimitado',
+      alvo: '1 criatura viva',
+      duracao: 'scene',
+      description: '<p>O Mestre do Pesadelo pode lançar a magia <em>Sonho</em>, bem como qualquer magia de ilusão, como um feiticeiro de 15º nível sem gastar PM (CD 38, limite de PM 15).</p>'
     })
   ];
 
   const mestreTracos = buildTracos({
     tamanho: 'enor',
-    resistencias: { dano: '20/ mágico' },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'medo', 'trevas'],
+    resistencias: { dano: 20 },
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental', 'medo'],
+    icCustom: 'cura acelerada 20',
     idiomasValue: []
   });
 
@@ -757,8 +780,8 @@ async function injectThreats() {
 
   const lanceiroTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 0 },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'trevas'],
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
@@ -860,8 +883,8 @@ async function injectThreats() {
 
   const gineteTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 0 },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'trevas'],
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
@@ -958,8 +981,8 @@ async function injectThreats() {
 
   const sargentoTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 0 },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'trevas'],
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental'],
     idiomasValue: []
   });
 
@@ -1061,7 +1084,8 @@ async function injectThreats() {
   const tenenteTracos = buildTracos({
     tamanho: 'med',
     resistencias: { dano: 5 },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'medo', 'trevas'],
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental', 'medo'],
     idiomasValue: []
   });
 
@@ -1184,7 +1208,8 @@ async function injectThreats() {
   const nocnamTracos = buildTracos({
     tamanho: 'grd',
     resistencias: { dano: 10 },
-    ic: ['acido', 'efeitos mentais', 'eletricidade', 'encantamento', 'medo', 'trevas'],
+    imunidadesDano: ['acido', 'eletricidade', 'trevas'],
+    icValue: ['mental', 'medo'],
     idiomasValue: []
   });
 
@@ -1263,19 +1288,47 @@ async function injectThreats() {
       description: '<p>Quando faz um acerto crítico ou reduz uma criatura a 0 PV ou menos, o sacerdote recupera 5 PM.</p>'
     }),
     buildSpecialPower({
-      name: 'Foice Negra (Magias de Clérigo)',
+      name: 'Foice Negra (Conduíte)',
       img: 'systems/tormenta20/icons/poderes/ameacas/magia.webp',
-      execucao: 'standard',
-      custo: 5,
-      cd: 20,
-      description: '<p>Enquanto estiver empunhando a Foice Negra, o sacerdote caído pode lançar como clérigo de 6º nível (CD 20): Toque Vampírico (5 PM) e Vitalidade Fantasma (6 PM).</p>'
+      execucao: 'passive',
+      custo: 0,
+      description: '<p>Enquanto estiver empunhando a Foice Negra, o sacerdote caído pode lançar as magias <em>Toque Vampírico</em> e <em>Vitalidade Fantasma</em> como um clérigo de 6º nível (CD 20).</p>'
+    }),
+    buildSpellItem({
+      name: 'Toque Vampírico',
+      circulo: 3,
+      tipo: 'div',
+      escola: 'nec',
+      execucao: 'action',
+      custoPM: 5,
+      alcance: 'toque',
+      alvo: '1 criatura',
+      duracao: 'inst',
+      resistencia: 'Fortitude reduz à metade',
+      rolls: [{ name: 'Dano', type: 'dano', parts: [['6d6', 'trevas', '']] }],
+      description: '<p>O sacerdote caído faz um ataque corpo a corpo. Se acertar, além do dano normal, causa 6d6 pontos de dano de trevas (Fort CD 20 reduz à metade) e recupera PV iguais à metade do dano de trevas causado.</p>'
+    }),
+    buildSpellItem({
+      name: 'Vitalidade Fantasma',
+      circulo: 2,
+      tipo: 'div',
+      escola: 'nec',
+      execucao: 'action',
+      custoPM: 6,
+      alcance: 'pessoal',
+      area: 'esfera de 6m',
+      duracao: 'scene',
+      resistencia: 'Fortitude reduz à metade',
+      rolls: [{ name: 'Dano', type: 'dano', parts: [['1d10', 'trevas', '']] }],
+      description: '<p>Criaturas vivas em uma esfera com 6m de raio centrada no sacerdote sofrem 1d10 pontos de dano de trevas (Fort CD 20 reduz à metade). O sacerdote recebe PV temporários iguais ao dano total causado.</p>'
     })
   ];
 
   const sacerdoteTracos = buildTracos({
     tamanho: 'med',
     resistencias: { dano: 0 },
-    ic: [],
+    icValue: [],
+    icCustom: 'resistência a medo +2',
     idiomasValue: []
   });
 

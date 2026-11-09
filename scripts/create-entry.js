@@ -53,7 +53,7 @@ const ALL_SKILLS = [
   { key: 'enge', nome: 'Ofício (Engenharia)', atributo: 'int', st: false, pda: false }
 ];
 
-function buildSkills(ndNum, atributos, trainedSkills = {}) {
+function buildSkills(ndNum, atributos, trainedSkills = {}, situationalSkills = {}) {
   const meionivel = Math.floor(ndNum / 2);
   let treino = 2;
   if (ndNum >= 15) {
@@ -62,6 +62,8 @@ function buildSkills(ndNum, atributos, trainedSkills = {}) {
     treino = 4;
   }
   const pericias = {};
+
+  const standardKeys = new Set(ALL_SKILLS.map(s => s.key));
 
   for (const s of ALL_SKILLS) {
     const atrMod = atributos[s.atributo] || 0;
@@ -101,6 +103,49 @@ function buildSkills(ndNum, atributos, trainedSkills = {}) {
       };
     }
   }
+
+  // Suporte canônico a perícias situacionais/customizadas (ex: furt_deserto)
+  const allCustom = { ...situationalSkills };
+  for (const [key, val] of Object.entries(trainedSkills)) {
+    if (!standardKeys.has(key)) {
+      allCustom[key] = val;
+    }
+  }
+
+  for (const [key, sdata] of Object.entries(allCustom)) {
+    if (typeof sdata === 'object' && sdata !== null) {
+      pericias[key] = {
+        atributo: sdata.atributo || 'des',
+        treinado: sdata.treinado !== undefined ? Boolean(sdata.treinado) : true,
+        st: Boolean(sdata.st),
+        pda: Boolean(sdata.pda),
+        size: Boolean(sdata.size),
+        value: Number(sdata.value || 0),
+        outros: Number(sdata.outros !== undefined ? sdata.outros : (sdata.value || 0)),
+        condi: 0,
+        bonus: [],
+        custom: true,
+        label: sdata.label || key,
+        nome: sdata.label || key
+      };
+    } else if (typeof sdata === 'number') {
+      pericias[key] = {
+        atributo: 'des',
+        treinado: true,
+        st: false,
+        pda: false,
+        size: false,
+        value: sdata,
+        outros: sdata,
+        condi: 0,
+        bonus: [],
+        custom: true,
+        label: key,
+        nome: key
+      };
+    }
+  }
+
   return pericias;
 }
 
@@ -122,41 +167,77 @@ function buildTracos({
   resistencias = {},
   imunidadesDano = [],
   vulnerabilidadesDano = [],
+  imunidades = [],
+  vulnerabilidades = [],
+  ic = [],
   icValue = [],
   icCustom = '',
+  idiomas = [],
   idiomasValue = [],
-  idiomasCustom = ''
-}) {
+  idiomasCustom = '',
+  rdGeral = 0,
+  excecoes = {}
+} = {}) {
   const damageTypes = [
     'dano', 'perda', 'acido', 'corte', 'eletricidade',
     'essencia', 'fogo', 'frio', 'impacto', 'luz',
     'psiquico', 'perfuracao', 'trevas'
   ];
+  const dmgSet = new Set(damageTypes);
+
+  const imuneDanoSet = new Set(imunidadesDano || []);
+  const vulnDanoSet = new Set(vulnerabilidadesDano || []);
+  const condSet = new Set(icValue || []);
+
+  // Normaliza listas mistas passadas em imunidades, ic ou vulnerabilidades
+  const rawImun = [...(imunidades || []), ...(ic || [])];
+  for (const item of rawImun) {
+    if (typeof item === 'string') {
+      const low = item.toLowerCase().trim();
+      if (dmgSet.has(low)) {
+        imuneDanoSet.add(low);
+      } else {
+        condSet.add(low);
+      }
+    }
+  }
+
+  for (const item of (vulnerabilidades || [])) {
+    if (typeof item === 'string') {
+      const low = item.toLowerCase().trim();
+      if (dmgSet.has(low)) {
+        vulnDanoSet.add(low);
+      }
+    }
+  }
 
   const resObj = {};
   for (const dt of damageTypes) {
-    const val = resistencias[dt] || 0;
+    let val = resistencias[dt] || 0;
+    if (dt === 'dano' && rdGeral > 0 && val === 0) {
+      val = rdGeral;
+    }
     resObj[dt] = {
       value: val,
       base: val,
       bonus: [],
-      excecao: 0,
-      imunidade: imunidadesDano.includes(dt),
-      vulnerabilidade: vulnerabilidadesDano.includes(dt),
+      excecao: excecoes[dt] || 0,
+      imunidade: imuneDanoSet.has(dt),
+      vulnerabilidade: vulnDanoSet.has(dt),
       danoPorDado: false
     };
   }
 
   return {
-    tamanho,
+    tamanho: tamanho.slice(0, 3),
     resistencias: resObj,
     ic: {
-      value: icValue,
-      custom: icCustom
+      value: Array.from(condSet),
+      custom: icCustom || ''
     },
     idiomas: {
-      value: idiomasValue,
-      custom: idiomasCustom
+      value: Array.isArray(idiomas) && idiomas.length ? idiomas : (idiomasValue || []),
+      custom: idiomasCustom || ''
     },
     profArmaduras: {
       value: [],
@@ -683,50 +764,131 @@ function buildArmorItem({
 }
 
 /**
- * Constrói uma Magia de Tormenta20
+ * Constrói uma Magia de Tormenta20 segundo o DataModel oficial (SpellData)
  */
 function buildSpellItem({
+  id = null,
   name,
   img = null,
   description = '',
   circulo = 1,
-  tipo = 'arcana', // 'arcana', 'divina', 'universal'
-  escola = 'evocacao',
-  execucao = 'padrao',
+  tipo = 'arc', // 'arc', 'div', 'uni'
+  escola = 'evo', // 'abj', 'adv', 'con', 'enc', 'evo', 'ilu', 'nec', 'tra'
+  execucao = 'action', // 'action', 'reaction', 'move', 'full', 'free', 'passive'
+  custoPM = null,
   alcance = 'curto',
   alvo = '',
   area = '',
-  duracao = 'instantanea',
+  duracao = 'inst', // 'inst', 'scene', 'turn', 'round', 'sust', 'minute', 'hour', 'day', 'perm'
   resistencia = '',
+  resistenciaPericia = '',
+  resistenciaAtributo = '',
   aprimoramentos = [],
   rolls = [],
   effects = [],
-  folder = null
+  preparada = true,
+  folder = null,
+  source = ''
 }) {
-  return buildItem({
+  const _id = id || generateId();
+  const circNum = Number(circulo) || 1;
+  const pmCost = custoPM !== null ? Number(custoPM) : (circNum === 1 ? 1 : circNum === 2 ? 3 : circNum === 3 ? 6 : circNum === 4 ? 10 : 15);
+
+  const tipoMap = { arcana: 'arc', arcano: 'arc', divina: 'div', divino: 'div', universal: 'uni' };
+  const finalTipo = tipoMap[tipo] || tipo || 'arc';
+
+  const escolaMap = {
+    evocacao: 'evo', abjuracao: 'abj', adivinhacao: 'adv', convocacao: 'con',
+    encantamento: 'enc', ilusao: 'ilu', necromancia: 'nec', transmutacao: 'tra'
+  };
+  const finalEscola = escolaMap[escola] || escola || 'evo';
+
+  const execMap = {
+    padrao: 'action', movimento: 'move', completa: 'full', reacao: 'reaction', livre: 'free', passiva: 'passive'
+  };
+  const finalExec = execMap[execucao] || execucao || 'action';
+
+  const durMap = {
+    instantanea: 'inst', cena: 'scene', sustentada: 'sust', turno: 'turn', rodada: 'round',
+    minuto: 'minute', hora: 'hour', dia: 'day', permanente: 'perm'
+  };
+  const finalDur = durMap[duracao] || duracao || 'inst';
+
+  let resObj = { pericia: '', atributo: '', bonus: 0, txt: '' };
+  if (resistenciaPericia) resObj.pericia = resistenciaPericia;
+  if (resistenciaAtributo) resObj.atributo = resistenciaAtributo;
+  if (typeof resistencia === 'string') {
+    resObj.txt = resistencia;
+    const low = resistencia.toLowerCase();
+    if (!resObj.pericia) {
+      if (low.includes('vontade') || low.includes('von')) { resObj.pericia = 'vont'; resObj.atributo = 'sab'; }
+      else if (low.includes('fortitude') || low.includes('fort')) { resObj.pericia = 'fort'; resObj.atributo = 'con'; }
+      else if (low.includes('reflexo') || low.includes('ref')) { resObj.pericia = 'refl'; resObj.atributo = 'des'; }
+    }
+  } else if (resistencia && typeof resistencia === 'object') {
+    resObj = { ...resObj, ...resistencia };
+  }
+
+  const finalImg = img || resolveIcon({ name, type: 'magia' });
+
+  return {
+    _id,
     name,
     type: 'magia',
-    img,
-    description,
+    img: finalImg,
     folder,
-    effects,
+    effects: effects || [],
     system: {
-      circulo: Number(circulo),
-      tipo,
-      escola,
-      ativacao: {
-        execucao,
-        custo: Number(circulo) // 1 PM para 1º círculo, 3 para 2º, etc.
+      description: {
+        value: description.startsWith('<p>') ? description : `<p>${description}</p>`,
+        unidentified: ''
       },
-      alcance,
-      alvo,
-      area,
-      duracao,
-      resistencia,
-      aprimoramentos: aprimoramentos || [],
-      rolls: Array.isArray(rolls) ? rolls : []
+      source: source || 'Tormenta20',
+      ativacao: {
+        execucao: finalExec,
+        custo: pmCost,
+        qtd: '',
+        condicao: '',
+        special: ''
+      },
+      duracao: {
+        value: 0,
+        units: finalDur,
+        special: ''
+      },
+      range: {
+        value: null,
+        units: alcance
+      },
+      consume: {
+        type: '',
+        target: '',
+        amount: null,
+        mpMultiplier: false
+      },
+      efeito: '',
+      alcance: String(alcance || ''),
+      alvo: String(alvo || ''),
+      area: String(area || ''),
+      resistencia: resObj,
+      aprimoramentos: Array.isArray(aprimoramentos) ? aprimoramentos : [],
+      rolls: Array.isArray(rolls) ? rolls : [],
+      tipo: finalTipo,
+      circulo: circNum,
+      preparada: Boolean(preparada),
+      escola: finalEscola,
+      chatFlavor: '',
+      origin: '',
+      tags: [],
+      chatGif: '',
+      rolltags: [],
+      automationtags: [],
+      equipado2: {
+        slot: 0,
+        type: ''
+      }
     }
-  });
+  };
 }
 
 /**
@@ -808,22 +970,30 @@ function buildNpcActor({
     swimVal = m ? parseInt(m[1], 10) : 9;
   }
 
-  // Garante as 34 perícias preenchidas se objeto vazio for passado
-  const finalPericias = Object.keys(pericias || {}).length >= 30
-    ? pericias
-    : buildSkills(ndNum, atributos, pericias);
+  // Garante as 34 perícias preenchidas e preserva perícias situacionais
+  let finalPericias = pericias;
+  if (!pericias || Object.keys(pericias).length < 30) {
+    finalPericias = buildSkills(ndNum, atributos, pericias);
+  } else {
+    finalPericias = { ...pericias };
+  }
 
   const finalTracos = (resistencias && resistencias.resistencias && typeof resistencias.resistencias === 'object')
     ? resistencias
     : buildTracos({
         tamanho: tamanho.slice(0, 3),
-        resistencias: resistencias.danos || resistencias || {},
+        resistencias: resistencias.danos || resistencias.resistencias || resistencias || {},
         imunidadesDano: resistencias.imunidadesDano || [],
         vulnerabilidadesDano: resistencias.vulnerabilidadesDano || [],
-        icValue: resistencias.condicoes || [],
+        imunidades: resistencias.imunidades || resistencias.ic || [],
+        vulnerabilidades: resistencias.vulnerabilidades || [],
+        ic: resistencias.ic || resistencias.condicoes || [],
+        icValue: resistencias.icValue || resistencias.condicoes || [],
         icCustom: resistencias.icCustom || '',
-        idiomasValue: resistencias.idiomas || ['comum'],
-        idiomasCustom: resistencias.idiomasCustom || ''
+        idiomas: resistencias.idiomas || ['comum'],
+        idiomasValue: resistencias.idiomasValue || resistencias.idiomas || ['comum'],
+        idiomasCustom: resistencias.idiomasCustom || '',
+        rdGeral: resistencias.rdGeral || resistencias.dano || 0
       });
 
   const itemIds = [];
@@ -837,6 +1007,8 @@ function buildNpcActor({
         itemDoc = buildWeaponAttack(item);
       } else if (item.type === 'poder') {
         itemDoc = buildSpecialPower(item);
+      } else if (item.type === 'magia') {
+        itemDoc = buildSpellItem(item);
       } else {
         itemDoc = buildItem(item);
       }
