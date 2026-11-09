@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.8.2 - 2026-11-09
+
+- **Release Oficial v1.8.2 — Desagregação Atômica de Habilidades e Texto Integral de Resistências (DB #226 a #231)**:
+  - **Texto Livre de Resistências (`system.detalhes.resistencias`)**: Preenchimento obrigatório com a redação integral e verbatim de todas as características, imunidades, resistências e vulnerabilidades da publicação oficial em todos os atores de DB #226 a #231, garantindo exibição visual no cabeçalho da ficha nativa do Foundry VTT.
+  - **Desagregação Atômica de Habilidades**: Eliminação de nomes compostos ou habilidades agregadas. Cada título em negrito da publicação oficial agora é um item individual e atômico (ex: *Celeridade Odiosa* e *Ódio aos Vivos* nos Ressecados; *Constrição*, *Agarrar Aprimorado*, *Forma de Areia* e *Escorrer* na Constritora Arenosa; *Partilhar Fome* no Tenente Onírico; *Varrer*, *Negação da Morte*, *Estratégia do Medo* e *Fome de Sonhos* em Nócnam Mur; *Um com as Sombras*, *Evasão Aprimorada*, *Manobras Evasivas* e *Sangrento* em Arzak; *Poderio Muscular*, *Êxtase no Medo*, *Lento Demais!* e *Fluxo de Movimento* em Gaardak).
+  - **OpenSpec Living Specs**: Formalizados os novos cenários normativos em `actors-specification` garantindo a persistência das regras para futuras edições.
+  - **Validação Global**: 895 verificações em DB #231, 1.108 em DB #230 e 100% de conformidade atestada em todas as edições.
+
 ## v1.8.1 - 2026-11-09
 
 - **Hotfix: Imposição Canônica de Schemas de Atores, Magias, Traços e Perícias (DB #226 a #231)**:
