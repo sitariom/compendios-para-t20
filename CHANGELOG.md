@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.8.1 - 2026-11-09
+
+- **Hotfix: Imposição Canônica de Schemas de Atores, Magias, Traços e Perícias (DB #226 a #231)**:
+  - **Magias Canônicas Individuais**: Conjuradores (*Anshira*, *Morrise*, *Sacerdote Caído*, *Bianco*) agora possuem suas magias instanciadas como itens individuais do tipo `"magia"` em estrita conformidade com o DataModel `SpellData` do Tormenta20 (círculo, tipo `arc`/`div`, escola, ativação, resistência e rolagens funcionais).
+  - **Imunidades e Vulnerabilidades a Dano**: Mapeadas diretamente nas flags booleanas `imunidade: true` e `vulnerabilidade: true` sob `system.tracos.resistencias[damageType]` (ex: frio e fogo nos Ressecados, trevas/ácido/eletricidade nos Pesadelos e Construtos).
+  - **Imunidades a Condições de Status**: Populadas adequadamente no array `system.tracos.ic.value` com normalização de termos canônicos (mental, medo, metamorfose, paralisado, etc.).
+  - **Perícias Situacionais**: Criação de subentradas com `custom: true` e rótulos descritivos (ex: `Furtividade (Desertos) = 16` em Anshira e `Furtividade (Deserto) = 13` em Constritora Arenosa).
+  - **Poderes Omitidos Restaurados**: Inclusão de *Passo Sombrio* e *Transferir Sofrimento* em Morrise, *Violência Cômica* em Rojo, *Fraqueza Zumbi* e *Mordida* na Mantícora Zumbi e *Natureza Onírica* e magia *Sonho* no Mestre do Pesadelo.
+  - **Validação e Integridade**: Suítes de validação atualizadas aprovando **875 checagens em DB #231** e **1.072 checagens em DB #230** com 100% de sucesso e 0 erros em todos os 6 compêndios.
+
 ## v1.8.0 - 2026-11-09
 
 - **Dragão Brasil #231 (Integração Canônica Completa de Ameaças, Itens, Diários e Tabelas)**:
