@@ -917,6 +917,8 @@ function buildNpcActor({
     defesa: { value: 15 }
   },
   resistencias = {},
+  resistenciasTexto = '',
+  rd = '',
   pericias = {},
   items = [],
   effects = [],
@@ -1164,7 +1166,7 @@ function buildNpcActor({
         tipo: tipoMonstro,
         tamanho: tamanho.slice(0, 3),
         equipamento: equipamento || '',
-        resistencias: resistencias.txt || '',
+        resistencias: resistenciasTexto || rd || (typeof resistencias === 'string' ? resistencias : (resistencias.txt || resistencias.texto || '')),
         idiomas: idiomasStr,
         tesouro: tesouro || 'Nenhum',
         role: papel,

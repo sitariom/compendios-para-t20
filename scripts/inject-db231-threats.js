@@ -127,6 +127,7 @@ async function injectThreats() {
       defesa: { value: 19, base: 16 } // 19 - 3 = 16
     },
     resistencias: arraiaTracos,
+    resistenciasTexto: 'redução de fogo 5',
     pericias: arraiaSkills,
     items: arraiaItems,
     ataquescac: 'Mordida +16 (4d4+12, 19 perfuração).',
@@ -279,6 +280,7 @@ async function injectThreats() {
       defesa: { value: 32, base: 31 } // 32 - 1 = 31
     },
     resistencias: anshiraTracos,
+    resistenciasTexto: 'imunidade a ácido e efeitos mentais, redução de dano 5/mitral',
     pericias: anshiraSkills,
     items: anshiraItems,
     ataquescac: 'Toque de Rocha / Magias (CD 32).',
@@ -404,6 +406,7 @@ async function injectThreats() {
       defesa: { value: 40, base: 39 } // 40 - 1 = 39
     },
     resistencias: cacadorTracos,
+    resistenciasTexto: 'redução de corte, frio e perfuração 5',
     pericias: cacadorSkills,
     items: cacadorItems,
     ataquescac: 'Cimitarra +34 (4d6+10, 18), Foice +34 (4d4+10, x3), Maça +34 (3d8+10), Machadinha +34 (4d6+10, x3) e Cauda +34 (2d12+10 corte).',
@@ -454,18 +457,32 @@ async function injectThreats() {
       description: '<p><strong>Ataque Natural:</strong> Mordida +26 (6d12+23 perfuração).</p>'
     }),
     buildSpecialPower({
-      name: 'Agarrar Aprimorado e Constrição',
+      name: 'Agarrar Aprimorado (Livre)',
       img: 'systems/tormenta20/icons/poderes/ameacas/constricao.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Se acerta a mordida, pode fazer manobra agarrar (teste +28). No início de seus turnos, causa <strong>12d12+23 pontos de dano de impacto</strong> na criatura agarrada.</p>'
+      description: '<p>Se a constritora arenosa acerta um ataque de mordida, pode fazer a manobra agarrar (teste +28).</p>'
     }),
     buildSpecialPower({
-      name: 'Forma de Areia e Escorrer',
+      name: 'Constrição (Livre)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/constricao.webp',
+      type: 'poder',
+      actionType: 'free',
+      description: '<p>No início de cada um de seus turnos, a constritora causa <strong>12d12+23 pontos de dano de impacto</strong> na criatura que estiver agarrando.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Forma de Areia',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'action',
-      description: '<p>Pode se transformar em pilha de areia imóvel (Percepção CD 35 ou CD 40 no deserto para notar). Pode escorrer por qualquer fresta como grão de areia.</p>'
+      description: '<p>A constritora pode se transformar em uma pilha de areia imóvel. Se ela estiver assim, um personagem deve passar num teste de Percepção (CD 35) para perceber que ela é uma criatura. Se a constritora estiver em terreno arenoso, a CD do teste de Percepção aumenta para 40.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Escorrer',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>A constritora pode passar por qualquer espaço apertado por onde um grão de areia poderia passar.</p>'
     }),
     buildSpecialPower({
       name: 'Fortificação 75%',
@@ -503,6 +520,7 @@ async function injectThreats() {
       defesa: { value: 32, base: 30 } // 32 - 2 = 30
     },
     resistencias: constritoraTracos,
+    resistenciasTexto: 'fortificação 75%, imunidade a ácido, eletricidade, metamorfose e trevas',
     pericias: constritoraSkills,
     items: constritoraItems,
     ataquescac: 'Mordida +26 (6d12+23) e Constrição (12d12+23 impacto).',
@@ -563,11 +581,18 @@ async function injectThreats() {
       description: '<p><strong>Ataque à Distância:</strong> Arco curto +16 (2d6+12 perfuração, x3, mais 2d8 trevas).</p>'
     }),
     buildSpecialPower({
-      name: 'Celeridade Odiosa e Ódio aos Vivos',
+      name: 'Celeridade Odiosa',
+      img: 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-extra.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O ressecado saqueador pode executar uma ação padrão adicional em seu primeiro turno de combate.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Ódio aos Vivos',
       img: 'systems/tormenta20/icons/poderes/ameacas/odio.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Executa ação padrão adicional no 1º turno de combate. Contra criaturas vivas, recebe +2 em testes de perícia e causa +2d4 pontos de dano.</p>'
+      description: '<p>Contra criaturas vivas, o ressecado recebe +2 em testes de perícia e causa +2d4 pontos de dano.</p>'
     }),
     buildSpecialPower({
       name: 'Visão Tumular',
@@ -598,6 +623,7 @@ async function injectThreats() {
       defesa: { value: 22, base: 21 } // 22 - 1 = 21
     },
     resistencias: ressecSaqTracos,
+    resistenciasTexto: 'imunidade a frio, redução de corte e perfuração 5, vulnerabilidade a fogo',
     pericias: ressecSaqSkills,
     items: ressecSaqItems,
     ataquescac: 'Cimitarra +16 (2d6+12 corte, 18, mais 2d8 trevas).',
@@ -659,18 +685,25 @@ async function injectThreats() {
       description: '<p><strong>Ataque à Distância (x2):</strong> Dois disparos de arco curto +24 (2d6+12 perfuração, x3, mais 2d8 trevas).</p>'
     }),
     buildSpecialPower({
+      name: 'Celeridade Odiosa',
+      img: 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-extra.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O ressecado líder pode executar uma ação padrão adicional em seu primeiro turno de combate.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Ódio aos Vivos',
+      img: 'systems/tormenta20/icons/poderes/ameacas/odio.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>Contra criaturas vivas, o ressecado recebe +2 em testes de perícia e causa +2d4 pontos de dano.</p>'
+    }),
+    buildSpecialPower({
       name: 'Ordens Letais',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/lideranca.webp',
       type: 'poder',
       actionType: 'move',
       description: '<p>Comanda aliados ressecados em alcance médio. Eles recebem <strong>+1d4 em rolagens de dano</strong> até o fim da cena (ou <strong>+2d4 contra vivos</strong>).</p>'
-    }),
-    buildSpecialPower({
-      name: 'Celeridade Odiosa e Ódio aos Vivos',
-      img: 'systems/tormenta20/icons/poderes/ameacas/odio.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Ação padrão adicional no primeiro turno. Contra vivos, recebe +2 em testes de perícia e causa +2d4 pontos de dano.</p>'
     }),
     buildSpecialPower({
       name: 'Visão Tumular',
@@ -701,6 +734,7 @@ async function injectThreats() {
       defesa: { value: 31, base: 30 } // 31 - 1 = 30
     },
     resistencias: ressecLidTracos,
+    resistenciasTexto: 'imunidade a frio, redução de corte e perfuração 5, vulnerabilidade a fogo',
     pericias: ressecLidSkills,
     items: ressecLidItems,
     ataquescac: 'Cimitarra x2 +24 (2d6+12 corte, 18, mais 2d8 trevas).',
@@ -907,6 +941,7 @@ async function injectThreats() {
       defesa: { value: 18, base: 17 } // 18 - 1 = 17
     },
     resistencias: rojoTracos,
+    resistenciasTexto: 'redução de corte, impacto e perfuração à metade (Cascudo)',
     pericias: rojoSkills,
     items: rojoItems,
     ataquescac: 'Duas pancadas +10 (1d8+5 impacto).',
@@ -992,6 +1027,7 @@ async function injectThreats() {
       defesa: { value: 20, base: 20 } // 20 - 0 = 20
     },
     resistencias: manticoraTracos,
+    resistenciasTexto: 'Fraqueza Zumbi (dobro de dano por acertos críticos ou cabeça)',
     pericias: manticoraSkills,
     items: manticoraItems,
     ataquescac: 'Duas garras +16 (1d8+8 corte) e mordida +16 (1d10+8 perfuração).',
@@ -1178,6 +1214,7 @@ async function injectThreats() {
       atributos: actor.atributos,
       attributes: actor.attributes,
       resistencias: actor.resistencias,
+      resistenciasTexto: actor.resistenciasTexto,
       pericias: actor.pericias,
       items: actor.items,
       ataquescac: actor.ataquescac,

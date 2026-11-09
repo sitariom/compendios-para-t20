@@ -208,3 +208,15 @@ Every actor in `packs/Ameacas_T20` SHALL adhere strictly to the Tormenta20 syste
 - **THEN** each individual spell is represented by an item of type `magia`
 - **AND** each spell item defines `circulo` (number), `tipo` (`arc`, `div`, `uni`), `escola` (valid T20 school code), `ativacao`, `resistencia`, and `description.value`
 - **AND** no generic text bundle replaces true spell items
+
+#### Scenario: Free-text resistances field full verbatim population
+- **GIVEN** any actor with resistances, immunities, or vulnerabilities published in its statblock
+- **WHEN** `system.detalhes.resistencias` is evaluated
+- **THEN** it contains the exact, integral, verbatim string from the publication (e.g. `imunidade a frio, redução de corte e perfuração 5, vulnerabilidade a fogo`)
+- **AND** this text is populated even if partially redundant with `system.tracos.resistencias` so the Foundry VTT sheet header renders completely
+
+#### Scenario: Atomic abilities and powers without aggregation
+- **GIVEN** an actor statblock with multiple distinct named abilities (e.g. *Celeridade Odiosa* and *Ódio aos Vivos*, or *Estratégia do Medo* and *Fome de Sonhos*)
+- **WHEN** the actor's item subdocuments are constructed
+- **THEN** each bolded ability header from the statblock is represented as an individual, atomic item of type `poder`, `magia`, or `arma`
+- **AND** distinct abilities are never combined into a single composite power name

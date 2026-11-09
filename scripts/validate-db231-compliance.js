@@ -126,6 +126,7 @@ async function validateActors() {
     if (req.name === 'Anshira') {
       assert(res.acido?.imunidade === true, `Anshira possui imunidade a ácido em system.tracos.resistencias.acido`);
       assert(icVal.includes('mental'), `Anshira possui imunidade a efeitos mentais em ic.value`);
+      assert(doc.system?.detalhes?.resistencias === 'imunidade a ácido e efeitos mentais, redução de dano 5/mitral', `Anshira possui detalhes.resistencias preenchido com texto integral`);
       assert(pericias.furt_deserto && pericias.furt_deserto.value === 16, `Anshira possui perícia situacional Furtividade (Desertos) = 16`);
       assert(spellCount === 5, `Anshira possui exatamente 5 magias individuais como itens de tipo "magia" (encontradas ${spellCount})`);
     }
@@ -135,14 +136,22 @@ async function validateActors() {
       assert(res.eletricidade?.imunidade === true, `Constritora Arenosa possui imunidade a eletricidade`);
       assert(res.trevas?.imunidade === true, `Constritora Arenosa possui imunidade a trevas`);
       assert(icVal.includes('metamorfose'), `Constritora Arenosa possui imunidade a metamorfose`);
+      assert(doc.system?.detalhes?.resistencias === 'fortificação 75%, imunidade a ácido, eletricidade, metamorfose e trevas', `Constritora Arenosa possui detalhes.resistencias integral`);
       assert(pericias.furt_deserto && pericias.furt_deserto.value === 13, `Constritora Arenosa possui perícia situacional Furtividade (Deserto) = 13`);
       assert(subdocNames.includes('Fortificação 75%'), `Constritora Arenosa possui poder Fortificação 75%`);
       assert(subdocNames.includes('Vulnerabilidade Hídrica'), `Constritora Arenosa possui poder Vulnerabilidade Hídrica`);
+      assert(subdocNames.includes('Agarrar Aprimorado (Livre)'), `Constritora Arenosa possui poder Agarrar Aprimorado (Livre)`);
+      assert(subdocNames.includes('Constrição (Livre)'), `Constritora Arenosa possui poder Constrição (Livre)`);
+      assert(subdocNames.includes('Forma de Areia'), `Constritora Arenosa possui poder Forma de Areia`);
+      assert(subdocNames.includes('Escorrer'), `Constritora Arenosa possui poder Escorrer`);
     }
 
     if (req.name === 'Ressecado Saqueador' || req.name === 'Ressecado Líder') {
       assert(res.frio?.imunidade === true, `${req.name} possui imunidade a frio`);
       assert(res.fogo?.vulnerabilidade === true, `${req.name} possui vulnerabilidade a fogo em resistencias.fogo.vulnerabilidade`);
+      assert(doc.system?.detalhes?.resistencias === 'imunidade a frio, redução de corte e perfuração 5, vulnerabilidade a fogo', `${req.name} possui detalhes.resistencias integral`);
+      assert(subdocNames.includes('Celeridade Odiosa'), `${req.name} possui poder atômico Celeridade Odiosa`);
+      assert(subdocNames.includes('Ódio aos Vivos'), `${req.name} possui poder atômico Ódio aos Vivos`);
     }
 
     if (req.name === 'Bianco') {
@@ -152,12 +161,22 @@ async function validateActors() {
     if (req.name === 'Rojo') {
       assert(subdocNames.includes('Violência Cômica'), `Rojo possui poder Violência Cômica`);
       assert(subdocNames.includes('Cascudo'), `Rojo possui poder Cascudo`);
+      assert(doc.system?.detalhes?.resistencias === 'redução de corte, impacto e perfuração à metade (Cascudo)', `Rojo possui detalhes.resistencias integral`);
     }
 
     if (req.name === 'Mantícora Zumbi') {
       assert(subdocNames.includes('Fraqueza Zumbi'), `Mantícora Zumbi possui poder Fraqueza Zumbi`);
       assert(subdocNames.includes('Mordida'), `Mantícora Zumbi possui ataque de Mordida`);
       assert(subdocNames.includes('Duas Garras'), `Mantícora Zumbi possui ataque de Duas Garras`);
+      assert(doc.system?.detalhes?.resistencias === 'Fraqueza Zumbi (dobro de dano por acertos críticos ou cabeça)', `Mantícora Zumbi possui detalhes.resistencias integral`);
+    }
+
+    if (req.name === 'Arraia-Seca') {
+      assert(doc.system?.detalhes?.resistencias === 'redução de fogo 5', `Arraia-Seca possui detalhes.resistencias integral`);
+    }
+
+    if (req.name === 'Caçador de Condenados') {
+      assert(doc.system?.detalhes?.resistencias === 'redução de corte, frio e perfuração 5', `Caçador de Condenados possui detalhes.resistencias integral`);
     }
 
     if (req.name === 'Morrise') {

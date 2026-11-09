@@ -140,12 +140,43 @@ async function validateActors() {
       assert(res.eletricidade?.imunidade === true, `${req.name} possui imunidade a eletricidade`);
       assert(res.trevas?.imunidade === true, `${req.name} possui imunidade a trevas`);
       assert(icVal.includes('mental'), `${req.name} possui imunidade a efeitos mentais em ic.value`);
+      assert(Boolean(doc.system?.detalhes?.resistencias), `${req.name} possui detalhes.resistencias preenchido com texto integral`);
+    }
+
+    if (req.name === 'Tenente Onírico') {
+      assert(subdocNames.includes('Fome de Sonhos'), `Tenente Onírico possui poder atômico Fome de Sonhos`);
+      assert(subdocNames.includes('Partilhar Fome'), `Tenente Onírico possui poder atômico Partilhar Fome`);
+    }
+
+    if (req.name === 'Nócnam Mur, o Pesadelo Amalgamado') {
+      assert(subdocNames.includes('Estratégia do Medo'), `Nócnam Mur possui poder atômico Estratégia do Medo`);
+      assert(subdocNames.includes('Fome de Sonhos'), `Nócnam Mur possui poder atômico Fome de Sonhos`);
+      assert(subdocNames.includes('Varrer'), `Nócnam Mur possui poder atômico Varrer`);
+      assert(subdocNames.includes('Negação da Morte'), `Nócnam Mur possui poder atômico Negação da Morte`);
+      assert(subdocNames.includes('Fortificação 50%'), `Nócnam Mur possui poder Fortificação 50%`);
+    }
+
+    if (req.name === 'Arzak') {
+      assert(subdocNames.includes('Um com as Sombras'), `Arzak possui poder atômico Um com as Sombras`);
+      assert(subdocNames.includes('Evasão Aprimorada'), `Arzak possui poder atômico Evasão Aprimorada`);
+      assert(subdocNames.includes('Manobras Evasivas'), `Arzak possui poder atômico Manobras Evasivas`);
+      assert(subdocNames.includes('Sangrento'), `Arzak possui poder atômico Sangrento`);
+      assert(doc.system?.detalhes?.resistencias === 'evasão aprimorada', `Arzak possui detalhes.resistencias com evasão aprimorada`);
+    }
+
+    if (req.name === 'Gaardak') {
+      assert(subdocNames.includes('Poderio Muscular'), `Gaardak possui poder atômico Poderio Muscular`);
+      assert(subdocNames.includes('Êxtase no Medo'), `Gaardak possui poder atômico Êxtase no Medo`);
+      assert(subdocNames.includes('Lento Demais!'), `Gaardak possui poder atômico Lento Demais!`);
+      assert(subdocNames.includes('Fluxo de Movimento'), `Gaardak possui poder atômico Fluxo de Movimento`);
+      assert(doc.system?.detalhes?.resistencias === 'resistência a medo +2', `Gaardak possui detalhes.resistencias preenchido`);
     }
 
     if (req.name === 'Sacerdote Caído') {
       assert(spellCount === 2, `Sacerdote Caído possui 2 magias individuais de clérigo (encontradas ${spellCount})`);
       assert(subdocNames.includes('Toque Vampírico'), `Sacerdote Caído possui magia Toque Vampírico`);
       assert(subdocNames.includes('Vitalidade Fantasma'), `Sacerdote Caído possui magia Vitalidade Fantasma`);
+      assert(doc.system?.detalhes?.resistencias === 'resistência a medo +2', `Sacerdote Caído possui detalhes.resistencias preenchido`);
     }
 
     // Validação de Mestre do Pesadelo ter todas as 6 armas (mordida, garras e 4 caudas) mais magia Sonho

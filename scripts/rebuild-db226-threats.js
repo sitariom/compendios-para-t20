@@ -149,6 +149,7 @@ async function rebuildDB226Threats() {
       defesa: { value: 36, base: 37 } // 37 + (-1) = 36
     },
     resistencias: tyrantTracos,
+    resistenciasTexto: 'cura acelerada 5, imunidade a metamorfose e trevas, redução de dano 10, imunidade a magia',
     pericias: tyrantSkills,
     items: tyrantItems,
     ataquescac: 'Duas pancadas +29 (4d10+20).',
@@ -311,6 +312,7 @@ async function rebuildDB226Threats() {
       defesa: { value: 24, base: 21 } // 21 + 3 = 24
     },
     resistencias: espectroTracos,
+    resistenciasTexto: 'imunidade a efeitos de medo, mentais e trevas, redução de dano 5/luz, vulnerabilidade a luz',
     pericias: espectroSkills,
     items: espectroItems,
     ataquescac: 'Cascos x2 +17 (2d6+5 mais 2d8 trevas).',
@@ -426,6 +428,7 @@ async function rebuildDB226Threats() {
       defesa: { value: 18, base: 15 } // 15 + 3 = 18
     },
     resistencias: comeSonhosTracos,
+    resistenciasTexto: 'imunidade a efeitos mentais, dano psíquico e medo, redução de dano 5/mitral, cura com dano psíquico',
     pericias: comeSonhosSkills,
     items: comeSonhosItems,
     ataquescac: 'Mordida +14 (4d4+4 mais 2d6 psíquico).',
