@@ -22,13 +22,15 @@
  *    - Ginete de Troll Purista (ND 2)
  *    - Xamã Finntroll (ND 2) - Conjurador de Megalokk (4 Magias)
  *
- * Conformidade Canônica:
- * - IDs estritos de 16 caracteres alfanuméricos (/^[a-zA-Z0-9]{16}$/)
- * - Defesa Base Dinâmica (defesa.base + des = defesa.value)
- * - 34 perícias sob system.pericias + subdocumentos de perícias situacionais
+ * Conformidade Canônica Absoluta:
+ * - Atributos reais e auditados de cada criatura
+ * - Iniciativa e Percepção (mais usos situacionais como Percepção em Subterrâneo) idênticos à ficha
+ * - Defesa Base Dinâmica (defesa.base + des === defesa.value)
+ * - 34 perícias sob system.pericias com value = fichaVal e outros = diferença
+ * - Perícias treinadas do statblock estritamente respeitadas
  * - Magias individuais como itens de tipo "magia" (SpellData DataModel)
  * - Desagregação atômica estrita de habilidades sem nomes compostos
- * - system.detalhes.resistencias preenchido obrigatoriamente com o texto verbatim integral
+ * - system.detalhes.resistencias preenchido com a redação verbatim da linha de Defesa
  * - Tokens 2MTT circulares exclusivos em assets/tokens/
  */
 
@@ -48,7 +50,7 @@ const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
 const FOLDER_DB = 'wfWApuyngzFm4KOP'; // Pasta canônica "Dragão Brasil"
 
 async function injectThreats() {
-  console.log('=== Injetando 15 Ameaças da DB #232 em Ameacas_T20 ===\n');
+  console.log('=== Injetando 15 Ameaças Auditadas da DB #232 em Ameacas_T20 ===\n');
   const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
 
   const actorsToInject = [];
@@ -58,9 +60,19 @@ async function injectThreats() {
   // =========================================================================
   const loboUrbId = 'gq8232LoboUrbAAA';
   console.log(`Configurando Lobisomem Predador Urbano [${loboUrbId}]...`);
-  const loboUrbSkills = buildSkills(4, { for: 2, des: 4, con: 2, int: 1, sab: 2, car: 3 }, {
-    inic: 10, perc: 5, fort: 4, refl: 16, vont: 10,
-    acro: 8, ades: 6, enga: 9, furt: 10, intu: 6, joga: 6, ladi: 8, luta: 16, pont: 16
+  const loboUrbAtr = { for: 1, des: 4, con: 1, int: 0, sab: 1, car: 2 };
+  const loboUrbSkills = buildSkills(4, loboUrbAtr, {
+    inic: 10,
+    perc: 5,
+    fort: 4,
+    refl: 16,
+    vont: 10,
+    ades: 6,
+    enga: 9,
+    furt: 10,
+    joga: 6,
+    ladi: 8,
+    luta: 16
   }, {
     ades_lobos: { label: 'Adestramento (Lobos)', atributo: 'car', value: 11, outros: 5, treinado: true, custom: true }
   });
@@ -73,48 +85,58 @@ async function injectThreats() {
 
   const loboUrbItems = [
     buildWeaponAttack({
-      name: 'Adaga',
+      name: 'Duas Adagas',
       img: 'systems/tormenta20/icons/itens/equipamentos/adaga.webp',
       dano: '1d4+4',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Adaga x2 +16 (1d4+4 perfuração, 19/x2).</p>'
+      description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Duas adagas +16 (1d4+4 perfuração, 19).</p>'
     }),
     buildWeaponAttack({
       name: 'Duas Garras',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
-      dano: '2d6+8',
+      dano: '1d6+4',
       tipoDano: 'corte',
       periciaAtaque: 'luta',
-      criticoMargem: 19,
+      criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras +16 (2d6+8 corte, 19).</p>'
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras +16 (1d6+4 corte).</p>'
     }),
     buildWeaponAttack({
       name: 'Mordida',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
-      dano: '2d6+8',
+      dano: '1d6+4',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
-      criticoMargem: 19,
+      criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida/Fera):</strong> Mordida +16 (2d6+8 perfuração, 19). Se acertar na forma de fera, pode gastar 1 PM para manobra derrubar.</p>'
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Mordida +16 (1d6+4 perfuração).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Mordida (Forma de Lobo)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      dano: '2d6+6',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Natural (Forma de Lobo):</strong> Mordida +16 (2d6+6 perfuração). Sempre que acerta, pode fazer a manobra derrubar (teste +16) como ação livre.</p>'
     }),
     buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      name: 'Ataque Furtivo',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/ataque-furtivo.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>O lobisomem sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 PV por rodada se empunhar ou vestir um item de mitral.</p>'
+      description: '<p>O lobisomem causa +2d6 pontos de dano corpo a corpo adicional contra alvos desprevenidos ou flanqueados.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Lobos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com lobos e lobos-das-cavernas e pode usar esta perícia para mudar atitude e persuasão com essas criaturas.</p>'
+      description: '<p>O lobisomem predador urbano pode usar Adestramento para mudar atitude e persuasão com lobos e lobos-das-cavernas.</p>'
     }),
     buildSpecialPower({
       name: 'Evasão',
@@ -128,14 +150,21 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Um humanoide que sofra dano da mordida do lobisomem contrai licantropia (Fort CD 14 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do lobisomem contrai licantropia (Fort CD 18 evita; veja Licantropia).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>O lobisomem muda de forma entre humanoide, híbrida ou de lobo como ação completa. Na forma híbrida recebe garras e mordida; na forma de lobo seu deslocamento se torna 15m e recebe derrubar com a mordida.</p>'
+      description: '<p>O lobisomem muda de forma, entre humanoide, híbrida ou de lobo (ação completa). Na forma híbrida recebe garras e mordida; na forma de lobo seu deslocamento se torna 15m e recebe derrubar (teste +16) livre ao acertar com a mordida.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O lobisomem sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -150,17 +179,17 @@ async function injectThreats() {
     deslocamento: '9m (6q)',
     sentidos: 'faro, visão na penumbra',
     tesouro: 'Padrão',
-    atributos: { for: 2, des: 4, con: 2, int: 1, sab: 2, car: 3 },
+    atributos: loboUrbAtr,
     attributes: {
       pv: { value: 140, max: 140 },
       pm: { value: 0, max: 0 },
       defesa: { value: 23, base: 19 } // 23 - 4 = 19
     },
     resistencias: loboUrbTracos,
-    resistenciasTexto: 'evasão, redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'evasão, redução de dano 5/mitral',
     pericias: loboUrbSkills,
     items: loboUrbItems,
-    ataquescac: 'Conforme a forma: Adaga x2 +16 (1d4+4, 19) ou Duas garras +16 e Mordida +16 (2d6+8, 19).',
+    ataquescac: 'Conforme a forma: Duas adagas +16 (1d4+4, 19) ou Mordida e Garras +16.',
     biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Ninguém conhece estas ruelas e seus segredos tão bem quanto eu. Venham, a noite mal começou...*"<br><span style="font-weight: bold; color: #800000;">&mdash; O Fidalgo da Meia-Noite</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Ele caminha entre a nobreza de dia com capa de veludo e sorriso galante, mas caça mendigos e viajantes nos becos escuros assim que as tochas se apagam."<br><span style="font-weight: bold; color: #006400;">&mdash; Batedor da Milícia Urbana</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Lobisomem Predador Urbano</span> (ND 4) é um assassino sutil que estabelece seu campo de caça no coração das cidades de Arton, alternando entre disfarces fidalgos e fúria licantrópica.</p>'
   });
 
@@ -169,29 +198,52 @@ async function injectThreats() {
   // =========================================================================
   const loboCacId = 'gq8232LoboCacAAA';
   console.log(`Configurando Lobisomem Caçador de Recompensas [${loboCacId}]...`);
-  const loboCacSkills = buildSkills(9, { for: 5, des: 2, con: 4, int: 0, sab: 3, car: 1 }, {
-    inic: 10, perc: 10, fort: 22, refl: 9, vont: 15,
-    atle: 13, ades: 7, inve: 10, inti: 7, intu: 10, sobr: 12, luta: 27, pont: 27
+  const loboCacAtr = { for: 5, des: 2, con: 3, int: 0, sab: 2, car: -1 };
+  const loboCacSkills = buildSkills(9, loboCacAtr, {
+    inic: 10,
+    perc: 10,
+    fort: 22,
+    refl: 9,
+    vont: 15,
+    ades: 7,
+    atle: 13,
+    inve: 10,
+    inti: 7,
+    intu: 10,
+    luta: 26,
+    pont: 27,
+    sobr: 12
   }, {
-    ades_lobos: { label: 'Adestramento (Lobos)', atributo: 'car', value: 12, outros: 5, treinado: true, custom: true }
+    ades_lobos: { label: 'Adestramento (Lobos)', atributo: 'car', value: 12, outros: 5, treinado: true, custom: true },
+    perc_subterraneo: { label: 'Percepção (Subterrâneo)', atributo: 'sab', value: 12, outros: 2, treinado: true, custom: true }
   });
 
   const loboCacTracos = buildTracos({
     tamanho: 'med',
     resistencias: { dano: 5 },
-    icValue: ['veneno']
+    icValue: ['medo']
   });
 
   const loboCacItems = [
     buildWeaponAttack({
-      name: 'Lança',
+      name: 'Lança (Forma Humanoide)',
       img: 'systems/tormenta20/icons/armas/lanca.webp',
-      dano: '2d6+13',
+      dano: '4d6+15',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Lança x2 +27 (2d6+13 perfuração).</p>'
+      description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Lança x2 +26 (4d6+15 perfuração).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Lança (Forma Híbrida)',
+      img: 'systems/tormenta20/icons/armas/lanca.webp',
+      dano: '4d6+17',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Corpo a Corpo (Forma Híbrida):</strong> Lança +28 (4d6+17 perfuração), garra +28 (2d6+8) e mordida +28 (2d6+8).</p>'
     }),
     buildWeaponAttack({
       name: 'Besta Leve',
@@ -203,62 +255,69 @@ async function injectThreats() {
       criticoMultiplicador: 2,
       alcance: 'médio',
       proposito: 'tiro',
-      description: '<p><strong>Ataque à Distância:</strong> Besta leve x2 +27 (2d8+13 perfuração, 19, alcance médio).</p>'
+      description: '<p><strong>Ataque à Distância:</strong> Besta leve x2 +27 (2d8+13 perfuração, 19, mais veneno peçonha potente, alcance médio).</p>'
     }),
     buildWeaponAttack({
-      name: 'Duas Garras',
+      name: 'Garras e Mordida',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
-      dano: '3d6+17',
+      dano: '2d6+8',
       tipoDano: 'corte',
       periciaAtaque: 'luta',
-      criticoMargem: 19,
+      criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras +27 (3d6+17 corte, 19).</p>'
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras +28 (2d6+8 corte) e mordida +28 (2d6+8 perfuração).</p>'
     }),
     buildWeaponAttack({
-      name: 'Mordida',
+      name: 'Mordida (Forma de Lobo)',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
-      dano: '3d6+17',
+      dano: '4d6+16',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
-      criticoMargem: 19,
+      criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida/Fera):</strong> Mordida +27 (3d6+17 perfuração, 19). Derruba com a mordida na forma de fera.</p>'
-    }),
-    buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 PV por rodada se vestir mitral.</p>'
+      description: '<p><strong>Ataque Natural (Forma de Lobo):</strong> Mordida +28 (4d6+16 perfuração). Sempre que acerta, pode fazer a manobra derrubar (teste +28) como ação livre.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Lobos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com lobos e pode usar para mudar atitude.</p>'
+      description: '<p>O lobisomem caçador de recompensas pode usar Adestramento para mudar atitude e persuasão com lobos e lobos-das-cavernas.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 23 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do lobisomem contrai licantropia (Fort CD 28 evita; veja o quadro).</p>'
+    }),
+    buildSpecialPower({
+      name: 'Marca da Presa',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/marca-da-presa.webp',
+      type: 'poder',
+      actionType: 'free',
+      description: '<p>Uma vez por rodada, o lobisomem analisa uma criatura em alcance longo. Até o fim da cena, ele recebe +3 em testes de perícia, +3 na margem de ameaça e +1d12 em rolagens de dano contra essa criatura (esses bônus são dobrados contra humanoides e monstros).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida ou fera como ação completa.</p>'
+      description: '<p>O lobisomem muda de forma, entre humanoide, híbrida ou de lobo (ação completa). Na forma híbrida recebe +2 em Força e os ataques listados; na forma de lobo recebe +2 em Força, deslocamento 15m e derrubar livre com a mordida.</p>'
     }),
     buildSpecialPower({
-      name: 'Inimigo de Humanoides',
-      img: 'systems/tormenta20/icons/poderes/classes/especialistas/inimigo-de-criatura.webp',
+      name: 'Veneno (Peçonha Potente)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/veneno.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +2 em testes de perícia e +2 nas rolagens de dano contra humanoides.</p>'
+      description: '<p>Peçonha potente (perde 2d12 PV por rodada durante 3 rodadas, Fort CD 28 reduz a duração para 1 rodada).</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O lobisomem sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -270,22 +329,22 @@ async function injectThreats() {
     tipoMonstro: 'hum',
     raca: 'Humanoide (anão)',
     tamanho: 'med',
-    deslocamento: '9m (6q)',
+    deslocamento: '9m (6q), sem redução por terreno difícil',
     sentidos: 'faro, visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 5, des: 2, con: 4, int: 0, sab: 3, car: 1 },
+    atributos: loboCacAtr,
     attributes: {
       pv: { value: 355, max: 355 },
       pm: { value: 0, max: 0 },
       defesa: { value: 34, base: 32 } // 34 - 2 = 32
     },
     resistencias: loboCacTracos,
-    resistenciasTexto: 'imunidade a veneno, redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'imunidade a medo, redução de dano 5/mitral',
     pericias: loboCacSkills,
     items: loboCacItems,
-    ataquescac: 'Lança x2 +27 (2d6+13) ou Duas garras +27 e Mordida +27 (3d6+17, 19).',
-    ataquesad: 'Besta leve x2 +27 (2d8+13, 19, alcance médio).',
-    biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Não importa onde você se esconda. O vento sempre me traz o cheiro do seu medo.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Thorgar, o Rastreador Cinzento</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Um veterano anão que uniu a tenacidade de seu povo à fúria do lobo. Caça criminosos procurados com frieza implacável."<br><span style="font-weight: bold; color: #006400;">&mdash; Guarda Real de Deheon</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Lobisomem Caçador de Recompensas</span> (ND 9) é um rastreador solitário que abraçou a maldição como uma ferramenta de trabalho brutal, caçando alvos difíceis com disparos de besta e ataques devastadores de garras.</p>'
+    ataquescac: 'Conforme a forma: Lança x2 +26 (4d6+15) ou Lança +28, Garras +28 e Mordida +28.',
+    ataquesad: 'Besta leve x2 +27 (2d8+13, 19, mais veneno).',
+    biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Não importa onde você se esconda. O vento sempre me traz o cheiro do seu medo.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Thorgar, o Rastreador Cinzento</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Um veterano anão que uniu a tenacidade de seu povo à fúria do lobo. Caça criminosos procurados com frieza implacável."<br><span style="font-weight: bold; color: #006400;">&mdash; Guarda Real de Deheon</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Lobisomem Caçador de Recompensas</span> (ND 9) é um rastreador solitário que abraçou a maldição como uma ferramenta de trabalho brutal, caçando alvos difíceis com disparos de besta envenenada e ataques devastadores de garras.</p>'
   });
 
   // =========================================================================
@@ -293,12 +352,22 @@ async function injectThreats() {
   // =========================================================================
   const ratoComId = 'gq8232RatoComAAA';
   console.log(`Configurando Licantropo Rato Comedor de Restos [${ratoComId}]...`);
-  const ratoComSkills = buildSkills(1, { for: -1, des: 4, con: 2, int: 0, sab: 0, car: -1 }, {
-    inic: 5, perc: 0, fort: 5, refl: 10, vont: 1,
-    ades: 1, enga: 1, furt: 7, ladi: 5, sobr: 2, luta: 11, pont: 11
+  const ratoComAtr = { for: 0, des: 3, con: 1, int: 1, sab: 0, car: -1 };
+  const ratoComSkills = buildSkills(1, ratoComAtr, {
+    inic: 5,
+    perc: 0,
+    fort: 5,
+    refl: 10,
+    vont: 1,
+    ades: 1,
+    enga: 1,
+    furt: 7,
+    ladi: 5,
+    luta: 11,
+    pont: 11,
+    sobr: 2
   }, {
-    ades_ratos: { label: 'Adestramento (Ratos)', atributo: 'car', value: 6, outros: 5, treinado: true, custom: true },
-    furt_cidades: { label: 'Furtividade (Cidades)', atributo: 'des', value: 14, outros: 4, treinado: true, custom: true }
+    ades_ratos: { label: 'Adestramento (Ratos)', atributo: 'car', value: 6, outros: 5, treinado: true, custom: true }
   });
 
   const ratoComTracos = buildTracos({
@@ -309,7 +378,7 @@ async function injectThreats() {
 
   const ratoComItems = [
     buildWeaponAttack({
-      name: 'Adaga',
+      name: 'Duas Adagas',
       img: 'systems/tormenta20/icons/itens/equipamentos/adaga.webp',
       dano: '1d4+3',
       tipoDano: 'perfuração',
@@ -317,6 +386,16 @@ async function injectThreats() {
       criticoMargem: 19,
       criticoMultiplicador: 2,
       description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Adaga x2 +11 (1d4+3, 19).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Adagas e Mordida (Forma Híbrida)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      dano: '1d6+3',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 19,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Adaga x2 +11 (1d4+3, 19) e mordida +11 (1d6+3). Acerto crítico avaria armadura ou aumenta multiplicador para x3.</p>'
     }),
     buildWeaponAttack({
       name: 'Besta Leve',
@@ -331,49 +410,49 @@ async function injectThreats() {
       description: '<p><strong>Ataque à Distância:</strong> Besta leve +11 (1d8+3, 19, alcance médio).</p>'
     }),
     buildWeaponAttack({
-      name: 'Mordida',
+      name: 'Mordida (Forma de Rato)',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       dano: '1d6+3',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida/Rato):</strong> Mordida +11 (1d6+3, 19). Acerto crítico avaria armadura ou aumenta multiplicador para x3.</p>'
-    }),
-    buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 PV por rodada se vestir mitral.</p>'
+      description: '<p><strong>Ataque Natural (Forma de Rato):</strong> Mordida +11 (1d6+3). Crítico avaria armadura ou x3.</p>'
     }),
     buildSpecialPower({
       name: 'Dentes de Roedor',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Quando faz um acerto crítico com sua mordida, deixa a armadura da vítima avariada ou aumenta o multiplicador para x3 se estiver sem armadura.</p>'
+      description: '<p>Quando o licantropo rato comedor de restos faz um acerto crítico com sua mordida, deixa a armadura da vítima avariada ou, se ela estiver sem armadura, aumenta em +1 o multiplicador desse crítico.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Ratos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com ratos e pode mudar atitude.</p>'
+      description: '<p>O licantropo rato pode usar Adestramento para mudar atitude e persuasão com ratos.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 12 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo rato contrai licantropia (Fort CD 14 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide (Pequeno), híbrida (deslocamento escalada 9m) ou rato (Minúsculo, escalada 9m).</p>'
+      description: '<p>O licantropo rato muda de forma, entre humanoide, híbrida ou de rato (ação completa). Na forma de rato se torna Minúsculo, seu deslocamento se torna 12m (escalada 12m).</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo rato sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -388,17 +467,17 @@ async function injectThreats() {
     deslocamento: '9m (6q), escalada 9m',
     sentidos: 'faro, visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: -1, des: 4, con: 2, int: 0, sab: 0, car: -1 },
+    atributos: ratoComAtr,
     attributes: {
       pv: { value: 10, max: 10 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 15, base: 11 } // 15 - 4 = 11
+      defesa: { value: 15, base: 12 } // 15 - 3 = 12
     },
     resistencias: ratoComTracos,
-    resistenciasTexto: 'redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'redução de dano 5/mitral',
     pericias: ratoComSkills,
     items: ratoComItems,
-    ataquescac: 'Conforme a forma: Adaga x2 +11 (1d4+3, 19) ou Mordida +11 (1d6+3, 19).',
+    ataquescac: 'Conforme a forma: Duas adagas +11 (1d4+3, 19) ou Mordida +11 (1d6+3).',
     ataquesad: 'Besta leve +11 (1d8+3, 19).',
     biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Chiik-chiik! O que cai no chão dos esgotos é nosso por direito!*"<br><span style="font-weight: bold; color: #800000;">&mdash; Skritt, o Rato dos Becos</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Pequenos goblins infectados que vivem nos canos de esgoto e lixões urbanos. Mordem com dentes que estilhaçam placas de aço."<br><span style="font-weight: bold; color: #006400;">&mdash; Faxineiro das Galerias de Valkaria</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Licantropo Rato Comedor de Restos</span> (ND 1) é uma praga subterrânea que se alimenta de refugos e embosca incautos escalando paredes de pedra com facilidade assombrosa.</p>'
   });
@@ -408,9 +487,23 @@ async function injectThreats() {
   // =========================================================================
   const ratoInfId = 'gq8232RatoInfAAA';
   console.log(`Configurando Licantropo Rato Infiltrador Veterano [${ratoInfId}]...`);
-  const ratoInfSkills = buildSkills(7, { for: 2, des: 4, con: 3, int: 1, sab: 1, car: 2 }, {
-    inic: 11, perc: 8, fort: 14, refl: 20, vont: 7,
-    acro: 11, atle: 9, enga: 9, furt: 11, guer: 8, ladi: 11, sobr: 8, luta: 24, pont: 24
+  const ratoInfAtr = { for: 2, des: 4, con: 3, int: 1, sab: 1, car: 2 };
+  const ratoInfSkills = buildSkills(7, ratoInfAtr, {
+    inic: 11,
+    perc: 8,
+    fort: 14,
+    refl: 20,
+    vont: 7,
+    acro: 11,
+    ades: 9,
+    atle: 9,
+    enga: 9,
+    furt: 11,
+    guer: 8,
+    ladi: 11,
+    luta: 24,
+    pont: 24,
+    sobr: 8
   }, {
     ades_ratos: { label: 'Adestramento (Ratos)', atributo: 'car', value: 14, outros: 5, treinado: true, custom: true },
     furt_cidades: { label: 'Furtividade (Cidades)', atributo: 'des', value: 13, outros: 2, treinado: true, custom: true }
@@ -456,39 +549,39 @@ async function injectThreats() {
       description: '<p><strong>Ataque à Distância:</strong> Arco longo x2 +24 (3d8+14 perfuração, x3, alcance longo).</p>'
     }),
     buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 PV por rodada se vestir mitral.</p>'
-    }),
-    buildSpecialPower({
       name: 'Dentes de Roedor',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Crítico com mordida avaria armadura ou aumenta multiplicador para x3.</p>'
+      description: '<p>Quando o licantropo rato infiltrador veterano faz um acerto crítico com sua mordida, deixa a armadura da vítima avariada ou, se ela estiver sem armadura, aumenta em +1 o multiplicador desse crítico.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Ratos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com ratos e pode mudar atitude.</p>'
+      description: '<p>O licantropo rato pode usar Adestramento para mudar atitude e persuasão com ratos.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 24 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo rato contrai licantropia (Fort CD 24 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida (escalada 6m) e rato (Minúsculo, escalada 6m).</p>'
+      description: '<p>O licantropo rato muda de forma, entre humanoide, híbrida ou de rato (ação completa). Na forma híbrida recebe escalada 6m; na forma de rato se torna Minúsculo e recebe escalada 6m.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo rato sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -503,14 +596,14 @@ async function injectThreats() {
     deslocamento: '12m (8q)',
     sentidos: 'faro, visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 2, des: 4, con: 3, int: 1, sab: 1, car: 2 },
+    atributos: ratoInfAtr,
     attributes: {
       pv: { value: 270, max: 270 },
       pm: { value: 0, max: 0 },
       defesa: { value: 32, base: 28 } // 32 - 4 = 28
     },
     resistencias: ratoInfTracos,
-    resistenciasTexto: 'redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'redução de dano 5/mitral',
     pericias: ratoInfSkills,
     items: ratoInfItems,
     ataquescac: 'Corrente com espinhos x2 +24 (4d4+14, 18) e mordida +11 (3d6+14).',
@@ -523,9 +616,20 @@ async function injectThreats() {
   // =========================================================================
   const oncaPirId = 'gq8232OncaPirAAA';
   console.log(`Configurando Licantropo Onça Pirata de Rio [${oncaPirId}]...`);
-  const oncaPirSkills = buildSkills(7, { for: 2, des: 5, con: 2, int: 0, sab: 2, car: 4 }, {
-    inic: 14, perc: 9, fort: 13, refl: 19, vont: 9,
-    acro: 14, atle: 11, inti: 13, pilo: 11, luta: 24, pont: 23
+  const oncaPirAtr = { for: 2, des: 5, con: 2, int: 0, sab: 2, car: 4 };
+  const oncaPirSkills = buildSkills(7, oncaPirAtr, {
+    inic: 14,
+    perc: 9,
+    fort: 13,
+    refl: 19,
+    vont: 9,
+    acro: 14,
+    ades: 11,
+    atle: 11,
+    inti: 13,
+    luta: 24,
+    pilo: 11,
+    pont: 23
   }, {
     ades_oncas: { label: 'Adestramento (Onças)', atributo: 'car', value: 16, outros: 5, treinado: true, custom: true }
   });
@@ -548,24 +652,24 @@ async function injectThreats() {
       description: '<p><strong>Ataque Corpo a Corpo:</strong> Cimitarra x2 +24 (4d8+10 corte, 18).</p>'
     }),
     buildWeaponAttack({
-      name: 'Garra',
+      name: 'Garra e Mordida (Forma Híbrida)',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
       dano: '2d8+5',
       tipoDano: 'corte',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural:</strong> Garra +24 (2d8+5 corte).</p>'
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Garra +24 (2d8+5 corte) e mordida +24 (2d8+5 perfuração) ou duas garras +24 e mordida +24.</p>'
     }),
     buildWeaponAttack({
-      name: 'Mordida',
+      name: 'Mordida (Forma de Onça)',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       dano: '4d8+10',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural:</strong> Mordida +24 (4d8+10 perfuração).</p>'
+      description: '<p><strong>Ataque Natural (Forma de Onça):</strong> Mordida +24 (4d8+10 perfuração).</p>'
     }),
     buildWeaponAttack({
       name: 'Pistola',
@@ -580,67 +684,67 @@ async function injectThreats() {
       description: '<p><strong>Ataque à Distância:</strong> Pistola x2 +23 (6d6+10 perfuração, 18/x3).</p>'
     }),
     buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Sofre dano adicional contra mitral e perde 1d6 PV/rodada se vestir mitral.</p>'
-    }),
-    buildSpecialPower({
       name: 'Correr pelo Cordame',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Percorre até seu deslocamento ignorando terreno difícil e faz um ataque corpo a corpo com +2 no teste de ataque e +1d6 no dano.</p>'
+      description: '<p>O licantropo onça pirata de rio percorre até seu deslocamento, ignorando terreno difícil, e faz um ataque corpo a corpo com +2 no teste de ataque e +1d6 na rolagem de dano.</p>'
     }),
     buildSpecialPower({
       name: 'Emboscar',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/escaramuca.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Na primeira rodada de combate na forma híbrida ou onça, realiza uma ação padrão adicional.</p>'
+      description: '<p>Na primeira rodada de combate, se estiver em sua forma híbrida ou de onça, o licantropo onça pode realizar uma ação padrão adicional.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Onças',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com onças e pode mudar atitude.</p>'
+      description: '<p>O licantropo onça pode usar Adestramento para mudar atitude e persuasão com onças.</p>'
     }),
     buildSpecialPower({
       name: 'Evasão',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/evasao.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Não sofre dano em sucesso de Reflexos.</p>'
+      description: '<p>Quando sofre um efeito que permite um teste de Reflexos para reduzir o dano à metade, não sofre dano algum se passar.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 28 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo onça contrai licantropia (Fort CD 28 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida e onça (deslocamento 15m, natação 6m e Emboscar).</p>'
+      description: '<p>O licantropo onça muda de forma, entre humanoide, híbrida ou de onça (ação completa). Na forma de onça recebe deslocamento 15m (natação 6m) e Emboscar.</p>'
     }),
     buildSpecialPower({
       name: 'Pernas do Mar',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/acrobacia.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Não fica desprevenido ao se equilibrar ou escalar e seu deslocamento não é reduzido à metade.</p>'
+      description: '<p>Quando está se equilibrando ou escalando, o licantropo onça não fica desprevenido e seu deslocamento não é reduzido à metade.</p>'
     }),
     buildSpecialPower({
       name: 'Saque Rápido',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/saque-rapido.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Saca ou guarda itens como ação livre e recarrega sua pistola como ação de movimento.</p>'
+      description: '<p>O licantropo onça pode sacar ou guardar itens como uma ação livre e recarregar sua pistola como uma ação de movimento.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo onça sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -655,17 +759,17 @@ async function injectThreats() {
     deslocamento: '9m (6q)',
     sentidos: 'faro, visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 2, des: 5, con: 2, int: 0, sab: 2, car: 4 },
+    atributos: oncaPirAtr,
     attributes: {
       pv: { value: 270, max: 270 },
       pm: { value: 0, max: 0 },
       defesa: { value: 30, base: 25 } // 30 - 5 = 25
     },
     resistencias: oncaPirTracos,
-    resistenciasTexto: 'evasão, redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'evasão, redução de dano 5/mitral',
     pericias: oncaPirSkills,
     items: oncaPirItems,
-    ataquescac: 'Cimitarra x2 +24 (4d8+10, 18) ou garras e mordida na forma híbrida.',
+    ataquescac: 'Cimitarra x2 +24 (4d8+10, 18) ou garras e mordida.',
     ataquesad: 'Pistola x2 +23 (6d6+10, 18/x3).',
     biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*O rio é meu covil e a noite é minha bandeira. Entreguem a carga antes que a maré leve seus corpos.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Capitão Jaguaretê</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Salta de barco em barco como um felino alado, disparando pistolas e dilacerando marujos com cimitarras."<br><span style="font-weight: bold; color: #006400;">&mdash; Mercador fluvial do Rio dos Deuses</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Licantropo Onça Pirata de Rio</span> (ND 7) comanda embarcações fluviais clandestinas combinando agilidade acrobática em cordames com o bote mortal da onça-pintada.</p>'
   });
@@ -675,9 +779,17 @@ async function injectThreats() {
   // =========================================================================
   const oncaLutId = 'gq8232OncaLutAAA';
   console.log(`Configurando Licantropo Onça Lutador de Arena [${oncaLutId}]...`);
-  const oncaLutSkills = buildSkills(11, { for: 5, des: 3, con: 4, int: 0, sab: 3, car: 0 }, {
-    inic: 12, perc: 12, fort: 22, refl: 18, vont: 13,
-    acro: 14, atle: 16, luta: 34
+  const oncaLutAtr = { for: 5, des: 3, con: 4, int: 0, sab: 3, car: 0 };
+  const oncaLutSkills = buildSkills(11, oncaLutAtr, {
+    inic: 12,
+    perc: 12,
+    fort: 22,
+    refl: 18,
+    vont: 13,
+    acro: 14,
+    ades: 9,
+    atle: 16,
+    luta: 34
   }, {
     ades_oncas: { label: 'Adestramento (Onças)', atributo: 'car', value: 14, outros: 5, treinado: true, custom: true }
   });
@@ -700,87 +812,87 @@ async function injectThreats() {
       description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Ataque desarmado x2 +34 (4d10+20 impacto, 19/x3).</p>'
     }),
     buildWeaponAttack({
-      name: 'Duas Garras',
+      name: 'Duas Garras e Mordida (Forma Híbrida)',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
       dano: '4d10+20',
       tipoDano: 'corte',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras +34 (4d10+20 corte, 19/x3).</p>'
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras +34 (4d10+20 corte, 19/x3) e mordida +24 (4d10+20 perfuração, 19/x3).</p>'
     }),
     buildWeaponAttack({
-      name: 'Mordida',
+      name: 'Mordida (Forma de Onça)',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       dano: '4d10+20',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Natural (Forma Híbrida/Onça):</strong> Mordida +24 (4d10+20 perfuração, 19/x3).</p>'
-    }),
-    buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Sofre dano adicional contra mitral e perde 1d6 PV/rodada se vestir mitral.</p>'
+      description: '<p><strong>Ataque Natural (Forma de Onça):</strong> Mordida x2 +34 (4d10+20 perfuração, 19/x3).</p>'
     }),
     buildSpecialPower({
       name: 'Emboscar',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/escaramuca.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Na primeira rodada em forma híbrida ou fera, realiza ação padrão adicional.</p>'
+      description: '<p>Na primeira rodada de combate, se estiver em sua forma híbrida ou de onça, o licantropo onça pode realizar uma ação padrão adicional.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Onças',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com onças.</p>'
+      description: '<p>O licantropo onça pode usar Adestramento para mudar atitude e persuasão com onças.</p>'
     }),
     buildSpecialPower({
       name: 'Evasão',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/evasao.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Evita todo dano em sucesso de Reflexos.</p>'
+      description: '<p>Quando sofre um efeito que permite um teste de Reflexos para reduzir o dano à metade, não sofre dano algum se passar.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 31 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo onça contrai licantropia (Fort CD 31 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida e onça (deslocamento 15m, natação 6m).</p>'
+      description: '<p>O licantropo onça muda de forma, entre humanoide, híbrida ou de onça (ação completa). Na forma de onça recebe deslocamento 15m (natação 6m) e Emboscar.</p>'
     }),
     buildSpecialPower({
       name: 'Presas de Adamante',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-poderoso.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Ataques ignoram até 10 pontos da redução de dano dos alvos.</p>'
+      description: '<p>Os ataques do licantropo onça ignoram até 10 pontos da redução de dano dos alvos.</p>'
     }),
     buildSpecialPower({
       name: 'Rasteira',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/derrubar-aprimorado.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Uma vez por rodada, ao acertar ataque corpo a corpo, faz manobra derrubar livre (teste +34).</p>'
+      description: '<p>Uma vez por rodada, quando acerta um ataque corpo a corpo, o licantropo onça pode fazer uma manobra derrubar contra o alvo (teste +34).</p>'
     }),
     buildSpecialPower({
       name: 'Voadora Feral',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/investida-destruidora.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Em investida, causa +1d6 pontos de dano por cada 3m percorridos até o alvo.</p>'
+      description: '<p>Quando faz uma investida, o licantropo onça causa +1d6 pontos de dano por cada 3m que percorreu para chegar ao alvo.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo onça sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -795,7 +907,7 @@ async function injectThreats() {
     deslocamento: '9m (6q)',
     sentidos: 'faro, visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 5, des: 3, con: 4, int: 0, sab: 3, car: 0 },
+    atributos: oncaLutAtr,
     attributes: {
       cd: 31,
       pv: { value: 530, max: 530 },
@@ -803,7 +915,7 @@ async function injectThreats() {
       defesa: { value: 40, base: 37 } // 40 - 3 = 37
     },
     resistencias: oncaLutTracos,
-    resistenciasTexto: 'evasão, redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'evasão, redução de dano 5/mitral',
     pericias: oncaLutSkills,
     items: oncaLutItems,
     ataquescac: 'Ataque desarmado x2 +34 (4d10+20, 19/x3) ou garras e mordida.',
@@ -815,11 +927,20 @@ async function injectThreats() {
   // =========================================================================
   const texuFurId = 'gq8232TexuFurAAA';
   console.log(`Configurando Licantropo Texugo Furioso [${texuFurId}]...`);
-  const texuFurSkills = buildSkills(5, { for: 4, des: 0, con: 5, int: -1, sab: 2, car: -1 }, {
-    inic: 4, perc: 6, fort: 17, refl: 5, vont: 11,
-    ades: 4, atle: 6, inti: 10, sobr: 6, luta: 18
+  const texuFurAtr = { for: 2, des: 0, con: 5, int: 0, sab: 2, car: 0 };
+  const texuFurSkills = buildSkills(5, texuFurAtr, {
+    inic: 4,
+    perc: 6,
+    fort: 17,
+    refl: 5,
+    vont: 11,
+    ades: 4,
+    atle: 6,
+    luta: 17,
+    sobr: 6
   }, {
-    ades_texugos: { label: 'Adestramento (Texugos)', atributo: 'car', value: 9, outros: 5, treinado: true, custom: true }
+    ades_texugos: { label: 'Adestramento (Texugos)', atributo: 'car', value: 9, outros: 5, treinado: true, custom: true },
+    perc_subterraneo: { label: 'Percepção (Subterrâneo)', atributo: 'sab', value: 8, outros: 2, treinado: true, custom: true }
   });
 
   const texuFurTracos = buildTracos({
@@ -832,74 +953,74 @@ async function injectThreats() {
     buildWeaponAttack({
       name: 'Machado de Guerra',
       img: 'systems/tormenta20/icons/itens/equipamentos/machado-de-guerra.webp',
-      dano: '3d12+12',
+      dano: '2d12+16',
       tipoDano: 'corte',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Corpo a Corpo:</strong> Machado de guerra +18 (3d12+12 corte, x3).</p>'
+      description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Machado de guerra +17 (2d12+16 corte, x3).</p>'
     }),
     buildWeaponAttack({
-      name: 'Duas Garras',
+      name: 'Garras e Mordida (Forma Híbrida)',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
-      dano: '2d8+8',
+      dano: '2d6+10',
       tipoDano: 'corte',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras +18 (2d8+8 corte).</p>'
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras x2 +17 (2d6+10 corte) e mordida +17 (2d6+10 perfuração).</p>'
     }),
     buildWeaponAttack({
-      name: 'Mordida',
+      name: 'Mordida (Forma de Texugo)',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
-      dano: '2d8+8',
+      dano: '4d6+16',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural:</strong> Mordida +18 (2d8+8 perfuração).</p>'
-    }),
-    buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Sofre dano adicional contra mitral e perde 1d6 PV/rodada com mitral.</p>'
+      description: '<p><strong>Ataque Natural (Forma de Texugo):</strong> Mordida +17 (4d6+16 perfuração).</p>'
     }),
     buildSpecialPower({
       name: 'Durão',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/solidez.webp',
       type: 'poder',
       actionType: 'reaction',
-      description: '<p>Uma vez por rodada na forma híbrida ou texugo, reduz dano sofrido à metade.</p>'
+      description: '<p>Uma vez por rodada, se estiver em sua forma híbrida ou de texugo, quando sofre dano o licantropo texugo furioso reduz esse dano à metade.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Texugos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com texugos e texugos-gigantes.</p>'
+      description: '<p>O licantropo texugo pode usar Adestramento para mudar atitude e persuasão com texugos.</p>'
     }),
     buildSpecialPower({
       name: 'Fúria',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/furia.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Recebe +2 em testes de ataque e rolagens de dano corpo a corpo e RD 2 enquanto durar a cena.</p>'
+      description: '<p>O licantropo texugo recebe +2 em testes de ataque e em rolagens de dano. Esse efeito se encerra se ele terminar 1 rodada e não tiver atacado nem sofrido dano.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 22 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo texugo contrai licantropia (Fort CD 22 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida e texugo (escavação 3m e Durão).</p>'
+      description: '<p>O licantropo texugo muda de forma, entre humanoide, híbrida ou de texugo (ação completa). Na forma de texugo se torna Pequeno, recebe escalada 3m e pode usar Durão.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo texugo sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -911,20 +1032,20 @@ async function injectThreats() {
     tipoMonstro: 'hum',
     raca: 'Humanoide (anão)',
     tamanho: 'med',
-    deslocamento: '9m (6q)',
+    deslocamento: '6m (4q)',
     sentidos: 'faro, visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 4, des: 0, con: 5, int: -1, sab: 2, car: -1 },
+    atributos: texuFurAtr,
     attributes: {
       pv: { value: 205, max: 205 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 23, base: 23 }
+      defesa: { value: 23, base: 23 } // 23 - 0 = 23
     },
     resistencias: texuFurTracos,
-    resistenciasTexto: 'redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'redução de dano 5/mitral',
     pericias: texuFurSkills,
     items: texuFurItems,
-    ataquescac: 'Machado de guerra +18 (3d12+12, x3) ou garras e mordida.',
+    ataquescac: 'Machado de guerra +17 (2d12+16, x3) ou garras e mordida.',
     biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*GRRR-KRAAA! Vocês chamam de maldição, nós chamamos de sangue forte!*"<br><span style="font-weight: bold; color: #800000;">&mdash; Barba-de-Ferro, Guerreiro Totêmico</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Um anão bárbaro que abraçou o espírito furioso do texugo das montanhas. Quanto mais você bate nele, mais feroz ele fica."<br><span style="font-weight: bold; color: #006400;">&mdash; Patrulheiro dos Montes Uivantes</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Licantropo Texugo Furioso</span> (ND 5) é um guerreiro totêmico obstinado que reduz danos à metade com sua casca de Durão e desfere golpes esmagadores com machados de duas mãos.</p>'
   });
 
@@ -933,9 +1054,20 @@ async function injectThreats() {
   // =========================================================================
   const texuNoiId = 'gq8232TexuNoiAAA';
   console.log(`Configurando Licantropo Texugo Servo da Noite [${texuNoiId}]...`);
-  const texuNoiSkills = buildSkills(8, { for: -1, des: 4, con: 1, int: 1, sab: 5, car: 2 }, {
-    inic: 12, perc: 13, fort: 8, refl: 15, vont: 21,
-    atle: 12, enga: 12, mist: 9, reli: 13, sobr: 15, luta: 24
+  const texuNoiAtr = { for: -1, des: 4, con: 1, int: 1, sab: 5, car: 2 };
+  const texuNoiSkills = buildSkills(8, texuNoiAtr, {
+    inic: 12,
+    perc: 13,
+    fort: 8,
+    refl: 15,
+    vont: 21,
+    ades: 10,
+    atle: 12,
+    enga: 12,
+    luta: 24,
+    mist: 9,
+    reli: 13,
+    sobr: 15
   }, {
     ades_texugos: { label: 'Adestramento (Texugos)', atributo: 'car', value: 15, outros: 5, treinado: true, custom: true }
   });
@@ -948,7 +1080,7 @@ async function injectThreats() {
 
   const texuNoiItems = [
     buildWeaponAttack({
-      name: 'Clava',
+      name: 'Clava (Forma Humanoide)',
       img: 'systems/tormenta20/icons/itens/equipamentos/tacape.webp',
       dano: '2d6+15',
       tipoDano: 'impacto',
@@ -958,24 +1090,24 @@ async function injectThreats() {
       description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Clava +24 (2d6+15 impacto).</p>'
     }),
     buildWeaponAttack({
-      name: 'Duas Garras',
+      name: 'Duas Garras e Mordida (Forma Híbrida)',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
       dano: '2d6+15',
       tipoDano: 'corte',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras x2 +24 (2d6+15 corte, 19).</p>'
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Duas garras x2 +24 (2d6+15 corte, 19) e mordida +17 (2d6+15, 19).</p>'
     }),
     buildWeaponAttack({
-      name: 'Mordida',
+      name: 'Mordida (Forma de Texugo)',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       dano: '2d8+15',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural (Forma Híbrida/Texugo):</strong> Mordida +24 (2d8+15 perfuração, 19).</p>'
+      description: '<p><strong>Ataque Natural (Forma de Texugo):</strong> Mordida +24 (2d8+15 perfuração, 19).</p>'
     }),
     buildSpecialPower({
       name: 'Armadura de Ossos',
@@ -985,60 +1117,60 @@ async function injectThreats() {
       description: '<p>Gasta 2 PM para receber +2 na Defesa e em Intimidação, e redução de corte, frio e trevas 5 até o fim da cena.</p>'
     }),
     buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Sofre dano adicional contra mitral e perde 1d6 PV/rodada se vestir mitral.</p>'
-    }),
-    buildSpecialPower({
       name: 'Durão',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/solidez.webp',
       type: 'poder',
       actionType: 'reaction',
-      description: '<p>Na forma híbrida ou texugo, reduz dano sofrido à metade uma vez por rodada.</p>'
+      description: '<p>Uma vez por rodada, se estiver em sua forma híbrida ou de texugo, quando sofre dano reduz esse dano à metade.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Texugos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Usa Adestramento para persuasão e atitude com texugos.</p>'
+      description: '<p>O licantropo texugo pode usar Adestramento para mudar atitude e persuasão com texugos.</p>'
     }),
     buildSpecialPower({
       name: 'Magia Natural',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/linhagem-feerica.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Pode lançar magias e empunhar esotéricos em sua forma de texugo.</p>'
+      description: '<p>O licantropo texugo pode lançar magias e empunhar catalisadores e esotéricos em sua forma de texugo.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 28 evita).</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo texugo contrai licantropia (Fort CD 28 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida e texugo (Pequeno, deslocamento 12m, escalada 3m e Durão).</p>'
+      description: '<p>O licantropo texugo muda de forma, entre humanoide, híbrida ou de texugo (ação completa). Na forma de texugo se torna Pequeno, deslocamento 12m (escalada 3m) e pode usar Durão.</p>'
     }),
     buildSpecialPower({
       name: 'Sorte Salvadora',
       img: 'systems/tormenta20/icons/poderes/concedidos/sorte-dos-loucos.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Rola dois dados e usa o melhor resultado em testes de resistência.</p>'
+      description: '<p>Quando o licantropo texugo faz um teste de resistência, ele rola dois dados e usa o melhor resultado.</p>'
     }),
     buildSpecialPower({
       name: 'Visão nas Trevas',
       img: 'systems/tormenta20/icons/magias/visao-mistica.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Enxerga no escuro perfeitamente mesmo em magias de escuridão.</p>'
+      description: '<p>O licantropo texugo enxerga no escuro mesmo em magias de escuridão.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo texugo sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     }),
     // 4 Magias Individuais de Druida de Tenebra de 8º nível (CD 28, 45 PM)
     buildSpellItem({
@@ -1051,7 +1183,7 @@ async function injectThreats() {
       alcance: 'toque',
       alvo: '1 arma',
       duracao: 'scene',
-      description: '<p>Uma das armas se torna mágica e seu dano aumenta em dois passos até o fim da cena.</p>'
+      description: '<p>Uma das armas do licantropo texugo se torna mágica e seu dano aumenta em dois passos (de 1d6 para 1d10 ou de 1d8 para 1d12) até o fim da cena.</p>'
     }),
     buildSpellItem({
       name: 'Curar Ferimentos',
@@ -1077,7 +1209,7 @@ async function injectThreats() {
       duracao: 'scene',
       resistencia: 'Fortitude parcial',
       rolls: [{ name: 'Dano', type: 'dano', parts: [['7d6', 'acido', '']] }],
-      description: '<p>Nuvem de 6m de raio em alcance médio. Criaturas na área sofrem 7d6 pontos de dano de ácido e ficam enjoadas por 1 rodada (Fort CD 28 reduz metade e evita enjoo).</p>'
+      description: '<p>Uma nuvem de 6m de raio se forma em alcance médio. Criaturas na área sofrem 7d6 pontos de dano de ácido e ficam enjoadas por 1 rodada (Fort reduz à metade e evita a condição).</p>'
     }),
     buildSpellItem({
       name: 'Toque Vampírico',
@@ -1091,7 +1223,7 @@ async function injectThreats() {
       duracao: 'inst',
       resistencia: 'Fortitude reduz à metade',
       rolls: [{ name: 'Dano', type: 'dano', parts: [['8d6', 'trevas', '']] }],
-      description: '<p>Ataque corpo a corpo que causa 8d6 pontos de dano de trevas (Fort CD 28 reduz metade) e recupera metade em PV.</p>'
+      description: '<p>O licantropo texugo faz um ataque corpo a corpo. Se acertar, além do dano normal, causa 8d6 pontos de dano de trevas (Fort reduz à metade) e recupera pontos de vida iguais à metade do dano de trevas causado.</p>'
     })
   ];
 
@@ -1106,7 +1238,7 @@ async function injectThreats() {
     deslocamento: '6m (4q), sem redução por terreno difícil natural',
     sentidos: 'faro, visão no escuro, visão nas trevas',
     tesouro: 'Padrão',
-    atributos: { for: -1, des: 4, con: 1, int: 1, sab: 5, car: 2 },
+    atributos: texuNoiAtr,
     attributes: {
       cd: 28,
       pv: { value: 215, max: 215 },
@@ -1114,7 +1246,7 @@ async function injectThreats() {
       defesa: { value: 29, base: 25 } // 29 - 4 = 25
     },
     resistencias: texuNoiTracos,
-    resistenciasTexto: 'redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'redução de dano 5/mitral',
     pericias: texuNoiSkills,
     items: texuNoiItems,
     ataquescac: 'Clava +24 (2d6+15) ou garras e mordida; Magias (CD 28).',
@@ -1126,12 +1258,20 @@ async function injectThreats() {
   // =========================================================================
   const selaFarId = 'gq8232SelaFarAAA';
   console.log(`Configurando Licantropo Selako Farejador de Sangue [${selaFarId}]...`);
-  const selaFarSkills = buildSkills(3, { for: 3, des: 2, con: 3, int: -2, sab: 1, car: -1 }, {
-    inic: 4, perc: 4, fort: 15, refl: 10, vont: 2,
-    ades: 2, atle: 6, inti: 2, luta: 14, pont: 14
+  const selaFarAtr = { for: 3, des: 3, con: 2, int: 0, sab: 1, car: -1 };
+  const selaFarSkills = buildSkills(3, selaFarAtr, {
+    inic: 4,
+    perc: 4,
+    fort: 15,
+    refl: 10,
+    vont: 2,
+    ades: 2,
+    atle: 6,
+    inti: 2,
+    luta: 14,
+    pont: 14
   }, {
-    ades_selakos: { label: 'Adestramento (Selakos)', atributo: 'car', value: 7, outros: 5, treinado: true, custom: true },
-    sobr_agua: { label: 'Sobrevivência (Embaixo d’água)', atributo: 'sab', value: 9, outros: 2, treinado: true, custom: true }
+    ades_selakos: { label: 'Adestramento (Selakos)', atributo: 'car', value: 7, outros: 5, treinado: true, custom: true }
   });
 
   const selaFarTracos = buildTracos({
@@ -1142,14 +1282,34 @@ async function injectThreats() {
 
   const selaFarItems = [
     buildWeaponAttack({
-      name: 'Lança',
+      name: 'Lança (Forma Humanoide)',
       img: 'systems/tormenta20/icons/armas/lanca.webp',
-      dano: '2d6+8',
+      dano: '1d6+3',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Corpo a Corpo:</strong> Lança +14 (2d6+8 perfuração).</p>'
+      description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Lança x2 +14 (1d6+3 perfuração).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Lança e Mordida (Forma Híbrida)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      dano: '1d10+3',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 3,
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Lança +14 (1d6+3), garra +14 (1d6+3) e mordida +14 (1d10+3, x3) ou duas garras +14 e mordida +14.</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Mordida (Forma de Selako)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      dano: '2d10+10',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Natural (Forma de Selako):</strong> Mordida +14 (2d10+10 perfuração).</p>'
     }),
     buildWeaponAttack({
       name: 'Azagaia',
@@ -1163,57 +1323,47 @@ async function injectThreats() {
       proposito: 'tiro',
       description: '<p><strong>Ataque à Distância:</strong> Azagaia +14 (1d6+3 perfuração, alcance curto).</p>'
     }),
-    buildWeaponAttack({
-      name: 'Mordida',
-      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
-      dano: '2d8+8',
-      tipoDano: 'perfuração',
-      periciaAtaque: 'luta',
-      criticoMargem: 20,
-      criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural:</strong> Mordida +14 (2d8+8 perfuração). Crítico deixa alvo sangrando.</p>'
-    }),
     buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      name: 'Dentes Afiados',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Sofre dano adicional contra mitral e perde 1d6 PV/rodada se vestir mitral.</p>'
+      description: '<p>Quando o licantropo selako farejador de sangue faz um acerto crítico contra uma criatura com sua mordida, a vítima fica sangrando.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Faro do Selako',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/rastreador.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo selako não fica desprevenido contra inimigos que estejam sangrando.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Selakos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com tubarões e selakos.</p>'
-    }),
-    buildSpecialPower({
-      name: 'Farejar Sangue',
-      img: 'systems/tormenta20/icons/poderes/classes/especialistas/rastreador.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>O licantropo selako tem faro para criaturas sangrando e recebe +2 em testes de ataque e rolagens de dano contra essas criaturas.</p>'
+      description: '<p>O licantropo selako pode usar Adestramento para mudar atitude e persuasão com selakos.</p>'
     }),
     buildSpecialPower({
       name: 'Maldição da Licantropia',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 17 evita).</p>'
-    }),
-    buildSpecialPower({
-      name: 'Mordida Sangrenta',
-      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Acerto crítico com a mordida deixa a vítima sangrando.</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo selako contrai licantropia (Fort CD 17 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida e selako (deslocamento natação 9m e Mordida Sangrenta).</p>'
+      description: '<p>O licantropo selako muda de forma, entre humanoide, híbrida ou de selako (ação completa). Na forma híbrida se torna Grande (natação 9m); na forma de selako se torna Grande com natação 18m.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo selako sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -1225,20 +1375,20 @@ async function injectThreats() {
     tipoMonstro: 'hum',
     raca: 'Humanoide (humano)',
     tamanho: 'med',
-    deslocamento: '9m (6q), natação 9m (6q)',
-    sentidos: 'faro, visão na penumbra',
+    deslocamento: '9m (6q), natação 9m',
+    sentidos: 'faro, visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 3, des: 2, con: 3, int: -2, sab: 1, car: -1 },
+    atributos: selaFarAtr,
     attributes: {
       pv: { value: 115, max: 115 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 21, base: 19 } // 21 - 2 = 19
+      defesa: { value: 21, base: 18 } // 21 - 3 = 18
     },
     resistencias: selaFarTracos,
-    resistenciasTexto: 'redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'redução de dano 5/mitral',
     pericias: selaFarSkills,
     items: selaFarItems,
-    ataquescac: 'Lança +14 (2d6+8) ou Mordida +14 (2d8+8).',
+    ataquescac: 'Lança x2 +14 (1d6+3) ou garras e mordida.',
     ataquesad: 'Azagaia +14 (1d6+3).',
     biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*O Mar do Dragão-Rei cobra seu tributo em carne. Uma gota de sangue na água basta para selar seu destino.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Bocarra Negra, Selako de Khubar</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Pele cinzenta e mãos palmadas com dentes em fileiras duplas. Nadam mais rápido que qualquer barco e atacam em frenesi quando sentem sangue."<br><span style="font-weight: bold; color: #006400;">&mdash; Pescador de Khubar</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Licantropo Selako Farejador de Sangue</span> (ND 3) é o predador marinho do Arquipélago de Khubar, infectado pela selvageria de Megalokk para caçar tripulações em mar aberto.</p>'
   });
@@ -1248,30 +1398,62 @@ async function injectThreats() {
   // =========================================================================
   const selaTerId = 'gq8232SelaTerAAA';
   console.log(`Configurando Licantropo Selako Terror dos Mares [${selaTerId}]...`);
-  const selaTerSkills = buildSkills(9, { for: 4, des: 4, con: 3, int: 0, sab: 2, car: 0 }, {
-    inic: 4, perc: 4, fort: 20, refl: 15, vont: 10,
-    ades: 8, atle: 12, furt: 10, inti: 8, sobr: 10, luta: 27, pont: 27
+  const selaTerAtr = { for: 4, des: 4, con: 3, int: 0, sab: 2, car: 0 };
+  const selaTerSkills = buildSkills(9, selaTerAtr, {
+    inic: 4,
+    perc: 4,
+    fort: 20,
+    refl: 15,
+    vont: 10,
+    ades: 8,
+    atle: 12,
+    furt: 10,
+    inti: 8,
+    luta: 27,
+    pont: 27,
+    sobr: 10
   }, {
     ades_selakos: { label: 'Adestramento (Selakos)', atributo: 'car', value: 13, outros: 5, treinado: true, custom: true },
+    furt_hibrida: { label: 'Furtividade (Forma Híbrida/Fera)', atributo: 'des', value: 8, outros: -2, treinado: true, custom: true },
     sobr_agua: { label: 'Sobrevivência (Embaixo d’água)', atributo: 'sab', value: 12, outros: 2, treinado: true, custom: true }
   });
 
   const selaTerTracos = buildTracos({
     tamanho: 'med',
-    resistencias: { dano: 5 },
+    resistencias: { dano: 5, corte: 5 },
     excecoes: { dano: 0 }
   });
 
   const selaTerItems = [
     buildWeaponAttack({
-      name: 'Tridente Maciço',
+      name: 'Tridente (Forma Humanoide)',
       img: 'systems/tormenta20/icons/armas/lanca.webp',
-      dano: '3d6+17',
+      dano: '2d6+17',
       tipoDano: 'perfuração',
       periciaAtaque: 'luta',
-      criticoMargem: 19,
+      criticoMargem: 20,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque Corpo a Corpo:</strong> Tridente maciço x2 +27 (3d6+17 perfuração, 19/x3).</p>'
+      description: '<p><strong>Ataque Corpo a Corpo (Forma Humanoide):</strong> Tridente x2 +27 (2d6+17 perfuração, x3).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Tridente, Garra e Mordida (Forma Híbrida)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      dano: '2d10+17',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 3,
+      description: '<p><strong>Ataque Natural (Forma Híbrida):</strong> Tridente +27 (2d6+17, x3), garra +27 (2d6+17) e mordida +27 (2d10+17, x3) ou duas garras +27 e mordida +27.</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Mordida (Forma de Selako)',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      dano: '2d10+10',
+      tipoDano: 'perfuração',
+      periciaAtaque: 'luta',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      description: '<p><strong>Ataque Natural (Forma de Selako):</strong> Mordida +27 (2d10+10 perfuração).</p>'
     }),
     buildWeaponAttack({
       name: 'Azagaia',
@@ -1285,36 +1467,33 @@ async function injectThreats() {
       proposito: 'tiro',
       description: '<p><strong>Ataque à Distância:</strong> Azagaia +27 (2d6+17 perfuração, alcance curto).</p>'
     }),
-    buildWeaponAttack({
-      name: 'Mordida',
-      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
-      dano: '3d8+17',
-      tipoDano: 'perfuração',
-      periciaAtaque: 'luta',
-      criticoMargem: 19,
-      criticoMultiplicador: 2,
-      description: '<p><strong>Ataque Natural:</strong> Mordida +27 (3d8+17 perfuração, 19). Crítico deixa sangrando.</p>'
-    }),
     buildSpecialPower({
-      name: 'Aversão a Mitral',
-      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      name: 'Caçador Submarino',
+      img: 'systems/tormenta20/icons/poderes/classes/especialistas/rastreador.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Sofre dano adicional contra mitral e perde 1d6 PV/rodada se vestir mitral.</p>'
+      description: '<p>Quando faz um teste de perícia (exceto testes de ataque) em um terreno aquático, o licantropo selako terror dos mares rola dois dados e usa o melhor resultado.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Dentes Afiados',
+      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>Os ataques de mordida do licantropo selako ignoram 5 pontos de redução de dano. Além disso, quando faz um acerto crítico com sua mordida contra uma criatura, a vítima fica sangrando.</p>'
     }),
     buildSpecialPower({
       name: 'Empatia com Selakos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em Adestramento com tubarões e selakos.</p>'
+      description: '<p>O licantropo selako pode usar Adestramento para mudar atitude e persuasão com selakos.</p>'
     }),
     buildSpecialPower({
-      name: 'Farejar Sangue',
+      name: 'Faro do Selako',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/rastreador.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Faro para criaturas sangrando e +2 em ataque/dano contra elas.</p>'
+      description: '<p>O licantropo selako não fica desprevenido contra inimigos que estejam sangrando.</p>'
     }),
     buildSpecialPower({
       name: 'Fúria Feral',
@@ -1328,21 +1507,21 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Mordida transmite licantropia (Fort CD 27 evita).</p>'
-    }),
-    buildSpecialPower({
-      name: 'Mordida Sangrenta',
-      img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
-      type: 'poder',
-      actionType: 'passive',
-      description: '<p>Acerto crítico com mordida deixa o alvo sangrando.</p>'
+      description: '<p>Um humanoide que sofra dano da mordida do licantropo selako contrai licantropia (Fort CD 27 evita; veja o quadro).</p>'
     }),
     buildSpecialPower({
       name: 'Mudança de Forma',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Muda entre humanoide, híbrida e selako (deslocamento natação 12m).</p>'
+      description: '<p>O licantropo selako muda de forma, entre humanoide, híbrida ou de selako (ação completa). Na forma híbrida se torna Grande (natação 9m); na forma de selako se torna Grande com natação 18m.</p>'
+    }),
+    buildSpecialPower({
+      name: 'Aversão a Mitral',
+      img: 'systems/tormenta20/icons/poderes/ameacas/resistencia.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo selako sofre 1 ponto de dano adicional por dado de dano de ataques com armas de mitral e perde 1d6 pontos de vida por rodada se estiver empunhando ou vestindo um item de mitral.</p>'
     })
   ];
 
@@ -1354,23 +1533,23 @@ async function injectThreats() {
     tipoMonstro: 'hum',
     raca: 'Humanoide (elfo-do-mar)',
     tamanho: 'med',
-    deslocamento: '9m (6q), natação 12m (8q)',
-    sentidos: 'faro, visão no escuro',
+    deslocamento: '9m (6q), natação 9m',
+    sentidos: 'faro, percepção às cegas (apenas embaixo d’água), visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 4, des: 4, con: 3, int: 0, sab: 2, car: 0 },
+    atributos: selaTerAtr,
     attributes: {
       cd: 27,
-      pv: { value: 350, max: 350 },
+      pv: { value: 115, max: 115 },
       pm: { value: 0, max: 0 },
       defesa: { value: 34, base: 30 } // 34 - 4 = 30
     },
     resistencias: selaTerTracos,
-    resistenciasTexto: 'redução de dano 5/mitral, aversão a mitral',
+    resistenciasTexto: 'redução de corte 5, redução de dano 5/mitral',
     pericias: selaTerSkills,
     items: selaTerItems,
-    ataquescac: 'Tridente maciço x2 +27 (3d6+17, 19/x3) ou Mordida +27 (3d8+17).',
+    ataquescac: 'Tridente x2 +27 (2d6+17, x3) ou mordida e garras.',
     ataquesad: 'Azagaia +27 (2d6+17).',
-    biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Nenhum navio de madeira resiste às minhas mandíbulas. Vocês afundam comigo.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Maré-Rubra, o Devorador de Naus</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Um elfo-do-mar renegado que abraçou a ferocidade de Megalokk. Abre rombos no casco de caravelas mercantes com tridente e presas."<br><span style="font-weight: bold; color: #006400;">&mdash; Almirante da Frota de Khubar</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Licantropo Selako Terror dos Mares</span> (ND 9) é um predador submarino formidável de 350 PV que comanda cardumes e afunda embarcações inteiras nas rotas costeiras de Arton.</p>'
+    biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*Nenhum navio de madeira resiste às minhas mandíbulas. Vocês afundam comigo.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Maré-Rubra, o Devorador de Naus</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Um elfo-do-mar renegado que abraçou a ferocidade de Megalokk. Abre rombos no casco de caravelas mercantes com tridente e presas."<br><span style="font-weight: bold; color: #006400;">&mdash; Almirante da Frota de Khubar</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Licantropo Selako Terror dos Mares</span> (ND 9) é um predador submarino formidável que comanda cardumes e afunda embarcações inteiras nas rotas costeiras de Arton.</p>'
   });
 
   // =========================================================================
@@ -1378,8 +1557,14 @@ async function injectThreats() {
   // =========================================================================
   const mamaeGlopId = 'gq8232MamaeGlopA';
   console.log(`Configurando Mamãe Glop [${mamaeGlopId}]...`);
-  const mamaeGlopSkills = buildSkills(2, { for: 2, des: -1, con: 2, int: -5, sab: -5, car: -5 }, {
-    inic: 3, perc: -3, fort: 6, refl: 3, vont: -3, luta: 6
+  const mamaeGlopAtr = { for: 2, des: -1, con: 2, int: -5, sab: -5, car: -5 };
+  const mamaeGlopSkills = buildSkills(2, mamaeGlopAtr, {
+    inic: 3,
+    perc: -3,
+    fort: 6,
+    refl: 3,
+    vont: -3,
+    luta: 6
   });
 
   const mamaeGlopTracos = buildTracos({
@@ -1405,14 +1590,14 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/ameacas/glop.png',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>A mamãe glop está sempre acompanhada por 1d4 glops que a protegem instintivamente.</p>'
+      description: '<p>A mamãe glop está sempre acompanhada por 1d4 glops (Tormenta20, p. 286), que a protegem instintivamente. Esses glops (assim como aqueles gerados pela Meiose Glópica) não rendem pontos de experiência ao grupo.</p>'
     }),
     buildSpecialPower({
       name: 'Meiose Glópica',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>No início de cada turno da mamãe, role 1d6. Em um resultado par, um glop surge num espaço adjacente a ela.</p>'
+      description: '<p>Quando ameaçada, a mamãe pode gerar outros glops para protegê-la. No início de cada turno da mamãe, role um dado. Em um resultado par, um glop surge num espaço adjacente a ela. Ele age normalmente, no turno da mamãe, a partir da próxima rodada.</p>'
     })
   ];
 
@@ -1427,7 +1612,7 @@ async function injectThreats() {
     deslocamento: '9m (6q)',
     sentidos: 'percepção às cegas',
     tesouro: 'Padrão',
-    atributos: { for: 2, des: -1, con: 2, int: -5, sab: -5, car: -5 },
+    atributos: mamaeGlopAtr,
     attributes: {
       pv: { value: 48, max: 48 },
       pm: { value: 0, max: 0 },
@@ -1438,7 +1623,7 @@ async function injectThreats() {
     pericias: mamaeGlopSkills,
     items: mamaeGlopItems,
     ataquescac: 'Pancada +6 (1d6+2 mais 1d6 ácido).',
-    biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*GLUB-GLUB-SQUISH!* &mdash; Uma massa gelatinosa verde-musgo borbulha e se divide ao menor sinal de perigo.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Ecos do Pântano</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Não adianta bater nela sem fogo: a cada golpe que ela sofre, mais pequenas bolhas ácidas brotam de seu corpo."<br><span style="font-weight: bold; color: #006400;">&mdash; Guia da Floresta</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">A <span style="color: #800000; font-weight: bold;">Mamãe Glop</span> (ND 2) é uma monstruosidade amórfica colossal que gera filhotes glops por meiose celular espontânea durante o combate.</p>'
+    biography: '<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 20px; font-style: italic;">"*GLUB-GLUB-SQUISH! &mdash; Uma massa gelatinosa verde-musgo borbulha e se divide ao menor sinal de perigo.*"<br><span style="font-weight: bold; color: #800000;">&mdash; Ecos do Pântano</span></blockquote><blockquote style="background-color: #f0f0f0; border-left: 5px solid #006400; padding: 10px; margin-bottom: 20px; font-style: italic;">"Não adianta bater nela sem fogo: a cada golpe que ela sofre, mais pequenas bolhas ácidas brotam de seu corpo."<br><span style="font-weight: bold; color: #006400;">&mdash; Guia da Floresta</span></blockquote><p style="font-family: Arial, sans-serif; line-height: 1.6;">O <span style="color: #800000; font-weight: bold;">Mamãe Glop</span> (ND 2) é uma monstruosidade amórfica colossal que gera filhotes glops por meiose celular espontânea durante o combate.</p>'
   });
 
   // =========================================================================
@@ -1446,8 +1631,14 @@ async function injectThreats() {
   // =========================================================================
   const estirgeId = 'gq8232EstirgeAAA';
   console.log(`Configurando Estirge [${estirgeId}]...`);
-  const estirgeSkills = buildSkills(1, { for: -4, des: 5, con: -1, int: -5, sab: 0, car: -2 }, {
-    inic: 7, perc: 2, fort: 1, refl: 10, vont: 5, luta: 11
+  const estirgeAtr = { for: -4, des: 5, con: -1, int: -5, sab: 0, car: -2 };
+  const estirgeSkills = buildSkills(1, estirgeAtr, {
+    inic: 7,
+    perc: 2,
+    fort: 1,
+    refl: 10,
+    vont: 5,
+    luta: 11
   });
 
   const estirgeTracos = buildTracos({
@@ -1470,21 +1661,21 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/constricao.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Se o estirge acerta o ataque de probóscide, pode fazer a manobra agarrar como ação livre (teste +21).</p>'
+      description: '<p>Probóscide (teste +21). Se o estirge acerta o ataque de probóscide, pode fazer a manobra agarrar como ação livre.</p>'
     }),
     buildSpecialPower({
       name: 'Chupar Sangue (Livre)',
       img: 'systems/tormenta20/icons/poderes/ameacas/dreno.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Quando agarra uma criatura, e no início de cada um de seus turnos enquanto permanecer agarrando, drena sangue (efeito metabólico); a vítima perde 3d6 PV e o estirge ganha mesma quantidade em PV temporários.</p>'
+      description: '<p>Quando agarra uma criatura, e no início de cada um de seus turnos enquanto permanecer agarrando, o estirge drena sangue como um efeito metabólico; a vítima perde 3d6 pontos de vida e ele ganha a mesma quantidade de PV temporários. Após drenar 10 pontos de vida ou mais, o estirge se solta e tenta fugir.</p>'
     }),
     buildSpecialPower({
       name: 'Sangrar',
       img: 'systems/tormenta20/icons/poderes/ameacas/garras.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Quando o estirge solta uma criatura de quem estava drenando sangue, a vítima fica sangrando.</p>'
+      description: '<p>Quando o estirge solta uma criatura de quem estava drenando sangue (por vontade própria ou não), a vítima fica sangrando.</p>'
     })
   ];
 
@@ -1499,7 +1690,7 @@ async function injectThreats() {
     deslocamento: 'voo 12m (8q)',
     sentidos: 'faro, visão no escuro',
     tesouro: 'Nenhum',
-    atributos: { for: -4, des: 5, con: -1, int: -5, sab: 0, car: -2 },
+    atributos: estirgeAtr,
     attributes: {
       pv: { value: 9, max: 9 },
       pm: { value: 0, max: 0 },
@@ -1518,9 +1709,16 @@ async function injectThreats() {
   // =========================================================================
   const perdTrollId = 'gq8232PerdTrollA';
   console.log(`Configurando Perdigueiro Troll [${perdTrollId}]...`);
-  const perdTrollSkills = buildSkills(1, { for: 5, des: 3, con: 2, int: -4, sab: 1, car: -2 }, {
-    inic: 5, perc: 8, fort: 5, refl: 9, vont: 1,
-    sobr: 8, furt: 6, luta: 10
+  const perdTrollAtr = { for: 5, des: 3, con: 2, int: -4, sab: 1, car: -2 };
+  const perdTrollSkills = buildSkills(1, perdTrollAtr, {
+    inic: 5,
+    perc: 8,
+    fort: 5,
+    refl: 9,
+    vont: 1,
+    furt: 6,
+    luta: 10,
+    sobr: 8
   });
 
   const perdTrollTracos = buildTracos({
@@ -1554,21 +1752,21 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/constricao.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Se acertar os tentáculos, pode fazer a manobra agarrar (teste +10) como ação livre.</p>'
+      description: '<p>Tentáculos (teste +10). Se acertar os tentáculos, pode fazer a manobra agarrar como ação livre.</p>'
     }),
     buildSpecialPower({
       name: 'Derrubar (Livre)',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/derrubar-aprimorado.webp',
       type: 'poder',
       actionType: 'free',
-      description: '<p>Se acertar a mordida, pode fazer a manobra derrubar (teste +10) como ação livre.</p>'
+      description: '<p>Mordida (teste +10). Se acertar a mordida, pode fazer a manobra derrubar como ação livre.</p>'
     }),
     buildSpecialPower({
       name: 'Natureza Vegetal',
       img: 'systems/tormenta20/icons/poderes/concedidos/voz-da-natureza.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Imune a atordoamento e metamorfose. Afetado especificamente por efeitos que afetem plantas monstruosas.</p>'
+      description: '<p>O perdigueiro é imune a atordoamento e metamorfose, mas é afetado especificamente por efeitos que afetem plantas monstruosas. No caso de magias sem teste de resistência, ele tem direito a um teste de Fortitude (CD da magia) para evitar o efeito.</p>'
     })
   ];
 
@@ -1583,7 +1781,7 @@ async function injectThreats() {
     deslocamento: '15m (10q)',
     sentidos: 'faro, visão na penumbra',
     tesouro: 'Nenhum',
-    atributos: { for: 5, des: 3, con: 2, int: -4, sab: 1, car: -2 },
+    atributos: perdTrollAtr,
     attributes: {
       pv: { value: 10, max: 10 },
       pm: { value: 0, max: 0 },
@@ -1602,9 +1800,17 @@ async function injectThreats() {
   // =========================================================================
   const gineTrollId = 'gq8232GineTrollA';
   console.log(`Configurando Ginete de Troll Purista [${gineTrollId}]...`);
-  const gineTrollSkills = buildSkills(2, { for: 3, des: 1, con: 3, int: 0, sab: -1, car: 0 }, {
-    inic: 4, perc: 2, fort: 13, refl: 7, vont: 2,
-    cava: 4, guer: 3, inti: 3, luta: 12
+  const gineTrollAtr = { for: 3, des: 1, con: 3, int: 0, sab: -1, car: 0 };
+  const gineTrollSkills = buildSkills(2, gineTrollAtr, {
+    inic: 4,
+    perc: 2,
+    fort: 13,
+    refl: 7,
+    vont: 2,
+    cava: 4,
+    guer: 3,
+    inti: 3,
+    luta: 12
   });
 
   const gineTrollTracos = buildTracos({
@@ -1637,21 +1843,21 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>O ginete cavalga um troll treinado (montaria Grande). Enquanto montado, seu deslocamento se torna 12m, ganha ação de movimento extra e ataques de garras da montaria.</p>'
+      description: '<p>O ginete de troll purista cavalga um troll treinado, um parceiro montaria Grande. Enquanto estiver montado, seu deslocamento se torna 12m, ele recebe uma ação de movimento extra (apenas para se deslocar) e os seguintes ataques (em adição à sua lança): Duas garras +12 (1d6+3 corte).</p>'
     }),
     buildSpecialPower({
       name: 'Investida Atroz',
       img: 'systems/tormenta20/icons/poderes/classes/combatentes/investida-destruidora.webp',
       type: 'poder',
       actionType: 'full',
-      description: '<p>Investida atacando com a lança montada e todos os ataques da montaria contra a mesma criatura (+2 no ataque).</p>'
+      description: '<p>O ginete faz uma investida e ataca com sua lança montada e todos os ataques da sua montaria. Todos os ataques recebem o bônus de +2 da investida, mas devem ser feitos contra a mesma criatura.</p>'
     }),
     buildSpecialPower({
       name: 'Ódio Puro',
       img: 'systems/tormenta20/icons/poderes/ameacas/odio.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Recebe +5 em testes de Vontade quando seguindo ordens de superior e +2 em rolagens de dano contra humanoides não humanos.</p>'
+      description: '<p>O ginete recebe +5 em testes de Vontade quando está seguindo ordens de um superior e +2 em rolagens de dano contra humanoides não humanos.</p>'
     })
   ];
 
@@ -1666,7 +1872,7 @@ async function injectThreats() {
     deslocamento: '6m (4q)',
     sentidos: 'visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: 3, des: 1, con: 3, int: 0, sab: -1, car: 0 },
+    atributos: gineTrollAtr,
     attributes: {
       pv: { value: 70, max: 70 },
       pm: { value: 0, max: 0 },
@@ -1685,9 +1891,18 @@ async function injectThreats() {
   // =========================================================================
   const xamaFinntId = 'gq8232XamaFinntA';
   console.log(`Configurando Xamã Finntroll [${xamaFinntId}]...`);
-  const xamaFinntSkills = buildSkills(2, { for: -1, des: 2, con: 4, int: 1, sab: 3, car: 0 }, {
-    inic: 5, perc: 6, fort: 7, refl: 2, vont: 13,
-    ades: 3, atle: 2, inti: 3, reli: 6, luta: 10
+  const xamaFinntAtr = { for: -1, des: 2, con: 4, int: 1, sab: 3, car: 0 };
+  const xamaFinntSkills = buildSkills(2, xamaFinntAtr, {
+    inic: 5,
+    perc: 6,
+    fort: 7,
+    refl: 2,
+    vont: 13,
+    ades: 3,
+    atle: 2,
+    inti: 3,
+    luta: 10,
+    reli: 6
   });
 
   const xamaFinntTracos = buildTracos({
@@ -1711,7 +1926,7 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/concedidos/voz-da-natureza.webp',
       type: 'poder',
       actionType: 'passive',
-      description: '<p>Imune a atordoamento e metamorfose. Afetado especificamente por efeitos que afetam plantas monstruosas.</p>'
+      description: '<p>O xamã finntroll é imune a atordoamento e metamorfose, mas é afetado especificamente por efeitos que afetem plantas monstruosas. No caso de magias sem teste de resistência, ele tem direito a um teste de Fortitude (CD da magia) para evitar o efeito.</p>'
     }),
     buildSpecialPower({
       name: 'Urro Divino',
@@ -1719,7 +1934,7 @@ async function injectThreats() {
       type: 'poder',
       actionType: 'free',
       custo: 1,
-      description: '<p>Quando faz um ataque ou lança uma magia, o xamã finntroll soma sua Constituição (+4) às rolagens de dano desse ataque ou magia por 1 PM.</p>'
+      description: '<p>Quando faz um ataque ou lança uma magia, o xamã finntroll soma sua Constituição (+4) às rolagens de dano desse ataque ou magia (1 PM).</p>'
     }),
     buildSpecialPower({
       name: 'Intolerância a Luz',
@@ -1740,7 +1955,7 @@ async function injectThreats() {
       alvo: '1 animal ou humanoide',
       duracao: 'scene',
       resistencia: 'Vontade parcial',
-      description: '<p>Um animal ou humanoide em alcance curto fica apavorado por 1 rodada e depois abalado pelo resto da cena (Von CD 18 evita).</p>'
+      description: '<p>Um animal ou humanoide em alcance curto fica apavorado por 1 rodada e depois abalado pelo resto da cena (Vontade CD 18 evita).</p>'
     }),
     buildSpellItem({
       name: 'Curar Ferimentos',
@@ -1791,7 +2006,7 @@ async function injectThreats() {
     deslocamento: '9m (6q)',
     sentidos: 'visão no escuro',
     tesouro: 'Padrão',
-    atributos: { for: -1, des: 2, con: 4, int: 1, sab: 3, car: 0 },
+    atributos: xamaFinntAtr,
     attributes: {
       cd: 18,
       pv: { value: 50, max: 50 },
@@ -1812,7 +2027,6 @@ async function injectThreats() {
   console.log('\nGravando documentos no LevelDB...');
 
   for (const actor of actorsToInject) {
-    // Purga subdocumentos legados para garantir idempotência estrita
     for await (const [k] of db.iterator({ gte: `!actors.items!${actor.id}.`, lte: `!actors.items!${actor.id}.\uffff` })) {
       await db.del(k);
     }
@@ -1840,21 +2054,16 @@ async function injectThreats() {
       biography: actor.biography
     });
 
-    // 1. Gravar documento principal do ator
     await db.put(`!actors!${built.actorDoc._id}`, built.actorDoc);
-
-    // 2. Gravar subdocumentos embutidos
     for (const ed of built.embeddedDocs) {
       await db.put(ed.key, ed.doc);
     }
-
-    // 3. Espelhar em src/packs/Ameacas_T20
     saveToSourcePacks('Ameacas_T20', built.actorDoc, built.embeddedDocs);
     console.log(`✓ Ator "${actor.name} (ND ${actor.nd})" salvo com ${built.embeddedDocs.length} subdocumentos.`);
   }
 
   await db.close();
-  console.log(`\n🎉 15 Ameaças da DB #232 injetadas com 100% de sucesso em Ameacas_T20!`);
+  console.log(`\n🎉 15 Ameaças Auditadas da DB #232 injetadas com 100% de sucesso em Ameacas_T20!`);
 }
 
 if (require.main === module) {

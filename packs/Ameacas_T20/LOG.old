@@ -1,3 +1,5 @@
-2026/11/09-23:17:31.651987 ffff6afdefc0 Recovering log #2191
-2026/11/09-23:17:31.687501 ffff6afdefc0 Delete type=0 #2191
-2026/11/09-23:17:31.687738 ffff6afdefc0 Delete type=3 #2190
+2026/11/09-23:52:35.967666 ffff55fbefc0 Recovering log #2205
+2026/11/09-23:52:35.971451 ffff55fbefc0 Level-0 table #2207: started
+2026/11/09-23:52:35.984121 ffff55fbefc0 Level-0 table #2207: 178242 bytes OK
+2026/11/09-23:52:36.012528 ffff55fbefc0 Delete type=0 #2205
+2026/11/09-23:52:36.012852 ffff55fbefc0 Delete type=3 #2204

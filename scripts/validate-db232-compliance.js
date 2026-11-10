@@ -145,6 +145,14 @@ async function validateActors() {
     if (req.name.includes('Lobisomem')) {
       assert(pericias.ades_lobos && pericias.ades_lobos.custom === true, `${req.name} possui perícia situacional Adestramento (Lobos)`);
     }
+    if (req.name === 'Lobisomem Caçador de Recompensas') {
+      assert(pericias.perc_subterraneo && pericias.perc_subterraneo.value === 12, `Lobisomem Caçador de Recompensas possui Percepção (Subterrâneo) = 12`);
+      assert(subdocNames.includes('Marca da Presa'), `Lobisomem Caçador de Recompensas possui poder Marca da Presa`);
+      assert(doc.system?.tracos?.ic?.value?.includes('medo'), `Lobisomem Caçador de Recompensas possui imunidade a medo`);
+    }
+    if (req.name === 'Lobisomem Predador Urbano') {
+      assert(subdocNames.includes('Ataque Furtivo'), `Lobisomem Predador Urbano possui poder Ataque Furtivo`);
+    }
     if (req.name.includes('Onça')) {
       assert(pericias.ades_oncas && pericias.ades_oncas.custom === true, `${req.name} possui perícia situacional Adestramento (Onças)`);
     }
@@ -154,13 +162,20 @@ async function validateActors() {
     if (req.name.includes('Texugo')) {
       assert(pericias.ades_texugos && pericias.ades_texugos.custom === true, `${req.name} possui perícia situacional Adestramento (Texugos)`);
     }
+    if (req.name === 'Licantropo Texugo Furioso') {
+      assert(pericias.perc_subterraneo && pericias.perc_subterraneo.value === 8, `Licantropo Texugo Furioso possui Percepção (Subterrâneo) = 8`);
+    }
     if (req.name.includes('Selako')) {
       assert(pericias.ades_selakos && pericias.ades_selakos.custom === true, `${req.name} possui perícia situacional Adestramento (Selakos)`);
     }
 
     // Validação de Texto Integral em detalhes.resistencias
     const resTxt = doc.system?.detalhes?.resistencias || '';
-    if (req.name.startsWith('Licantropo') || req.name.startsWith('Lobisomem')) {
+    if (req.name === 'Lobisomem Caçador de Recompensas') {
+      assert(resTxt === 'imunidade a medo, redução de dano 5/mitral', `Lobisomem Caçador de Recompensas possui texto integral: "${resTxt}"`);
+    } else if (req.name === 'Licantropo Selako Terror dos Mares') {
+      assert(resTxt === 'redução de corte 5, redução de dano 5/mitral', `Selako Terror dos Mares possui texto integral: "${resTxt}"`);
+    } else if (req.name.startsWith('Licantropo') || req.name.startsWith('Lobisomem')) {
       assert(resTxt.includes('mitral') || resTxt.includes('redução'), `${req.name} possui detalhes.resistencias com texto integral de mitral`);
     }
     if (req.name === 'Mamãe Glop') {

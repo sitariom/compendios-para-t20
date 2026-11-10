@@ -4,10 +4,11 @@
 
 - **Hotfix: Sincronização Estrita de Perícias, Iniciativa, Percepção e Descrições de Itens (DB #226 a #232)**:
   - **Calibração de Perícias (`system.pericias[key].value`)**: Corrigido `buildSkills` para que `pericias[key].value` armazene estritamente o bônus total de ficha oficial (`fichaVal`), com a diferença derivada registrada em `outros`. Perícias destreinadas recebem `value = meionivel + atrMod` e `outros = 0`.
-  - **Iniciativa e Percepção Canônicas**: Ajustados os valores de iniciativa e percepção de capa de todas as 15 ameaças da DB #232 e das edições anteriores (#226 a #231) para baterem 100% com o bloco de estatísticas oficial dos PDFs.
+  - **Iniciativa e Percepção Canônicas**: Ajustados os valores de iniciativa e percepção de capa de todas as 15 ameaças da DB #232 e das edições anteriores (#226 a #231) para baterem 100% com o bloco de estatísticas oficial dos PDFs, incluindo usos situacionais (*Percepção em Subterrâneo = 12* no Lobisomem Caçador e *= 8* no Texugo Furioso).
+  - **Resistências, Imunidades e Poderes Fidedignos**: Corrigida a linha de resistências de acordo com as publicações originais (ex: Lobisomem Caçador de Recompensas possui `imunidade a medo, redução de dano 5/mitral`; Selako Terror dos Mares possui `redução de corte 5, redução de dano 5/mitral`). Poderes autênticos restaurados como *Marca da Presa* e *Veneno (Peçonha Potente)* no Caçador de Recompensas, *Ataque Furtivo +2d6* no Predador Urbano e *Dentes Afiados* nos Selakos.
   - **Restauração de Perícias Treinadas Omitidas**: Inclusão de perícias listadas no statblock que haviam sido omitidas (ex: *Jogatina +6* no Lobisomem Predador Urbano; *Investigação +10* e *Intuição +10* no Lobisomem Caçador de Recompensas; *Furtividade +7* e *Ladinagem +5* no Rato Comedor de Restos).
   - **Descrições Integrais de Itens e Poderes**: Garantia de que cada poder, arma ou magia dentro de um ator ou como item independente possui o texto verbatim integral da publicação oficial no campo `description.value`.
-  - **Validação Automatizada Aprimorada**: Suíte de testes `validate-db232-compliance.js` expandida para **1.166 asserções aprovadas com 100% de sucesso**.
+  - **Validação Automatizada Aprimorada**: Suíte de testes `validate-db232-compliance.js` expandida para **1.184 asserções aprovadas com 100% de sucesso**.
 
 ## v1.9.0 - 2026-11-09
 
