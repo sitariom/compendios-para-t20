@@ -1,5 +1,4 @@
-2026/11/09-23:52:35.967666 ffff55fbefc0 Recovering log #2205
-2026/11/09-23:52:35.971451 ffff55fbefc0 Level-0 table #2207: started
-2026/11/09-23:52:35.984121 ffff55fbefc0 Level-0 table #2207: 178242 bytes OK
-2026/11/09-23:52:36.012528 ffff55fbefc0 Delete type=0 #2205
-2026/11/09-23:52:36.012852 ffff55fbefc0 Delete type=3 #2204
+2026/11/10-00:27:38.281513 ffff3efdefc0 Recovering log #2261
+2026/11/10-00:27:38.318209 ffff3efdefc0 Delete type=3 #2260
+2026/11/10-00:27:38.320088 ffff3efdefc0 Delete type=0 #2261
+2026/11/10-00:27:40.616249 ffff3d1b2fc0 Moved #2252 to level-1 144512 bytes OK: files[ 0 1 14 0 0 0 0 ]

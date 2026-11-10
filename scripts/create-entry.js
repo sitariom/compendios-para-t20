@@ -533,6 +533,21 @@ function buildWeaponAttack({
   const critX = Number(criticoMultiplicador || 2);
   const pericia = alcance ? 'pont' : periciaAtaque;
 
+  let finalProposito = proposito;
+  if (proposito === 'tiro' || proposito === 'distancia') {
+    finalProposito = 'disparo';
+  } else if (!proposito || proposito === 'corpo-a-corpo') {
+    if (alcance) {
+      if (['azagaia', 'espinhos', 'adaga', 'lanca'].some(w => name.toLowerCase().includes(w))) {
+        finalProposito = 'arremesso';
+      } else {
+        finalProposito = 'disparo';
+      }
+    } else {
+      finalProposito = 'corpo-a-corpo';
+    }
+  }
+
   const defaultRolls = [
     {
       name: 'Ataque',
@@ -580,7 +595,7 @@ function buildWeaponAttack({
     description: description || `Ataque ${name} da criatura.`,
     effects,
     system: {
-      tipo: proposito,
+      tipo: finalProposito,
       empunhadura,
       proficiencia,
       dano,
@@ -590,7 +605,7 @@ function buildWeaponAttack({
       critico: { margem: critM, multiplicador: critX },
       ataques,
       tipoUso: 'sim',
-      proposito,
+      proposito: finalProposito,
       size,
       alcance,
       chatFlavor,
