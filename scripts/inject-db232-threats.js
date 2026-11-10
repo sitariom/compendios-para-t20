@@ -59,8 +59,8 @@ async function injectThreats() {
   const loboUrbId = 'gq8232LoboUrbAAA';
   console.log(`Configurando Lobisomem Predador Urbano [${loboUrbId}]...`);
   const loboUrbSkills = buildSkills(4, { for: 2, des: 4, con: 2, int: 1, sab: 2, car: 3 }, {
-    inic: 8, perc: 6, fort: 4, refl: 16, vont: 10,
-    acro: 8, ades: 6, enga: 7, furt: 10, intu: 6, ladi: 8, luta: 16, pont: 16
+    inic: 10, perc: 5, fort: 4, refl: 16, vont: 10,
+    acro: 8, ades: 6, enga: 9, furt: 10, intu: 6, joga: 6, ladi: 8, luta: 16, pont: 16
   }, {
     ades_lobos: { label: 'Adestramento (Lobos)', atributo: 'car', value: 11, outros: 5, treinado: true, custom: true }
   });
@@ -170,8 +170,8 @@ async function injectThreats() {
   const loboCacId = 'gq8232LoboCacAAA';
   console.log(`Configurando Lobisomem Caçador de Recompensas [${loboCacId}]...`);
   const loboCacSkills = buildSkills(9, { for: 5, des: 2, con: 4, int: 0, sab: 3, car: 1 }, {
-    inic: 8, perc: 12, fort: 22, refl: 9, vont: 15,
-    atle: 14, cava: 11, furt: 11, inti: 10, luta: 27, pont: 27, sobr: 12
+    inic: 10, perc: 10, fort: 22, refl: 9, vont: 15,
+    atle: 13, ades: 7, inve: 10, inti: 7, intu: 10, sobr: 12, luta: 27, pont: 27
   }, {
     ades_lobos: { label: 'Adestramento (Lobos)', atributo: 'car', value: 12, outros: 5, treinado: true, custom: true }
   });
@@ -295,7 +295,7 @@ async function injectThreats() {
   console.log(`Configurando Licantropo Rato Comedor de Restos [${ratoComId}]...`);
   const ratoComSkills = buildSkills(1, { for: -1, des: 4, con: 2, int: 0, sab: 0, car: -1 }, {
     inic: 5, perc: 0, fort: 5, refl: 10, vont: 1,
-    furt: 10, ladi: 8, luta: 11, pont: 11
+    ades: 1, enga: 1, furt: 7, ladi: 5, sobr: 2, luta: 11, pont: 11
   }, {
     ades_ratos: { label: 'Adestramento (Ratos)', atributo: 'car', value: 6, outros: 5, treinado: true, custom: true },
     furt_cidades: { label: 'Furtividade (Cidades)', atributo: 'des', value: 14, outros: 4, treinado: true, custom: true }
@@ -816,8 +816,8 @@ async function injectThreats() {
   const texuFurId = 'gq8232TexuFurAAA';
   console.log(`Configurando Licantropo Texugo Furioso [${texuFurId}]...`);
   const texuFurSkills = buildSkills(5, { for: 4, des: 0, con: 5, int: -1, sab: 2, car: -1 }, {
-    inic: 2, perc: 4, fort: 17, refl: 5, vont: 11,
-    atle: 12, inti: 10, sobr: 9, luta: 18
+    inic: 4, perc: 6, fort: 17, refl: 5, vont: 11,
+    ades: 4, atle: 6, inti: 10, sobr: 6, luta: 18
   }, {
     ades_texugos: { label: 'Adestramento (Texugos)', atributo: 'car', value: 9, outros: 5, treinado: true, custom: true }
   });
@@ -1127,8 +1127,8 @@ async function injectThreats() {
   const selaFarId = 'gq8232SelaFarAAA';
   console.log(`Configurando Licantropo Selako Farejador de Sangue [${selaFarId}]...`);
   const selaFarSkills = buildSkills(3, { for: 3, des: 2, con: 3, int: -2, sab: 1, car: -1 }, {
-    inic: 5, perc: 4, fort: 15, refl: 10, vont: 2,
-    atle: 9, furt: 6, inti: 6, sobr: 7, luta: 14, pont: 14
+    inic: 4, perc: 4, fort: 15, refl: 10, vont: 2,
+    ades: 2, atle: 6, inti: 2, luta: 14, pont: 14
   }, {
     ades_selakos: { label: 'Adestramento (Selakos)', atributo: 'car', value: 7, outros: 5, treinado: true, custom: true },
     sobr_agua: { label: 'Sobrevivência (Embaixo d’água)', atributo: 'sab', value: 9, outros: 2, treinado: true, custom: true }
@@ -1249,8 +1249,8 @@ async function injectThreats() {
   const selaTerId = 'gq8232SelaTerAAA';
   console.log(`Configurando Licantropo Selako Terror dos Mares [${selaTerId}]...`);
   const selaTerSkills = buildSkills(9, { for: 4, des: 4, con: 3, int: 0, sab: 2, car: 0 }, {
-    inic: 10, perc: 9, fort: 20, refl: 15, vont: 10,
-    atle: 12, furt: 10, inti: 8, sobr: 10, luta: 27, pont: 27
+    inic: 4, perc: 4, fort: 20, refl: 15, vont: 10,
+    ades: 8, atle: 12, furt: 10, inti: 8, sobr: 10, luta: 27, pont: 27
   }, {
     ades_selakos: { label: 'Adestramento (Selakos)', atributo: 'car', value: 13, outros: 5, treinado: true, custom: true },
     sobr_agua: { label: 'Sobrevivência (Embaixo d’água)', atributo: 'sab', value: 12, outros: 2, treinado: true, custom: true }

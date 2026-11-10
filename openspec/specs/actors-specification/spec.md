@@ -28,7 +28,7 @@ Because the Tormenta20 system dynamically computes total Defense via `prepareDef
 - **AND** the rendered sheet displays exactly 43 without Dexterity duplication
 
 ### Requirement: Comprehensive 34 Skills Deduction
-Every Threat Actor SHALL possess all 34 Tormenta20 skills pre-calculated using the canonical deduction formula: `VALOR_PERICIA = VALOR_FICHA - MEIONIVEL - ATRIBUTO - TREINO`.
+Every Threat Actor SHALL possess all 34 Tormenta20 skills pre-calculated where `pericias[key].value` stores the total final skill bonus from the official statblock (`fichaVal`), and `pericias[key].outros` stores the difference `fichaVal - meionivel - atributo - (treinado ? treino : 0)`. Untrained skills receive `value = meionivel + atributo` and `outros = 0`. All skills explicitly published in the PERÍCIAS line, plus Iniciativa, Percepção, Fortitude, Reflexos, and Vontade receive `treinado: true`. Unlisted skills receive `treinado: false`. Situational skills receive `custom: true` and descriptive labels.
 
 #### Scenario: Deducting trained and untrained skills for a threat
 - **GIVEN** a threat with published skill values on its stat block

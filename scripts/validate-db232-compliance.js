@@ -53,21 +53,21 @@ async function validateActors() {
   const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
 
   const requiredThreats = [
-    { id: 'gq8232LoboUrbAAA', name: 'Lobisomem Predador Urbano', nd: '4', tamanho: 'med' },
-    { id: 'gq8232LoboCacAAA', name: 'Lobisomem Caçador de Recompensas', nd: '9', tamanho: 'med' },
-    { id: 'gq8232RatoComAAA', name: 'Licantropo Rato Comedor de Restos', nd: '1', tamanho: 'peq' },
-    { id: 'gq8232RatoInfAAA', name: 'Licantropo Rato Infiltrador Veterano', nd: '7', tamanho: 'med' },
-    { id: 'gq8232OncaPirAAA', name: 'Licantropo Onça Pirata de Rio', nd: '7', tamanho: 'med' },
-    { id: 'gq8232OncaLutAAA', name: 'Licantropo Onça Lutador de Arena', nd: '11', tamanho: 'med' },
-    { id: 'gq8232TexuFurAAA', name: 'Licantropo Texugo Furioso', nd: '5', tamanho: 'med' },
-    { id: 'gq8232TexuNoiAAA', name: 'Licantropo Texugo Servo da Noite', nd: '8', tamanho: 'peq' },
-    { id: 'gq8232SelaFarAAA', name: 'Licantropo Selako Farejador de Sangue', nd: '3', tamanho: 'med' },
-    { id: 'gq8232SelaTerAAA', name: 'Licantropo Selako Terror dos Mares', nd: '9', tamanho: 'med' },
-    { id: 'gq8232MamaeGlopA', name: 'Mamãe Glop', nd: '2', tamanho: 'grd' },
-    { id: 'gq8232EstirgeAAA', name: 'Estirge', nd: '1', tamanho: 'min' },
-    { id: 'gq8232PerdTrollA', name: 'Perdigueiro Troll', nd: '1', tamanho: 'med' },
-    { id: 'gq8232GineTrollA', name: 'Ginete de Troll Purista', nd: '2', tamanho: 'med' },
-    { id: 'gq8232XamaFinntA', name: 'Xamã Finntroll', nd: '2', tamanho: 'med' }
+    { id: 'gq8232LoboUrbAAA', name: 'Lobisomem Predador Urbano', nd: '4', tamanho: 'med', inic: 10, perc: 5 },
+    { id: 'gq8232LoboCacAAA', name: 'Lobisomem Caçador de Recompensas', nd: '9', tamanho: 'med', inic: 10, perc: 10 },
+    { id: 'gq8232RatoComAAA', name: 'Licantropo Rato Comedor de Restos', nd: '1', tamanho: 'peq', inic: 5, perc: 0 },
+    { id: 'gq8232RatoInfAAA', name: 'Licantropo Rato Infiltrador Veterano', nd: '7', tamanho: 'med', inic: 11, perc: 8 },
+    { id: 'gq8232OncaPirAAA', name: 'Licantropo Onça Pirata de Rio', nd: '7', tamanho: 'med', inic: 14, perc: 9 },
+    { id: 'gq8232OncaLutAAA', name: 'Licantropo Onça Lutador de Arena', nd: '11', tamanho: 'med', inic: 12, perc: 12 },
+    { id: 'gq8232TexuFurAAA', name: 'Licantropo Texugo Furioso', nd: '5', tamanho: 'med', inic: 4, perc: 6 },
+    { id: 'gq8232TexuNoiAAA', name: 'Licantropo Texugo Servo da Noite', nd: '8', tamanho: 'peq', inic: 12, perc: 13 },
+    { id: 'gq8232SelaFarAAA', name: 'Licantropo Selako Farejador de Sangue', nd: '3', tamanho: 'med', inic: 4, perc: 4 },
+    { id: 'gq8232SelaTerAAA', name: 'Licantropo Selako Terror dos Mares', nd: '9', tamanho: 'med', inic: 4, perc: 4 },
+    { id: 'gq8232MamaeGlopA', name: 'Mamãe Glop', nd: '2', tamanho: 'grd', inic: 3, perc: -3 },
+    { id: 'gq8232EstirgeAAA', name: 'Estirge', nd: '1', tamanho: 'min', inic: 7, perc: 2 },
+    { id: 'gq8232PerdTrollA', name: 'Perdigueiro Troll', nd: '1', tamanho: 'med', inic: 5, perc: 8 },
+    { id: 'gq8232GineTrollA', name: 'Ginete de Troll Purista', nd: '2', tamanho: 'med', inic: 4, perc: 2 },
+    { id: 'gq8232XamaFinntA', name: 'Xamã Finntroll', nd: '2', tamanho: 'med', inic: 5, perc: 6 }
   ];
 
   for (const req of requiredThreats) {
@@ -98,6 +98,10 @@ async function validateActors() {
     for (const sk of ALL_SKILLS) {
       assert(pericias[sk.key] && pericias[sk.key].value !== undefined, `Perícia padrão "${sk.key}" calculada em ${req.name}`);
     }
+
+    // Validação estrita de Iniciativa e Percepção batendo com o valor de capa da ficha
+    assert(pericias.inic?.value === req.inic, `Iniciativa correta para ${req.name}: esperado ${req.inic}, obtido ${pericias.inic?.value}`);
+    assert(pericias.perc?.value === req.perc, `Percepção correta para ${req.name}: esperado ${req.perc}, obtido ${pericias.perc?.value}`);
 
     // Validação de Subdocumentos embutidos
     assert(Array.isArray(doc.items) && doc.items.length > 0, `doc.items é array com IDs em ${req.name} (tamanho: ${doc.items?.length})`);
