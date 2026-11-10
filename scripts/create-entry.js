@@ -78,8 +78,8 @@ function buildSkills(ndNum, atributos, trainedSkills = {}, situationalSkills = {
         st: Boolean(s.st),
         pda: Boolean(s.pda),
         size: false,
-        value: val,
-        outros: val,
+        value: Number(fichaVal),
+        outros: Number(val),
         condi: 0,
         bonus: [],
         custom: false,
@@ -87,13 +87,14 @@ function buildSkills(ndNum, atributos, trainedSkills = {}, situationalSkills = {
         nome: s.nome
       };
     } else {
+      const untrainedVal = meionivel + atrMod;
       pericias[s.key] = {
         atributo: s.atributo,
         treinado: false,
         st: Boolean(s.st),
         pda: Boolean(s.pda),
         size: false,
-        value: 0,
+        value: Number(untrainedVal),
         outros: 0,
         condi: 0,
         bonus: [],
