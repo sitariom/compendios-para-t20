@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.9.2 - 2026-11-10
+
+- **Release Oficial v1.9.2 — Calibração Rigorosa de Poderes, Resistências e Percepção Situacional (DB #226 a #232)**:
+  - **Fidelidade Canônica de Resistências**: Corrigida a linha de resistências de acordo com as publicações originais (ex: Lobisomem Caçador de Recompensas possui `imunidade a medo, redução de dano 5/mitral` em estrita concordância com o statblock; Licantropo Selako Terror dos Mares possui `redução de corte 5, redução de dano 5/mitral`).
+  - **Poderes Autênticos Restaurados**: Inclusão dos poderes autênticos do statblock como *Marca da Presa* e *Veneno (Peçonha Potente)* no Caçador de Recompensas, *Ataque Furtivo +2d6* no Predador Urbano, *Caçador Submarino* e *Dentes Afiados* nos Selakos.
+  - **Percepção Situacional**: Implementação de subentradas com `custom: true` para sentidos e percepções específicas de terreno (*Percepção em Subterrâneo = 12* no Lobisomem Caçador e *= 8* no Licantropo Texugo Furioso).
+  - **Validação Automatizada Contínua**: 1.184 asserções no `validate-db232-compliance.js` e auditoria global de 0 erros em todos os compêndios.
+
 ## v1.9.1 - 2026-11-10
 
 - **Hotfix: Sincronização Estrita de Perícias, Iniciativa, Percepção e Descrições de Itens (DB #226 a #232)**:
