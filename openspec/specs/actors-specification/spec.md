@@ -82,6 +82,19 @@ A Threat's natural weapons, manufactured weapons, and special powers SHALL be st
 - **AND** the actor's primary document `items` array contains strictly string IDs
 - **AND** child subdocuments are indexed under `!actors.items!${actorId}.${itemId}` and `!actors.items.effects!${actorId}.${itemId}.${effectId}`
 
+#### Scenario: Weapon purpose mapping for melee vs ranged attacks
+- **GIVEN** a threat with weapon attacks (melee, shooting, or throwing)
+- **WHEN** the embedded weapon item is constructed
+- **THEN** ranged missile attacks (e.g. Besta, Arco, Pistola, Espinhos) strictly receive `system.proposito: "disparo"` and `system.tipo: "disparo"` with valid `alcance`
+- **AND** thrown attacks (e.g. Azagaia, Adaga de arremesso) strictly receive `system.proposito: "arremesso"`
+- **AND** melee attacks strictly receive `system.proposito: "corpo-a-corpo"`
+- **AND** this ensures `actor-npc.mjs` computes `i.ranged === true` and displays the attack under the "À Distância" section on the Foundry VTT menace sheet
+
+#### Scenario: Atomic powers full statblock coverage
+- **GIVEN** any threat statblock from official publications
+- **WHEN** actor items are validated
+- **THEN** every distinct named power header (e.g. *Destruidor* on Selako Terror dos Mares, *Marca da Presa* on Caçador de Recompensas, *Ataque Furtivo* on Predador Urbano) is present as an individual atomic item of type `poder`
+
 ### Requirement: Partners, Familiars, and Mounts Created as Powers
 When source material introduces a Partner (Parceiro), Familiar, or Mount (Montaria) providing bonuses or abilities to characters, it SHALL NOT be created as an Actor in `Ameacas_T20`. Instead, it MUST be created as an Item of type `poder` with `system.subtipo: "parceiro"` in `packs/Itens_T20` within the canonical "Parceiros" folder (`0uRx5Efj3tk7P5Xr`), equipped with structured `ActiveEffects` and activation rules.
 

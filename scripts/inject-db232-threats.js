@@ -1482,6 +1482,13 @@ async function injectThreats() {
       description: '<p>Os ataques de mordida do licantropo selako ignoram 5 pontos de redução de dano. Além disso, quando faz um acerto crítico com sua mordida contra uma criatura, a vítima fica sangrando.</p>'
     }),
     buildSpecialPower({
+      name: 'Destruidor',
+      img: 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-poderoso.webp',
+      type: 'poder',
+      actionType: 'passive',
+      description: '<p>O licantropo selako causa dano dobrado contra objetos. Além disso, quando faz um acerto crítico, pode fazer uma manobra quebrar como uma ação livre (teste +31).</p>'
+    }),
+    buildSpecialPower({
       name: 'Empatia com Selakos',
       img: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
       type: 'poder',

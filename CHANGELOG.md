@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.9.3 - 2026-11-10
+
+- **Release Oficial v1.9.3 — Mapeamento Canônico de Ataques à Distância (disparo/arremesso), Restauração do Poder Destruidor e Validador de Fidelidade**:
+  - **Exibição Canônica de Ataques à Distância no Foundry VTT**: Corrigido `buildWeaponAttack` para mapear armas de ataque à distância estritamente para `proposito: 'disparo'` ou `'arremesso'` (em vez do valor inválido `'tiro'`). Isso garante que a ficha `actor-npc.mjs` do Tormenta20 reconheça `i.ranged === true` e exiba todos os ataques à distância na aba de combate (Besta Leve, Arco Curto, Arco Longo, Pistola, Azagaia e Espinhos).
+  - **Poder Destruidor Restaurado**: Inclusão do poder autêntico *Destruidor* (dano dobrado contra objetos e manobra quebrar livre com teste +31 em acerto crítico) no *Licantropo Selako Terror dos Mares*.
+  - **Armas e Poderes em Mantícora Zumbi**: Inclusão de *Espinhos* como arma de disparo à distância, além dos poderes *Fraqueza Zumbi* e *Mordida*.
+  - **Suíte Automatizada de Fidelidade (`npm run validate:fidelity`)**: Novo validador profundo `scripts/validate-threat-sheet-fidelity.js` executando **138 checagens rigorosas de fidelidade com 100% de sucesso**.
+
 ## v1.9.2 - 2026-11-10
 
 - **Release Oficial v1.9.2 — Calibração Rigorosa de Poderes, Resistências e Percepção Situacional (DB #226 a #232)**:

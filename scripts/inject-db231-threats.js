@@ -578,7 +578,9 @@ async function injectThreats() {
       periciaAtaque: 'pont',
       criticoMargem: 20,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque à Distância:</strong> Arco curto +16 (2d6+12 perfuração, x3, mais 2d8 trevas).</p>'
+      alcance: 'médio',
+      proposito: 'disparo',
+      description: '<p><strong>Ataque à Distância:</strong> Arco curto +16 (2d6+12 perfuração, x3, mais 2d8 trevas, alcance médio).</p>'
     }),
     buildSpecialPower({
       name: 'Celeridade Odiosa',
@@ -682,7 +684,9 @@ async function injectThreats() {
       periciaAtaque: 'pont',
       criticoMargem: 20,
       criticoMultiplicador: 3,
-      description: '<p><strong>Ataque à Distância (x2):</strong> Dois disparos de arco curto +24 (2d6+12 perfuração, x3, mais 2d8 trevas).</p>'
+      alcance: 'médio',
+      proposito: 'disparo',
+      description: '<p><strong>Ataque à Distância (x2):</strong> Dois disparos de arco curto +24 (2d6+12 perfuração, x3, mais 2d8 trevas, alcance médio).</p>'
     }),
     buildSpecialPower({
       name: 'Celeridade Odiosa',
@@ -989,6 +993,20 @@ async function injectThreats() {
       criticoMargem: 20,
       criticoMultiplicador: 2,
       description: '<p><strong>Ataque Natural:</strong> Mordida +16 (1d10+8 perfuração).</p>'
+    }),
+    buildWeaponAttack({
+      name: 'Espinhos',
+      img: 'systems/tormenta20/icons/poderes/ameacas/espinho.webp',
+      dano: '1d6+3',
+      tipoDano: 'perfuração',
+      danoExtra: '1d6',
+      tipoDanoExtra: 'trevas',
+      periciaAtaque: 'pont',
+      criticoMargem: 20,
+      criticoMultiplicador: 2,
+      alcance: 'médio',
+      proposito: 'disparo',
+      description: '<p><strong>Ataque à Distância:</strong> Espinhos +16 (1d6+3 perfuração mais 1d6 trevas, alcance médio).</p>'
     }),
     buildSpecialPower({
       name: 'Espinhos Putrefatos',
