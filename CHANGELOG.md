@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.10.0 - 2026-11-10
+
+- **Release Oficial v1.10.0 — Campanha Fúlgor dos Deuses (Edições 26 e 27), Motor Iterativo AVRL e Hooks de Ciclo de Vida**:
+  - **Fúlgor dos Deuses — Edição 26: Forja da Vingança**:
+    - **Ameaças Canônicas (`packs/Ameacas_T20`)**: Calibração e saneamento rigoroso de 6 ameaças: *Asmithar Martelo-Mudo (ND 9)*, *Xellmaras, a Ladra Acorrentada (ND 6)*, *Gangue de Hyninn Deturpada (ND 4)*, *Sacerdote de Hyninn Deturpado (ND 4)* com 3 magias individuais, *Tigre-de-Hyninn Deturpado (ND 6)* e *Aço Selvagem (ND 6)*. Todos com tokens 2MTT transparentes de 512x512, defesa dinâmica (`defesa.base = valor - des`), 34 perícias calibradas, texto de resistências integral e habilidades atômicas.
+    - **Itens e Aço Sillariano (`packs/Itens_T20`)**: Inclusão de 17 itens: material especial *Aço Sillariano*, artefato sagrado *Alma da Bigorna*, 11 qualidades antidivinas (*Absorção*, *Arma*, *Defesa*, *Guarda*, *Impedimento*, *Magia*, *Mente*, *Perseguidora*, *Potência*, *Resistência*, *Antidevoto*) com `ActiveEffects` estruturados, traços fullgori (*Teofagia*, *Imunidades*) e parceiros veteranos (*Forjadores Litúrgicos* e *Thalgrimm Sangue de Ferro*).
+    - **Diários (`packs/Diarios_T20`)**: Diário oficial completo com 7 páginas estruturadas sob `!journal.pages!` (`ownership.default: -1`).
+    - **Tabelas de Rolagem (`packs/Tabelas_T20`)**: 3 tabelas com resultados estruturados em `!tables.results!`.
+    - **Macros (`packs/Macros_T20`)**: Macro interativa *Forjar Aço Sillariano (Fúlgor dos Deuses)*.
+  - **Fúlgor dos Deuses — Edição 27: Dia e Noite**:
+    - **Ameaças Canônicas (`packs/Ameacas_T20`)**: Inclusão de 6 ameaças: *Cassiella semi-fullgori (ND 7)*, *Cassiella fullgori (ND 8)* com voo 15m e azagaias fullgori à distância, *Enxame Trog (ND 5)* Enorme (3x3), *Troggore (ND 3)*, *Bando Troggore (ND 5)* Grande (2x2) e o xamã supremo *Urrash das Sombras Frias (ND 5)* com 6 magias individuais de Tenebra.
+    - **Relíquias e Itens (`packs/Itens_T20`)**: Artefato sagrado *Orbe de Azgher* (aura de luz permanente de 5º círculo e conjuração solar) com `ActiveEffects`, parceira *Cassiella de Baldonn* (+3 ataque) e equipamentos da aventura.
+    - **Diários (`packs/Diarios_T20`)**: Diário oficial completo com 6 páginas estruturadas sob `!journal.pages!`.
+    - **Tabelas de Rolagem (`packs/Tabelas_T20`)**: 3 tabelas de perigos cavernosos e dilemas com resultados em subdocumentos.
+    - **Macros (`packs/Macros_T20`)**: Macro interativa *Canalizar Orbe de Azgher (Fúlgor dos Deuses)*.
+  - **Evolução Arquitetural do Motor AVRL e Hooks de Ciclo de Vida**:
+    - Novo motor iterativo `scripts/avrl-runner.js` (`npm run avrl`) com multi-retry até 5 iterações até a convergência total (0 erros, 0 correções pendentes).
+    - Hooks integrados em `scripts/create-entry.js` para auto-reparação pré-persistência de tokens 2MTT, defesas dinâmicas, 34 perícias e auto-injeção de `ActiveEffects` em itens e poderes.
+    - Script de teste de estresse retroativo `scripts/test-avrl-retroactive-fullgor26.js` aprovado com 100% de sucesso.
+    - Suítes de validação dedicadas: `npm run validate:fullgor26` (701 checagens), `npm run validate:fullgor27` (616 checagens), `npm run validate:fidelity` (216 checagens) e `npm run ci:quality`.
+  - **OpenSpec SDD e CodeGraph**:
+    - 2 living specs atualizadas e 2 changes arquivadas formalmente no OpenSpec (10/10 specs aprovadas).
+    - CodeGraph sincronizado com 58 arquivos e 439 nós AST.
+
 ## v1.9.3 - 2026-11-10
 
 - **Release Oficial v1.9.3 — Mapeamento Canônico de Ataques à Distância (disparo/arremesso), Restauração do Poder Destruidor e Validador de Fidelidade**:

@@ -940,7 +940,8 @@ function buildNpcActor({
   effects = [],
   ataquescac = '',
   ataquesad = '',
-  equipamento = ''
+  equipamento = '',
+  tokenTexture = null
 }) {
   const _id = id || generateId();
   const finalImg = (!img || img === 'icons/svg/mystery-man.svg')
@@ -948,7 +949,7 @@ function buildNpcActor({
     : img;
 
   // A única fonte de tokens de atores é exclusivamente 2-Minute Tabletop
-  const tokenSrc = resolveToken({ name });
+  const tokenSrc = tokenTexture || resolveToken({ name });
   const tokenDim = getTokenDimension(tamanho);
 
   // Cálculo canônico da Defesa Base no Foundry: valor_ficha - destreza
@@ -1570,6 +1571,37 @@ function buildPlaylist({
  * Salva um documento construído diretamente na árvore src/packs/
  */
 function saveToSourcePacks(packName, doc, embeddedDocs = []) {
+  // Hook de validação e auto-reparação pré-persistência
+  try {
+    const {
+      hookValidateAndRemediateActor,
+      hookValidateAndRemediateItem,
+      hookValidateAndRemediateJournal,
+      hookValidateAndRemediateTable,
+      hookValidateAndRemediateMacro
+    } = require('./avrl-runner');
+
+    if (packName === 'Ameacas_T20' && doc.type === 'npc') {
+      const res = hookValidateAndRemediateActor(doc, embeddedDocs.map(e => e.doc || e));
+      if (res.modified) {
+        console.log(`[AVRL Hook] Ator "${doc.name}" saneado antes de salvar: ${res.anomalies.join('; ')}`);
+      }
+    } else if (packName === 'Itens_T20') {
+      const res = hookValidateAndRemediateItem(doc, embeddedDocs.map(e => e.doc || e));
+      if (res.modified) {
+        console.log(`[AVRL Hook] Item "${doc.name}" saneado antes de salvar: ${res.anomalies.join('; ')}`);
+      }
+    } else if (packName === 'Diarios_T20') {
+      hookValidateAndRemediateJournal(doc, embeddedDocs.map(e => e.doc || e));
+    } else if (packName === 'Tabelas_T20') {
+      hookValidateAndRemediateTable(doc, embeddedDocs.map(e => e.doc || e));
+    } else if (packName === 'Macros_T20') {
+      hookValidateAndRemediateMacro(doc);
+    }
+  } catch {
+    // Hook resiliente
+  }
+
   const targetDir = path.join('src', 'packs', packName);
   fs.mkdirSync(targetDir, { recursive: true });
 
