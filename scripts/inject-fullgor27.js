@@ -32,7 +32,7 @@ const FOLDER_AMEACAS = 'n591wfGB7keSNe7I'; // Pasta "Fullgor dos Deuses" existen
 const FOLDER_ITENS = 'fldItensFolder26';
 const FOLDER_DIARIOS = 'fldDiariosFold26';
 const FOLDER_TABELAS = 'fldTabelasFold26';
-const FOLDER_MACROS = 'fldMacrosFolder26';
+const FOLDER_MACROS = 'fldFolderMacro26';
 
 const statsHeader = {
   coreVersion: '13.351',

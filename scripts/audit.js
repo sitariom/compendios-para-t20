@@ -34,11 +34,15 @@ async function auditPack(packName) {
       try {
         const f = JSON.parse(value);
         if (f._id) folderIds.add(f._id);
+        if (!f._id || !/^[a-zA-Z0-9]{16}$/.test(f._id)) {
+          invalidStatsIds++;
+          console.error(`  ❌ [${packName}] Folder possui _id inválido: "${f._id}" (len=${f._id ? f._id.length : 0})`);
+        }
         if (f._stats?.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(f._stats.lastModifiedBy)) {
           invalidStatsIds++;
           console.error(`  ❌ [${packName}] Folder [${f._id}] possui _stats.lastModifiedBy inválido: "${f._stats.lastModifiedBy}"`);
         }
-      } catch (e) {
+      } catch {
         jsonErrors++;
       }
     }
@@ -51,7 +55,7 @@ async function auditPack(packName) {
     let doc;
     try {
       doc = JSON.parse(value);
-    } catch (e) {
+    } catch {
       jsonErrors++;
       continue;
     }

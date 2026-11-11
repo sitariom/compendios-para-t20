@@ -37,7 +37,7 @@ const MONITORED_FOLDERS = new Set([
   'fldItensFolder26',
   'fldDiariosFold26',
   'fldTabelasFold26',
-  'fldMacrosFolder26'
+  'fldFolderMacro26'
 ]);
 
 /**
