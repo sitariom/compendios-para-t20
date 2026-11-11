@@ -24,6 +24,7 @@ async function auditPack(packName) {
   let jsonErrors = 0;
   let missingIds = 0;
   let orphanedFolders = 0;
+  let invalidStatsIds = 0;
   const imageSources = {};
   const externalOrCustomImages = [];
 
@@ -33,6 +34,10 @@ async function auditPack(packName) {
       try {
         const f = JSON.parse(value);
         if (f._id) folderIds.add(f._id);
+        if (f._stats?.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(f._stats.lastModifiedBy)) {
+          invalidStatsIds++;
+          console.error(`  ❌ [${packName}] Folder [${f._id}] possui _stats.lastModifiedBy inválido: "${f._stats.lastModifiedBy}"`);
+        }
       } catch (e) {
         jsonErrors++;
       }
@@ -54,6 +59,12 @@ async function auditPack(packName) {
     const id = doc._id || key.split('!').pop();
     if (!id) missingIds++;
     docIds.add(id);
+
+    // Validação estrita de _stats.lastModifiedBy (DataModel Foundry VTT DocumentIdField)
+    if (doc._stats?.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(doc._stats.lastModifiedBy)) {
+      invalidStatsIds++;
+      console.error(`  ❌ [${packName}] Doc [${id}] "${doc.name}" possui _stats.lastModifiedBy inválido: "${doc._stats.lastModifiedBy}"`);
+    }
 
     // Check folder reference (only for root docs)
     if (!key.includes('.')) {
@@ -91,6 +102,7 @@ async function auditPack(packName) {
     jsonErrors,
     missingIds,
     orphanedFolders,
+    invalidStatsIds,
     imageSources,
     sampleCustomImages: externalOrCustomImages
   };
@@ -100,6 +112,8 @@ async function main() {
   console.log('='.repeat(80));
   console.log('🩺 AUDITORIA DE INTEGRIDADE DOS COMPÊNDIOS T20');
   console.log('='.repeat(80));
+
+  let totalErrors = 0;
 
   for (const p of PACKS) {
     const res = await auditPack(p);
@@ -111,7 +125,13 @@ async function main() {
     console.log(`   • Erros de JSON: ${res.jsonErrors}`);
     console.log(`   • Documentos sem ID: ${res.missingIds}`);
     console.log(`   • Documentos com pasta órfã: ${res.orphanedFolders}`);
+    if (res.invalidStatsIds > 0) {
+      console.log(`   • ❌ Documentos/Pastas com _stats.lastModifiedBy inválido: ${res.invalidStatsIds}`);
+      totalErrors += res.invalidStatsIds;
+    }
     console.log(`   • Fontes de imagens:`, res.imageSources);
+
+    totalErrors += res.jsonErrors + res.missingIds + res.orphanedFolders;
 
     if (res.sampleCustomImages.length > 0) {
       console.log(`   ⚠️ Amostra de imagens com dependência local (tokenizer/assets/outros):`);
@@ -122,7 +142,12 @@ async function main() {
   }
 
   console.log('\n' + '='.repeat(80));
-  console.log('✅ Auditoria concluída.');
+  if (totalErrors === 0) {
+    console.log('✅ Auditoria concluída com 100% de integridade.');
+  } else {
+    console.error(`❌ Auditoria finalizada com ${totalErrors} erros de integridade!`);
+    process.exit(1);
+  }
   console.log('='.repeat(80));
 }
 

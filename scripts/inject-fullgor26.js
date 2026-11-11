@@ -38,7 +38,7 @@ const statsHeader = {
   systemVersion: '1.5.015',
   createdTime: Date.now(),
   modifiedTime: Date.now(),
-  lastModifiedBy: 'piAgentTormenta20'
+  lastModifiedBy: 'kL8nfmJOQTqjeU2x'
 };
 
 async function ensureFolder(packName, folderDoc) {
@@ -1638,7 +1638,7 @@ new Dialog({
     img: 'systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp',
     scope: 'global',
     command: macroScript,
-    author: 'piAgentTormenta20',
+    author: 'kL8nfmJOQTqjeU2x',
     ownership: { default: 2 },
     flags: {},
     _stats: statsHeader

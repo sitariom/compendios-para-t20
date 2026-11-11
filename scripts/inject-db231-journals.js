@@ -28,7 +28,7 @@ const statsHeader = {
   systemVersion: '1.5.015',
   createdTime: Date.now(),
   modifiedTime: Date.now(),
-  lastModifiedBy: 'piAgentTormenta20'
+  lastModifiedBy: 'kL8nfmJOQTqjeU2x'
 };
 
 const DB231_JOURNALS = [

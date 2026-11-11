@@ -21,7 +21,6 @@ const fs = require('fs');
 const { resolveToken, resolveIcon } = require('./icon-resolver');
 
 const PACKS_DIR = path.join(__dirname, '..', 'packs');
-const SRC_PACKS_DIR = path.join(__dirname, '..', 'src', 'packs');
 
 const PACK_NAMES = [
   'Ameacas_T20',
@@ -261,6 +260,16 @@ async function runAvrlIteration(iterNum, options = {}) {
     for await (const [key, val] of db.iterator()) {
       if (key.startsWith('!folders!')) {
         folders.add(val._id || key.split('!').pop());
+        if (val._stats && val._stats.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(val._stats.lastModifiedBy)) {
+          if (fix) {
+            val._stats.lastModifiedBy = 'kL8nfmJOQTqjeU2x';
+            await db.put(key, val);
+            iterationFixes++;
+            console.log(`  ➔ [${pack}] Pasta "${val.name}" [${val._id}] corrigido _stats.lastModifiedBy para ID canônico.`);
+          } else {
+            iterationErrors++;
+          }
+        }
       } else {
         docKeys.push({ key, val });
       }
@@ -271,6 +280,18 @@ async function runAvrlIteration(iterNum, options = {}) {
         console.error(`  ❌ [${pack}] Valor inválido para chave: ${key}`);
         iterationErrors++;
         continue;
+      }
+
+      // Validação e auto-reparo de _stats.lastModifiedBy (DocumentIdField de 16 caracteres)
+      if (val._stats && val._stats.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(val._stats.lastModifiedBy)) {
+        if (fix) {
+          val._stats.lastModifiedBy = 'kL8nfmJOQTqjeU2x';
+          await db.put(key, val);
+          iterationFixes++;
+          console.log(`  ➔ [${pack}] Doc "${val.name || key}" corrigido _stats.lastModifiedBy para ID canônico.`);
+        } else {
+          iterationErrors++;
+        }
       }
 
       // Validação de Folder Órfã
