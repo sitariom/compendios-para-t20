@@ -58,3 +58,13 @@ Developers and agents SHALL use `scripts/unpack.js` to deconstruct LevelDB packs
 - **WHEN** `node scripts/unpack.js <PackName>` and then `node scripts/pack.js <PackName>` are executed
 - **THEN** all documents, folders, and embedded subdocuments are preserved without data loss
 - **AND** the resulting LevelDB database passes `scripts/audit.js`
+
+### Requirement: Continuous Multi-Tier Validation and Remediation Loop
+Prior to compiling release packages or committing database changes, the complete multi-tier Audit, Validation, and Remediation Loop (AVRL) defined in `audit-validation-remediation-loop` SHALL be executed. Releases SHALL require 100% success across structural audit (`npm run audit`), menace sheet DataModel fidelity (`npm run validate:fidelity`), and all applicable edition compliance suites (`npm run validate:db*`). Any discovered defects MUST be corrected through canonical remediation tooling followed by mandatory re-validation.
+
+#### Scenario: Full multi-tier release validation gate
+- **GIVEN** compendiums prepared for release packaging
+- **WHEN** the validation pipeline runs `npm run audit`, `npm run validate:fidelity`, and edition validators
+- **THEN** all suites exit with code 0 and zero detected defects
+- **AND** only then is `npm run zip` or release distribution authorized
+

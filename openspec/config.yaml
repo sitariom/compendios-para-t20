@@ -16,8 +16,15 @@ context: |
      tipos de dano, ic de imunidades a condições, idiomas, tamanho).
   6. Compêndios em LevelDB ClassicLevel: chaves !actors!, !items!, !macros!,
      !tables!, !journal!, !playlists! e subdocumentos !actors.items!, etc.
-  7. Auditoria mandatória com 0 erros via scripts/audit.js e conformidade com
-     validate-db227-compliance.js.
+  7. Loop de Auditoria, Validação e Correção (AVRL):
+     - Auditoria estrutural mandatória com 0 erros via scripts/audit.js.
+     - Validação profunda de fidelidade de ficha via
+       scripts/validate-threat-sheet-fidelity.js.
+     - Validação de conformidade das edições via
+       scripts/validate-db*-compliance.js.
+     - Remediação cirúrgica de inconsistências e revalidação até 100% de
+       aprovação.
+     - Sincronização contínua do CodeGraph (codegraph sync) para scripts.
 
 rules:
   proposal:

@@ -1,6 +1,6 @@
 {
   "name": "compendios-para-t20",
-  "version": "1.9.3",
+  "version": "1.10.0",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20 no Foundry VTT.",
   "scripts": {
     "stats": "node scripts/stats.js",
@@ -10,7 +10,12 @@
     "validate:db230": "node scripts/validate-db230-compliance.js",
     "validate:db231": "node scripts/validate-db231-compliance.js",
     "validate:db232": "node scripts/validate-db232-compliance.js",
+    "validate:fullgor26": "node scripts/validate-fullgor26-compliance.js",
+    "validate:fullgor27": "node scripts/validate-fullgor27-compliance.js",
     "validate:fidelity": "node scripts/validate-threat-sheet-fidelity.js",
+    "validate:all": "npm run audit && npm run validate:fidelity && npm run validate:fullgor27 && npm run validate:fullgor26 && npm run validate:db232 && npm run validate:db231",
+    "avrl": "node scripts/avrl-runner.js",
+    "ci:quality": "npm run avrl && npm run validate:all",
     "unpack": "node scripts/unpack.js",
     "pack": "node scripts/pack.js",
     "zip": "zip -r module.zip . -x \".git/*\" \".github/*\" \".gitignore\" \"LICENSE\" \"README.md\" \"node_modules/*\" \"src/*\" \".codegraph/*\" \".pi/*\" \".engram/*\" \".ruff_cache/*\""

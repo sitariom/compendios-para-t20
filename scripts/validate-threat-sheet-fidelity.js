@@ -175,6 +175,84 @@ async function runFidelityAudit() {
       hasRanged: true,
       rangedName: 'Adaga',
       expectedPowers: ['Um com as Sombras', 'Evasão Aprimorada', 'Manobras Evasivas', 'Sangrento']
+    },
+    // --- Fúlgor dos Deuses: Edição 26 (Forja da Vingança) ---
+    {
+      id: 'C6JxlK5xzXU8PYuK',
+      name: 'Asmithar Martelo-Mudo',
+      expectedPowers: ['Armamento Sagrado', 'Desprezo pelo Ordinário'],
+      expectedResistencias: 'imunidade a medo, redução de dano 5'
+    },
+    {
+      id: 'gaMGB2dL8R0Rv2mY',
+      name: 'Xellmaras, a Ladra Acorrentada',
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Ataque Furtivo +3d6', 'Correntes Deturpadas', 'Especialista Abissal', 'Sadismo', 'Talho Atroz', 'Chave que se Fecha'],
+      expectedResistencias: 'evasão, imunidade a ácido e veneno, redução de dano 10; imunidade fullgori (acertos críticos, cansaço, metabolismo, metamorfose e paralisia)'
+    },
+    {
+      id: 'wbA5Rt8dqRkHQWdC',
+      name: 'Gangue de Hyninn Deturpada',
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'No Alma Dói Mais', 'Truque de Luzes'],
+      expectedResistencias: 'imunidade a efeitos de movimento, acertos críticos, cansaço, metabolismo, metamorfose e paralisia'
+    },
+    {
+      id: '4Chz9YQv6oC4R5gs',
+      name: 'Sacerdote de Hyninn Deturpado',
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Bênção do Gatuno', 'Forma de Macaco Pamgra', 'Malandragem Divina'],
+      expectedSpells: ['Arma Espiritual', 'Curar Ferimentos', 'Despedaçar'],
+      expectedResistencias: 'imunidade a efeitos mentais, acertos críticos, cansaço, metabolismo, metamorfose e paralisia'
+    },
+    {
+      id: '6lKAcCvfQj9FReP7',
+      name: 'Tigre-de-Hyninn Deturpado',
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Borrão Dourado', 'Reflexo Planar'],
+      expectedResistencias: 'imunidade a confuso, acertos críticos, cansaço, metabolismo, metamorfose e paralisia; resistência a devotos +5'
+    },
+    {
+      id: 'E8hgaWNdM2kqv4oo',
+      name: 'Aço Selvagem',
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Agarrar Aprimorado', 'Ecos do Fullgor', 'Engolir', 'Corpo de Metal Fundido', 'Resfriamento Forçado'],
+      expectedResistencias: 'imunidade a eletricidade, fogo, efeitos de medo, acertos críticos, cansaço, metabolismo, metamorfose e paralisia; redução de dano 10; vulnerabilidade a frio'
+    },
+    // --- Fúlgor dos Deuses: Edição 27 (Dia e Noite) ---
+    {
+      id: 'fld27CassiellaSe',
+      name: 'Cassiella semi-fullgori',
+      expectedPowers: ['Derrubar', 'Durão', 'Espada Luminosa', 'Luz Sagrada'],
+      expectedResistencias: 'redução de dano 5'
+    },
+    {
+      id: 'fld27CassiellaFu',
+      name: 'Cassiella fullgori',
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Asa-Escudo', 'Luz Fustigante', 'Rasante Luminoso'],
+      hasRanged: true,
+      rangedName: 'Azagaias Fullgori',
+      expectedResistencias: 'imunidade a fogo e luz, redução de dano 10, resistência a magia divina +5; imunidade fullgori (acertos críticos, cansaço, metabolismo, metamorfose e paralisia)'
+    },
+    {
+      id: 'fld27EnxameTrogA',
+      name: 'Enxame Trog',
+      expectedPowers: ['Mau Cheiro Coletivo', 'Sangue Frio'],
+      expectedResistencias: 'vulnerabilidade a frio (sofre +1 de dano por dado de frio)'
+    },
+    {
+      id: 'fld27TroggoreAAA',
+      name: 'Troggore',
+      expectedPowers: ['Escolhido de Tenebra', 'Mau Cheiro', 'Sanguinolência', 'Sangue Frio', 'Sensibilidade a Luz'],
+      expectedResistencias: 'vulnerabilidade a frio, sensibilidade a luz'
+    },
+    {
+      id: 'fld27BandoTroggA',
+      name: 'Bando Troggore',
+      expectedPowers: ['Mau Cheiro', 'Devoção Protetora', 'Sanguinolência', 'Sangue Frio', 'Sensibilidade a Luz'],
+      expectedResistencias: 'vulnerabilidade a frio, sensibilidade a luz'
+    },
+    {
+      id: 'fld27UrrashSombr',
+      name: 'Urrash das Sombras Frias',
+      expectedPowers: ['Passo Sombrio', 'Visão nas Trevas', 'Devoção à Tenebra', 'Sangue Frio'],
+      expectedSpells: ['Curar Ferimentos', 'Escuridão', 'Infligir Ferimentos', 'Perdição', 'Profanar', 'Toque Vampírico'],
+      expectedResistencias: 'vulnerabilidade a frio, devoção a tenebra (enjoado e perde PM ao sol)'
     }
   ];
 
