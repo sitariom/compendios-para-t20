@@ -357,7 +357,7 @@ function buildActiveEffect({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 }
@@ -496,7 +496,7 @@ function buildItem({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 
@@ -1204,7 +1204,7 @@ function buildNpcActor({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 
@@ -1278,7 +1278,7 @@ function buildHazardActor({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 
@@ -1357,7 +1357,7 @@ function buildCharacterActor({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 
@@ -1421,7 +1421,7 @@ function buildMacro({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 }
@@ -1472,7 +1472,7 @@ function buildRollTable({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 }
@@ -1517,7 +1517,7 @@ function buildJournalEntry({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 }
@@ -1562,7 +1562,7 @@ function buildPlaylist({
       systemVersion: '1.5.015',
       createdTime: Date.now(),
       modifiedTime: Date.now(),
-      lastModifiedBy: 'piAgentTormenta20'
+      lastModifiedBy: 'kL8nfmJOQTqjeU2x'
     }
   };
 }

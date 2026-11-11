@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.10.1 - 2026-11-10
+
+- **Hotfix Crítico: Correção do DataModel de Pastas no Foundry VTT (`_stats.lastModifiedBy`)**:
+  - **Validação de DocumentIdField em Pastas e Documentos**: Corrigido o valor de `_stats.lastModifiedBy` em todas as pastas (`fldItensFolder26`, `fldDiariosFold26`, `fldTabelasFold26`, `fldMacrosFolder26`) e documentos de todos os compêndios para o ID canônico estrito de 16 caracteres alfanuméricos (`kL8nfmJOQTqjeU2x`), eliminando a string inválida de 17 caracteres que causava `DataModelValidationError: Folder [fldItensFolder26] validation errors: _stats: lastModifiedBy: must be a valid 16-character alphanumeric ID` e travava o carregamento do mundo no Foundry VTT v12/v13.
+  - **Blindagem do Loop AVRL e Audit**: Integrada a checagem obrigatória no validador `scripts/audit.js` e a auto-remediação de IDs de estatísticas no motor iterativo `scripts/avrl-runner.js`.
+
 ## v1.10.0 - 2026-11-10
 
 - **Release Oficial v1.10.0 — Campanha Fúlgor dos Deuses (Edições 26 e 27), Motor Iterativo AVRL e Hooks de Ciclo de Vida**:
