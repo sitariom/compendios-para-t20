@@ -60,15 +60,18 @@ function ghRequest(options, postData) {
 
 async function main() {
   console.log('=== 1. CRIANDO PULL REQUEST PARA A MAIN ===');
-  const prBody = `## Hotfix v1.10.1 — Correção do DataModel de Pastas no Foundry VTT (\`_stats.lastModifiedBy\`)
+  const prBody = `## Release v1.10.2 — Hotfix Definitivo: Resolução do ID de Pasta de Macros (\`fldFolderMacro26\`) & Validação Estrita de Schemas
 
 ### 🐛 Correção Crítica
-- **Erro Resolvido**: \`DataModelValidationError: Folder [fldItensFolder26] validation errors: _stats: lastModifiedBy: must be a valid 16-character alphanumeric ID\` que impedia o carregamento do mundo no Foundry VTT v12/v13.
-- **Causa Raiz**: A string de metadados \`piAgentTormenta20\` possuía 17 caracteres, violando a regra de schema \`DocumentIdField\` do Foundry VTT que exige estritamente 16 caracteres alfanuméricos (\`/^[a-zA-Z0-9]{16}$/\`).
-- **Solução Canônica**: Substituído o valor em todas as pastas e documentos de todos os compêndios pelo ID de usuário canônico de 16 caracteres \`kL8nfmJOQTqjeU2x\`.
+- **Erro Resolvido**: \`DataModelValidationError: Folder [fldMacrosFolder26] validation errors: _id: must be a valid 16-character alphanumeric ID\` que causava interrupção no carregamento do mundo no Foundry VTT v12/v13.
+- **Causa Raiz**: O identificador de pasta \`fldMacrosFolder26\` possuía 17 caracteres, violando o campo obrigatório \`DocumentIdField\` do Foundry VTT que exige estritamente 16 caracteres alfanuméricos (\`/^[a-zA-Z0-9]{16}$/\`).
+- **Solução Canônica**:
+  - Ajustado o ID da pasta de macros para \`fldFolderMacro26\` (exatamente 16 caracteres alfanuméricos) em todos os compêndios e scripts de injeção.
+  - Saneamento do LevelDB: excluída a chave \`!folders!fldMacrosFolder26\` e gravada a chave canônica \`!folders!fldFolderMacro26\`.
+  - Atualizadas as macros *Forjar Aço Sillariano* e *Canalizar Orbe de Azgher* para apontar para a nova pasta.
 - **Blindagem do Pipeline**:
-  - \`scripts/audit.js\` agora valida e acusa erro se qualquer documento ou pasta contiver \`_stats.lastModifiedBy\` que não seja um ID de 16 caracteres alfanuméricos.
-  - \`scripts/avrl-runner.js\` auto-remedia imediatamente qualquer ocorrência para o ID canônico de 16 caracteres.
+  - \`scripts/audit.js\` agora valida obrigatoriamente se o \`_id\` de todas as pastas em todos os 6 compêndios possui exatamente 16 caracteres alfanuméricos.
+  - \`scripts/avrl-runner.js\` auto-remedia qualquer discrepância de IDs de pastas e documentos.
   - Auditoria completa aprovada com **0 erros de integridade em 36.000+ documentos**.`;
 
   let prNumber;
@@ -79,8 +82,8 @@ async function main() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     }, JSON.stringify({
-      title: 'fix: v1.10.1 - Hotfix Crítico: Correção do DataModel de Pastas no Foundry VTT (_stats.lastModifiedBy)',
-      head: 'fix/v1.10.1-folder-stats-lastmodifiedby',
+      title: 'feat: release v1.10.2 - Resolução do ID de Pasta de Macros e Validação Estrita de Schemas',
+      head: 'release/v1.10.2',
       base: 'main',
       body: prBody
     }));
@@ -90,7 +93,7 @@ async function main() {
     console.log('Verificando se PR já existe...');
     const existingPrs = await ghRequest({
       hostname: 'api.github.com',
-      path: `/repos/${REPO}/pulls?head=sitariom:fix/v1.10.1-folder-stats-lastmodifiedby`,
+      path: `/repos/${REPO}/pulls?head=sitariom:release/v1.10.2`,
       method: 'GET'
     });
     if (existingPrs && existingPrs.length > 0) {
@@ -108,18 +111,18 @@ async function main() {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' }
   }, JSON.stringify({
-    commit_title: `Merge pull request #${prNumber} from sitariom/fix/v1.10.1-folder-stats-lastmodifiedby`,
-    commit_message: 'fix: v1.10.1 - Hotfix Crítico: Correção do DataModel de Pastas no Foundry VTT (_stats.lastModifiedBy)',
+    commit_title: `Merge pull request #${prNumber} from sitariom/release/v1.10.2`,
+    commit_message: 'Release v1.10.2 - Resolução do ID de Pasta de Macros e Validação Estrita de Schemas',
     merge_method: 'merge'
   }));
   console.log(`✓ PR #${prNumber} mesclado com sucesso! SHA: ${mergeRes.sha}`);
 
-  console.log('\n=== 3. ATUALIZANDO MAIN E ENVIANDO TAG V1.10.1 ===');
+  console.log('\n=== 3. ATUALIZANDO MAIN E ENVIANDO TAG V1.10.2 ===');
   execFileSync('git', ['checkout', 'main'], { stdio: 'inherit' });
   execFileSync('git', ['pull', 'origin', 'main'], { stdio: 'inherit' });
-  execFileSync('git', ['tag', '-a', 'v1.10.1', '-m', 'Release v1.10.1'], { stdio: 'inherit' });
-  execFileSync('git', ['push', 'origin', 'v1.10.1'], { stdio: 'inherit' });
-  console.log('✓ Tag v1.10.1 criada e enviada com sucesso!');
+  execFileSync('git', ['tag', '-a', 'v1.10.2', '-m', 'Release v1.10.2'], { stdio: 'inherit' });
+  execFileSync('git', ['push', 'origin', 'v1.10.2'], { stdio: 'inherit' });
+  console.log('✓ Tag v1.10.2 criada e enviada com sucesso!');
 
   console.log('\n=== 4. CRIANDO RELEASE OFICIAL NO GITHUB ===');
   const releaseRes = await ghRequest({
@@ -128,8 +131,8 @@ async function main() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' }
   }, JSON.stringify({
-    tag_name: 'v1.10.1',
-    name: 'v1.10.1 - Hotfix Crítico: Correção do DataModel de Pastas no Foundry VTT (_stats.lastModifiedBy)',
+    tag_name: 'v1.10.2',
+    name: 'v1.10.2 - Hotfix Definitivo: Resolução do ID de Pasta de Macros (fldFolderMacro26) & Validação Estrita de Schemas',
     body: prBody,
     draft: false,
     prerelease: false
@@ -164,7 +167,7 @@ async function main() {
   }, moduleZipData);
   console.log(`✓ Asset module.zip (${(moduleZipData.length / (1024 * 1024)).toFixed(1)} MB) anexado!`);
 
-  console.log('\n🎉 RELEASE v1.10.1 PUBLICADA COM 100% DE SUCESSO NO GITHUB!');
+  console.log('\n🎉 RELEASE v1.10.2 PUBLICADA COM 100% DE SUCESSO NO GITHUB!');
 }
 
 main().catch(err => {

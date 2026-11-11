@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.10.2 - 2026-11-10
+
+- **Hotfix Definitivo: Resolução do ID de Pasta de Macros (`fldFolderMacro26`) e Validação Estrita de Schemas**:
+  - **Correção de ID de Pasta em Macros_T20**: Substituído o ID de pasta de 17 caracteres `fldMacrosFolder26` pelo ID canônico estrito de 16 caracteres `fldFolderMacro26` (`/^[a-zA-Z0-9]{16}$/`), sanando o erro `DataModelValidationError: Folder [fldMacrosFolder26] validation errors: _id: must be a valid 16-character alphanumeric ID` e permitindo a inicialização fluida e limpa do mundo no Foundry VTT v12 e v13.
+  - **Blindagem no Validador de Integridade (`scripts/audit.js`)**: Incorporada checagem obrigatória no Pass 1 de auditoria garantindo que o `_id` de todas as pastas em todos os 6 compêndios possua exatamente 16 caracteres alfanuméricos.
+  - **Consolidação dos Pacotes Distribuíveis**: Geração do `module.zip` (51.5 MB) e `module.json` finais atualizados.
+
 ## v1.10.1 - 2026-11-10
 
 - **Hotfix Crítico: Correção do DataModel de Pastas no Foundry VTT (`_stats.lastModifiedBy`)**:
