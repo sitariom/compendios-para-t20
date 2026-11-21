@@ -71,3 +71,34 @@ The AVRL pipeline SHALL support multi-pass iterative execution (`scripts/avrl-ru
 - **AND** re-audits the database until 0 errors remain
 - **AND** terminates successfully upon full convergence
 
+
+### Requirement: Spell, Power and Roll Schema Fidelity Gate
+Every Actor-embedded `magia`, `poder`, `arma`, and `consumivel` created or adapted in the repository (`gq8*`, `fld*`, `STRICT_ACTOR_IDS`, and monitored editions) SHALL conform to the Tormenta20 DataModel (`module/dataModel/item/`, `CONFIG.T20`) and the canonical guides in `referencias_criacao_itens_atores_t20/`. `RollData.type` MUST be one of `ataque`, `dano` or `formula`; healing MUST be expressed as `type: "dano"` with damage type `curapv` (never `type: "cura"`). Damage types MUST use `CONFIG.T20` keys without accents (`perfuracao`, `acido`, `essencia`, `psiquico`). `duracao.units` MUST be one of `inst`, `scene`, `turn`, `round`, `sust`, `minute`, `hour`, `day`, `month`, `year`, `perm`, `special`. `alcance` and `range.units` MUST be one of `none`, `self`, `touch`, `short`, `medium`, `long`, `spec`, `any`, `m`, `km`. `ativacao.execucao` MUST be one of `passive`, `action`, `move`, `full`, `reaction`, `free`, `minute`, `hour`, `day`, `special`. `poder.system.tipo` MUST be a valid `T20.powerType` key (never `"poder"`), and `arma.system.equipado` MUST be numeric (`0 | 1 | 2`). Any `magia` or `poder` in `STRICT_ACTOR_IDS` whose description cites damage or healing dice MUST carry a non-empty `rolls[]`. Abilities with a saving throw MUST fill `resistencia.pericia`, `resistencia.atributo` and `resistencia.txt`, and the Actor `system.attributes.cd` MUST equal the official statblock CD (NPC items inherit it in `prepareFinalAttributes`). ActiveEffects MUST conform to `BaseEffect` (`type: "base"`, `img`, `system.identifier`, `targets`, `abilityUse`, `aura`, `upgrade`) and target valid Tormenta20 paths (`system.modificadores.ataque.geral`, `system.modificadores.dano.cac`, `system.modificadores.pericias.geral`, `system.modificadores.pericias.resistencia`, `system.tracos.resistencias.dano.bonus`, `system.attributes.defesa.bonus`).
+
+#### Scenario: Spell with dice in its description has no rolls
+- **GIVEN** an embedded `magia` whose description cites `4d8+4 pontos de dano de trevas` and whose `rolls[]` is empty
+- **WHEN** `npm run avrl` runs
+- **THEN** the hook generates a `dano` roll `4d8+4` / `trevas` and counts one fix
+- **AND** a second pass reports 0 anomalies
+
+#### Scenario: Legacy roll type, accented damage type, or Portuguese enum
+- **GIVEN** an item or embedded sub-item with `type: "cura"`, damage type `perfuração`, `execucao: "padrao"`, `alcance: "médio"`, or `duracao.units: "rodadas"`
+- **WHEN** the AVRL hook or `create-entry.js` runs
+- **THEN** it rewrites the roll to `type: "dano"` with `curapv` / `perfuracao`, and normalizes `execucao: "action"`, `alcance: "medium"`, and `duracao.units: "round"`
+
+### Requirement: Official Statblock CD Calibration
+Each NPC of a monitored edition SHALL declare the official CD in `MONITORED_CDS` (`scripts/avrl-runner.js`) and in the edition validator (`expectedCd`). AVRL MUST overwrite a divergent `system.attributes.cd`, and the validators MUST fail on divergence.
+
+#### Scenario: Actor CD diverges from the official statblock
+- **GIVEN** `Urrash das Sombras Frias` stored with `cd: 16` while the official CD is 22
+- **WHEN** AVRL or `npm run validate:fullgor27` runs
+- **THEN** AVRL corrects it to 22 and the validator fails until it is 22
+
+### Requirement: Strict 16-Char DocumentIdField and Global Orphan Purge
+All documents, folders, and embedded subdocuments across all 6 compendium packs SHALL possess strictly 16-character IDs (`DocumentIdField`), and all created/adapted entities (`gq8*`, `fld*`, `effAuto*`, folders) MUST match `/^[a-zA-Z0-9]{16}$/`. Injection scripts SHALL delete existing embedded subdocuments before writing, `scripts/audit.js` MUST fail on any invalid ID length or orphan subdocument, and `scripts/avrl-runner.js` MUST purge all orphaned subdocuments (`!actors.items!`, `!actors.items.effects!`, `!actors.effects!`, `!items.effects!`, `!tables.results!`, `!journal.pages!`).
+
+#### Scenario: Re-injecting an actor or cleaning orphaned subdocuments
+- **GIVEN** an Actor, Item, Journal, or Table previously injected with different subdocument IDs
+- **WHEN** the injector or `npm run avrl` runs
+- **THEN** no sub-document remains in LevelDB whose parent is missing or absent from the parent's ID array
+- **AND** `npm run audit` confirms 0 invalid ID lengths and 0 orphan subdocuments

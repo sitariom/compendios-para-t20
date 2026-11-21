@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.10.3 - 2026-11-21
+
+- **Alinhamento Completo AVRL, DataModel Tormenta20, DocumentIdField (16 chars) e Versionamento das Referências T20**:
+  - **Conformidade Estrita com o Sistema Tormenta20 (`gitlab.com/vizael/Tormenta20`) e `referencias_criacao_itens_atores_t20/`**:
+    - Corrigida a ordem de mesclagem em `scripts/create-entry.js` (`buildItem`) para que normalizadores canônicos (`execucao`, `duracao.units`, `alcance`, `range.units`, `RollData`, `poder.tipo`, `arma.equipado`) nunca sejam sobrescritos por valores legados em português.
+    - Corrigida a perícia Nobreza (`nobr`) para atributo `'int'` (Tormenta20 JdA), além das flags `st`, `pda` e `size` em `ALL_SKILLS`, e inclusão completa de `dinheiro` e `resources` em `buildNpcActor`.
+    - Padronizados todos os `ActiveEffects` para o schema oficial `BaseEffect` (`type: "base"`, `img`, `system.identifier`, `targets`, `abilityUse`, `aura`, `upgrade`) e remapeadas chaves legadas (`system.modificadores.ataque.geral`, `system.modificadores.dano.cac`, `system.modificadores.pericias.geral`, `system.modificadores.pericias.resistencia`, `system.tracos.resistencias.dano.bonus`).
+  - **Motor Iterativo AVRL & Auditoria Estrita (`scripts/avrl-runner.js`, `scripts/audit.js`)**:
+    - Expandido o escopo estrito de normalização para todo conteúdo criado e adaptado (`gq8*`, `fld*`, `STRICT_ACTOR_IDS`, pastas/fontes monitoradas), calibração oficial de `cd` (`MONITORED_CDS`), dimensões de token 2MTT sincronizadas com o tamanho, `RollData.type` em `ataque|dano|formula` (cura via `dano` + `curapv`) e tipos de dano sem acentos.
+    - Corrigido gerador `effAuto` para gerar IDs estritos de 16 caracteres, adicionado expurgo global de subdocumentos órfãos em todos os 6 compêndios e validação obrigatória de 16 caracteres (`DocumentIdField`) e zero órfãos no `scripts/audit.js`.
+  - **Saneamento de IDs e Validadores (DB #231, DB #232, Fúlgor #26 e #27)**:
+    - Corrigidos IDs fora de 16 caracteres em itens, tabelas, resultados, páginas de diário e efeitos nas suítes de injeção e validação, com revalidação total (`npm run ci:quality`: AVRL convergindo na Iteração #1 com 0 erros e 0 correções; `audit`, `validate:fidelity`, `validate:fullgor27`, `validate:fullgor26`, `validate:db232`, `validate:db231`, `test-all-document-types.js` e `test-avrl-retroactive-fullgor26.js` 100% aprovados).
+  - **OpenSpec SDD & Referências Versionadas**:
+    - Atualizada a spec `openspec/specs/audit-validation-remediation-loop/spec.md` (10/10 specs aprovadas em `openspec validate --all`) e versionado o diretório `referencias_criacao_itens_atores_t20/` (16 guias oficiais de criação de atores e itens T20 para Foundry VTT).
+
 ## v1.10.2 - 2026-11-10
 
 - **Hotfix Definitivo: Resolução do ID de Pasta de Macros (`fldFolderMacro26`) e Validação Estrita de Schemas**:

@@ -174,7 +174,7 @@ const DB231_TABLES = [
         range: [4, 4]
       },
       {
-        id: 'r8231EncNotFadiga',
+        id: 'r8231EncNotFadig',
         name: 'Aparições e Espectros',
         text: '<strong>5) Sussurros nas Dunas:</strong> Espectros de viajantes que morreram de sede tentam drenar a sanidade dos vigias com visões de oásis falsos.',
         description: 'Ilusões fantasmagóricas de sede e perdição.',

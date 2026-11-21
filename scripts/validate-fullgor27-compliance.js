@@ -37,6 +37,7 @@ async function validateThreats() {
       id: 'fld27CassiellaSe',
       name: 'Cassiella semi-fullgori',
       nd: '7',
+      cd: 24,
       pv: 280,
       pm: 0,
       defesa: 31,
@@ -49,6 +50,7 @@ async function validateThreats() {
       id: 'fld27CassiellaFu',
       name: 'Cassiella fullgori',
       nd: '8',
+      cd: 26,
       pv: 280,
       pm: 0,
       defesa: 33,
@@ -63,6 +65,7 @@ async function validateThreats() {
       id: 'fld27EnxameTrogA',
       name: 'Enxame Trog',
       nd: '5',
+      cd: 20,
       pv: 200,
       pm: 0,
       defesa: 23,
@@ -75,6 +78,7 @@ async function validateThreats() {
       id: 'fld27TroggoreAAA',
       name: 'Troggore',
       nd: '3',
+      cd: 17,
       pv: 80,
       pm: 0,
       defesa: 22,
@@ -87,6 +91,7 @@ async function validateThreats() {
       id: 'fld27BandoTroggA',
       name: 'Bando Troggore',
       nd: '5',
+      cd: 17,
       pv: 180,
       pm: 0,
       defesa: 22,
@@ -99,6 +104,7 @@ async function validateThreats() {
       id: 'fld27UrrashSombr',
       name: 'Urrash das Sombras Frias',
       nd: '5',
+      cd: 22,
       pv: 140,
       pm: 29,
       defesa: 23,
@@ -106,7 +112,16 @@ async function validateThreats() {
       baseDef: 22,
       token: 'modules/compendios-para-t20/assets/tokens/urrash-das-sombras-frias.png',
       powers: ['Passo Sombrio', 'Visão nas Trevas', 'Devoção à Tenebra', 'Sangue Frio'],
-      spells: ['Curar Ferimentos', 'Escuridão', 'Infligir Ferimentos', 'Perdição', 'Profanar', 'Toque Vampírico']
+      spells: ['Curar Ferimentos', 'Escuridão', 'Infligir Ferimentos', 'Perdição', 'Profanar', 'Toque Vampírico'],
+      spellCosts: {
+        'Curar Ferimentos': 5,
+        'Escuridão': 3,
+        'Infligir Ferimentos': 5,
+        'Perdição': 3,
+        'Profanar': 1,
+        'Toque Vampírico': 5
+      },
+      spellRolls: ['Curar Ferimentos', 'Infligir Ferimentos', 'Toque Vampírico']
     }
   ];
 
@@ -122,6 +137,7 @@ async function validateThreats() {
     assert(actorRaw.name === exp.name, `Nome do ator [${exp.id}] deve ser "${exp.name}"`);
     const actorNd = actorRaw.system?.attributes?.nd || actorRaw.system?.nd;
     assert(actorNd === exp.nd, `ND de "${exp.name}" deve ser ${exp.nd} (obtido: ${actorNd})`);
+    assert(actorRaw.system?.attributes?.cd === exp.cd, `CD de "${exp.name}" deve ser ${exp.cd} (obtido: ${actorRaw.system?.attributes?.cd})`);
     assert(actorRaw.system?.attributes?.pv?.value === exp.pv, `PV de "${exp.name}" deve ser ${exp.pv}`);
     assert(actorRaw.system?.attributes?.defesa?.value === exp.defesa, `Defesa de "${exp.name}" deve ser ${exp.defesa}`);
     assert(actorRaw.system?.attributes?.defesa?.base === exp.baseDef, `Defesa base de "${exp.name}" deve ser ${exp.baseDef} (dinâmica)`);
@@ -170,6 +186,17 @@ async function validateThreats() {
       for (const sp of exp.spells) {
         const found = subDocs.find(d => d.name === sp && d.type === 'magia');
         assert(found !== undefined, `Magia individual "${sp}" (tipo magia) deve estar presente em "${exp.name}"`);
+        if (found) {
+          if (exp.spellCosts && exp.spellCosts[sp] !== undefined) {
+            assert(found.system?.ativacao?.custo === exp.spellCosts[sp], `Magia "${sp}" de "${exp.name}" deve ter custo ${exp.spellCosts[sp]} PM (obtido: ${found.system?.ativacao?.custo})`);
+          }
+          if (exp.spellRolls && exp.spellRolls.includes(sp)) {
+            assert(Array.isArray(found.system?.rolls) && found.system.rolls.length > 0, `Magia "${sp}" de "${exp.name}" deve possuir rolagens em rolls[]`);
+            for (const r of found.system?.rolls || []) {
+              assert(r.type === 'dano', `Rolagem de "${sp}" deve ter type === "dano" (obtido: "${r.type}")`);
+            }
+          }
+        }
       }
     }
 
@@ -267,8 +294,8 @@ async function validateTables() {
 
   const EXPECTED_TABLES = [
     { id: 'fld27TabCavernas', name: 'Cavernas dos Trogs — Perigos e Ecos de Tenebra (Edição 27)', count: 6 },
-    { id: 'fld27TabFrasesCas', name: 'Frases em Combate de Cassiella Possuída (Edição 27)', count: 8 },
-    { id: 'fld27TabDilemaOrb', name: 'Dilema da Orbe de Azgher — Escolhas e Consequências (Edição 27)', count: 3 }
+    { id: 'fld27TabFraseCas', name: 'Frases em Combate de Cassiella Possuída (Edição 27)', count: 8 },
+    { id: 'fld27TabDilemaOr', name: 'Dilema da Orbe de Azgher — Escolhas e Consequências (Edição 27)', count: 3 }
   ];
 
   for (const exp of EXPECTED_TABLES) {

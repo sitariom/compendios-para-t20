@@ -17,40 +17,40 @@ const path = require('path');
 const { resolveIcon, resolveToken } = require('./icon-resolver');
 
 const ALL_SKILLS = [
-  { key: 'acro', nome: 'Acrobacia', atributo: 'des', st: false, pda: true },
-  { key: 'ades', nome: 'Adestramento', atributo: 'car', st: false, pda: false },
-  { key: 'atle', nome: 'Atletismo', atributo: 'for', st: false, pda: false },
-  { key: 'atua', nome: 'Atuação', atributo: 'car', st: false, pda: false },
-  { key: 'cava', nome: 'Cavalgar', atributo: 'des', st: false, pda: false },
-  { key: 'conh', nome: 'Conhecimento', atributo: 'int', st: false, pda: false },
-  { key: 'cura', nome: 'Cura', atributo: 'sab', st: false, pda: false },
-  { key: 'dipl', nome: 'Diplomacia', atributo: 'car', st: false, pda: false },
-  { key: 'enga', nome: 'Enganação', atributo: 'car', st: false, pda: false },
-  { key: 'fort', nome: 'Fortitude', atributo: 'con', st: true, pda: false },
-  { key: 'furt', nome: 'Furtividade', atributo: 'des', st: false, pda: true },
-  { key: 'guer', nome: 'Guerra', atributo: 'int', st: false, pda: false },
-  { key: 'inic', nome: 'Iniciativa', atributo: 'des', st: false, pda: false },
-  { key: 'inti', nome: 'Intimidação', atributo: 'car', st: false, pda: false },
-  { key: 'intu', nome: 'Intuição', atributo: 'sab', st: false, pda: false },
-  { key: 'inve', nome: 'Investigação', atributo: 'int', st: false, pda: false },
-  { key: 'joga', nome: 'Jogatina', atributo: 'car', st: false, pda: false },
-  { key: 'ladi', nome: 'Ladinagem', atributo: 'des', st: false, pda: true },
-  { key: 'luta', nome: 'Luta', atributo: 'for', st: false, pda: false },
-  { key: 'mist', nome: 'Misticismo', atributo: 'int', st: false, pda: false },
-  { key: 'nobr', nome: 'Nobreza', atributo: 'car', st: false, pda: false },
-  { key: 'perc', nome: 'Percepção', atributo: 'sab', st: false, pda: false },
-  { key: 'pilo', nome: 'Pilotagem', atributo: 'des', st: false, pda: false },
-  { key: 'pont', nome: 'Pontaria', atributo: 'des', st: false, pda: false },
-  { key: 'refl', nome: 'Reflexos', atributo: 'des', st: true, pda: false },
-  { key: 'reli', nome: 'Religião', atributo: 'sab', st: false, pda: false },
-  { key: 'sobr', nome: 'Sobrevivência', atributo: 'sab', st: false, pda: false },
-  { key: 'vont', nome: 'Vontade', atributo: 'sab', st: true, pda: false },
-  { key: 'alfa', nome: 'Ofício (Alfaiate)', atributo: 'int', st: false, pda: false },
-  { key: 'alqu', nome: 'Ofício (Alquimia)', atributo: 'int', st: false, pda: false },
-  { key: 'arme', nome: 'Ofício (Armeiro)', atributo: 'int', st: false, pda: false },
-  { key: 'arte', nome: 'Ofício (Artesão)', atributo: 'int', st: false, pda: false },
-  { key: 'cozi', nome: 'Ofício (Culinária)', atributo: 'int', st: false, pda: false },
-  { key: 'enge', nome: 'Ofício (Engenharia)', atributo: 'int', st: false, pda: false }
+  { key: 'acro', nome: 'Acrobacia', atributo: 'des', st: false, pda: true, size: false },
+  { key: 'ades', nome: 'Adestramento', atributo: 'car', st: true, pda: false, size: false },
+  { key: 'atle', nome: 'Atletismo', atributo: 'for', st: false, pda: false, size: false },
+  { key: 'atua', nome: 'Atuação', atributo: 'car', st: true, pda: false, size: false },
+  { key: 'cava', nome: 'Cavalgar', atributo: 'des', st: false, pda: false, size: false },
+  { key: 'conh', nome: 'Conhecimento', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'cura', nome: 'Cura', atributo: 'sab', st: false, pda: false, size: false },
+  { key: 'dipl', nome: 'Diplomacia', atributo: 'car', st: false, pda: false, size: false },
+  { key: 'enga', nome: 'Enganação', atributo: 'car', st: false, pda: false, size: false },
+  { key: 'fort', nome: 'Fortitude', atributo: 'con', st: false, pda: false, size: false },
+  { key: 'furt', nome: 'Furtividade', atributo: 'des', st: false, pda: true, size: true },
+  { key: 'guer', nome: 'Guerra', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'inic', nome: 'Iniciativa', atributo: 'des', st: false, pda: false, size: false },
+  { key: 'inti', nome: 'Intimidação', atributo: 'car', st: false, pda: false, size: false },
+  { key: 'intu', nome: 'Intuição', atributo: 'sab', st: false, pda: false, size: false },
+  { key: 'inve', nome: 'Investigação', atributo: 'int', st: false, pda: false, size: false },
+  { key: 'joga', nome: 'Jogatina', atributo: 'car', st: true, pda: false, size: false },
+  { key: 'ladi', nome: 'Ladinagem', atributo: 'des', st: true, pda: true, size: false },
+  { key: 'luta', nome: 'Luta', atributo: 'for', st: false, pda: false, size: false },
+  { key: 'mist', nome: 'Misticismo', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'nobr', nome: 'Nobreza', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'perc', nome: 'Percepção', atributo: 'sab', st: false, pda: false, size: false },
+  { key: 'pilo', nome: 'Pilotagem', atributo: 'des', st: true, pda: false, size: false },
+  { key: 'pont', nome: 'Pontaria', atributo: 'des', st: false, pda: false, size: false },
+  { key: 'refl', nome: 'Reflexos', atributo: 'des', st: false, pda: false, size: false },
+  { key: 'reli', nome: 'Religião', atributo: 'sab', st: true, pda: false, size: false },
+  { key: 'sobr', nome: 'Sobrevivência', atributo: 'sab', st: false, pda: false, size: false },
+  { key: 'vont', nome: 'Vontade', atributo: 'sab', st: false, pda: false, size: false },
+  { key: 'alfa', nome: 'Ofício (Alfaiate)', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'alqu', nome: 'Ofício (Alquimia)', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'arme', nome: 'Ofício (Armeiro)', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'arte', nome: 'Ofício (Artesão)', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'cozi', nome: 'Ofício (Culinária)', atributo: 'int', st: true, pda: false, size: false },
+  { key: 'enge', nome: 'Ofício (Engenharia)', atributo: 'int', st: true, pda: true, size: false }
 ];
 
 function buildSkills(ndNum, atributos, trainedSkills = {}, situationalSkills = {}) {
@@ -77,7 +77,7 @@ function buildSkills(ndNum, atributos, trainedSkills = {}, situationalSkills = {
         treinado: true,
         st: Boolean(s.st),
         pda: Boolean(s.pda),
-        size: false,
+        size: Boolean(s.size),
         value: Number(fichaVal),
         outros: Number(val),
         condi: 0,
@@ -93,7 +93,7 @@ function buildSkills(ndNum, atributos, trainedSkills = {}, situationalSkills = {
         treinado: false,
         st: Boolean(s.st),
         pda: Boolean(s.pda),
-        size: false,
+        size: Boolean(s.size),
         value: Number(untrainedVal),
         outros: 0,
         condi: 0,
@@ -261,6 +261,34 @@ function getTokenDimension(tamanho) {
 /**
  * Constrói e padroniza um ActiveEffect do Foundry VTT para Tormenta20
  */
+function normalizeEffectChangeKey(key) {
+  if (!key || typeof key !== 'string') return key;
+  const k = key.trim();
+  const exactMap = {
+    'system.modificadores.ataque': 'system.modificadores.ataque.geral',
+    'system.modificadores.dano': 'system.modificadores.dano.geral',
+    'system.modificadores.dano.corpo-a-corpo': 'system.modificadores.dano.cac',
+    'system.modificadores.dano.distancia': 'system.modificadores.dano.ad',
+    'system.modificadores.resistencia': 'system.modificadores.pericias.resistencia',
+    'system.modificadores.pericia': 'system.modificadores.pericias.geral',
+    'system.tracos.resistencias.dano': 'system.tracos.resistencias.dano.bonus'
+  };
+  if (exactMap[k]) return exactMap[k];
+  // Resistências de dano antigas .value -> .bonus (effectMigration.migrateResistancesPath)
+  if (/^system\.tracos\.resistencias\.\w+\.value$/.test(k)) {
+    return k.replace(/\.value$/, '.bonus');
+  }
+  // Resistência sem sufixo (ex: system.tracos.resistencias.fogo -> .bonus)
+  if (/^system\.tracos\.resistencias\.(dano|perda|acido|corte|eletricidade|essencia|fogo|frio|impacto|luz|psiquico|perfuracao|trevas)$/.test(k)) {
+    return `${k}.bonus`;
+  }
+  // Atributos antigos .base/.racial -> .value (effectMigration.migrateAbilitiesPath)
+  if (/^system\.atributos\.\w+\.(base|racial)$/.test(k)) {
+    return k.replace(/\.(base|racial)$/, '.value');
+  }
+  return k;
+}
+
 function buildActiveEffect({
   id = null,
   name = 'Novo Efeito',
@@ -275,7 +303,7 @@ function buildActiveEffect({
   statuses = [],
   flags = {}
 }) {
-  const _id = id || generateId();
+  const _id = (id && /^[a-zA-Z0-9]{16}$/.test(id)) ? id : generateId();
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'effect';
   return {
     _id,
@@ -307,7 +335,7 @@ function buildActiveEffect({
       }
     },
     changes: changes.map(c => ({
-      key: c.key,
+      key: normalizeEffectChangeKey(c.key),
       mode: c.mode !== undefined ? c.mode : 2, // 2 = ADD
       value: String(c.value),
       priority: c.priority !== undefined ? c.priority : 20
@@ -365,6 +393,131 @@ function buildActiveEffect({
 /**
  * Constrói um item genérico ou poder de Tormenta20 com schema completo
  */
+function normalizeDamageType(dt) {
+  if (!dt) return '';
+  const map = {
+    'perfuração': 'perfuracao',
+    'ácido': 'acido',
+    'essência': 'essencia',
+    'psíquico': 'psiquico',
+    'elétrico': 'eletricidade',
+    'cura': 'curapv',
+    'perda de pv': 'perda',
+    'perda_de_pv': 'perda'
+  };
+  const low = String(dt).toLowerCase().trim();
+  return map[low] || low;
+}
+
+function normalizeRolls(rolls) {
+  if (!Array.isArray(rolls)) return [];
+  return rolls.map((r, idx) => {
+    const isCura = r.type === 'cura';
+    const finalType = ['ataque', 'dano', 'formula'].includes(r.type) ? r.type : 'dano';
+    const rawParts = Array.isArray(r.parts) ? r.parts : [];
+    const finalParts = rawParts.map(p => {
+      const p0 = String(p[0] ?? '');
+      let p1 = String(p[1] ?? '');
+      const p2 = String(p[2] ?? '');
+      if (finalType === 'dano') {
+        if (isCura && (!p1 || p1 === 'cura')) {
+          p1 = 'curapv';
+        } else {
+          p1 = normalizeDamageType(p1);
+        }
+      }
+      return [p0, p1, p2];
+    });
+    return {
+      name: r.name || (isCura ? 'Cura' : finalType === 'ataque' ? 'Ataque' : 'Dano'),
+      key: r.key || `${finalType}${idx}`,
+      type: finalType,
+      parts: finalParts,
+      adaptavel: r.adaptavel || '',
+      versatil: r.versatil || ''
+    };
+  });
+}
+
+function normalizeExecucao(exec) {
+  const map = {
+    padrao: 'action',
+    'padrão': 'action',
+    standard: 'action',
+    action: 'action',
+    movimento: 'move',
+    move: 'move',
+    completa: 'full',
+    full: 'full',
+    reacao: 'reaction',
+    'reação': 'reaction',
+    reaction: 'reaction',
+    livre: 'free',
+    free: 'free',
+    passiva: 'passive',
+    passive: 'passive'
+  };
+  return map[String(exec || 'passive').toLowerCase().trim()] || 'passive';
+}
+
+function normalizeDuracao(dur) {
+  if (dur && typeof dur === 'object') {
+    return {
+      value: Number(dur.value || 0),
+      units: dur.units || 'inst',
+      special: dur.special || ''
+    };
+  }
+  const s = String(dur || 'inst').toLowerCase().trim();
+  if (s === 'instantânea' || s === 'instantanea' || s === 'inst') return { value: 0, units: 'inst', special: '' };
+  if (s === 'cena' || s === 'scene') return { value: 0, units: 'scene', special: '' };
+  if (s === 'sustentada' || s === 'sust') return { value: 0, units: 'sust', special: '' };
+  if (s === 'permanente' || s === 'perm') return { value: 0, units: 'perm', special: '' };
+  if (s.includes('dia') || s === 'day') return { value: parseInt(s, 10) || 1, units: 'day', special: '' };
+  if (s.includes('rodada') || s === 'round') return { value: parseInt(s, 10) || 1, units: 'round', special: '' };
+  if (s.includes('turno') || s === 'turn') return { value: parseInt(s, 10) || 1, units: 'turn', special: '' };
+  if (s.includes('minuto') || s === 'minute') return { value: parseInt(s, 10) || 1, units: 'minute', special: '' };
+  if (s.includes('hora') || s === 'hour') return { value: parseInt(s, 10) || 1, units: 'hour', special: '' };
+  return { value: 0, units: 'inst', special: '' };
+}
+
+function normalizeAlcance(alc) {
+  const s = String(alc || '').toLowerCase().trim();
+  if (!s) return 'none';
+  if (/^\d+\s*m$/.test(s)) return 'm';
+  if (/^\d+\s*km$/.test(s)) return 'km';
+  const map = {
+    pessoal: 'self',
+    self: 'self',
+    toque: 'touch',
+    touch: 'touch',
+    curto: 'short',
+    short: 'short',
+    'médio': 'medium',
+    medio: 'medium',
+    medium: 'medium',
+    longo: 'long',
+    long: 'long',
+    ilimitado: 'any',
+    any: 'any',
+    especial: 'spec',
+    spec: 'spec',
+    nenhum: 'none',
+    none: 'none',
+    'corpo-a-corpo': 'none',
+    adjacente: 'touch'
+  };
+  if (map[s]) return map[s];
+  if (s.includes('médio') || s.includes('medio')) return 'medium';
+  if (s.includes('curto')) return 'short';
+  if (s.includes('longo')) return 'long';
+  if (s.includes('pessoal')) return 'self';
+  if (s.includes('toque') || s.includes('adjacente')) return 'touch';
+  if (s.includes('ilimitad')) return 'any';
+  if (s.includes('m')) return 'spec';
+  return 'short';
+}
+
 function buildItem({
   name,
   type = 'poder',
@@ -384,12 +537,38 @@ function buildItem({
     ? description
     : `<p>${description}</p>`;
 
-  let finalRolls = [];
+  let rawRolls = [];
   if (Array.isArray(rolls)) {
-    finalRolls = rolls;
+    rawRolls = rolls;
   } else if (Array.isArray(system.rolls)) {
-    finalRolls = system.rolls;
+    rawRolls = system.rolls;
   }
+  const finalRolls = normalizeRolls(rawRolls);
+  const builtEffects = effects.map(eff => (eff && eff._id && /^[a-zA-Z0-9]{16}$/.test(eff._id) && eff.changes) ? eff : buildActiveEffect({
+    ...eff,
+    img: eff.img || finalImg,
+    origin: eff.origin || `Item.${_id}`
+  }));
+
+  const normalizedAtivacao = {
+    execucao: normalizeExecucao(system.ativacao?.execucao || 'passive'),
+    custo: Number(system.ativacao?.custo || 0),
+    qtd: system.ativacao?.qtd || '',
+    condicao: system.ativacao?.condicao || '',
+    special: system.ativacao?.special || ''
+  };
+  const normalizedDuracao = normalizeDuracao(system.duracao);
+  const normalizedAlcance = normalizeAlcance(system.alcance || system.range?.units || '');
+  const normalizedEquipado = type === 'arma'
+    ? (typeof system.equipado === 'boolean' ? (system.equipado ? 1 : 0) : Number(system.equipado ?? 1))
+    : (system.equipado !== undefined ? Boolean(system.equipado) : true);
+
+  const validPowerTypes = ['ability', 'classe', 'concedido', 'geral', 'origem', 'racial', 'distincao', 'complicacao'];
+  const powerTypeMap = { raca: 'racial', 'raça': 'racial', poder: 'geral' };
+  const mappedPowerTipo = powerTypeMap[system.tipo] || system.tipo;
+  const normalizedTipo = type === 'poder'
+    ? (validPowerTypes.includes(mappedPowerTipo) ? mappedPowerTipo : 'geral')
+    : system.tipo;
 
   const baseDoc = {
     _id,
@@ -397,6 +576,7 @@ function buildItem({
     type,
     img: finalImg,
     system: {
+      ...system,
       description: {
         value: descVal,
         unidentified: ''
@@ -413,23 +593,13 @@ function buildItem({
         max: system.pv?.max || 0
       },
       rd: Number(system.rd || 0),
-      equipado: system.equipado !== undefined ? Boolean(system.equipado) : true,
+      equipado: normalizedEquipado,
       equipado2: {
         slot: system.equipado2?.slot || 0,
         type: system.equipado2?.type || ''
       },
-      ativacao: {
-        execucao: system.ativacao?.execucao || 'padrao',
-        custo: Number(system.ativacao?.custo || 0),
-        qtd: system.ativacao?.qtd || '',
-        condicao: system.ativacao?.condicao || '',
-        special: system.ativacao?.special || ''
-      },
-      duracao: {
-        value: Number(system.duracao?.value || 0),
-        units: system.duracao?.units || '',
-        special: system.duracao?.special || ''
-      },
+      ativacao: normalizedAtivacao,
+      duracao: normalizedDuracao,
       target: {
         value: Number(system.target?.value || 0),
         width: Number(system.target?.width || 0),
@@ -437,7 +607,7 @@ function buildItem({
       },
       range: {
         value: Number(system.range?.value || 0),
-        units: system.range?.units || ''
+        units: normalizedAlcance
       },
       consume: {
         type: system.consume?.type || '',
@@ -446,7 +616,7 @@ function buildItem({
         mpMultiplier: Boolean(system.consume?.mpMultiplier)
       },
       efeito: system.efeito || '',
-      alcance: system.alcance || '',
+      alcance: normalizedAlcance,
       alvo: system.alvo || '',
       area: system.area || '',
       resistencia: {
@@ -473,19 +643,10 @@ function buildItem({
       },
       melhorias: system.melhorias || {},
       encantos: system.encantos || {},
-      rolls: finalRolls,
-      effects: effects.map(eff => buildActiveEffect({
-        ...eff,
-        img: eff.img || finalImg,
-        origin: eff.origin || ''
-      })),
-      ...system
+      ...(normalizedTipo !== undefined ? { tipo: normalizedTipo } : {}),
+      rolls: finalRolls
     },
-    effects: effects.map(eff => buildActiveEffect({
-      ...eff,
-      img: eff.img || finalImg,
-      origin: eff.origin || ''
-    })),
+    effects: builtEffects,
     folder,
     sort: 0,
     ownership: { default: 0 },
@@ -548,6 +709,8 @@ function buildWeaponAttack({
     }
   }
 
+  const normalizedTipoDano = normalizeDamageType(tipoDano);
+  const normalizedTipoDanoExtra = normalizeDamageType(tipoDanoExtra);
   const defaultRolls = [
     {
       name: 'Ataque',
@@ -566,7 +729,7 @@ function buildWeaponAttack({
       key: 'dano1',
       type: 'dano',
       parts: [
-        [dano, tipoDano, '']
+        [dano, normalizedTipoDano, '']
       ],
       versatil: '',
       adaptavel: ''
@@ -575,11 +738,11 @@ function buildWeaponAttack({
 
   if (danoExtra) {
     defaultRolls.push({
-      name: `Dano de ${tipoDanoExtra || 'Extra'}`,
+      name: `Dano de ${normalizedTipoDanoExtra || 'Extra'}`,
       key: 'dano2',
       type: 'dano',
       parts: [
-        [danoExtra, tipoDanoExtra, '']
+        [danoExtra, normalizedTipoDanoExtra, '']
       ],
       versatil: '',
       adaptavel: ''
@@ -599,7 +762,7 @@ function buildWeaponAttack({
       empunhadura,
       proficiencia,
       dano,
-      tipoDano,
+      tipoDano: normalizedTipoDano,
       criticoM: critM,
       criticoX: critX,
       critico: { margem: critM, multiplicador: critX },
@@ -607,7 +770,7 @@ function buildWeaponAttack({
       tipoUso: 'sim',
       proposito: finalProposito,
       size,
-      alcance,
+      alcance: normalizeAlcance(alcance),
       chatFlavor,
       propriedades: {
         ada: false, agi: false, alo: false, des: false, dup: false, ver: false, hib: false
@@ -624,13 +787,16 @@ function buildSpecialPower({
   name,
   img = null,
   tipo = 'geral',
-  subtipo = 'combate',
-  execucao = 'padrao',
+  subtipo = 'ameaca',
+  execucao = 'passive',
   custo = 0,
+  ativacao = null,
   cd = null,
   alcance = '',
   alvo = '',
   area = '',
+  efeito = '',
+  duracao = 'inst',
   resistencia = null,
   description = '',
   flavorPhrase = '',
@@ -641,6 +807,22 @@ function buildSpecialPower({
   const finalImg = img || resolveIcon({ name, type: 'poder' });
   const chatFlavor = `<blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${flavorPhrase || name}"</blockquote><p>${flavorAction || description}. <span style="color: #800000; font-weight: bold;">Habilidade especial ativada!</span></p>`;
 
+  const validPowerTypes = ['ability', 'classe', 'concedido', 'geral', 'origem', 'racial', 'distincao', 'complicacao'];
+  const finalTipo = validPowerTypes.includes(tipo) ? tipo : 'geral';
+  const rawExec = ativacao?.execucao || execucao || 'passive';
+  const rawCost = ativacao?.custo !== undefined ? ativacao.custo : custo;
+
+  let resObj = { pericia: '', atributo: '', bonus: 0, txt: '' };
+  if (typeof resistencia === 'string') {
+    resObj.txt = resistencia;
+    const low = resistencia.toLowerCase();
+    if (low.includes('vont') || low.includes('von')) { resObj.pericia = 'vont'; resObj.atributo = 'sab'; }
+    else if (low.includes('fort')) { resObj.pericia = 'fort'; resObj.atributo = 'con'; }
+    else if (low.includes('refl') || low.includes('ref')) { resObj.pericia = 'refl'; resObj.atributo = 'des'; }
+  } else if (resistencia && typeof resistencia === 'object') {
+    resObj = { ...resObj, ...resistencia };
+  }
+
   return buildItem({
     name,
     type: 'poder',
@@ -648,22 +830,24 @@ function buildSpecialPower({
     description,
     effects,
     system: {
-      tipo,
+      tipo: finalTipo,
       subtipo,
       ativacao: {
-        execucao,
-        custo: Number(custo),
+        execucao: normalizeExecucao(rawExec),
+        custo: Number(rawCost || 0),
         qtd: '',
         condicao: '',
         special: ''
       },
+      duracao: normalizeDuracao(duracao),
       cd: cd ? Number(cd) : null,
-      alcance,
+      alcance: normalizeAlcance(alcance),
       alvo,
       area,
-      resistencia: resistencia || { pericia: '', atributo: '', bonus: 0, txt: '' },
+      efeito,
+      resistencia: resObj,
       chatFlavor,
-      rolls: Array.isArray(rolls) ? rolls : []
+      rolls: normalizeRolls(rolls)
     }
   });
 }
@@ -792,15 +976,20 @@ function buildSpellItem({
   escola = 'evo', // 'abj', 'adv', 'con', 'enc', 'evo', 'ilu', 'nec', 'tra'
   execucao = 'action', // 'action', 'reaction', 'move', 'full', 'free', 'passive'
   custoPM = null,
+  ativacao = null,
   alcance = 'curto',
   alvo = '',
   area = '',
+  efeito = '',
   duracao = 'inst', // 'inst', 'scene', 'turn', 'round', 'sust', 'minute', 'hour', 'day', 'perm'
   resistencia = '',
   resistenciaPericia = '',
   resistenciaAtributo = '',
   aprimoramentos = [],
   rolls = [],
+  formulaDano = '',
+  tipoDano = '',
+  formulaCura = '',
   effects = [],
   preparada = true,
   folder = null,
@@ -808,7 +997,8 @@ function buildSpellItem({
 }) {
   const _id = id || generateId();
   const circNum = Number(circulo) || 1;
-  const pmCost = custoPM !== null ? Number(custoPM) : (circNum === 1 ? 1 : circNum === 2 ? 3 : circNum === 3 ? 6 : circNum === 4 ? 10 : 15);
+  const rawCost = ativacao?.custo !== undefined && ativacao?.custo !== null ? ativacao.custo : custoPM;
+  const pmCost = rawCost !== null && rawCost !== undefined ? Number(rawCost) : (circNum === 1 ? 1 : circNum === 2 ? 3 : circNum === 3 ? 6 : circNum === 4 ? 10 : 15);
 
   const tipoMap = { arcana: 'arc', arcano: 'arc', divina: 'div', divino: 'div', universal: 'uni' };
   const finalTipo = tipoMap[tipo] || tipo || 'arc';
@@ -819,21 +1009,15 @@ function buildSpellItem({
   };
   const finalEscola = escolaMap[escola] || escola || 'evo';
 
-  const execMap = {
-    padrao: 'action', movimento: 'move', completa: 'full', reacao: 'reaction', livre: 'free', passiva: 'passive'
-  };
-  const finalExec = execMap[execucao] || execucao || 'action';
-
-  const durMap = {
-    instantanea: 'inst', cena: 'scene', sustentada: 'sust', turno: 'turn', rodada: 'round',
-    minuto: 'minute', hora: 'hour', dia: 'day', permanente: 'perm'
-  };
-  const finalDur = durMap[duracao] || duracao || 'inst';
+  const rawExec = ativacao?.execucao || execucao || 'action';
+  const finalExec = normalizeExecucao(rawExec);
+  const finalDurObj = normalizeDuracao(duracao);
+  const finalAlcance = normalizeAlcance(alcance);
 
   let resObj = { pericia: '', atributo: '', bonus: 0, txt: '' };
   if (resistenciaPericia) resObj.pericia = resistenciaPericia;
   if (resistenciaAtributo) resObj.atributo = resistenciaAtributo;
-  if (typeof resistencia === 'string') {
+  if (typeof resistencia === 'string' && resistencia.trim() !== '') {
     resObj.txt = resistencia;
     const low = resistencia.toLowerCase();
     if (!resObj.pericia) {
@@ -845,7 +1029,37 @@ function buildSpellItem({
     resObj = { ...resObj, ...resistencia };
   }
 
+  const rawRolls = [...(Array.isArray(rolls) ? rolls : [])];
+  if (rawRolls.length === 0) {
+    if (formulaDano) {
+      rawRolls.push({
+        name: `Dano de ${tipoDano || 'Magia'}`,
+        key: 'dano0',
+        type: 'dano',
+        parts: [[formulaDano, normalizeDamageType(tipoDano || 'essencia'), '']],
+        versatil: '',
+        adaptavel: ''
+      });
+    }
+    if (formulaCura) {
+      rawRolls.push({
+        name: 'Cura',
+        key: 'dano0',
+        type: 'dano',
+        parts: [[formulaCura, 'curapv', '']],
+        versatil: '',
+        adaptavel: ''
+      });
+    }
+  }
+  const finalRolls = normalizeRolls(rawRolls);
   const finalImg = img || resolveIcon({ name, type: 'magia' });
+
+  const builtEffects = (effects || []).map(eff => (eff && eff._id && /^[a-zA-Z0-9]{16}$/.test(eff._id) && eff.changes) ? eff : buildActiveEffect({
+    ...eff,
+    img: eff.img || finalImg,
+    origin: eff.origin || `Item.${_id}`
+  }));
 
   return {
     _id,
@@ -853,7 +1067,7 @@ function buildSpellItem({
     type: 'magia',
     img: finalImg,
     folder,
-    effects: effects || [],
+    effects: builtEffects,
     system: {
       description: {
         value: description.startsWith('<p>') ? description : `<p>${description}</p>`,
@@ -867,14 +1081,10 @@ function buildSpellItem({
         condicao: '',
         special: ''
       },
-      duracao: {
-        value: 0,
-        units: finalDur,
-        special: ''
-      },
+      duracao: finalDurObj,
       range: {
         value: null,
-        units: alcance
+        units: finalAlcance
       },
       consume: {
         type: '',
@@ -882,18 +1092,18 @@ function buildSpellItem({
         amount: null,
         mpMultiplier: false
       },
-      efeito: '',
-      alcance: String(alcance || ''),
+      efeito: String(efeito || ''),
+      alcance: finalAlcance,
       alvo: String(alvo || ''),
       area: String(area || ''),
       resistencia: resObj,
       aprimoramentos: Array.isArray(aprimoramentos) ? aprimoramentos : [],
-      rolls: Array.isArray(rolls) ? rolls : [],
+      rolls: finalRolls,
       tipo: finalTipo,
       circulo: circNum,
       preparada: Boolean(preparada),
       escola: finalEscola,
-      chatFlavor: '',
+      chatFlavor: `<p><strong>${name}</strong> (${circNum}º Círculo, ${pmCost} PM)</p>`,
       origin: '',
       tags: [],
       chatGif: '',
@@ -918,6 +1128,7 @@ function buildNpcActor({
   biography = '',
   folder = 'wfWApuyngzFm4KOP', // Pasta "Dragão Brasil" em Ameacas_T20
   nd = '1',
+  cd = null,
   papel = 'padrao', // 'solo', 'lacaio', 'padrao', 'special'
   tipoMonstro = 'mon',
   raca = '',
@@ -962,9 +1173,11 @@ function buildNpcActor({
   const ndNum = Number(nd) || 1;
   const treino = ndNum >= 15 ? 6 : ndNum >= 7 ? 4 : 2;
   const meionivel = Math.floor(ndNum / 2);
-  const cdVal = attributes.cd !== undefined
-    ? Number(attributes.cd)
-    : (10 + meionivel + Math.max(atributos.for || 0, atributos.des || 0, atributos.con || 0, atributos.int || 0, atributos.sab || 0, atributos.car || 0));
+  const cdVal = cd !== null && cd !== undefined
+    ? Number(cd)
+    : (attributes.cd !== undefined
+      ? Number(attributes.cd)
+      : (10 + meionivel + Math.max(atributos.for || 0, atributos.des || 0, atributos.con || 0, atributos.int || 0, atributos.sab || 0, atributos.car || 0)));
 
   const movStr = String(deslocamento || '9m (6q)');
   const walkVal = parseInt(movStr, 10) || 9;
@@ -1034,21 +1247,28 @@ function buildNpcActor({
     }
     itemIds.push(itemDoc._id);
 
+    if (itemDoc.effects && itemDoc.effects.length > 0) {
+      const effIds = [];
+      for (const eff of itemDoc.effects) {
+        if (typeof eff === 'object' && eff !== null && eff._id) {
+          effIds.push(eff._id);
+          embeddedDocs.push({
+            key: `!actors.items.effects!${_id}.${itemDoc._id}.${eff._id}`,
+            typePath: '!actors.items.effects!',
+            doc: eff
+          });
+        } else if (typeof eff === 'string') {
+          effIds.push(eff);
+        }
+      }
+      itemDoc.effects = effIds;
+    }
+
     embeddedDocs.push({
       key: `!actors.items!${_id}.${itemDoc._id}`,
       typePath: '!actors.items!',
       doc: itemDoc
     });
-
-    if (itemDoc.effects && itemDoc.effects.length > 0) {
-      for (const eff of itemDoc.effects) {
-        embeddedDocs.push({
-          key: `!actors.items.effects!${_id}.${itemDoc._id}.${eff._id}`,
-          typePath: '!actors.items.effects!',
-          doc: eff
-        });
-      }
-    }
   }
 
   let idiomasStr = 'Nenhum';
@@ -1162,6 +1382,15 @@ function buildNpcActor({
         meionivel
       },
       pericias: finalPericias,
+      dinheiro: { tc: 0, tp: 0, to: 0, tl: 0 },
+      resources: {
+        primary: { value: 0, max: 0, label: 'Recurso 1' },
+        secondary: { value: 0, max: 0, label: 'Recurso 2' },
+        tertiary: { value: 0, max: 0, label: 'Recurso 3' },
+        deathsave: { value: 0, max: 3, label: 'Testes de Morte' },
+        shadow: { value: 0, max: 5, label: 'Sombra' },
+        catarse: { value: 0, max: 3, label: 'Catarse' }
+      },
       modificadores: {
         custoPM: 0,
         atributos: { for: [], des: [], con: [], int: [], sab: [], car: [], fisicos: [], mentais: [], geral: [] },
@@ -1215,7 +1444,7 @@ function buildNpcActor({
       img: eff.img || finalImg,
       origin: eff.origin || `Actor.${_id}`
     });
-    actorDoc.effects.push(effDoc);
+    actorDoc.effects.push(effDoc._id);
     embeddedDocs.push({
       key: `!actors.effects!${_id}.${effDoc._id}`,
       typePath: '!actors.effects!',
@@ -1634,6 +1863,12 @@ module.exports = {
   generateId,
   getTokenDimension,
   ALL_SKILLS,
+  normalizeDamageType,
+  normalizeRolls,
+  normalizeExecucao,
+  normalizeDuracao,
+  normalizeAlcance,
+  normalizeEffectChangeKey,
   buildSkills,
   buildTracos,
   buildActiveEffect,

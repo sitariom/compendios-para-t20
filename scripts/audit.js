@@ -21,9 +21,12 @@ async function auditPack(packName) {
 
   const folderIds = new Set();
   const docIds = new Set();
+  const rootDocs = new Map();
+  const subEntries = [];
   let jsonErrors = 0;
   let missingIds = 0;
   let orphanedFolders = 0;
+  let orphanedSubdocs = 0;
   let invalidStatsIds = 0;
   const imageSources = {};
   const externalOrCustomImages = [];
@@ -60,9 +63,20 @@ async function auditPack(packName) {
       continue;
     }
 
-    const id = doc._id || key.split('!').pop();
+    const id = key.includes('.') ? key.split('.').pop() : (doc._id || key.split('!').pop());
     if (!id) missingIds++;
-    docIds.add(id);
+    if (key.includes('.')) {
+      subEntries.push({ key, doc });
+    } else {
+      docIds.add(id);
+      rootDocs.set(id, doc);
+    }
+
+    // Validação estrita de comprimento 16 em todos os documentos/subdocumentos
+    if (id && id.length !== 16) {
+      invalidStatsIds++;
+      console.error(`  ❌ [${packName}] Chave [${key}] possui ID com tamanho != 16: "${id}" (len=${id.length})`);
+    }
 
     // Validação estrita de _stats.lastModifiedBy (DataModel Foundry VTT DocumentIdField)
     if (doc._stats?.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(doc._stats.lastModifiedBy)) {
@@ -97,6 +111,28 @@ async function auditPack(packName) {
     }
   }
 
+  // Pass 3: Check orphan subdocuments
+  for (const { key, doc } of subEntries) {
+    const parts = key.split('!');
+    const ns = parts[1];
+    const chain = (parts[2] || '').split('.');
+    const parentId = chain[0];
+    const subId = chain[1];
+    const parent = rootDocs.get(parentId);
+    let isOrphan = !parent;
+    if (!isOrphan) {
+      if (ns === 'actors.items' && Array.isArray(parent.items) && parent.items.every(x => typeof x === 'string') && !parent.items.includes(subId)) isOrphan = true;
+      else if (ns === 'actors.effects' && Array.isArray(parent.effects) && parent.effects.every(x => typeof x === 'string') && !parent.effects.includes(subId)) isOrphan = true;
+      else if (ns === 'items.effects' && Array.isArray(parent.effects) && parent.effects.every(x => typeof x === 'string') && !parent.effects.includes(subId)) isOrphan = true;
+      else if (ns === 'tables.results' && Array.isArray(parent.results) && parent.results.every(x => typeof x === 'string') && !parent.results.includes(subId)) isOrphan = true;
+      else if (ns === 'journal.pages' && Array.isArray(parent.pages) && parent.pages.every(x => typeof x === 'string') && !parent.pages.includes(subId)) isOrphan = true;
+    }
+    if (isOrphan) {
+      orphanedSubdocs++;
+      console.error(`  ❌ [${packName}] Subdocumento órfão [${key}] "${doc?.name || subId}"`);
+    }
+  }
+
   await db.close();
 
   return {
@@ -106,6 +142,7 @@ async function auditPack(packName) {
     jsonErrors,
     missingIds,
     orphanedFolders,
+    orphanedSubdocs,
     invalidStatsIds,
     imageSources,
     sampleCustomImages: externalOrCustomImages
@@ -129,8 +166,12 @@ async function main() {
     console.log(`   • Erros de JSON: ${res.jsonErrors}`);
     console.log(`   • Documentos sem ID: ${res.missingIds}`);
     console.log(`   • Documentos com pasta órfã: ${res.orphanedFolders}`);
+    if (res.orphanedSubdocs > 0) {
+      console.log(`   • ❌ Subdocumentos órfãos: ${res.orphanedSubdocs}`);
+      totalErrors += res.orphanedSubdocs;
+    }
     if (res.invalidStatsIds > 0) {
-      console.log(`   • ❌ Documentos/Pastas com _stats.lastModifiedBy inválido: ${res.invalidStatsIds}`);
+      console.log(`   • ❌ Documentos/Pastas com ID ou _stats.lastModifiedBy inválido: ${res.invalidStatsIds}`);
       totalErrors += res.invalidStatsIds;
     }
     console.log(`   • Fontes de imagens:`, res.imageSources);
@@ -145,7 +186,7 @@ async function main() {
     }
   }
 
-  console.log('\n' + '='.repeat(80));
+  console.log(`\n${'='.repeat(80)}`);
   if (totalErrors === 0) {
     console.log('✅ Auditoria concluída com 100% de integridade.');
   } else {
