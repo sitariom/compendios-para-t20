@@ -80,7 +80,7 @@ async function injectControlledAnomalies() {
   const dbTables = new ClassicLevel(path.join(PACKS_DIR, 'Tabelas_T20'), { valueEncoding: 'json' });
   await dbTables.open();
 
-  const tResKey = '!tables.results!fld26TabEncontros.res26Enc0000001';
+  const tResKey = '!tables.results!fld26TabEncontro.res26Enc00000001';
   const tRes = await dbTables.get(tResKey);
   tRes.name = '';
   await dbTables.put(tResKey, tRes);
@@ -163,7 +163,7 @@ async function runRetroactiveTest() {
 
   const dbTables = new ClassicLevel(path.join(PACKS_DIR, 'Tabelas_T20'), { valueEncoding: 'json' });
   await dbTables.open();
-  const tRes = await dbTables.get('!tables.results!fld26TabEncontros.res26Enc0000001');
+  const tRes = await dbTables.get('!tables.results!fld26TabEncontro.res26Enc00000001');
   if (!tRes.name || tRes.name.trim() === '') {
     throw new Error('Nome do resultado de tabela não foi remediado!');
   }

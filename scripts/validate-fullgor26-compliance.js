@@ -39,6 +39,7 @@ async function validateThreats() {
       id: 'C6JxlK5xzXU8PYuK',
       name: 'Asmithar Martelo-Mudo',
       nd: '9',
+      cd: 18,
       pv: 230,
       pm: 0,
       defesa: 32,
@@ -51,6 +52,7 @@ async function validateThreats() {
       id: 'gaMGB2dL8R0Rv2mY',
       name: 'Xellmaras, a Ladra Acorrentada',
       nd: '6',
+      cd: 24,
       pv: 168,
       pm: 0,
       defesa: 25,
@@ -63,6 +65,7 @@ async function validateThreats() {
       id: 'wbA5Rt8dqRkHQWdC',
       name: 'Gangue de Hyninn Deturpada',
       nd: '4',
+      cd: 20,
       pv: 99,
       pm: 0,
       defesa: 22,
@@ -75,6 +78,7 @@ async function validateThreats() {
       id: '4Chz9YQv6oC4R5gs',
       name: 'Sacerdote de Hyninn Deturpado',
       nd: '4',
+      cd: 20,
       pv: 98,
       pm: 28,
       defesa: 19,
@@ -88,6 +92,7 @@ async function validateThreats() {
       id: '6lKAcCvfQj9FReP7',
       name: 'Tigre-de-Hyninn Deturpado',
       nd: '6',
+      cd: 17,
       pv: 205,
       pm: 0,
       defesa: 28,
@@ -100,6 +105,7 @@ async function validateThreats() {
       id: 'E8hgaWNdM2kqv4oo',
       name: 'Aço Selvagem',
       nd: '6',
+      cd: 22,
       pv: 250,
       pm: 0,
       defesa: 27,
@@ -122,6 +128,7 @@ async function validateThreats() {
     assert(actorRaw.name === exp.name, `Nome do ator [${exp.id}] deve ser "${exp.name}"`);
     const actorNd = actorRaw.system?.attributes?.nd || actorRaw.system?.nd;
     assert(actorNd === exp.nd, `ND de "${exp.name}" deve ser ${exp.nd} (obtido: ${actorNd})`);
+    assert(actorRaw.system?.attributes?.cd === exp.cd, `CD de "${exp.name}" deve ser ${exp.cd} (obtido: ${actorRaw.system?.attributes?.cd})`);
     assert(actorRaw.system?.attributes?.pv?.value === exp.pv, `PV de "${exp.name}" deve ser ${exp.pv}`);
     assert(actorRaw.system?.attributes?.defesa?.value === exp.defesa, `Defesa de "${exp.name}" deve ser ${exp.defesa}`);
     assert(actorRaw.system?.attributes?.defesa?.base === exp.baseDef, `Defesa base de "${exp.name}" deve ser ${exp.baseDef} (dinâmica)`);
@@ -178,11 +185,14 @@ async function validateThreats() {
       assert(actorRaw.system?.pericias?.arme?.treinado === true, `Asmithar deve ser treinado em Ofício (Armeiro) [arme]`);
     }
 
-    // Verificar magias obrigatórias
+    // Verificar magias obrigatórias e rolagens
     if (exp.spells) {
       for (const sp of exp.spells) {
         const found = subDocs.find(d => d.name === sp && d.type === 'magia');
         assert(found !== undefined, `Magia individual "${sp}" (tipo magia) deve estar presente em "${exp.name}"`);
+        if (found) {
+          assert(Array.isArray(found.system?.rolls) && found.system.rolls.length > 0, `Magia "${sp}" de "${exp.name}" deve possuir rolagens em rolls[]`);
+        }
       }
     }
 
@@ -205,15 +215,15 @@ async function validateItems() {
     { id: 'fld26DefesaAntid', name: 'Qualidade: Defesa Antidivina', type: 'poder', hasEffect: true },
     { id: 'fld26GuardaAntid', name: 'Qualidade: Guarda Antidivina', type: 'poder', hasEffect: true },
     { id: 'fld26Impedimento', name: 'Qualidade: Impedimento Antidivino', type: 'poder' },
-    { id: 'fld26MagiaAntidiv', name: 'Qualidade: Magia Antidivina', type: 'poder' },
-    { id: 'fld26MenteAntidiv', name: 'Qualidade: Mente Antidivina', type: 'poder', hasEffect: true },
-    { id: 'fld26Perseguidora', name: 'Qualidade: Perseguidora Antidivina', type: 'poder', hasEffect: true },
+    { id: 'fld26MagiaAntidi', name: 'Qualidade: Magia Antidivina', type: 'poder' },
+    { id: 'fld26MenteAntidi', name: 'Qualidade: Mente Antidivina', type: 'poder', hasEffect: true },
+    { id: 'fld26Perseguidor', name: 'Qualidade: Perseguidora Antidivina', type: 'poder', hasEffect: true },
     { id: 'fld26PotenciaAnt', name: 'Qualidade: Potência Antidivina', type: 'poder' },
-    { id: 'fld26ResistenciaA', name: 'Qualidade: Resistência Antidivina', type: 'poder', hasEffect: true },
+    { id: 'fld26Resistencia', name: 'Qualidade: Resistência Antidivina', type: 'poder', hasEffect: true },
     { id: 'fld26AntidevotoQ', name: 'Qualidade: Antidevoto', type: 'poder' },
     { id: 'fld26TeofagiaFul', name: 'Teofagia (Fullgori)', type: 'poder' },
     { id: 'fld26ImunidadesF', name: 'Imunidades (Fullgori)', type: 'poder' },
-    { id: 'fld26ParcForjad', name: 'Parceiro: Forjadores Litúrgicos', type: 'poder', hasEffect: true },
+    { id: 'fld26ParcForjado', name: 'Parceiro: Forjadores Litúrgicos', type: 'poder', hasEffect: true },
     { id: 'fld26ParcThalgri', name: 'Parceiro: Thalgrimm Sangue de Ferro', type: 'poder' }
   ];
 
@@ -226,6 +236,7 @@ async function validateItems() {
     assert(itemDoc !== null, `Item [${exp.id}] "${exp.name}" deve existir no LevelDB`);
     if (!itemDoc) continue;
 
+    assert(exp.id.length === 16 && /^[a-zA-Z0-9]{16}$/.test(exp.id), `ID canônico de 16 caracteres para "${exp.name}": "${exp.id}"`);
     assert(itemDoc.name === exp.name, `Nome do item [${exp.id}] deve ser "${exp.name}"`);
     assert(itemDoc.type === exp.type, `Tipo do item "${exp.name}" deve ser "${exp.type}"`);
     assert(
@@ -285,9 +296,9 @@ async function validateTables() {
   await db.open();
 
   const EXPECTED_TABLES = [
-    { id: 'fld26TabEncontros', name: 'Subterrâneos de Valkaria — Encontros e Boatos (Edição 26)', count: 6 },
-    { id: 'fld26TabQualidades', name: 'Qualidades Antidivinas de Aço Sillariano (Edição 26)', count: 10 },
-    { id: 'fld26TabFrasesXell', name: 'Frases de Combate de Xellmaras (Edição 26)', count: 8 }
+    { id: 'fld26TabEncontro', name: 'Subterrâneos de Valkaria — Encontros e Boatos (Edição 26)', count: 6 },
+    { id: 'fld26TabQualidad', name: 'Qualidades Antidivinas de Aço Sillariano (Edição 26)', count: 10 },
+    { id: 'fld26TabFraseXel', name: 'Frases de Combate de Xellmaras (Edição 26)', count: 8 }
   ];
 
   for (const exp of EXPECTED_TABLES) {

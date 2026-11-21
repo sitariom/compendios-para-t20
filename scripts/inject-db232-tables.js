@@ -243,7 +243,7 @@ const DB232_TABLES = [
         range: [2, 2]
       },
       {
-        id: 'r8232GanchCultoAA',
+        id: 'r8232GanchCulto1',
         name: 'O Culto da Noite Eterna',
         text: '<strong>3) Servos de Tenebra:</strong> Um covil subterrâneo liderado pelo @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8232TexuNoiAAA]{Licantropo Texugo Servo da Noite} planeja profanar o cemitério da cidade.',
         description: 'Conspiração religiosa profana.',
@@ -251,7 +251,7 @@ const DB232_TABLES = [
         range: [3, 3]
       },
       {
-        id: 'r8232GanchCofreAA',
+        id: 'r8232GanchCofre1',
         name: 'O Assalto Roedor',
         text: '<strong>4) O Roubo ao Tesouro:</strong> Joias imperiais sumiram por dutos minúsculos. O grupo deve seguir o rastro do @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8232RatoInfAAA]{Infiltrador Veterano}.',
         description: 'Investigação policial e caçada nos esgotos.',
@@ -259,7 +259,7 @@ const DB232_TABLES = [
         range: [4, 4]
       },
       {
-        id: 'r8232GanchNavioAA',
+        id: 'r8232GanchNavio1',
         name: 'O Navio Fantasma',
         text: '<strong>5) O Selako dos Mares:</strong> Pescadores trazem histórias de um barco à deriva atacado por um @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8232SelaTerAAA]{Terror dos Mares}.',
         description: 'Mistério náutico de horror e sobrevivência.',
@@ -267,7 +267,7 @@ const DB232_TABLES = [
         range: [5, 5]
       },
       {
-        id: 'r8232GanchGuerraA',
+        id: 'r8232GanchGuerr1',
         name: 'Armas Monstruosas',
         text: '<strong>6) Ameaça Purista:</strong> Planos confiscados do @UUID[Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8232GineTrollA]{Ginete de Troll} revelam um criadouro secreto de perdigueiros nas fronteiras.',
         description: 'Missão de sabotagem militar na fronteira.',

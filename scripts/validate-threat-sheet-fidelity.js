@@ -180,37 +180,44 @@ async function runFidelityAudit() {
     {
       id: 'C6JxlK5xzXU8PYuK',
       name: 'Asmithar Martelo-Mudo',
+      expectedCd: 18,
       expectedPowers: ['Armamento Sagrado', 'Desprezo pelo Ordinário'],
       expectedResistencias: 'imunidade a medo, redução de dano 5'
     },
     {
       id: 'gaMGB2dL8R0Rv2mY',
       name: 'Xellmaras, a Ladra Acorrentada',
+      expectedCd: 24,
       expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Ataque Furtivo +3d6', 'Correntes Deturpadas', 'Especialista Abissal', 'Sadismo', 'Talho Atroz', 'Chave que se Fecha'],
       expectedResistencias: 'evasão, imunidade a ácido e veneno, redução de dano 10; imunidade fullgori (acertos críticos, cansaço, metabolismo, metamorfose e paralisia)'
     },
     {
       id: 'wbA5Rt8dqRkHQWdC',
       name: 'Gangue de Hyninn Deturpada',
+      expectedCd: 20,
       expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'No Alma Dói Mais', 'Truque de Luzes'],
       expectedResistencias: 'imunidade a efeitos de movimento, acertos críticos, cansaço, metabolismo, metamorfose e paralisia'
     },
     {
       id: '4Chz9YQv6oC4R5gs',
       name: 'Sacerdote de Hyninn Deturpado',
+      expectedCd: 20,
       expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Bênção do Gatuno', 'Forma de Macaco Pamgra', 'Malandragem Divina'],
       expectedSpells: ['Arma Espiritual', 'Curar Ferimentos', 'Despedaçar'],
+      expectedSpellRolls: ['Arma Espiritual', 'Curar Ferimentos', 'Despedaçar'],
       expectedResistencias: 'imunidade a efeitos mentais, acertos críticos, cansaço, metabolismo, metamorfose e paralisia'
     },
     {
       id: '6lKAcCvfQj9FReP7',
       name: 'Tigre-de-Hyninn Deturpado',
+      expectedCd: 17,
       expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Borrão Dourado', 'Reflexo Planar'],
       expectedResistencias: 'imunidade a confuso, acertos críticos, cansaço, metabolismo, metamorfose e paralisia; resistência a devotos +5'
     },
     {
       id: 'E8hgaWNdM2kqv4oo',
       name: 'Aço Selvagem',
+      expectedCd: 22,
       expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Agarrar Aprimorado', 'Ecos do Fullgor', 'Engolir', 'Corpo de Metal Fundido', 'Resfriamento Forçado'],
       expectedResistencias: 'imunidade a eletricidade, fogo, efeitos de medo, acertos críticos, cansaço, metabolismo, metamorfose e paralisia; redução de dano 10; vulnerabilidade a frio'
     },
@@ -218,12 +225,14 @@ async function runFidelityAudit() {
     {
       id: 'fld27CassiellaSe',
       name: 'Cassiella semi-fullgori',
+      expectedCd: 24,
       expectedPowers: ['Derrubar', 'Durão', 'Espada Luminosa', 'Luz Sagrada'],
       expectedResistencias: 'redução de dano 5'
     },
     {
       id: 'fld27CassiellaFu',
       name: 'Cassiella fullgori',
+      expectedCd: 26,
       expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Asa-Escudo', 'Luz Fustigante', 'Rasante Luminoso'],
       hasRanged: true,
       rangedName: 'Azagaias Fullgori',
@@ -232,26 +241,31 @@ async function runFidelityAudit() {
     {
       id: 'fld27EnxameTrogA',
       name: 'Enxame Trog',
+      expectedCd: 20,
       expectedPowers: ['Mau Cheiro Coletivo', 'Sangue Frio'],
       expectedResistencias: 'vulnerabilidade a frio (sofre +1 de dano por dado de frio)'
     },
     {
       id: 'fld27TroggoreAAA',
       name: 'Troggore',
+      expectedCd: 17,
       expectedPowers: ['Escolhido de Tenebra', 'Mau Cheiro', 'Sanguinolência', 'Sangue Frio', 'Sensibilidade a Luz'],
       expectedResistencias: 'vulnerabilidade a frio, sensibilidade a luz'
     },
     {
       id: 'fld27BandoTroggA',
       name: 'Bando Troggore',
+      expectedCd: 17,
       expectedPowers: ['Mau Cheiro', 'Devoção Protetora', 'Sanguinolência', 'Sangue Frio', 'Sensibilidade a Luz'],
       expectedResistencias: 'vulnerabilidade a frio, sensibilidade a luz'
     },
     {
       id: 'fld27UrrashSombr',
       name: 'Urrash das Sombras Frias',
+      expectedCd: 22,
       expectedPowers: ['Passo Sombrio', 'Visão nas Trevas', 'Devoção à Tenebra', 'Sangue Frio'],
       expectedSpells: ['Curar Ferimentos', 'Escuridão', 'Infligir Ferimentos', 'Perdição', 'Profanar', 'Toque Vampírico'],
+      expectedSpellRolls: ['Curar Ferimentos', 'Infligir Ferimentos', 'Toque Vampírico'],
       expectedResistencias: 'vulnerabilidade a frio, devoção a tenebra (enjoado e perde PM ao sol)'
     }
   ];
@@ -274,6 +288,37 @@ async function runFidelityAudit() {
     const itemNames = items.map(i => i.name);
     console.log(`Auditorando "${exp.name}" (${items.length} itens)...`);
 
+    // 0. Verificação de Zero Subdocumentos Órfãos
+    assert(items.length === (actorDoc.items || []).length, `${exp.name} não possui subdocumentos órfãos no LevelDB (DB=${items.length}, actor.items=${(actorDoc.items || []).length})`);
+
+    // 0.1 Verificação de CD Oficial
+    if (exp.expectedCd !== undefined) {
+      assert(actorDoc.system?.attributes?.cd === exp.expectedCd, `${exp.name} possui CD oficial ${exp.expectedCd} (obtido: ${actorDoc.system?.attributes?.cd})`);
+    }
+
+    // 0.2 Verificação de Schemas Tormenta20 em todos os itens embutidos (execucao, alcance, duracao, RollData)
+    const validExec = new Set(['passive', 'action', 'move', 'full', 'reaction', 'free', 'minute', 'hour', 'day', 'special']);
+    const validTimeUnitsAll = new Set(['inst', 'scene', 'turn', 'round', 'sust', 'minute', 'hour', 'day', 'month', 'year', 'perm', 'special']);
+    const validDistAll = new Set(['none', 'self', 'touch', 'short', 'medium', 'long', 'spec', 'any', 'm', 'km']);
+    const accentedDmg = new Set(['perfuração', 'ácido', 'essência', 'psíquico', 'elétrico']);
+    for (const it of items) {
+      if (it.system?.ativacao?.execucao) {
+        assert(validExec.has(it.system.ativacao.execucao), `Item "${it.name}" de ${exp.name} possui execucao válida (${it.system.ativacao.execucao})`);
+      }
+      if (it.system?.duracao?.units) {
+        assert(validTimeUnitsAll.has(it.system.duracao.units), `Item "${it.name}" de ${exp.name} possui duracao.units válido (${it.system.duracao.units})`);
+      }
+      if (it.system?.alcance) {
+        assert(validDistAll.has(it.system.alcance), `Item "${it.name}" de ${exp.name} possui alcance válido (${it.system.alcance})`);
+      }
+      for (const r of (it.system?.rolls || [])) {
+        assert(['ataque', 'dano', 'formula'].includes(r.type), `Rolagem de "${it.name}" em ${exp.name} possui type válido (${r.type})`);
+        for (const p of (r.parts || [])) {
+          assert(!accentedDmg.has(String(p[1] || '').toLowerCase()), `Rolagem de "${it.name}" em ${exp.name} usa tipo de dano sem acento (${p[1]})`);
+        }
+      }
+    }
+
     // 1. Verificação de Ataques à Distância
     if (exp.hasRanged) {
       const rangedWeapons = items.filter(i =>
@@ -294,11 +339,25 @@ async function runFidelityAudit() {
       }
     }
 
-    // 3. Verificação de Magias Esperadas
+    // 3. Verificação de Magias Esperadas e Rolagens
     if (exp.expectedSpells) {
+      const validTimeUnits = new Set(['inst', 'scene', 'turn', 'round', 'sust', 'minute', 'hour', 'day', 'month', 'year', 'perm', 'special']);
+      const validDist = new Set(['none', 'self', 'touch', 'short', 'medium', 'long', 'spec', 'any']);
+
       for (const s of exp.expectedSpells) {
         const spell = items.find(i => i.name === s && i.type === 'magia');
         assert(Boolean(spell), `${exp.name} possui a magia individual "${s}" de tipo "magia"`);
+        if (spell) {
+          assert(validTimeUnits.has(spell.system?.duracao?.units), `Magia "${s}" de ${exp.name} possui duracao.units válido (${spell.system?.duracao?.units})`);
+          assert(validDist.has(spell.system?.alcance), `Magia "${s}" de ${exp.name} possui alcance válido (${spell.system?.alcance})`);
+          if (exp.expectedSpellRolls && exp.expectedSpellRolls.includes(s)) {
+            const rolls = spell.system?.rolls || [];
+            assert(rolls.length > 0, `Magia "${s}" de ${exp.name} possui rolagem estruturada em rolls[]`);
+            for (const r of rolls) {
+              assert(['ataque', 'dano', 'formula'].includes(r.type), `Rolagem de "${s}" possui type válido em RollData (${r.type})`);
+            }
+          }
+        }
       }
     }
 

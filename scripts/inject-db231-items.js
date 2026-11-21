@@ -33,9 +33,8 @@
  */
 
 const { ClassicLevel } = require('classic-level');
-const fs = require('fs');
 const path = require('path');
-const { saveToSourcePacks } = require('./create-entry');
+const { buildActiveEffect, saveToSourcePacks } = require('./create-entry');
 
 const PACK_ITENS = path.join(__dirname, '..', 'packs', 'Itens_T20');
 const SOURCE_DB231 = 'Dragão Brasil #231';
@@ -345,7 +344,7 @@ const DB231_ITEMS = [
     },
     effects: [
       {
-        _id: 'effNascEstepes231',
+        _id: 'effNascEst231001',
         name: 'Nascido nas Estepes (+2 Cavalgar/Vontade/Dano)',
         icon: 'systems/tormenta20/icons/poderes/ameacas/montaria.webp',
         changes: [
@@ -374,7 +373,7 @@ const DB231_ITEMS = [
     },
     effects: [
       {
-        _id: 'effNomadFerani231',
+        _id: 'effNomadFer23101',
         name: 'Nômade Ferani (+2 Fort/Furt)',
         icon: 'systems/tormenta20/icons/armas/lanca.webp',
         changes: [
@@ -435,18 +434,17 @@ async function injectItems() {
     if (itemData.effects && itemData.effects.length > 0) {
       for (const eff of itemData.effects) {
         effectIds.push(eff._id);
-        const effectDoc = {
-          _id: eff._id,
+        const effectDoc = buildActiveEffect({
+          id: eff._id,
           name: eff.name,
-          icon: eff.icon || itemData.img,
+          img: eff.icon || itemData.img,
           origin: `Item.${itemId}`,
-          duration: eff.duration || { rounds: null, startTime: null, seconds: null, combat: null, turns: null, startRound: null, startTurn: null },
+          duration: eff.duration,
           disabled: Boolean(eff.disabled),
           transfer: eff.transfer !== undefined ? eff.transfer : true,
           changes: eff.changes || [],
-          flags: eff.flags || { tormenta20: { self: true } },
-          system: {}
-        };
+          flags: eff.flags || { tormenta20: { self: true } }
+        });
         embeddedEffects.push(effectDoc);
       }
     }

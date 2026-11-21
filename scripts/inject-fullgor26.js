@@ -16,6 +16,7 @@ const fs = require('fs');
 const {
   buildSkills,
   buildTracos,
+  buildActiveEffect,
   buildWeaponAttack,
   buildSpecialPower,
   buildSpellItem,
@@ -140,7 +141,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 230, max: 230 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 32, base: 31 } // 32 - 1 = 31
+      defesa: { value: 32, base: 31 }, // 32 - 1 = 31
+      cd: 18
     },
     resistencias: asmitharTracos,
     resistenciasTexto: 'imunidade a medo, redução de dano 5',
@@ -200,12 +202,28 @@ async function injectThreats() {
     buildSpecialPower({
       name: 'Ataque Furtivo +3d6',
       img: 'systems/tormenta20/icons/poderes/classes/ladinos/ataque-furtivo.webp',
+      rolls: [
+        { name: 'Ataque Furtivo', key: 'dano0', type: 'dano', parts: [['3d6', 'corte', '']] }
+      ],
       description: '<p>Uma vez por rodada, quando atinge um alvo desprevenido ou que esteja flanqueando, causa 3d6 pontos de dano adicional.</p>'
     }),
     buildSpecialPower({
       name: 'Correntes Deturpadas',
       img: 'systems/tormenta20/icons/poderes/ameacas/ataque-de-correntes.webp',
       ativacao: { execucao: 'standard', custo: 0 },
+      cd: 24,
+      resistencia: { pericia: 'fort', atributo: 'con', bonus: 0, txt: 'Fort CD 24 reduz à metade e evita a dor e a penalidade' },
+      rolls: [
+        { name: 'Dano de Corte', key: 'dano1', type: 'dano', parts: [['(3d6+26)/2', 'corte', '']] },
+        { name: 'Dano de Luz', key: 'dano2', type: 'dano', parts: [['(3d6+26)/2', 'luz', '']] }
+      ],
+      effects: [
+        {
+          name: 'Dor Profunda (-5 em Perícias)',
+          changes: [{ key: 'system.modificadores.pericias.geral', mode: 2, value: '-5' }],
+          transfer: false
+        }
+      ],
       description: '<p>(Ação Padrão) Xellmaras projeta suas correntes contra uma criatura em alcance curto. A vítima sofre 3d6+26 pontos de dano, metade corte e metade luz, e é acometida por uma dor profunda que causa uma penalidade de –5 em testes de perícia até o fim da cena (Fort CD 24 reduz à metade e evita a dor e a penalidade). Um efeito capaz de remover uma condição de fadiga remove a dor e a penalidade.</p>'
     }),
     buildSpecialPower({
@@ -216,11 +234,23 @@ async function injectThreats() {
     buildSpecialPower({
       name: 'Sadismo',
       img: 'systems/tormenta20/icons/poderes/classes/lutadores/golpe-cruel.webp',
+      effects: [
+        {
+          name: 'Sadismo (+5 Ataque e Dano contra Sangrando)',
+          changes: [
+            { key: 'ataque', mode: 2, value: '5' },
+            { key: 'dano', mode: 2, value: '5' }
+          ],
+          transfer: false
+        }
+      ],
       description: '<p>Xellmaras recebe +5 em testes de ataque e rolagens de dano contra criaturas que estejam sangrando.</p>'
     }),
     buildSpecialPower({
       name: 'Talho Atroz',
       img: 'systems/tormenta20/icons/poderes/ameacas/sangramento.webp',
+      cd: 24,
+      resistencia: 'Fort CD 24 evita sangramento',
       description: '<p>Uma criatura atingida por um ataque de cimitarra de Xellmaras fica sangrando (Fort CD 24 evita).</p>'
     }),
     buildSpecialPower({
@@ -245,7 +275,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 168, max: 168 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 25, base: 19 } // 25 - 6 = 19
+      defesa: { value: 25, base: 19 }, // 25 - 6 = 19
+      cd: 24
     },
     resistencias: xellTracos,
     resistenciasTexto: 'evasão, imunidade a ácido e veneno, redução de dano 10; imunidade fullgori (acertos críticos, cansaço, metabolismo, metamorfose e paralisia)',
@@ -305,6 +336,8 @@ async function injectThreats() {
       name: 'Truque de Luzes',
       img: 'systems/tormenta20/icons/poderes/classes/ladinos/sombra.webp',
       ativacao: { execucao: 'reaction', custo: 0 },
+      cd: 20,
+      resistencia: { pericia: 'vont', atributo: 'sab', bonus: 0, txt: 'Vontade CD 20 evita' },
       description: '<p>(Reação) Uma vez por rodada, quando é atacada, a gangue engana o atacante com uma distração, como um reflexo dourado, mudando o alvo do ataque para outra criatura dentro do alcance do atacante (Von CD 20 evita). A gangue só pode usar esta habilidade uma vez por cena contra cada atacante.</p>'
     })
   ];
@@ -324,7 +357,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 99, max: 99 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 22, base: 19 } // 22 - 3 = 19
+      defesa: { value: 22, base: 19 }, // 22 - 3 = 19
+      cd: 20
     },
     resistencias: gangueTracos,
     resistenciasTexto: 'imunidade a efeitos de movimento, acertos críticos, cansaço, metabolismo, metamorfose e paralisia',
@@ -374,6 +408,16 @@ async function injectThreats() {
       ativacao: { execucao: 'standard', custo: 4 },
       alcance: 'pessoal',
       duracao: 'cena',
+      rolls: [
+        { name: 'Contra-Ataque', key: 'dano1', type: 'dano', parts: [['2d6', 'perfuracao', '']] }
+      ],
+      effects: [
+        {
+          name: 'Arma Espiritual (+2 Defesa)',
+          changes: [{ key: 'system.attributes.defesa.outros', mode: 2, value: '2' }],
+          transfer: false
+        }
+      ],
       description: '<p>Até o fim da cena, o sacerdote recebe +2 na Defesa e, uma vez por rodada, quando sofre um ataque corpo a corpo, pode usar uma reação para causar 2d6 pontos de dano de perfuração no atacante.</p>'
     }),
     buildSpellItem({
@@ -385,6 +429,9 @@ async function injectThreats() {
       ativacao: { execucao: 'standard', custo: 4 },
       alcance: 'toque',
       duracao: 'instantânea',
+      rolls: [
+        { name: 'Cura', key: 'dano0', type: 'dano', parts: [['5d8+5', 'curapv', '']] }
+      ],
       description: '<p>Uma criatura adjacente cura 5d8+5 PV.</p>'
     }),
     buildSpellItem({
@@ -396,7 +443,12 @@ async function injectThreats() {
       ativacao: { execucao: 'standard', custo: 3 },
       alcance: 'curto',
       alvo: '1 criatura ou objeto',
-      resistencia: 'Fortitude reduz à metade e evita atordoamento',
+      resistencia: 'Fortitude CD 20 reduz à metade e evita atordoamento',
+      resistenciaPericia: 'fort',
+      resistenciaAtributo: 'con',
+      rolls: [
+        { name: 'Dano de Impacto', key: 'dano1', type: 'dano', parts: [['2d8+4', 'impacto', '']] }
+      ],
       description: '<p>Um alvo em alcance curto sofre 2d8+4 pontos de dano de impacto se for criatura, ou o dobro sem RD se for construto ou objeto Pequeno, e fica atordoado (Fort CD 20 reduz à metade e evita).</p>'
     }),
     buildSpecialPower({
@@ -419,6 +471,19 @@ async function injectThreats() {
       name: 'Forma de Macaco Pamgra',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp',
       ativacao: { execucao: 'full', custo: 4 },
+      rolls: [
+        { name: 'Pancada Pamgra', key: 'dano0', type: 'dano', parts: [['2d8+5', 'impacto', '']] }
+      ],
+      effects: [
+        {
+          name: 'Forma de Macaco Pamgra (+2 Defesa, RD 10)',
+          changes: [
+            { key: 'system.attributes.defesa.outros', mode: 2, value: '2' },
+            { key: 'system.tracos.resistencias.dano.value', mode: 2, value: '10' }
+          ],
+          transfer: false
+        }
+      ],
       description: '<p>(Ação Completa, 4 PM) O sacerdote se transforma em um pamgra fullgori de cristal dourado. O tipo muda para espírito (fullgori), adquire imunidade a ácido, RD 10/impacto, vulnerabilidade a eletricidade, 80 PV temporários, +2 na Defesa e ataques corpo a corpo de pancada x2 +16 (2d8+5, 19 mais sangramento). Dura indefinidamente até reverter com ação de movimento.</p>'
     }),
     buildSpecialPower({
@@ -444,7 +509,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 98, max: 98 },
       pm: { value: 28, max: 28 },
-      defesa: { value: 19, base: 16 } // 19 - 3 = 16
+      defesa: { value: 19, base: 16 }, // 19 - 3 = 16
+      cd: 20
     },
     resistencias: sacTracos,
     resistenciasTexto: 'imunidade a efeitos mentais, acertos críticos, cansaço, metabolismo, metamorfose e paralisia',
@@ -545,7 +611,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 205, max: 205 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 28, base: 24 } // 28 - 4 = 24
+      defesa: { value: 28, base: 24 }, // 28 - 4 = 24
+      cd: 17
     },
     resistencias: tigreTracos,
     resistenciasTexto: 'imunidade a confuso, acertos críticos, cansaço, metabolismo, metamorfose e paralisia; resistência a devotos +5',
@@ -583,6 +650,8 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/poderes/ameacas/pancada.webp',
       dano: '2d6+5',
       tipoDano: 'impacto',
+      danoExtra: '2d6+5',
+      tipoDanoExtra: 'fogo',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
@@ -609,17 +678,28 @@ async function injectThreats() {
     buildSpecialPower({
       name: 'Ecos do Fullgor',
       img: 'systems/tormenta20/icons/poderes/ameacas/rugido-amedrontador.webp',
+      cd: 22,
+      resistencia: { pericia: 'fort', atributo: 'con', bonus: 0, txt: 'Fort CD 22 muda para abalado por uma rodada' },
       description: '<p>Criaturas que iniciem seus turnos em alcance curto do aço selvagem ficam apavoradas e surdas (Fort CD 22 muda para abalado por uma rodada). Se passar, a criatura fica imune a esta habilidade por um dia.</p>'
     }),
     buildSpecialPower({
       name: 'Engolir',
       img: 'systems/tormenta20/icons/poderes/ameacas/engolir.webp',
       ativacao: { execucao: 'standard', custo: 0 },
+      rolls: [
+        { name: 'Dano de Impacto', key: 'dano1', type: 'dano', parts: [['1d6+5', 'impacto', '']] },
+        { name: 'Dano de Fogo', key: 'dano2', type: 'dano', parts: [['2d8', 'fogo', '']] }
+      ],
       description: '<p>(Ação Padrão) Se o aço selvagem começar seu turno agarrando uma criatura Média ou menor, pode fazer um teste de agarrar contra ela. Se vencer, engole a criatura. Uma criatura engolida continua agarrada e sofre 1d6+5 de impacto mais 2d8 de fogo no início de cada turno do monstro. Para escapar, deve causar 20 pontos de dano ao aço selvagem (Defesa 10), fazendo-o regurgitar a criatura caída à sua frente.</p>'
     }),
     buildSpecialPower({
       name: 'Corpo de Metal Fundido',
       img: 'systems/tormenta20/icons/poderes/ameacas/resistencia-a-fogo.webp',
+      cd: 22,
+      resistencia: { pericia: 'refl', atributo: 'des', bonus: 0, txt: 'Ref CD 22 evita' },
+      rolls: [
+        { name: 'Dano de Fogo', key: 'dano1', type: 'dano', parts: [['4d6+10', 'fogo', '']] }
+      ],
       description: '<p>Criaturas e objetos que iniciem seus turnos em alcance curto do aço selvagem, ou que façam um ataque corpo a corpo contra ele, sofrem 4d6+10 pontos de dano de fogo (Ref CD 22 evita).</p>'
     }),
     buildSpecialPower({
@@ -644,7 +724,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 250, max: 250 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 27, base: 25 } // 27 - 2 = 25
+      defesa: { value: 27, base: 25 }, // 27 - 2 = 25
+      cd: 22
     },
     resistencias: acoTracos,
     resistenciasTexto: 'imunidade a eletricidade, fogo, efeitos de medo, acertos críticos, cansaço, metabolismo, metamorfose e paralisia; redução de dano 10; vulnerabilidade a frio',
@@ -678,6 +759,14 @@ async function injectThreats() {
       tokenTexture: t.tokenTexture,
       biography: t.biography
     });
+
+    // Limpar subdocumentos antigos antes de gravar
+    for await (const [oldKey] of db.iterator({ gte: `!actors.items!${t.id}.`, lte: `!actors.items!${t.id}.\uffff` })) {
+      await db.del(oldKey);
+    }
+    for await (const [oldEffKey] of db.iterator({ gte: `!actors.items.effects!${t.id}.`, lte: `!actors.items.effects!${t.id}.\uffff` })) {
+      await db.del(oldEffKey);
+    }
 
     await db.put(`!actors!${built.actorDoc._id}`, built.actorDoc);
     for (const ed of built.embeddedDocs) {
@@ -772,7 +861,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> Uma vez por cena, quando causa dano a uma criatura divina, você recupera 1 PM. Esta qualidade pode ser adquirida novamente; para cada nova aquisição, a recuperação de PM aumenta em +1. Custa 10 estilhas fullgori por aquisição.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       effects: [],
@@ -789,7 +878,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> O dano da arma aumenta um passo contra criaturas divinas. Esta qualidade pode ser adquirida novamente; para cada nova aquisição, o passo de dano aumenta em +1. Custa 10 estilhas fullgori por aquisição.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       effects: [],
@@ -806,7 +895,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> O item fornece +2 na Defesa contra criaturas divinas. Esta qualidade pode ser adquirida novamente; para cada nova aquisição, o bônus na Defesa aumenta em +2. Custa 10 estilhas fullgori por aquisição.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       rawEffects: [
@@ -832,7 +921,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> O item fornece +2 em testes de resistência contra habilidades de criaturas divinas e, uma vez por cena, você pode ignorar a habilidade Teofagia de um fullgori. Esta qualidade pode ser adquirida novamente; para cada nova aquisição, o número de usos por cena aumenta em +1. Custa 10 estilhas fullgori por aquisição.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       rawEffects: [
@@ -840,7 +929,7 @@ async function injectItems() {
           _id: 'eff26GuaAntid001',
           name: 'Guarda Antidivina (+2 Resistências)',
           changes: [
-            { key: 'system.modificadores.resistencia', mode: 2, value: '2', priority: 20 }
+            { key: 'system.modificadores.pericias.resistencia', mode: 2, value: '2', priority: 20 }
           ]
         }
       ],
@@ -858,7 +947,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> Uma vez por cena, o portador do item pode forçar uma criatura divina a rolar novamente um teste de resistência recém-realizado. Esta qualidade pode ser adquirida novamente; para cada nova aquisição, o número de usos por cena aumenta em +1. Custa 10 estilhas fullgori por aquisição.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       effects: [],
@@ -866,7 +955,7 @@ async function injectItems() {
       _stats: statsHeader
     },
     {
-      _id: 'fld26MagiaAntidiv',
+      _id: 'fld26MagiaAntidi',
       name: 'Qualidade: Magia Antidivina',
       type: 'poder',
       img: 'systems/tormenta20/icons/poderes/classes/conjuradores/foco-em-magia.webp',
@@ -875,7 +964,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> O item aumenta a CD das suas habilidades mágicas em +5, mas apenas quando usadas contra criaturas divinas. Custa 10 estilhas fullgori.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       effects: [],
@@ -883,7 +972,7 @@ async function injectItems() {
       _stats: statsHeader
     },
     {
-      _id: 'fld26MenteAntidiv',
+      _id: 'fld26MenteAntidi',
       name: 'Qualidade: Mente Antidivina',
       type: 'poder',
       img: 'systems/tormenta20/icons/poderes/classes/especialistas/especialista.webp',
@@ -892,7 +981,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> O item fornece +2 em testes de perícia (mas não testes de ataque ou resistência) envolvendo criaturas divinas. Esta qualidade pode ser adquirida novamente; para cada nova aquisição, o bônus aumenta em +2. Custa 10 estilhas fullgori por aquisição.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       rawEffects: [
@@ -900,7 +989,7 @@ async function injectItems() {
           _id: 'eff26MenAntid001',
           name: 'Mente Antidivina (+2 Perícias)',
           changes: [
-            { key: 'system.modificadores.pericia', mode: 2, value: '2', priority: 20 }
+            { key: 'system.modificadores.pericias.geral', mode: 2, value: '2', priority: 20 }
           ]
         }
       ],
@@ -909,7 +998,7 @@ async function injectItems() {
       _stats: statsHeader
     },
     {
-      _id: 'fld26Perseguidora',
+      _id: 'fld26Perseguidor',
       name: 'Qualidade: Perseguidora Antidivina',
       type: 'poder',
       img: 'systems/tormenta20/icons/poderes/classes/guerreiros/precisao.webp',
@@ -918,7 +1007,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> A arma fornece +2 em testes de ataque contra criaturas divinas. Além disso, a imunidade a acertos críticos e ataque furtivo dessas criaturas só reduz o dano destes efeitos à metade, em vez de transformá-los em ataques normais. Esta qualidade pode ser adquirida novamente; para cada nova aquisição, o bônus aumenta em +2. Custa 10 estilhas fullgori por aquisição.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       rawEffects: [
@@ -926,7 +1015,7 @@ async function injectItems() {
           _id: 'eff26PerAntid001',
           name: 'Perseguidora Antidivina (+2 Ataque)',
           changes: [
-            { key: 'system.modificadores.ataque', mode: 2, value: '2', priority: 20 }
+            { key: 'system.modificadores.ataque.geral', mode: 2, value: '2', priority: 20 }
           ]
         }
       ],
@@ -944,7 +1033,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> O item reduz em –1 PM o custo de habilidades usadas contra criaturas divinas. Custa 10 estilhas fullgori.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       effects: [],
@@ -952,7 +1041,7 @@ async function injectItems() {
       _stats: statsHeader
     },
     {
-      _id: 'fld26ResistenciaA',
+      _id: 'fld26Resistencia',
       name: 'Qualidade: Resistência Antidivina',
       type: 'poder',
       img: 'systems/tormenta20/icons/poderes/ameacas/reducao-de-dano.webp',
@@ -961,7 +1050,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> O item fornece redução de dano (RD) 5 contra qualquer dano causado por criaturas divinas. Custa 10 estilhas fullgori.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       rawEffects: [
@@ -969,7 +1058,7 @@ async function injectItems() {
           _id: 'eff26ResAntid001',
           name: 'Resistência Antidivina (RD 5)',
           changes: [
-            { key: 'system.tracos.resistencias.dano', mode: 2, value: '5', priority: 20 }
+            { key: 'system.tracos.resistencias.dano.bonus', mode: 2, value: '5', priority: 20 }
           ]
         }
       ],
@@ -987,7 +1076,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Qualidade de Aço Sillariano:</strong> Os efeitos de todas as qualidades antidivinas do item também se aplicam a seres semidivinos (aspectos, qareen e suraggel) e devotos de qualquer divindade. Custa 10 estilhas fullgori.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'geral'
       },
       effects: [],
@@ -1005,7 +1094,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Habilidade de Criatura Fullgori:</strong> Quando um fullgori causa dano a um devoto, o devoto perde 1 PM por patamar do fullgori. Se o devoto for reduzido a 0 PM dessa forma, perde acesso a todos os seus poderes concedidos e às magias fornecidas por sua divindade por 24 horas.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'ameaca'
       },
       effects: [],
@@ -1023,7 +1112,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Habilidade de Criatura Fullgori:</strong> Fullgori são imunes a acertos críticos, cansaço, efeitos de metabolismo, metamorfose e paralisia.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'ameaca'
       },
       effects: [],
@@ -1032,7 +1121,7 @@ async function injectItems() {
     },
     // 16. Parceiro: Forjadores Litúrgicos
     {
-      _id: 'fld26ParcForjad',
+      _id: 'fld26ParcForjado',
       name: 'Parceiro: Forjadores Litúrgicos',
       type: 'poder',
       img: 'systems/tormenta20/icons/poderes/classes/guerreiros/disciplina-de-combate.webp',
@@ -1041,7 +1130,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Parceiro Combatente Veterano:</strong> Os sacerdotes-ferreiros de Arsenal fornecem suporte tático e marcial exímio. Uma vez por rodada, você recebe +2 em testes de ataque e rolagens de dano corpo a corpo.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'parceiro'
       },
       rawEffects: [
@@ -1049,8 +1138,8 @@ async function injectItems() {
           _id: 'eff26ForjLiturg1',
           name: 'Suporte de Forjador Litúrgico (+2 Ataque e Dano)',
           changes: [
-            { key: 'system.modificadores.ataque', mode: 2, value: '2', priority: 20 },
-            { key: 'system.modificadores.dano.corpo-a-corpo', mode: 2, value: '2', priority: 20 }
+            { key: 'system.modificadores.ataque.geral', mode: 2, value: '2', priority: 20 },
+            { key: 'system.modificadores.dano.cac', mode: 2, value: '2', priority: 20 }
           ]
         }
       ],
@@ -1069,7 +1158,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Parceiro Médico Veterano:</strong> O frade de Arsenal cuida dos ferimentos de combate durante a batalha. Uma vez por rodada, quando cura um aliado ou a si mesmo com magia ou item, cura +1d8+2 pontos de vida adicionais.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'parceiro'
       },
       effects: [],
@@ -1078,24 +1167,32 @@ async function injectItems() {
     }
   ];
 
+  // Limpar IDs legados fora do padrão de 16 chars
+  for (const legacyId of ['fld26MagiaAntidiv', 'fld26MenteAntidiv', 'fld26Perseguidora', 'fld26ResistenciaA', 'fld26ParcForjad']) {
+    await db.del(`!items!${legacyId}`).catch(() => {});
+    for await (const [oldKey] of db.iterator({ gte: `!items.effects!${legacyId}.`, lte: `!items.effects!${legacyId}.\uffff` })) {
+      await db.del(oldKey);
+    }
+  }
+
   for (const item of items) {
     const rawEffects = item.rawEffects || [];
     const effectIds = rawEffects.map(e => e._id);
     const embeddedEffects = [];
 
+    for await (const [oldEffKey] of db.iterator({ gte: `!items.effects!${item._id}.`, lte: `!items.effects!${item._id}.\uffff` })) {
+      await db.del(oldEffKey);
+    }
+
     for (const eff of rawEffects) {
-      const effectDoc = {
-        _id: eff._id,
+      const effectDoc = buildActiveEffect({
+        id: eff._id,
         name: eff.name,
-        icon: eff.icon || item.img,
+        img: eff.icon || item.img,
         origin: `Item.${item._id}`,
-        duration: { rounds: null, startTime: null, seconds: null, combat: null, turns: null, startRound: null, startTurn: null },
-        disabled: false,
-        transfer: true,
         changes: eff.changes || [],
-        flags: { tormenta20: { self: true } },
-        system: {}
-      };
+        transfer: true
+      });
       embeddedEffects.push(effectDoc);
       await db.put(`!items.effects!${item._id}.${eff._id}`, effectDoc);
     }
@@ -1148,20 +1245,20 @@ async function injectJournals() {
     ownership: { default: -1 },
     flags: {},
     pages: [
-      'p26SinopseAvent',
-      'p26Parte1AForja',
-      'p26Parte2AlmaRo',
-      'p26Parte3CampoK',
-      'p26Parte4FerroF',
-      'p26RegrasAcoSi',
-      'p26BestiarioNpc'
+      'p26SinopseAvent1',
+      'p26Parte1AForja1',
+      'p26Parte2AlmaRo1',
+      'p26Parte3CampoK1',
+      'p26Parte4FerroF1',
+      'p26RegrasAcoSi01',
+      'p26BestiarioNpc1'
     ],
     _stats: statsHeader
   };
 
   const pages = [
     {
-      _id: 'p26SinopseAvent',
+      _id: 'p26SinopseAvent1',
       name: 'Apresentação & Sinopse: Forja da Vingança',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1183,7 +1280,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p26Parte1AForja',
+      _id: 'p26Parte1AForja1',
       name: 'Parte 1: A Forja Aguarda',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1210,7 +1307,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p26Parte2AlmaRo',
+      _id: 'p26Parte2AlmaRo1',
       name: 'Parte 2: Alma Roubada',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1237,7 +1334,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p26Parte3CampoK',
+      _id: 'p26Parte3CampoK1',
       name: 'Parte 3: Sob o Campo de Keenn',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1257,7 +1354,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p26Parte4FerroF',
+      _id: 'p26Parte4FerroF1',
       name: 'Parte 4: A Ferro e Fogo',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1285,7 +1382,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p26RegrasAcoSi',
+      _id: 'p26RegrasAcoSi01',
       name: 'Regras Especiais: Aço da Vingança & Criaturas Divinas',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1317,7 +1414,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p26BestiarioNpc',
+      _id: 'p26BestiarioNpc1',
       name: 'Bestiário & NPCs da Edição 26',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1341,6 +1438,9 @@ async function injectJournals() {
     }
   ];
 
+  for await (const [oldPageKey] of db.iterator({ gte: `!journal.pages!${journalId}.`, lte: `!journal.pages!${journalId}.\uffff` })) {
+    await db.del(oldPageKey);
+  }
   await db.put(`!journal!${journalId}`, journalDoc);
   const embeddedPages = [];
 
@@ -1381,44 +1481,44 @@ async function injectTables() {
   const tables = [
     // 1. Subterrâneos de Valkaria — Encontros e Boatos (1d6)
     {
-      id: 'fld26TabEncontros',
+      id: 'fld26TabEncontro',
       name: 'Subterrâneos de Valkaria — Encontros e Boatos (Edição 26)',
       formula: '1d6',
       img: 'systems/tormenta20/icons/itens/equipamentos/tocha.webp',
       description: '<p>Tabela de eventos aleatórios e pistas nos subterrâneos de Valkaria durante a perseguição à Alma da Bigorna.</p>',
       results: [
         {
-          id: 'res26Enc0000001',
+          id: 'res26Enc00000001',
           name: 'Pichações da Raposa Dourada',
           text: 'Pichações em tinta fosforescente mostram o símbolo de Hyninn com olhos de chama dourada, apontando para canais fluviais abandonados.',
           range: [1, 1]
         },
         {
-          id: 'res26Enc0000002',
+          id: 'res26Enc00000002',
           name: 'Patrulha da Guarda de Valkaria',
           text: 'Uma patrulha de guardas municipais desconfia do grupo armado. Um teste de Diplomacia ou Enganação CD 18 evita confusão.',
           range: [2, 2]
         },
         {
-          id: 'res26Enc0000003',
+          id: 'res26Enc00000003',
           name: 'Mendigo Abençoado',
           text: 'Um antigo devoto de Keenn pede esmolas e murmura sobre correntes que tilintam sozinhas sob o Campo de Keenn.',
           range: [3, 3]
         },
         {
-          id: 'res26Enc0000004',
+          id: 'res26Enc00000004',
           name: 'Estilhas Cristalinas Esquecidas',
           text: 'O grupo encontra resquícios de uma batalha entre ladrões: 1d6 estilhas fullgori em meio a sangue seco e cinzas.',
           range: [4, 4]
         },
         {
-          id: 'res26Enc0000005',
+          id: 'res26Enc00000005',
           name: 'Emboscada de Ladrões Menores',
           text: 'Dois ladrões comuns tentam roubar a retaguarda dos heróis, fugindo ao primeiro sinal de combate.',
           range: [5, 5]
         },
         {
-          id: 'res26Enc0000006',
+          id: 'res26Enc00000006',
           name: 'Eco de Martelos Sagrados',
           text: 'Um som distante de batidas de bigorna reverbera nas pedras, restaurando 1 PM para todos os devotos do grupo.',
           range: [6, 6]
@@ -1427,45 +1527,55 @@ async function injectTables() {
     },
     // 2. Qualidades Antidivinas de Aço Sillariano (1d10)
     {
-      id: 'fld26TabQualidades',
+      id: 'fld26TabQualidad',
       name: 'Qualidades Antidivinas de Aço Sillariano (Edição 26)',
       formula: '1d10',
       img: 'systems/tormenta20/icons/itens/equipamentos/lingote.webp',
       description: '<p>Determinação aleatória de qualidades forjadas no aço sillariano para NPCs ou recompensas espontâneas.</p>',
       results: [
-        { id: 'res26Q000000001', name: 'Absorção Antidivina', text: 'Recupera 1 PM ao causar dano a criatura divina 1/cena.', range: [1, 1] },
-        { id: 'res26Q000000002', name: 'Arma Antidivina', text: 'Dano da arma aumenta em um passo contra criaturas divinas.', range: [2, 2] },
-        { id: 'res26Q000000003', name: 'Defesa Antidivina', text: '+2 na Defesa contra criaturas divinas.', range: [3, 3] },
-        { id: 'res26Q000000004', name: 'Guarda Antidivina', text: '+2 em resistências contra criaturas divinas e ignora Teofagia 1/cena.', range: [4, 4] },
-        { id: 'res26Q000000005', name: 'Impedimento Antidivino', text: 'Força criatura divina a rerrolar teste de resistência 1/cena.', range: [5, 5] },
-        { id: 'res26Q000000006', name: 'Magia Antidivina', text: '+5 na CD de magias contra criaturas divinas.', range: [6, 6] },
-        { id: 'res26Q000000007', name: 'Mente Antidivina', text: '+2 em testes de perícia envolvendo criaturas divinas.', range: [7, 7] },
-        { id: 'res26Q000000008', name: 'Perseguidora Antidivina', text: '+2 em testes de ataque e crítico causa metade do dano em vez de nada.', range: [8, 8] },
-        { id: 'res26Q000000009', name: 'Potência Antidivina', text: '-1 PM no custo de habilidades contra criaturas divinas.', range: [9, 9] },
-        { id: 'res26Q000000010', name: 'Resistência Antidivina', text: 'Fornece RD 5 contra criaturas divinas.', range: [10, 10] }
+        { id: 'res26Q0000000001', name: 'Absorção Antidivina', text: 'Recupera 1 PM ao causar dano a criatura divina 1/cena.', range: [1, 1] },
+        { id: 'res26Q0000000002', name: 'Arma Antidivina', text: 'Dano da arma aumenta em um passo contra criaturas divinas.', range: [2, 2] },
+        { id: 'res26Q0000000003', name: 'Defesa Antidivina', text: '+2 na Defesa contra criaturas divinas.', range: [3, 3] },
+        { id: 'res26Q0000000004', name: 'Guarda Antidivina', text: '+2 em resistências contra criaturas divinas e ignora Teofagia 1/cena.', range: [4, 4] },
+        { id: 'res26Q0000000005', name: 'Impedimento Antidivino', text: 'Força criatura divina a rerrolar teste de resistência 1/cena.', range: [5, 5] },
+        { id: 'res26Q0000000006', name: 'Magia Antidivina', text: '+5 na CD de magias contra criaturas divinas.', range: [6, 6] },
+        { id: 'res26Q0000000007', name: 'Mente Antidivina', text: '+2 em testes de perícia envolvendo criaturas divinas.', range: [7, 7] },
+        { id: 'res26Q0000000008', name: 'Perseguidora Antidivina', text: '+2 em testes de ataque e crítico causa metade do dano em vez de nada.', range: [8, 8] },
+        { id: 'res26Q0000000009', name: 'Potência Antidivina', text: '-1 PM no custo de habilidades contra criaturas divinas.', range: [9, 9] },
+        { id: 'res26Q0000000010', name: 'Resistência Antidivina', text: 'Fornece RD 5 contra criaturas divinas.', range: [10, 10] }
       ]
     },
     // 3. Frases de Combate de Xellmaras (1d8)
     {
-      id: 'fld26TabFrasesXell',
+      id: 'fld26TabFraseXel',
       name: 'Frases de Combate de Xellmaras (Edição 26)',
       formula: '1d8',
       img: 'systems/tormenta20/icons/poderes/ameacas/ataque-de-correntes.webp',
       description: '<p>Frases dramáticas e blasfêmias pronunciadas por Xellmaras, a Ladra Acorrentada, durante o confronto.</p>',
       results: [
-        { id: 'res26F000000001', name: 'Bolsas dos Deuses', text: '"Hyninn ensina que até os deuses têm bolsas."', range: [1, 1] },
-        { id: 'res26F000000002', name: 'Arsenal Forja', text: '"Arsenal forja armas — eu as roubo."', range: [2, 2] },
-        { id: 'res26F000000003', name: 'Fullgor Toma', text: '"O Fullgor não pede oferendas. Ele toma tudo."', range: [3, 3] },
-        { id: 'res26F000000004', name: 'Aço Obedece', text: '"A Alma da Bigorna canta em mim... e o aço obedece."', range: [4, 4] },
-        { id: 'res26F000000005', name: 'O Preço', text: '"Os Forjadores rezam por força. Eu mostro o preço."', range: [5, 5] },
-        { id: 'res26F000000006', name: 'Serva da Dor', text: '"O Fullgor me libertou da vergonha do crime. Agora, sirvo à dor."', range: [6, 6] },
-        { id: 'res26F000000007', name: 'Minha Alma', text: '"Arsenal perdeu seu mundo. Hyninn, sua vergonha. Eu, minha alma."', range: [7, 7] },
-        { id: 'res26F000000008', name: 'Eco das Correntes', text: '"Sou o eco das correntes que prenderam deuses."', range: [8, 8] }
+        { id: 'res26F0000000001', name: 'Bolsas dos Deuses', text: '"Hyninn ensina que até os deuses têm bolsas."', range: [1, 1] },
+        { id: 'res26F0000000002', name: 'Arsenal Forja', text: '"Arsenal forja armas — eu as roubo."', range: [2, 2] },
+        { id: 'res26F0000000003', name: 'Fullgor Toma', text: '"O Fullgor não pede oferendas. Ele toma tudo."', range: [3, 3] },
+        { id: 'res26F0000000004', name: 'Aço Obedece', text: '"A Alma da Bigorna canta em mim... e o aço obedece."', range: [4, 4] },
+        { id: 'res26F0000000005', name: 'O Preço', text: '"Os Forjadores rezam por força. Eu mostro o preço."', range: [5, 5] },
+        { id: 'res26F0000000006', name: 'Serva da Dor', text: '"O Fullgor me libertou da vergonha do crime. Agora, sirvo à dor."', range: [6, 6] },
+        { id: 'res26F0000000007', name: 'Minha Alma', text: '"Arsenal perdeu seu mundo. Hyninn, sua vergonha. Eu, minha alma."', range: [7, 7] },
+        { id: 'res26F0000000008', name: 'Eco das Correntes', text: '"Sou o eco das correntes que prenderam deuses."', range: [8, 8] }
       ]
     }
   ];
 
+  for (const legacyTab of ['fld26TabEncontros', 'fld26TabQualidades', 'fld26TabFrasesXell']) {
+    await db.del(`!tables!${legacyTab}`).catch(() => {});
+    for await (const [oldResKey] of db.iterator({ gte: `!tables.results!${legacyTab}.`, lte: `!tables.results!${legacyTab}.\uffff` })) {
+      await db.del(oldResKey);
+    }
+  }
+
   for (const t of tables) {
+    for await (const [oldResKey] of db.iterator({ gte: `!tables.results!${t.id}.`, lte: `!tables.results!${t.id}.\uffff` })) {
+      await db.del(oldResKey);
+    }
     const tableDoc = {
       _id: t.id,
       name: t.name,

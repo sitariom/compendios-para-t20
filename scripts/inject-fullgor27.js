@@ -14,10 +14,10 @@
 
 const { ClassicLevel } = require('classic-level');
 const path = require('path');
-const fs = require('fs');
 const {
   buildSkills,
   buildTracos,
+  buildActiveEffect,
   buildWeaponAttack,
   buildSpecialPower,
   buildSpellItem,
@@ -26,7 +26,6 @@ const {
 } = require('./create-entry');
 
 const PACKS_DIR = path.join(__dirname, '..', 'packs');
-const SRC_PACKS_DIR = path.join(__dirname, '..', 'src', 'packs');
 
 const FOLDER_AMEACAS = 'n591wfGB7keSNe7I'; // Pasta "Fullgor dos Deuses" existente
 const FOLDER_ITENS = 'fldItensFolder26';
@@ -75,6 +74,8 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/itens/equipamentos/espada-longa.webp',
       dano: '2d8+10',
       tipoDano: 'corte',
+      danoExtra: '1d6',
+      tipoDanoExtra: 'luz',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 2,
@@ -110,12 +111,17 @@ async function injectThreats() {
       name: 'Espada Luminosa',
       img: 'systems/tormenta20/icons/poderes/classes/paladinos/golpe-divino.webp',
       ativacao: { execucao: 'full', custo: 0 },
+      rolls: [
+        { name: 'Dano de Luz Sagrada', key: 'dano1', type: 'dano', parts: [['3d6', 'luz', '']] }
+      ],
       description: '<p>(Ação Completa) Cassiella faz um ataque com sua espada longa contra todas as criaturas em alcance curto (faz um único teste de ataque e compara o resultado com a Defesa de cada inimigo na área). Se acertar, causa o dano do ataque mais +3d6 de luz, e todas as criaturas ficam ofuscadas por 1 rodada. Recarga (padrão).</p>'
     }),
     buildSpecialPower({
       name: 'Luz Sagrada',
       img: 'systems/tormenta20/icons/magias/luz.webp',
       ativacao: { execucao: 'standard', custo: 0 },
+      cd: 24,
+      resistencia: { pericia: 'vont', atributo: 'sab', bonus: 0, txt: 'Vontade CD 24 evita' },
       description: '<p>(Ação Padrão) Cassiella pode fazer um objeto empunhado emitir luz como uma tocha (sem calor) ou criar uma luz forte que deixa todas as criaturas em alcance curto ofuscadas (Vontade CD 24 evita e torna a criatura imune a esta habilidade até o fim da cena).</p>'
     })
   ];
@@ -135,7 +141,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 280, max: 280 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 31, base: 30 } // 31 - 1 = 30
+      defesa: { value: 31, base: 30 }, // 31 - 1 = 30
+      cd: 24
     },
     resistencias: casSemiTracos,
     resistenciasTexto: 'redução de dano 5',
@@ -173,6 +180,8 @@ async function injectThreats() {
       img: 'systems/tormenta20/icons/itens/equipamentos/espada-longa.webp',
       dano: '2d8+10',
       tipoDano: 'corte',
+      danoExtra: '2d6',
+      tipoDanoExtra: 'luz',
       periciaAtaque: 'luta',
       criticoMargem: 19,
       criticoMultiplicador: 2,
@@ -191,6 +200,8 @@ async function injectThreats() {
       proposito: 'arremesso',
       tipo: 'arremesso',
       alcance: 'médio',
+      cd: 26,
+      resistencia: { pericia: 'refl', atributo: 'des', bonus: 0, txt: 'Reflexos CD 26 reduz à metade e evita ofuscado' },
       description: '<p><strong>Ataque à Distância (Padrão):</strong> Cassiella projeta lanças de luz em duas criaturas em alcance médio, causando 4d8+4 pontos de dano de luz e deixando-as ofuscadas por 1 rodada (Reflexos CD 26 reduz à metade e evita a condição). Recarga (movimento).</p>'
     }),
     buildSpecialPower({
@@ -211,11 +222,20 @@ async function injectThreats() {
     buildSpecialPower({
       name: 'Luz Fustigante',
       img: 'systems/tormenta20/icons/magias/coluna-de-chamas.webp',
+      cd: 26,
+      resistencia: { pericia: 'refl', atributo: 'des', bonus: 0, txt: 'Ref CD 26 reduz à metade e evita em chamas' },
+      rolls: [
+        { name: 'Dano de Fogo', key: 'dano1', type: 'dano', parts: [['1d8', 'fogo', '']] },
+        { name: 'Dano de Luz', key: 'dano2', type: 'dano', parts: [['1d8', 'luz', '']] }
+      ],
       description: '<p>No início de cada turno de Cassiella, criaturas em um raio de 9m sofrem 2d8 pontos de dano, metade fogo e metade luz, e ficam em chamas (Ref CD 26 reduz à metade e evita as condições).</p>'
     }),
     buildSpecialPower({
       name: 'Rasante Luminoso',
       img: 'systems/tormenta20/icons/poderes/classes/cavaleiros/investida-destruidora.webp',
+      rolls: [
+        { name: 'Investida Luminosa', key: 'dano1', type: 'dano', parts: [['4d6', 'luz', '']] }
+      ],
       description: '<p>Quando executa uma investida voando contra uma criatura no solo, Cassiella causa +4d6 pontos de dano de luz.</p>'
     })
   ];
@@ -235,7 +255,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 280, max: 280 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 33, base: 31 } // 33 - 2 = 31
+      defesa: { value: 33, base: 31 }, // 33 - 2 = 31
+      cd: 26
     },
     resistencias: casFullTracos,
     resistenciasTexto: 'imunidade a fogo e luz, redução de dano 10, resistência a magia divina +5; imunidade fullgori (acertos críticos, cansaço, metabolismo, metamorfose e paralisia)',
@@ -280,6 +301,8 @@ async function injectThreats() {
     buildSpecialPower({
       name: 'Mau Cheiro Coletivo',
       img: 'systems/tormenta20/icons/poderes/ameacas/mau-cheiro.webp',
+      cd: 20,
+      resistencia: { pericia: 'fort', atributo: 'con', bonus: 0, txt: 'Fort CD 20 evita' },
       description: '<p>O enxame está constantemente expelindo seu gás fétido, e todas as criaturas (exceto trogs) que comecem seu turno em alcance curto do enxame ficam enjoadas (Fort CD 20 evita). Uma criatura que passe no teste fica imune a esta habilidade por um dia. Efeito de veneno.</p>'
     }),
     buildSpecialPower({
@@ -304,7 +327,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 200, max: 200 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 23, base: 22 } // 23 - 1 = 22
+      defesa: { value: 23, base: 22 }, // 23 - 1 = 22
+      cd: 20
     },
     resistencias: enxTrogTracos,
     resistenciasTexto: 'vulnerabilidade a frio (sofre +1 de dano por dado de frio)',
@@ -366,6 +390,8 @@ async function injectThreats() {
       name: 'Mau Cheiro',
       img: 'systems/tormenta20/icons/poderes/ameacas/mau-cheiro.webp',
       ativacao: { execucao: 'standard', custo: 0 },
+      cd: 17,
+      resistencia: { pericia: 'fort', atributo: 'con', bonus: 0, txt: 'Fort CD 17 evita' },
       description: '<p>(Ação Padrão) O troggore expele um gás fétido. Todas as criaturas (exceto trogs) em alcance curto ficam enjoadas por 1d6 rodadas (Fort CD 17 evita). Criatura imune por um dia se passar. Efeito de veneno.</p>'
     }),
     buildSpecialPower({
@@ -400,7 +426,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 80, max: 80 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 22, base: 20 } // 22 - 2 = 20
+      defesa: { value: 22, base: 20 }, // 22 - 2 = 20
+      cd: 17
     },
     resistencias: troggoreTracos,
     resistenciasTexto: 'vulnerabilidade a frio, sensibilidade a luz',
@@ -457,6 +484,8 @@ async function injectThreats() {
       name: 'Mau Cheiro',
       img: 'systems/tormenta20/icons/poderes/ameacas/mau-cheiro.webp',
       ativacao: { execucao: 'standard', custo: 0 },
+      cd: 17,
+      resistencia: { pericia: 'fort', atributo: 'con', bonus: 0, txt: 'Fort CD 17 evita' },
       description: '<p>(Ação Padrão) O bando troggore expele um gás fétido. Todas as criaturas (exceto trogs) em alcance curto ficam enjoadas por 1d6 rodadas (Fort CD 17 evita). Veneno.</p>'
     }),
     buildSpecialPower({
@@ -497,7 +526,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 180, max: 180 },
       pm: { value: 0, max: 0 },
-      defesa: { value: 22, base: 20 } // 22 - 2 = 20
+      defesa: { value: 22, base: 20 }, // 22 - 2 = 20
+      cd: 17
     },
     resistencias: bandoTracos,
     resistenciasTexto: 'vulnerabilidade a frio, sensibilidade a luz',
@@ -546,7 +576,9 @@ async function injectThreats() {
       name: 'Mordida Sombria',
       img: 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
       dano: '2d6+8',
-      tipoDano: 'trevas',
+      tipoDano: 'perfuracao',
+      danoExtra: '2d6',
+      tipoDanoExtra: 'trevas',
       periciaAtaque: 'luta',
       criticoMargem: 20,
       criticoMultiplicador: 2,
@@ -562,7 +594,12 @@ async function injectThreats() {
       escola: 'evo',
       ativacao: { execucao: 'standard', custo: 5 },
       alcance: 'toque',
+      alvo: '1 criatura adjacente',
+      efeito: '6d8+6 PV',
       duracao: 'instantânea',
+      rolls: [
+        { name: 'Cura', key: 'dano0', type: 'dano', parts: [['6d8+6', 'curapv', '']] }
+      ],
       description: '<p>Uma criatura adjacente cura 6d8+6 PV.</p>'
     }),
     buildSpellItem({
@@ -573,7 +610,22 @@ async function injectThreats() {
       escola: 'nec',
       ativacao: { execucao: 'standard', custo: 3 },
       alcance: 'curto',
-      resistencia: 'Fortitude reduz para 1 rodada',
+      alvo: '1 criatura',
+      efeito: 'Cego pela cena',
+      duracao: 'cena',
+      resistencia: 'Fortitude CD 22 reduz para 1 rodada',
+      resistenciaPericia: 'fort',
+      resistenciaAtributo: 'con',
+      effects: [
+        {
+          name: 'Escuridão (Cego)',
+          changes: [
+            { key: 'system.pericias.luta.condi', mode: 2, value: '-5' },
+            { key: 'system.pericias.pont.condi', mode: 2, value: '-5' }
+          ],
+          transfer: false
+        }
+      ],
       description: '<p>Uma criatura em alcance curto fica cega pela cena (Fortitude reduz para 1 rodada).</p>'
     }),
     buildSpellItem({
@@ -584,7 +636,15 @@ async function injectThreats() {
       escola: 'nec',
       ativacao: { execucao: 'standard', custo: 5 },
       alcance: 'toque',
-      resistencia: 'Fortitude reduz à metade',
+      alvo: '1 criatura adjacente',
+      efeito: '4d8+4 dano de trevas',
+      duracao: 'instantânea',
+      resistencia: 'Fortitude CD 22 reduz à metade',
+      resistenciaPericia: 'fort',
+      resistenciaAtributo: 'con',
+      rolls: [
+        { name: 'Dano de Trevas', key: 'dano0', type: 'dano', parts: [['4d8+4', 'trevas', '']] }
+      ],
       description: '<p>Uma criatura adjacente sofre 4d8+4 pontos de dano de trevas (Fortitude reduz à metade).</p>'
     }),
     buildSpellItem({
@@ -595,6 +655,20 @@ async function injectThreats() {
       escola: 'enc',
       ativacao: { execucao: 'standard', custo: 3 },
       alcance: 'curto',
+      alvo: 'Criaturas escolhidas',
+      efeito: '-2 em ataque e dano',
+      duracao: 'cena',
+      resistencia: 'Nenhuma',
+      effects: [
+        {
+          name: 'Perdição (-2 em Ataque e Dano)',
+          changes: [
+            { key: 'ataque', mode: 2, value: '-2' },
+            { key: 'dano', mode: 2, value: '-2' }
+          ],
+          transfer: false
+        }
+      ],
       description: '<p>Criaturas escolhidas em alcance curto sofrem –2 em testes de ataque e rolagens de dano até o fim da cena.</p>'
     }),
     buildSpellItem({
@@ -605,6 +679,8 @@ async function injectThreats() {
       escola: 'nec',
       ativacao: { execucao: 'standard', custo: 1 },
       alcance: 'longo',
+      area: 'Esfera de 9m',
+      efeito: 'Maximiza dano de trevas',
       duracao: '1 dia',
       description: '<p>Uma esfera de 9m em alcance longo se enche com energia negativa por 1 dia. Dentro dela, todo dano de trevas é maximizado.</p>'
     }),
@@ -616,7 +692,15 @@ async function injectThreats() {
       escola: 'nec',
       ativacao: { execucao: 'standard', custo: 5 },
       alcance: 'toque',
-      resistencia: 'Fortitude reduz à metade',
+      alvo: '1 criatura adjacente',
+      efeito: '8d6 trevas (cura metade)',
+      duracao: 'instantânea',
+      resistencia: 'Fortitude CD 22 reduz à metade',
+      resistenciaPericia: 'fort',
+      resistenciaAtributo: 'con',
+      rolls: [
+        { name: 'Dano de Trevas', key: 'dano0', type: 'dano', parts: [['8d6', 'trevas', '']] }
+      ],
       description: '<p>Uma criatura adjacente sofre 8d6 pontos de dano de trevas e Urrash recupera PV iguais à metade do dano causado (Fortitude reduz à metade).</p>'
     }),
     buildSpecialPower({
@@ -657,7 +741,8 @@ async function injectThreats() {
     attributes: {
       pv: { value: 140, max: 140 },
       pm: { value: 29, max: 29 },
-      defesa: { value: 23, base: 22 } // 23 - 1 = 22
+      defesa: { value: 23, base: 22 }, // 23 - 1 = 22
+      cd: 22
     },
     resistencias: urrashTracos,
     resistenciasTexto: 'vulnerabilidade a frio, devoção a tenebra (enjoado e perde PM ao sol)',
@@ -692,6 +777,14 @@ async function injectThreats() {
       tokenTexture: t.tokenTexture,
       biography: t.biography
     });
+
+    // Limpar subdocumentos antigos antes de gravar
+    for await (const [oldKey] of db.iterator({ gte: `!actors.items!${t.id}.`, lte: `!actors.items!${t.id}.\uffff` })) {
+      await db.del(oldKey);
+    }
+    for await (const [oldEffKey] of db.iterator({ gte: `!actors.items.effects!${t.id}.`, lte: `!actors.items.effects!${t.id}.\uffff` })) {
+      await db.del(oldEffKey);
+    }
 
     await db.put(`!actors!${built.actorDoc._id}`, built.actorDoc);
     for (const ed of built.embeddedDocs) {
@@ -734,7 +827,7 @@ async function injectItems() {
           _id: 'eff27OrbeLuzPerm',
           name: 'Aura Solar Permanente (5º Círculo)',
           changes: [
-            { key: 'system.modificadores.pericia', mode: 2, value: '0', priority: 20 }
+            { key: 'system.modificadores.pericias.geral', mode: 2, value: '0', priority: 20 }
           ]
         }
       ],
@@ -753,7 +846,7 @@ async function injectItems() {
         description: {
           value: '<p><strong>Parceiro Especial:</strong> Cassiella é uma guerreira suraggel formidável que divide suas dádivas de luz com os aliados. Você recebe <strong>+3 em testes de ataque</strong> e pode lançar <em>Luz</em> (como uma magia divina; atributo-chave Carisma). Se já for capaz de lançar essa magia, seu custo em PM diminui em –1 PM.</p>'
         },
-        tipo: 'poder',
+        tipo: 'geral',
         subtipo: 'parceiro'
       },
       rawEffects: [
@@ -761,7 +854,7 @@ async function injectItems() {
           _id: 'eff27CassielAtk3',
           name: 'Dádiva da Luz de Cassiella (+3 Ataque)',
           changes: [
-            { key: 'system.modificadores.ataque', mode: 2, value: '3', priority: 20 }
+            { key: 'system.modificadores.ataque.geral', mode: 2, value: '3', priority: 20 }
           ]
         }
       ],
@@ -846,7 +939,7 @@ async function injectItems() {
           _id: 'eff27EspadaPunge',
           name: 'Melhoria Pungente (+2 Ataque)',
           changes: [
-            { key: 'system.modificadores.ataque', mode: 2, value: '2', priority: 20 }
+            { key: 'system.modificadores.ataque.geral', mode: 2, value: '2', priority: 20 }
           ]
         }
       ],
@@ -880,19 +973,19 @@ async function injectItems() {
     const effectIds = rawEffects.map(e => e._id);
     const embeddedEffects = [];
 
+    for await (const [oldEffKey] of db.iterator({ gte: `!items.effects!${item._id}.`, lte: `!items.effects!${item._id}.\uffff` })) {
+      await db.del(oldEffKey);
+    }
+
     for (const eff of rawEffects) {
-      const effectDoc = {
-        _id: eff._id,
+      const effectDoc = buildActiveEffect({
+        id: eff._id,
         name: eff.name,
-        icon: eff.icon || item.img,
+        img: eff.icon || item.img,
         origin: `Item.${item._id}`,
-        duration: { rounds: null, startTime: null, seconds: null, combat: null, turns: null, startRound: null, startTurn: null },
-        disabled: false,
-        transfer: true,
         changes: eff.changes || [],
-        flags: { tormenta20: { self: true } },
-        system: {}
-      };
+        transfer: true
+      });
       embeddedEffects.push(effectDoc);
       await db.put(`!items.effects!${item._id}.${eff._id}`, effectDoc);
     }
@@ -933,19 +1026,19 @@ async function injectJournals() {
     ownership: { default: -1 },
     flags: {},
     pages: [
-      'p27SinopseAvent',
-      'p27Parte1Chamad',
-      'p27Parte2Corac',
-      'p27Parte3Covil',
-      'p27Parte4OrbeA',
-      'p27BestiarioNpc'
+      'p27SinopseAvent1',
+      'p27Parte1Chamad1',
+      'p27Parte2Corac01',
+      'p27Parte3Covil01',
+      'p27Parte4OrbeA01',
+      'p27BestiarioNpc1'
     ],
     _stats: statsHeader
   };
 
   const pages = [
     {
-      _id: 'p27SinopseAvent',
+      _id: 'p27SinopseAvent1',
       name: 'Apresentação & Sinopse: Dia e Noite',
       type: 'text',
       title: { show: true, level: 1 },
@@ -966,7 +1059,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p27Parte1Chamad',
+      _id: 'p27Parte1Chamad1',
       name: 'Parte 1: Chamado da Luz',
       type: 'text',
       title: { show: true, level: 1 },
@@ -986,7 +1079,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p27Parte2Corac',
+      _id: 'p27Parte2Corac01',
       name: 'Parte 2: Coração Dividido',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1006,7 +1099,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p27Parte3Covil',
+      _id: 'p27Parte3Covil01',
       name: 'Parte 3: Covil Infecto & Baldonn',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1026,7 +1119,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p27Parte4OrbeA',
+      _id: 'p27Parte4OrbeA01',
       name: 'Parte 4: A Orbe de Azgher',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1046,7 +1139,7 @@ async function injectJournals() {
       _stats: statsHeader
     },
     {
-      _id: 'p27BestiarioNpc',
+      _id: 'p27BestiarioNpc1',
       name: 'Bestiário & NPCs da Edição 27',
       type: 'text',
       title: { show: true, level: 1 },
@@ -1070,6 +1163,9 @@ async function injectJournals() {
     }
   ];
 
+  for await (const [oldPageKey] of db.iterator({ gte: `!journal.pages!${journalId}.`, lte: `!journal.pages!${journalId}.\uffff` })) {
+    await db.del(oldPageKey);
+  }
   await db.put(`!journal!${journalId}`, journalDoc);
   const embeddedPages = [];
 
@@ -1104,48 +1200,58 @@ async function injectTables() {
       img: 'systems/tormenta20/icons/itens/equipamentos/tocha.webp',
       description: '<p>Tabela de eventos, armadilhas e perigos nos túneis fétidos sob o Rio da Fortitude.</p>',
       results: [
-        { id: 'res27Cav0000001', name: 'Nuvem de Gás Asfixiante', text: 'Bolsão de gás trog estagnado força teste de Fortitude CD 20 para evitar condição enjoado.', range: [1, 1] },
-        { id: 'res27Cav0000002', name: 'Estalagmites Untadas de Piche', text: 'Chão escorregadio coberto de piche e escamas antigas. Teste de Acrobacia CD 18 para não cair.', range: [2, 2] },
-        { id: 'res27Cav0000003', name: 'Grito de Alarme Troggore', text: 'Sentinelas batem lanças nas pedras, alertando as patrulhas próximas na caverna.', range: [3, 3] },
-        { id: 'res27Cav0000004', name: 'Fungos Fosforescentes Azuis', text: 'Colônia de fungos ilumina a passagem em azul pálido, revelando marcas rituais de Tenebra.', range: [4, 4] },
-        { id: 'res27Cav0000005', name: 'Cadáver de Mercador de Baldonn', text: 'Despojos de uma vítima dos trogs contendo 2d6x10 Tibares e uma poção de cura.', range: [5, 5] },
-        { id: 'res27Cav0000006', name: 'Eco do Canto de Urrash', text: 'Cânticos guturais em louvor à Mãe Noite ecoam nas paredes, impondo –2 em Vontade por 1 hora.', range: [6, 6] }
+        { id: 'res27Cav00000001', name: 'Nuvem de Gás Asfixiante', text: 'Bolsão de gás trog estagnado força teste de Fortitude CD 20 para evitar condição enjoado.', range: [1, 1] },
+        { id: 'res27Cav00000002', name: 'Estalagmites Untadas de Piche', text: 'Chão escorregadio coberto de piche e escamas antigas. Teste de Acrobacia CD 18 para não cair.', range: [2, 2] },
+        { id: 'res27Cav00000003', name: 'Grito de Alarme Troggore', text: 'Sentinelas batem lanças nas pedras, alertando as patrulhas próximas na caverna.', range: [3, 3] },
+        { id: 'res27Cav00000004', name: 'Fungos Fosforescentes Azuis', text: 'Colônia de fungos ilumina a passagem em azul pálido, revelando marcas rituais de Tenebra.', range: [4, 4] },
+        { id: 'res27Cav00000005', name: 'Cadáver de Mercador de Baldonn', text: 'Despojos de uma vítima dos trogs contendo 2d6x10 Tibares e uma poção de cura.', range: [5, 5] },
+        { id: 'res27Cav00000006', name: 'Eco do Canto de Urrash', text: 'Cânticos guturais em louvor à Mãe Noite ecoam nas paredes, impondo –2 em Vontade por 1 hora.', range: [6, 6] }
       ]
     },
     // 2. Frases em Combate de Cassiella Possuída (1d8)
     {
-      id: 'fld27TabFrasesCas',
+      id: 'fld27TabFraseCas',
       name: 'Frases em Combate de Cassiella Possuída (Edição 27)',
       formula: '1d8',
       img: 'systems/tormenta20/icons/poderes/classes/paladinos/golpe-divino.webp',
       description: '<p>Lamentos e blasfêmias pronunciadas por Cassiella durante sua possessão pelo Fullgor.</p>',
       results: [
-        { id: 'res27Fra0000001', name: 'Azgher Me Queima', text: '"Azgher me queima desde o nascimento! Que queime agora o mundo inteiro!"', range: [1, 1] },
-        { id: 'res27Fra0000002', name: 'Cumpram a Promessa', text: '"Cumpram sua promessa... matem-me antes que a luz apague meus olhos!"', range: [2, 2] },
-        { id: 'res27Fra0000003', name: 'Ouro Fervente', text: '"Sinto ouro fervendo em minhas veias... é belo demais para ser pecado!"', range: [3, 3] },
-        { id: 'res27Fra0000004', name: 'Armadura Inútil', text: '"A armadura negra não escondeu a luz... ela só alimentou as chamas!"', range: [4, 4] },
-        { id: 'res27Fra0000005', name: 'Tenebra e o Sol', text: '"Tenebra tinha razão: o sol não é bondoso. Ele só quer consumir!"', range: [5, 5] },
-        { id: 'res27Fra0000006', name: 'Asas da Ruína', text: '"Vejam minhas asas! Foram forjadas para a guerra contra os próprios céus!"', range: [6, 6] },
-        { id: 'res27Fra0000007', name: 'Cinzas de Baldonn', text: '"Baldonn dormirá em paz quando o Fullgor silenciar todas as preces!"', range: [7, 7] },
-        { id: 'res27Fra0000008', name: 'Nem Anjo Nem Demônio', text: '"Nem anjo, nem demônio... agora sou apenas a lâmina viva de Sillaria!"', range: [8, 8] }
+        { id: 'res27Fra00000001', name: 'Azgher Me Queima', text: '"Azgher me queima desde o nascimento! Que queime agora o mundo inteiro!"', range: [1, 1] },
+        { id: 'res27Fra00000002', name: 'Cumpram a Promessa', text: '"Cumpram sua promessa... matem-me antes que a luz apague meus olhos!"', range: [2, 2] },
+        { id: 'res27Fra00000003', name: 'Ouro Fervente', text: '"Sinto ouro fervendo em minhas veias... é belo demais para ser pecado!"', range: [3, 3] },
+        { id: 'res27Fra00000004', name: 'Armadura Inútil', text: '"A armadura negra não escondeu a luz... ela só alimentou as chamas!"', range: [4, 4] },
+        { id: 'res27Fra00000005', name: 'Tenebra e o Sol', text: '"Tenebra tinha razão: o sol não é bondoso. Ele só quer consumir!"', range: [5, 5] },
+        { id: 'res27Fra00000006', name: 'Asas da Ruína', text: '"Vejam minhas asas! Foram forjadas para a guerra contra os próprios céus!"', range: [6, 6] },
+        { id: 'res27Fra00000007', name: 'Cinzas de Baldonn', text: '"Baldonn dormirá em paz quando o Fullgor silenciar todas as preces!"', range: [7, 7] },
+        { id: 'res27Fra00000008', name: 'Nem Anjo Nem Demônio', text: '"Nem anjo, nem demônio... agora sou apenas a lâmina viva de Sillaria!"', range: [8, 8] }
       ]
     },
     // 3. Dilema da Orbe de Azgher — Escolhas e Consequências (1d6)
     {
-      id: 'fld27TabDilemaOrb',
+      id: 'fld27TabDilemaOr',
       name: 'Dilema da Orbe de Azgher — Escolhas e Consequências (Edição 27)',
       formula: '1d6',
       img: 'systems/tormenta20/icons/itens/equipamentos/orbe.webp',
       description: '<p>Determinação de desfechos narrativos e bênçãos cósmicas para a escolha dos personagens sobre a relíquia.</p>',
       results: [
-        { id: 'res27Dil0000001', name: 'Purificação Compassiva', text: 'A Orbe é sacrificada para curar Cassiella. A guerreira sobrevive livre do Fullgor e torna-se campeã leal do grupo.', range: [1, 2] },
-        { id: 'res27Dil0000002', name: 'Relíquia Preservada', text: 'A Orbe de Azgher é mantida intacta e confiada ao herói devoto do grupo, fornecendo iluminação perpétua.', range: [3, 4] },
-        { id: 'res27Dil0000003', name: 'Equilíbrio Solar', text: 'Um ritual harmonizado canaliza metade da energia da Orbe para salvar Cassiella sem destruir o artefato por completo.', range: [5, 6] }
+        { id: 'res27Dil00000001', name: 'Purificação Compassiva', text: 'A Orbe é sacrificada para curar Cassiella. A guerreira sobrevive livre do Fullgor e torna-se campeã leal do grupo.', range: [1, 2] },
+        { id: 'res27Dil00000002', name: 'Relíquia Preservada', text: 'A Orbe de Azgher é mantida intacta e confiada ao herói devoto do grupo, fornecendo iluminação perpétua.', range: [3, 4] },
+        { id: 'res27Dil00000003', name: 'Equilíbrio Solar', text: 'Um ritual harmonizado canaliza metade da energia da Orbe para salvar Cassiella sem destruir o artefato por completo.', range: [5, 6] }
       ]
     }
   ];
 
+  for (const legacyTab of ['fld27TabFrasesCas', 'fld27TabDilemaOrb']) {
+    await db.del(`!tables!${legacyTab}`).catch(() => {});
+    for await (const [oldResKey] of db.iterator({ gte: `!tables.results!${legacyTab}.`, lte: `!tables.results!${legacyTab}.\uffff` })) {
+      await db.del(oldResKey);
+    }
+  }
+
   for (const t of tables) {
+    for await (const [oldResKey] of db.iterator({ gte: `!tables.results!${t.id}.`, lte: `!tables.results!${t.id}.\uffff` })) {
+      await db.del(oldResKey);
+    }
     const tableDoc = {
       _id: t.id,
       name: t.name,
