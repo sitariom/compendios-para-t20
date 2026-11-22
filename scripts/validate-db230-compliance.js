@@ -121,7 +121,7 @@ async function validateActors() {
           assert(rolls.some(r => r.parts?.some(p => p[1] === 'trevas')), `Dano de trevas presente em "${v.name}" de ${req.name}`);
         }
         if (req.name === 'Coletor do Pesadelo' && v.name.includes('Tentáculo')) {
-          assert(rolls.some(r => r.parts?.some(p => p[1] === 'psíquico')), `Dano psíquico presente em "${v.name}" de ${req.name}`);
+          assert(rolls.some(r => r.parts?.some(p => p[1] === 'psiquico')), `Dano psíquico presente em "${v.name}" de ${req.name}`);
         }
       } else if (v.type === 'magia') {
         spellCount++;

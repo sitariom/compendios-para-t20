@@ -149,6 +149,7 @@ async function injectThreats() {
     pericias: casSemiSkills,
     items: casSemiItems,
     ataquescac: 'Espada longa x2 +24 (2d8+10, 19, mais 1d6 de luz) e escudo pesado +24 (1d6+10)',
+    equipamento: 'Armadura completa delicada selada, escudo pesado reforçado, espada longa pungente.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/cassiella-semi-fullgori.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"Eu não rezo para o sol. Eu luto com o que tenho: aço, sangue e a promessa de que não deixarei o fogo profano me transformar em monstro."<br /><span style="font-weight:bold;color:#800000">— Cassiella de Baldonn</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Guerreira imensa de armadura negra fosca. Quando desembainhou a lâmina, uma luz quente e dourada varreu os trogs, mas seus próprios olhos queimavam com agonia febril. Ela luta contra o inimigo de fora e o veneno que queima por dentro."<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6"><span style="color:#800000;font-weight:bold">Cassiella de Baldonn</span> nasceu sob o fardo do sangue suraggel como descendente de anjos de Azgher, mas recusa templos e altares. Trajando armadura negra como que para renegar o céu, sente o Fullgor contaminar seu sangue divino, transformando seus cabelos outrora escuros em fios de ouro profano. Luta com disciplina e desespero para proteger o povo de Baldonn enquanto busca a Orbe de Azgher para conter a infecção.</p>`
   });
@@ -264,6 +265,7 @@ async function injectThreats() {
     items: casFullItems,
     ataquescac: 'Espada longa x2 +26 (2d8+10, 19, mais 2d6 de luz)',
     ataquesad: 'Azagaias Fullgori +20 (4d8+4 luz, médio)',
+    equipamento: 'Armadura completa delicada selada, escudo pesado reforçado, espada longa pungente.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/cassiella-fullgori.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"O sol me queimou no ventre... o Fullgor me libertou das correntes da carne! Agora, testemunhem a luz que consome tudo!"<br /><span style="font-weight:bold;color:#800000">— Cassiella fullgori</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Asas de cristal e chamas douradas rasgaram a armadura negra. Ela não tocava mais o solo: planava com azagaias incandescentes nas mãos e o olhar vazio de quem já foi consumida pela febre divina. A guerreira morreu: resta apenas o anjo da ruína."<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6">Quando o ritual de contenção falha e a Orbe de Azgher não purifica a infecção, o Fullgor assume o controle total do corpo de Cassiella. Suas asas emergem como placas de ouro vivo, seu sangue ferve em chamas sagradas deturpadas e ela se torna um arauto alado da destruição divina.</p>`
   });
@@ -434,6 +436,7 @@ async function injectThreats() {
     pericias: troggoreSkills,
     items: troggoreItems,
     ataquescac: 'Lança +14 (1d6+5) e mordida +14 (1d6+5)',
+    equipamento: 'Lança.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/troggore.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"Tenebra me ungiu com escamas de marfim. O calor do sol arde, mas minha lança esfria o coração dos vivos!"<br /><span style="font-weight:bold;color:#800000">— Guerreiro Troggore</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Um homem-lagarto albino, imenso e escorrendo óleo negro de cada poro. Onde ele pisa, a terra parece chiar como carne em frigideira. Não tente fugir nas sombras: ele enxerga através da escuridão melhor do que eu no meio-dia!"<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6">Os <span style="color:#800000;font-weight:bold">Troggore</span> são trogs albinos reverenciados como guerreiros sagrados de Tenebra. Maiores e mais violentos que seus irmãos comuns, atacam em emboscadas silenciosas nas galerias subterrâneas e fortalecem seus golpes quando sentem o cheiro de sangue fresco.</p>`
   });
@@ -534,6 +537,7 @@ async function injectThreats() {
     pericias: bandoSkills,
     items: bandoItems,
     ataquescac: '[Bando] Lança +17 (2d6+10) e mordida +17 (2d6+10)',
+    equipamento: 'Lança x1d6.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/bando-troggore.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"Pela Mãe Noite! Nosso sangue cobre o xamã!"<br /><span style="font-weight:bold;color:#800000">— Guerreiros do Bando Troggore</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Eles não se importam em morrer: formam uma muralha de escamas e lanças ao redor do clérigo. Cada golpe que acertamos no sacerdote parece ser absorvido por esses fanáticos albinos!"<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6">O <span style="color:#800000;font-weight:bold">Bando Troggore</span> atua como a guarda pretoriana de Urrash nas profundezas das cavernas de Baldonn. Conectados por fanatismo cego, interceptam ataques direcionados ao seu líder espiritual e atacam com fúria multiplicada.</p>`
   });
@@ -749,6 +753,7 @@ async function injectThreats() {
     pericias: urrashSkills,
     items: urrashItems,
     ataquescac: 'Lança +15 (2d6+8) e mordida +15 (2d6+8 mais 2d6 trevas)',
+    equipamento: 'Lança, símbolo sagrado de Tenebra.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/urrash-das-sombras-frias.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"Tenebra falou comigo no ovo: o sol queima Arton com crueldade. Guardar a Orbe nas trevas é a salvação do mundo!"<br /><span style="font-weight:bold;color:#800000">— Urrash das Sombras Frias</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Corpo untado de óleo e piche negro, cheirando a enxofre e túmulo antigo. Ele fala a língua comum com estalos guturais e canaliza magias de necromancia com uma precisão que rivaliza com os clérigos da capital."<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6"><span style="color:#800000;font-weight:bold">Urrash das Sombras Frias</span> é o patriarca e xamã supremo dos trogs sob o Rio da Fortitude. Devoto fervoroso de Tenebra, mantém a Orbe de Azgher lacrada sob camadas de piche e escuridão mágica para proteger o santuário trog da cólera solar.</p>`
   });
@@ -774,6 +779,7 @@ async function injectThreats() {
       items: t.items,
       ataquescac: t.ataquescac,
       ataquesad: t.ataquesad || '',
+      equipamento: t.equipamento || '',
       tokenTexture: t.tokenTexture,
       biography: t.biography
     });

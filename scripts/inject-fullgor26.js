@@ -149,6 +149,7 @@ async function injectThreats() {
     pericias: asmitharSkills,
     items: asmitharItems,
     ataquescac: 'Armamento sagrado x2 +25 (2d12+20, 19/x3)',
+    equipamento: 'Armamento sagrado, instrumentos de Ofício (armeiro) aprimorados, meia-armadura.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/asmithar-martelo-mudo.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"O martelo não reconhece nomes. O fogo não honra títulos."<br /><span style="font-weight:bold;color:#800000">— Asmithar Martelo-Mudo</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Aproximei-me da forja esperando ver um mero clérigo, mas encontrei uma montanha de músculos e cicatrizes moldando o aço incandescente com a tranquilidade de quem reza. O calor quase derreteu minha pena, mas eu não ousei me mover. Ele não forjava apenas armas... ele forjava o próprio juízo. Reze para não ser julgado pelo seu martelo."<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6"><span style="color:#800000;font-weight:bold">Asmithar Martelo-Mudo</span> é o Mestre Forjador da célula dos Forjadores Litúrgicos em Valkaria — um ancião imenso, queimado por décadas de devoção e aço, cuja presença impõe respeito sem necessidade de voz elevada. Usa meia-armadura sobre o avental de ferreiro, ornamentada com o símbolo cruzado do martelo e espada. Suas mãos são mais calejadas que qualquer couro.</p><p style="font-family:Arial, sans-serif;line-height:1.6">Foi o primeiro a acender o fogo da forja quando o templo de Arsenal ainda exalava o sangue dos antigos servos de Keenn. Desde então, dedica-se a moldar armas e almas com o mesmo rigor. Em combate, é adversário formidável — um guerreiro que mede resultados, não glória. Encerra duelos apenas quando o fogo reconhece o valor de seu oponente.</p>`
   });
@@ -283,6 +284,7 @@ async function injectThreats() {
     pericias: xellSkills,
     items: xellItems,
     ataquescac: 'Duas cimitarras +17 (2d6+13, 18)',
+    equipamento: 'Cimitarra x2, gazua aprimorada.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/xellmaras-a-ladra-acorrentada.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"Hyninn me ensinou a roubar segredos. O Fullgor me ensinou a roubar preces."<br /><span style="font-weight:bold;color:#800000">— Xellmaras</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Suas correntes não tilintam: elas uivam. Parecia uma mulher aprisionada, mas quando as lâminas saíram de sua própria carne com aquele brilho dourado doentio, percebi que ela era a própria cela e o carcereiro. Hyninn riu, mas eu só consegui correr."<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6"><span style="color:#800000;font-weight:bold">Xellmaras</span> foi criada pelas mãos impacientes de Hyninn como um capricho divino — forjada de sombra e aço para ser o roubo perfeito. Seu nome significa 'chave que se fecha' em um dialeto abissal esquecido. Enviada a Arton para semear desordem, tornou-se chefe do submundo nos subterrâneos de Valkaria até ser seduzida pelo Fullgor, que lhe sussurrou ordens para roubar a sagrada Alma da Bigorna.</p><p style="font-family:Arial, sans-serif;line-height:1.6">Seu corpo é um labirinto de correntes vivas cravadas na carne como serpentes reluzentes. Cada elo ressoa com a dor de suas vítimas, e cada gemido metálico é uma súplica que ela jamais atenderá.</p>`
   });
@@ -365,6 +367,7 @@ async function injectThreats() {
     pericias: gangueSkills,
     items: gangueItems,
     ataquescac: '[Bando] Adaga +15 (2d4+10, 19)',
+    equipamento: 'Adaga x8, gazua x8.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/gangue-de-hyninn-deturpada.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"O ouro brilha, mas a fé cega. Passa a bolsa antes que suas preces virem cinzas!"<br /><span style="font-weight:bold;color:#800000">— Ladrão de Hyninn Deturpado</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Eles se movem em bando como ratos em dia de cheia, mas com olhos tomados por faíscas douradas. Quando atacam, não querem apenas seu dinheiro: suas lâminas arrancam pertences e cortam a própria sensação de segurança do viajante."<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6">A <span style="color:#800000;font-weight:bold">Gangue de Hyninn Deturpada</span> reúne criminosos e devotos do Deus dos Ladrões que sucumbiram à sedução do Fullgor nos becos de Valkaria. Lutam em bandos coordenados, utilizando reflexos de luz dourada para desviar golpes e adagas afiadas que desarmam o espírito tanto quanto o corpo.</p>`
   });
@@ -517,6 +520,7 @@ async function injectThreats() {
     pericias: sacSkills,
     items: sacItems,
     ataquescac: 'Adaga x2 +14 (2d4+5, 19)',
+    equipamento: 'Adaga, gazua, símbolo sagrado de Hyninn.',
     tokenTexture: 'modules/compendios-para-t20/assets/tokens/sacerdote-de-hyninn-deturpado.png',
     biography: `<blockquote style="background-color:#f0f0f0;border-left:5px solid #800000;padding:10px;margin-bottom:20px;font-style:italic">"Hyninn ri dos tolos que buscam a verdade. O Fullgor ensina que até a verdade é moldável."<br /><span style="font-weight:bold;color:#800000">— Sacerdote de Hyninn Deturpado</span></blockquote><blockquote style="background-color:#f0f0f0;border-left:5px solid #006400;padding:10px;margin-bottom:20px;font-style:italic">"Ele não pregava fé, mas sim o escárnio. Vestindo mantos sacerdotais manchados de óleo e fuligem, canalizava milagres distorcidos e, quando acuado, transformou-se numa abominação de cristal que quase despedaçou nosso guerreiro!"<br /><span style="font-weight:bold;color:#006400">— Grunk Ferroforja, Goblin Escriba</span></blockquote><p style="font-family:Arial, sans-serif;line-height:1.6">O <span style="color:#800000;font-weight:bold">Sacerdote de Hyninn Deturpado</span> é o líder espiritual das células criminosas sob Valkaria. Capaz de invocar armas de energia espiritual e despedaçar a matéria mundana com a palavra sagrada, ele recorre à forma de um macaco pamgra de cristal dourado para esmagar os inimigos de sua fé corrompida.</p>`
   });
@@ -756,6 +760,7 @@ async function injectThreats() {
       pericias: t.pericias,
       items: t.items,
       ataquescac: t.ataquescac,
+      equipamento: t.equipamento || '',
       tokenTexture: t.tokenTexture,
       biography: t.biography
     });
