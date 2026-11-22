@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.10.4 - 2026-11-21
+
+- **Revisão Retroativa Integral (DB #226–#232 & Fúlgor #25–#27) e Sincronização Canônica de Equipamentos**:
+  - **Fidelidade de Equipamentos & Instanciação Automática de Itens (`scripts/create-entry.js`, `scripts/avrl-runner.js`)**:
+    - Adicionados `EQUIPMENT_CATALOG`, `parseEquipmentLine`, `buildNpcEquipmentItem` e `syncActorEquipmentItems` em `scripts/create-entry.js`.
+    - Calibrada a linha `system.detalhes.equipamento` contra os PDFs oficiais (`DB-227.pdf`, `DB-230.pdf`, `Dragao_Brasil_231.pdf`, `DB-232.pdf`, `RT20-25.pdf`, `RT20-26.pdf`, `RT20-27.pdf`) via `MONITORED_EQUIPAMENTOS` em `scripts/avrl-runner.js`.
+    - Instanciados automaticamente no ator (`!actors.items!`) todos os equipamentos físicos faltantes (armaduras, escudos, ferramentas, esotéricos, trajes, munições e consumíveis com quantidades exatas `qtd`), sempre com `equipado: false` em `equipamento` de NPCs para não duplicar Defesa/PDA em `prepareDefense` e `prepareSkills`.
+    - Corrigida normalização `normName` para hifens (cobrindo *Asmithar Martelo-Mudo*, *Cassiella semi-fullgori*, *Tigre-de-Hyninn Deturpado*, etc.).
+  - **Saneamento Retroativo Completo (90 Atores e 134 Itens de DB #226–#232 e Fúlgor #25+)**:
+    - Expandido o escopo do AVRL para todos os atores e itens das DBs #226–#232 e toda a pasta `Fullgor dos Deuses` (`n591wfGB7keSNe7I`).
+    - Extraídos efeitos inline remanescentes (*Tyrant*, *MVyBvkSfAQJKrgjn*), expurgados 18 subdocumentos `!actors.items.effects!` órfãos no *Tyrant*, normalizados `BaseEffect` e chaves de modificadores (*Rotsheel*, *Passos Precisos* como `onuse` `criticoM`, *Machado de Tyrondir*, *Arsenal/Dança da Areia*, *Esquiva II*, *Costas Largas II*, *Âncora Naufragista*, *Bomba de Tinta*, *Sadismo*, *Perdição*, *Escuridão*, etc.).
+    - Migrados 16 IDs de efeito da DB #227 contendo `-`/`_` para IDs alfanuméricos estritos de 16 caracteres (`/^[a-zA-Z0-9]{16}$/`).
+    - Preenchidas as 34 perícias em 25 atores pré-26 de `Fullgor dos Deuses`, resolvidas 22 imagens `mystery-man.svg` de ficha e 19 ícones de sub-itens, corrigida Nobreza (`nobr`) para `int`, e adicionados `dinheiro` e `resources`.
+  - **Auditoria, Fidelidade & OpenSpec SDD**:
+    - `scripts/audit.js` agora proíbe objetos inline em `items[]`/`effects[]` e verifica órfãos de 3 níveis em `!actors.items.effects!`.
+    - `scripts/validate-threat-sheet-fidelity.js` ampliado para **1.728 verificações (0 erros)** cobrindo `detalhes.equipamento`, itens reais embutidos e `equipado === false`.
+    - Atualizadas `openspec/specs/actors-specification/spec.md` e `openspec/specs/audit-validation-remediation-loop/spec.md` (10/10 specs aprovadas).
+
 ## v1.10.3 - 2026-11-21
 
 - **Alinhamento Completo AVRL, DataModel Tormenta20, DocumentIdField (16 chars) e Versionamento das Referências T20**:

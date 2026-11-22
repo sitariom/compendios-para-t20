@@ -102,3 +102,13 @@ All documents, folders, and embedded subdocuments across all 6 compendium packs 
 - **WHEN** the injector or `npm run avrl` runs
 - **THEN** no sub-document remains in LevelDB whose parent is missing or absent from the parent's ID array
 - **AND** `npm run audit` confirms 0 invalid ID lengths and 0 orphan subdocuments
+
+### Requirement: Automated Equipment Line Calibration and Item Creation Gate
+The AVRL loop (`scripts/avrl-runner.js`) and `buildNpcActor` (`scripts/create-entry.js`) SHALL enforce `MONITORED_EQUIPAMENTOS` on `system.detalhes.equipamento` and invoke `syncActorEquipmentItems` to automatically instantiate any missing embedded `equipamento`, `consumivel`, or `arma` items on the Actor with `equipado: false` for NPC armors/shields/gear and exact quantities (`qtd`). `npm run validate:fidelity` MUST verify that every equipment entry in `system.detalhes.equipamento` exists as an embedded item on the Actor.
+
+#### Scenario: Actor with missing details.equipamento or missing embedded gear
+- **GIVEN** a monitored NPC actor whose `system.detalhes.equipamento` is blank or whose embedded items omit an armor, shield, tool, or ammunition listed in `Equipamento`
+- **WHEN** `npm run avrl` executes
+- **THEN** `system.detalhes.equipamento` is populated with the verbatim PDF line
+- **AND** missing items are created via `buildNpcEquipmentItem` and persisted under `!actors.items!` with `equipado: false`
+- **AND** a subsequent AVRL pass converges with 0 pending fixes and `npm run validate:fidelity` exits 0

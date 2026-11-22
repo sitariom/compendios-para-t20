@@ -72,6 +72,16 @@ async function auditPack(packName) {
       rootDocs.set(id, doc);
     }
 
+    // Proibir objetos embutidos inline em items[] ou effects[] no LevelDB
+    if (Array.isArray(doc.items) && doc.items.some(x => typeof x !== 'string')) {
+      invalidStatsIds++;
+      console.error(`  ❌ [${packName}] Doc [${id}] "${doc.name}" possui objetos inline em items[] (esperado array de string IDs).`);
+    }
+    if (Array.isArray(doc.effects) && doc.effects.some(x => typeof x !== 'string')) {
+      invalidStatsIds++;
+      console.error(`  ❌ [${packName}] Doc [${id}] "${doc.name}" possui objetos inline em effects[] (esperado array de string IDs).`);
+    }
+
     // Validação estrita de comprimento 16 em todos os documentos/subdocumentos
     if (id && id.length !== 16) {
       invalidStatsIds++;
@@ -112,16 +122,28 @@ async function auditPack(packName) {
   }
 
   // Pass 3: Check orphan subdocuments
+  const actorItemsMap = new Map();
+  for (const { key, doc } of subEntries) {
+    if (key.startsWith('!actors.items!')) {
+      actorItemsMap.set(key.split('!')[2], doc);
+    }
+  }
   for (const { key, doc } of subEntries) {
     const parts = key.split('!');
     const ns = parts[1];
     const chain = (parts[2] || '').split('.');
     const parentId = chain[0];
     const subId = chain[1];
+    const effId = chain[2];
     const parent = rootDocs.get(parentId);
     let isOrphan = !parent;
     if (!isOrphan) {
       if (ns === 'actors.items' && Array.isArray(parent.items) && parent.items.every(x => typeof x === 'string') && !parent.items.includes(subId)) isOrphan = true;
+      else if (ns === 'actors.items.effects') {
+        const parentItem = actorItemsMap.get(`${parentId}.${subId}`);
+        if (!parentItem) isOrphan = true;
+        else if (Array.isArray(parentItem.effects) && parentItem.effects.every(x => typeof x === 'string') && !parentItem.effects.includes(effId)) isOrphan = true;
+      }
       else if (ns === 'actors.effects' && Array.isArray(parent.effects) && parent.effects.every(x => typeof x === 'string') && !parent.effects.includes(subId)) isOrphan = true;
       else if (ns === 'items.effects' && Array.isArray(parent.effects) && parent.effects.every(x => typeof x === 'string') && !parent.effects.includes(subId)) isOrphan = true;
       else if (ns === 'tables.results' && Array.isArray(parent.results) && parent.results.every(x => typeof x === 'string') && !parent.results.includes(subId)) isOrphan = true;

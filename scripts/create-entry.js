@@ -117,12 +117,12 @@ function buildSkills(ndNum, atributos, trainedSkills = {}, situationalSkills = {
     if (typeof sdata === 'object' && sdata !== null) {
       pericias[key] = {
         atributo: sdata.atributo || 'des',
-        treinado: sdata.treinado !== undefined ? Boolean(sdata.treinado) : true,
+        treinado: sdata.treinado === undefined ? true : Boolean(sdata.treinado),
         st: Boolean(sdata.st),
         pda: Boolean(sdata.pda),
         size: Boolean(sdata.size),
         value: Number(sdata.value || 0),
-        outros: Number(sdata.outros !== undefined ? sdata.outros : (sdata.value || 0)),
+        outros: Number(sdata.outros ?? (sdata.value || 0)),
         condi: 0,
         bonus: [],
         custom: true,
@@ -265,15 +265,40 @@ function normalizeEffectChangeKey(key) {
   if (!key || typeof key !== 'string') return key;
   const k = key.trim();
   const exactMap = {
+    'ataque': 'system.modificadores.ataque.geral',
+    'dano': 'system.modificadores.dano.geral',
+    'system.bonus.ataque': 'system.modificadores.ataque.geral',
+    'system.bonus.danoGeral': 'system.modificadores.dano.geral',
+    'system.attributes.ataque.bonus': 'system.modificadores.ataque.geral',
+    'system.attributes.ataque.margem': 'criticoM',
+    'system.attributes.dano.bonus': 'system.modificadores.dano.geral',
+    'system.attributes.dano.cac': 'system.modificadores.dano.cac',
     'system.modificadores.ataque': 'system.modificadores.ataque.geral',
     'system.modificadores.dano': 'system.modificadores.dano.geral',
     'system.modificadores.dano.corpo-a-corpo': 'system.modificadores.dano.cac',
     'system.modificadores.dano.distancia': 'system.modificadores.dano.ad',
+    'system.modificadores.dano.mag.0': 'system.modificadores.dano.mag',
+    'system.modificadores.defesa.outros': 'system.attributes.defesa.bonus',
+    'system.attributes.defesa.condi': 'system.attributes.defesa.outros',
     'system.modificadores.resistencia': 'system.modificadores.pericias.resistencia',
     'system.modificadores.pericia': 'system.modificadores.pericias.geral',
+    'system.detalhes.carga': 'system.attributes.carga.bonus',
+    'system.attributes.movement.walk': 'system.attributes.movement.walk.base',
+    'system.attributes.movement.swim': 'system.attributes.movement.swim.base',
+    'system.attributes.movement.fly': 'system.attributes.movement.fly.base',
+    'system.attributes.movement.climb': 'system.attributes.movement.climb.base',
+    'system.attributes.movement.burrow': 'system.attributes.movement.burrow.base',
     'system.tracos.resistencias.dano': 'system.tracos.resistencias.dano.bonus'
   };
   if (exactMap[k]) return exactMap[k];
+  // Skills em inglês (system.skills.<k>.bonus -> system.pericias.<k>.bonus)
+  if (/^system\.skills\.(\w+)\.(bonus|outros|value)$/.test(k)) {
+    return k.replace(/^system\.skills\./, 'system.pericias.');
+  }
+  // Perícias .condi (resetado por SkillData.migrateData -> .bonus)
+  if (/^system\.pericias\.(\w+)\.condi$/.test(k)) {
+    return k.replace(/\.condi$/, '.bonus');
+  }
   // Resistências de dano antigas .value -> .bonus (effectMigration.migrateResistancesPath)
   if (/^system\.tracos\.resistencias\.\w+\.value$/.test(k)) {
     return k.replace(/\.value$/, '.bonus');
@@ -320,7 +345,7 @@ function buildActiveEffect({
         description: description || name,
         automatic: false,
         aumenta: false,
-        custo: flags.tormenta20?.custo !== undefined ? flags.tormenta20.custo : null,
+        custo: flags.tormenta20?.custo ?? null,
         names: [],
         types: ['self']
       },
@@ -336,9 +361,9 @@ function buildActiveEffect({
     },
     changes: changes.map(c => ({
       key: normalizeEffectChangeKey(c.key),
-      mode: c.mode !== undefined ? c.mode : 2, // 2 = ADD
+      mode: c.mode ?? 2, // 2 = ADD
       value: String(c.value),
-      priority: c.priority !== undefined ? c.priority : 20
+      priority: c.priority ?? 20
     })),
     duration: {
       rounds: null,
@@ -428,8 +453,11 @@ function normalizeRolls(rolls) {
       }
       return [p0, p1, p2];
     });
+    let rollDefaultName = 'Dano';
+    if (isCura) rollDefaultName = 'Cura';
+    else if (finalType === 'ataque') rollDefaultName = 'Ataque';
     return {
-      name: r.name || (isCura ? 'Cura' : finalType === 'ataque' ? 'Ataque' : 'Dano'),
+      name: r.name || rollDefaultName,
       key: r.key || `${finalType}${idx}`,
       type: finalType,
       parts: finalParts,
@@ -559,16 +587,24 @@ function buildItem({
   };
   const normalizedDuracao = normalizeDuracao(system.duracao);
   const normalizedAlcance = normalizeAlcance(system.alcance || system.range?.units || '');
-  const normalizedEquipado = type === 'arma'
-    ? (typeof system.equipado === 'boolean' ? (system.equipado ? 1 : 0) : Number(system.equipado ?? 1))
-    : (system.equipado !== undefined ? Boolean(system.equipado) : true);
+  let normalizedEquipado;
+  if (type === 'arma') {
+    if (typeof system.equipado === 'boolean') {
+      normalizedEquipado = system.equipado ? 1 : 0;
+    } else {
+      normalizedEquipado = Number(system.equipado ?? 1);
+    }
+  } else {
+    normalizedEquipado = system.equipado === undefined ? true : Boolean(system.equipado);
+  }
 
   const validPowerTypes = ['ability', 'classe', 'concedido', 'geral', 'origem', 'racial', 'distincao', 'complicacao'];
   const powerTypeMap = { raca: 'racial', 'raça': 'racial', poder: 'geral' };
   const mappedPowerTipo = powerTypeMap[system.tipo] || system.tipo;
-  const normalizedTipo = type === 'poder'
-    ? (validPowerTypes.includes(mappedPowerTipo) ? mappedPowerTipo : 'geral')
-    : system.tipo;
+  let normalizedTipo = system.tipo;
+  if (type === 'poder') {
+    normalizedTipo = validPowerTypes.includes(mappedPowerTipo) ? mappedPowerTipo : 'geral';
+  }
 
   const baseDoc = {
     _id,
@@ -582,7 +618,7 @@ function buildItem({
         unidentified: ''
       },
       source: system.source || 'Tormenta20',
-      carregado: system.carregado !== undefined ? Boolean(system.carregado) : true,
+      carregado: system.carregado === undefined ? true : Boolean(system.carregado),
       peso: Number(system.peso || 0),
       espacos: Number(system.espacos || 0),
       qtd: Number(system.qtd || 1),
@@ -643,7 +679,7 @@ function buildItem({
       },
       melhorias: system.melhorias || {},
       encantos: system.encantos || {},
-      ...(normalizedTipo !== undefined ? { tipo: normalizedTipo } : {}),
+      ...(normalizedTipo === undefined ? {} : { tipo: normalizedTipo }),
       rolls: finalRolls
     },
     effects: builtEffects,
@@ -749,7 +785,7 @@ function buildWeaponAttack({
     });
   }
 
-  const chatFlavor = `<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${flavorPhrase || name + '!'}"</blockquote><p>${flavorAction || description}. <span style="color: #800000; font-weight: bold;">Golpe com ${name}!</span></p></div>`;
+  const chatFlavor = `<div style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><blockquote style="background-color: #f0f0f0; border-left: 5px solid #800000; padding: 10px; margin-bottom: 10px; font-style: italic;">"${flavorPhrase || `${name}!`}"</blockquote><p>${flavorAction || description}. <span style="color: #800000; font-weight: bold;">Golpe com ${name}!</span></p></div>`;
 
   return buildItem({
     name,
@@ -810,7 +846,7 @@ function buildSpecialPower({
   const validPowerTypes = ['ability', 'classe', 'concedido', 'geral', 'origem', 'racial', 'distincao', 'complicacao'];
   const finalTipo = validPowerTypes.includes(tipo) ? tipo : 'geral';
   const rawExec = ativacao?.execucao || execucao || 'passive';
-  const rawCost = ativacao?.custo !== undefined ? ativacao.custo : custo;
+  const rawCost = ativacao?.custo ?? custo;
 
   let resObj = { pericia: '', atributo: '', bonus: 0, txt: '' };
   if (typeof resistencia === 'string') {
@@ -850,6 +886,230 @@ function buildSpecialPower({
       rolls: normalizeRolls(rolls)
     }
   });
+}
+
+const EQUIPMENT_CATALOG = {
+  'armadura de couro': { type: 'equipamento', tipo: 'leve', def: 2, pen: 0, maxAtr: 4, esp: 1, preco: 20, slotType: 'body' },
+  'couro batido': { type: 'equipamento', tipo: 'leve', def: 3, pen: -1, maxAtr: 4, esp: 1, preco: 35, slotType: 'body' },
+  'armadura de couro batido': { type: 'equipamento', tipo: 'leve', def: 3, pen: -1, maxAtr: 4, esp: 1, preco: 35, slotType: 'body' },
+  'gibao de peles': { type: 'equipamento', tipo: 'leve', def: 4, pen: -3, maxAtr: 4, esp: 2, preco: 25, slotType: 'body' },
+  'couraca': { type: 'equipamento', tipo: 'pesada', def: 5, pen: -4, maxAtr: 2, esp: 2, preco: 500, slotType: 'body' },
+  'brunea': { type: 'equipamento', tipo: 'pesada', def: 5, pen: -2, maxAtr: 2, esp: 2, preco: 50, slotType: 'body' },
+  'cota de malha': { type: 'equipamento', tipo: 'pesada', def: 6, pen: -2, maxAtr: 2, esp: 4, preco: 150, slotType: 'body' },
+  'meia armadura': { type: 'equipamento', tipo: 'pesada', def: 7, pen: -4, maxAtr: 1, esp: 3, preco: 600, slotType: 'body' },
+  'armadura completa': { type: 'equipamento', tipo: 'pesada', def: 10, pen: -5, maxAtr: 0, esp: 5, preco: 3000, slotType: 'body' },
+  'escudo leve': { type: 'equipamento', tipo: 'escudo', def: 1, pen: -1, maxAtr: 0, esp: 1, preco: 5, slotType: 'hand' },
+  'escudo pesado': { type: 'equipamento', tipo: 'escudo', def: 2, pen: -2, maxAtr: 0, esp: 2, preco: 15, slotType: 'hand' },
+  'flechas': { type: 'consumivel', tipo: 'ammo', esp: 1, preco: 1, defaultQtd: 20 },
+  'virotes': { type: 'consumivel', tipo: 'ammo', esp: 1, preco: 2, defaultQtd: 20 },
+  'balas': { type: 'consumivel', tipo: 'ammo', esp: 1, preco: 20, defaultQtd: 20 },
+  'gazua': { type: 'equipamento', tipo: 'ferramenta', esp: 0.5, preco: 5, slotType: 'hand' },
+  'estojo de disfarces': { type: 'equipamento', tipo: 'ferramenta', esp: 1, preco: 50, slotType: 'hand' },
+  'instrumentos de oficio': { type: 'equipamento', tipo: 'ferramenta', esp: 1, preco: 30, slotType: 'hand' },
+  'simbolo sagrado': { type: 'equipamento', tipo: 'esoterico', esp: 0.5, preco: 5, slotType: 'hand' },
+  'capa esvoacante': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 25, slotType: 'body' },
+  'capa pesada': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 15, slotType: 'body' },
+  'camisa bufante': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 25, slotType: 'body' },
+  'traje da corte': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 100, slotType: 'body' },
+  'manto camuflado': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 12, slotType: 'body' },
+  'bandana': { type: 'equipamento', tipo: 'traje', esp: 0.5, preco: 10, slotType: 'body' },
+  'po do desaparecimento': { type: 'consumivel', tipo: 'alchemy', esp: 0.5, preco: 600 },
+  'terra de cemiterio': { type: 'consumivel', tipo: 'material', esp: 0.5, preco: 5 },
+  'essencia de mana': { type: 'consumivel', tipo: 'potion', esp: 0.5, preco: 50 },
+  'pocao de curar ferimentos': { type: 'consumivel', tipo: 'potion', esp: 0.5, preco: 30 },
+  'baga de fogo': { type: 'consumivel', tipo: 'alchemy', esp: 0.5, preco: 15 },
+  'peconha': { type: 'consumivel', tipo: 'alchemy', esp: 0.5, preco: 30 }
+};
+
+function normEquipStr(s) {
+  return String(s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[*]/g, '')
+    .replace(/[-–—]/g, ' ')
+    .replace(/[^a-z0-9 ]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function parseEquipmentLine(eqLine) {
+  if (!eqLine || typeof eqLine !== 'string') return [];
+  let clean = eqLine.replace(/[■.]+\s*$/, '').trim();
+  if (!clean || /^(nenhum|nenhuma|—|-)$/i.test(clean)) return [];
+  // Remover referências de página entre parênteses (ex: "(Heróis de Arton, p. 216)", "(veja Ameaças de Arton, p. 400)")
+  clean = clean.replace(/\((?:veja\s+)?(?:Her[óo]is|Amea[çc]as|Tormenta20)[^)]*\)/gi, '').trim();
+  // Normalizar conectores de lista ("e um entre:", " ou ", " e ")
+  clean = clean.replace(/\be\s+um\s+entre:\s*/gi, ', ');
+  clean = clean.replace(/\s+ou\s+/gi, ', ');
+  clean = clean.replace(/\s+e\s+(?=(?:escudo|armadura|espada|machado|lanca|lança|arco|besta|azagaia|adaga|meia|cota|gib[ãa]o|brunea|coura[çc]a|simbolo|s[íi]mbolo|gazua|flechas|virotes|balas|traje|capa|manto|p[óo]|terra|ess[êe]ncia|po[çc][ãa]o|instrumentos|estojo))/gi, ', ');
+
+  const rawParts = clean.split(',').map(s => s.trim()).filter(Boolean);
+  const parsed = [];
+  for (const part of rawParts) {
+    let qtd = 1;
+    let namePart = part;
+    const mDice = namePart.match(/\s+x(\d+d\d+(?:\+\d+)?)$/i);
+    if (mDice) {
+      namePart = namePart.slice(0, mDice.index).trim();
+    } else {
+      const mQty = namePart.match(/\s+x(\d+)$/i);
+      if (mQty) {
+        qtd = parseInt(mQty[1], 10) || 1;
+        namePart = namePart.slice(0, mQty.index).trim();
+      }
+    }
+    if (!namePart || /^(nenhum|nenhuma)$/i.test(namePart)) continue;
+    const displayName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    parsed.push({ raw: part, name: displayName, norm: normEquipStr(namePart), qtd });
+  }
+  return parsed;
+}
+
+function lookupEquipmentCatalog(normName) {
+  // Ordena por chave mais longa para dar prioridade a matches específicos ("armadura de couro batido" antes de "couro")
+  const keys = Object.keys(EQUIPMENT_CATALOG).sort((a, b) => b.length - a.length);
+  for (const key of keys) {
+    if (normName.includes(key)) {
+      return { key, meta: EQUIPMENT_CATALOG[key] };
+    }
+  }
+  return null;
+}
+
+function buildNpcEquipmentItem({ name, qtd = 1, raw = '' }) {
+  const norm = normEquipStr(name);
+  const found = lookupEquipmentCatalog(norm);
+  const meta = found ? found.meta : { type: 'equipamento', tipo: 'acessorio', esp: 1, preco: 0, slotType: 'body' };
+
+  let defVal = meta.def || 0;
+  let penVal = meta.pen || 0;
+  const maxAtr = meta.maxAtr ?? 0;
+
+  if (meta.tipo === 'leve' || meta.tipo === 'pesada' || meta.tipo === 'escudo') {
+    if (norm.includes('reforcad')) defVal += 1;
+    if (norm.includes('sob medida')) penVal = Math.min(0, penVal + 2);
+    if (norm.includes('ajustad')) penVal = Math.min(0, penVal + 1);
+    if (norm.includes('delicad')) penVal = Math.min(0, penVal + 1);
+    if (norm.includes('lanajuste')) defVal += 1;
+  }
+
+  const desc = `<p><strong>Equipamento de Ameaça:</strong> ${raw || name}.</p>`;
+  const finalImg = resolveIcon({ name, type: meta.type });
+
+  if (meta.type === 'consumivel') {
+    return buildItem({
+      name,
+      type: 'consumivel',
+      img: finalImg,
+      description: desc,
+      system: {
+        tipo: meta.tipo || 'alchemy',
+        qtd: Number(qtd || meta.defaultQtd || 1),
+        espacos: Number(meta.esp ?? 0.5),
+        preco: Number(meta.preco || 0),
+        equipado: false,
+        ativacao: { execucao: 'action', custo: 0 }
+      }
+    });
+  }
+
+  return buildItem({
+    name,
+    type: 'equipamento',
+    img: finalImg,
+    description: desc,
+    system: {
+      tipo: meta.tipo || 'acessorio',
+      qtd: Number(qtd || 1),
+      espacos: Number(meta.esp ?? 1),
+      preco: Number(meta.preco || 0),
+      equipado: false,
+      equipado2: { slot: 0, type: meta.slotType || 'body' },
+      armadura: {
+        value: Number(defVal),
+        penalidade: Number(penVal),
+        maxAtr: Number(maxAtr)
+      }
+    }
+  });
+}
+
+function isWeaponClause(normName) {
+  return /^(adaga|azagaia|espada|machado|lanca|lança|arco|besta|cimitarra|foice|maca|maça|machadinha|clava|tridente|chicote|pistola|alabarda|tacape|montante|corrente|kum|armamento|braco)/.test(normName);
+}
+
+function syncActorEquipmentItems(actorDoc, embeddedDocs = []) {
+  const anomalies = [];
+  const createdItems = [];
+  let modified = false;
+
+  // Garantir equipado: false em todos equipamentos de NPC para não somar defesa/pda duplicada
+  for (const doc of embeddedDocs) {
+    if (doc.type === 'equipamento' && doc.system) {
+      if (doc.system.equipado !== false) {
+        doc.system.equipado = false;
+        if (doc.system.equipado2) doc.system.equipado2.slot = 0;
+        anomalies.push(`Equipamento "${doc.name}" ajustado para equipado=false no NPC`);
+        modified = true;
+      }
+      if (doc.system.armadura && Number(doc.system.armadura.penalidade) > 0) {
+        doc.system.armadura.penalidade = -Math.abs(Number(doc.system.armadura.penalidade));
+        modified = true;
+      }
+    }
+  }
+
+  const eqLine = actorDoc.system?.detalhes?.equipamento || '';
+  const entries = parseEquipmentLine(eqLine);
+  if (entries.length === 0) {
+    return { modified, anomalies, createdItems };
+  }
+
+  for (const entry of entries) {
+    const isShield = entry.norm.includes('escudo');
+    const isArmorOrGear = !isWeaponClause(entry.norm) || isShield;
+
+    // Para escudos, exigir presença como item de tipo 'equipamento' (além de eventual arma de investida com escudo)
+    const match = embeddedDocs.find(d => {
+      const dn = normEquipStr(d.name);
+      if (isShield && d.type !== 'equipamento') return false;
+      if (dn === entry.norm || dn.includes(entry.norm) || entry.norm.includes(dn)) return true;
+      // Match por núcleo sem modificadores ("adaga x6" vs "Adaga de Arremesso" / "[Bando] Adaga")
+      const baseWord = entry.norm.split(' ')[0];
+      if (!isShield && baseWord.length >= 4 && dn.includes(baseWord) && d.type === 'arma' && isWeaponClause(entry.norm)) return true;
+      return false;
+    });
+
+    if (match) {
+      if (entry.qtd > 1 && Number(match.system?.qtd || 1) < entry.qtd && ['arma', 'equipamento', 'consumivel'].includes(match.type)) {
+        match.system = match.system || {};
+        match.system.qtd = entry.qtd;
+        anomalies.push(`Quantidade de "${match.name}" sincronizada para x${entry.qtd}`);
+        modified = true;
+      }
+    } else if (isArmorOrGear) {
+      const newDoc = buildNpcEquipmentItem(entry);
+      embeddedDocs.push(newDoc);
+      createdItems.push(newDoc);
+      actorDoc.items = actorDoc.items || [];
+      actorDoc.items.push(newDoc._id);
+      anomalies.push(`Criado item de equipamento faltante "${newDoc.name}" (${newDoc.type}) a partir de detalhes.equipamento`);
+      modified = true;
+    } else {
+      // Arma listada em Equipamento que não estava em embeddedDocs
+      const newWeapon = buildWeaponAttack({ name: entry.name, description: `<p>Arma listada no equipamento oficial: ${entry.raw}.</p>` });
+      newWeapon.system.qtd = entry.qtd;
+      embeddedDocs.push(newWeapon);
+      createdItems.push(newWeapon);
+      actorDoc.items = actorDoc.items || [];
+      actorDoc.items.push(newWeapon._id);
+      anomalies.push(`Criada arma faltante "${newWeapon.name}" a partir de detalhes.equipamento`);
+      modified = true;
+    }
+  }
+
+  return { modified, anomalies, createdItems };
 }
 
 /**
@@ -997,8 +1257,9 @@ function buildSpellItem({
 }) {
   const _id = id || generateId();
   const circNum = Number(circulo) || 1;
-  const rawCost = ativacao?.custo !== undefined && ativacao?.custo !== null ? ativacao.custo : custoPM;
-  const pmCost = rawCost !== null && rawCost !== undefined ? Number(rawCost) : (circNum === 1 ? 1 : circNum === 2 ? 3 : circNum === 3 ? 6 : circNum === 4 ? 10 : 15);
+  const defaultPmByCircle = { 1: 1, 2: 3, 3: 6, 4: 10, 5: 15 };
+  const rawCost = ativacao?.custo ?? custoPM;
+  const pmCost = rawCost ?? (defaultPmByCircle[circNum] || 15);
 
   const tipoMap = { arcana: 'arc', arcano: 'arc', divina: 'div', divino: 'div', universal: 'uni' };
   const finalTipo = tipoMap[tipo] || tipo || 'arc';
@@ -1166,18 +1427,15 @@ function buildNpcActor({
   // Cálculo canônico da Defesa Base no Foundry: valor_ficha - destreza
   const desMod = atributos.des ?? 0;
   const defVal = attributes.defesa?.value ?? 15;
-  const defBase = attributes.defesa?.base !== undefined
-    ? attributes.defesa.base
-    : (defVal - desMod);
+  const defBase = attributes.defesa?.base ?? (defVal - desMod);
 
   const ndNum = Number(nd) || 1;
-  const treino = ndNum >= 15 ? 6 : ndNum >= 7 ? 4 : 2;
+  let treino = 2;
+  if (ndNum >= 15) treino = 6;
+  else if (ndNum >= 7) treino = 4;
   const meionivel = Math.floor(ndNum / 2);
-  const cdVal = cd !== null && cd !== undefined
-    ? Number(cd)
-    : (attributes.cd !== undefined
-      ? Number(attributes.cd)
-      : (10 + meionivel + Math.max(atributos.for || 0, atributos.des || 0, atributos.con || 0, atributos.int || 0, atributos.sab || 0, atributos.car || 0)));
+  const autoCd = 10 + meionivel + Math.max(atributos.for || 0, atributos.des || 0, atributos.con || 0, atributos.int || 0, atributos.sab || 0, atributos.car || 0);
+  const cdVal = Number(cd ?? attributes.cd ?? autoCd);
 
   const movStr = String(deslocamento || '9m (6q)');
   const walkVal = parseInt(movStr, 10) || 9;
@@ -1408,7 +1666,7 @@ function buildNpcActor({
         origem: '',
         info: '',
         divindade: '',
-        raca: raca || (tipoMonstro === 'ani' ? 'Animal' : tipoMonstro === 'hum' ? 'Humanoide' : tipoMonstro === 'mon' ? 'Monstro' : tipoMonstro === 'esp' ? 'Espírito' : 'Criatura'),
+        raca: raca || ({ ani: 'Animal', hum: 'Humanoide', mon: 'Monstro', esp: 'Espírito' }[tipoMonstro] || 'Criatura'),
         tipo: tipoMonstro,
         tamanho: tamanho.slice(0, 3),
         equipamento: equipamento || '',
@@ -1449,6 +1707,17 @@ function buildNpcActor({
       key: `!actors.effects!${_id}.${effDoc._id}`,
       typePath: '!actors.effects!',
       doc: effDoc
+    });
+  }
+
+  // Sincroniza automaticamente equipamentos da linha detalhes.equipamento -> itens reais no ator
+  const eqItemsOnly = embeddedDocs.filter(e => e.typePath === '!actors.items!').map(e => e.doc);
+  const eqSync = syncActorEquipmentItems(actorDoc, eqItemsOnly);
+  for (const createdItem of eqSync.createdItems) {
+    embeddedDocs.push({
+      key: `!actors.items!${_id}.${createdItem._id}`,
+      typePath: '!actors.items!',
+      doc: createdItem
     });
   }
 
@@ -1671,12 +1940,12 @@ function buildRollTable({
   const _id = generateId();
   const formattedResults = results.map(r => ({
     _id: generateId(),
-    type: r.type !== undefined ? r.type : 0, // 0 = Text, 1 = Document, 2 = Compendium
+    type: r.type ?? 0, // 0 = Text, 1 = Document, 2 = Compendium
     text: r.text || '',
     img: r.img || 'icons/svg/d20-black.svg',
     documentCollection: r.documentCollection || null,
     documentId: r.documentId || null,
-    weight: r.weight !== undefined ? r.weight : 1,
+    weight: r.weight ?? 1,
     range: r.range || [1, 1],
     drawn: false,
     flags: {}
@@ -1768,7 +2037,7 @@ function buildPlaylist({
     path: s.path,
     playing: false,
     pausedTime: null,
-    volume: s.volume !== undefined ? s.volume : 0.8,
+    volume: s.volume ?? 0.8,
     fade: Number(fade),
     repeat: Boolean(s.repeat),
     flags: {}
@@ -1869,6 +2138,10 @@ module.exports = {
   normalizeDuracao,
   normalizeAlcance,
   normalizeEffectChangeKey,
+  normEquipStr,
+  parseEquipmentLine,
+  buildNpcEquipmentItem,
+  syncActorEquipmentItems,
   buildSkills,
   buildTracos,
   buildActiveEffect,

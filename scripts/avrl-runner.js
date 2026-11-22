@@ -20,12 +20,15 @@ const path = require('path');
 const fs = require('fs');
 const { resolveToken, resolveIcon } = require('./icon-resolver');
 const {
+  ALL_SKILLS,
+  generateId,
   getTokenDimension,
   normalizeDamageType,
   normalizeExecucao,
   normalizeDuracao,
   normalizeAlcance,
   normalizeEffectChangeKey,
+  syncActorEquipmentItems,
   buildActiveEffect
 } = require('./create-entry');
 
@@ -49,6 +52,36 @@ const MONITORED_FOLDERS = new Set([
   'fldFolderMacro26'
 ]);
 
+const DB_226_229_ACTOR_IDS = new Set([
+  '6jcy63pS6TLhCoHm', // Lynel (DB #226)
+  'AOuINuG6UNmsJTIL', // Tyrant (DB #226)
+  '7UyOrY1k439sFonD', // Espectro do Pesadelo (DB #226)
+  'KnUyjOaSBfGcl48v', // Oxxdon (DB #226)
+  'Ju7GOVk38BMGXdoY', // Expurgo Onírico (DB #226)
+  'XEdZUz2ETKvxvjZH', // Enxame de Armas (DB #227)
+  'ZB0VONjuE8XS5gmH', // Tropa de Mortos (DB #227)
+  'po00j60czLdn1eu5', // Inumano (DB #227)
+  'NS5u871jRBLCe1CA', // Ankthyr (DB #228)
+  'S115R6Jr8xEcOQBq', // Enxame Cáustico (DB #228)
+  'vvsdGwGzTR1mQSVX', // Slark (DB #228)
+  'Wcz6S9LS4zAXCRZg'  // Desabamento dos Túneis (DB #228)
+]);
+
+const CREATED_ITEM_IDS = (() => {
+  const ids = new Set();
+  const scriptsDir = __dirname;
+  try {
+    for (const f of fs.readdirSync(scriptsDir)) {
+      if (!/^(inject|rebuild)-(db22[6-9]|db23[0-9]|fullgor).*\.js$/.test(f)) continue;
+      const txt = fs.readFileSync(path.join(scriptsDir, f), 'utf8');
+      for (const m of txt.matchAll(/['"]([a-zA-Z0-9]{16})['"]/g)) {
+        ids.add(m[1]);
+      }
+    }
+  } catch {}
+  return ids;
+})();
+
 const VALID_EXECUCAO = new Set(['passive', 'action', 'move', 'full', 'reaction', 'free', 'minute', 'hour', 'day', 'special']);
 const VALID_TIME_UNITS = new Set(['inst', 'scene', 'turn', 'round', 'sust', 'minute', 'hour', 'day', 'month', 'year', 'perm', 'special']);
 const VALID_DIST_UNITS = new Set(['none', 'self', 'touch', 'short', 'medium', 'long', 'spec', 'any', 'm', 'km']);
@@ -57,16 +90,40 @@ const ACCENTED_DAMAGE_TYPES = new Set(['perfuração', 'ácido', 'essência', 'p
 
 function isCreatedActor(actorDoc) {
   const id = actorDoc?._id || '';
-  return STRICT_ACTOR_IDS.has(id) || id.startsWith('gq8') || id.startsWith('fld');
+  return STRICT_ACTOR_IDS.has(id)
+    || DB_226_229_ACTOR_IDS.has(id)
+    || actorDoc?.folder === 'n591wfGB7keSNe7I'
+    || id.startsWith('gq8')
+    || id.startsWith('fld');
 }
 
 function isCreatedItem(itemDoc) {
   const id = itemDoc?._id || '';
   const src = itemDoc?.system?.source || '';
-  return id.startsWith('gq8')
+  return CREATED_ITEM_IDS.has(id)
+    || id.startsWith('gq8')
     || id.startsWith('fld')
+    || id.startsWith('i8231')
+    || id.startsWith('i8232')
     || itemDoc?.folder === 'fldItensFolder26'
     || /22[6-9]|23[0-9]|F[úu]lgor|Fullgor/i.test(src);
+}
+
+function toValidAlnum16Id(rawId) {
+  if (rawId && /^[a-zA-Z0-9]{16}$/.test(rawId)) return rawId;
+  const cleaned = String(rawId || '').replace(/[^a-zA-Z0-9]/g, '');
+  if (cleaned.length >= 16) return cleaned.slice(0, 16);
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let res = `eff${cleaned}`;
+  let seed = 0;
+  for (let i = 0; i < String(rawId || '').length; i++) {
+    seed = (seed * 31 + String(rawId).charCodeAt(i)) >>> 0;
+  }
+  while (res.length < 16) {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    res += chars.charAt(seed % chars.length);
+  }
+  return res.slice(0, 16);
 }
 
 function normalizeActiveEffectDoc(eff, fallbackImg = 'systems/tormenta20/icons/svg/skills.svg', fallbackOrigin = '') {
@@ -80,12 +137,16 @@ function normalizeActiveEffectDoc(eff, fallbackImg = 'systems/tormenta20/icons/s
   if (!eff.img && eff.icon) {
     eff.img = eff.icon;
     modified = true;
-  } else if (!eff.img) {
-    eff.img = fallbackImg;
+  } else if (!eff.img || String(eff.img).includes('mystery-man')) {
+    eff.img = fallbackImg || 'systems/tormenta20/icons/svg/skills.svg';
     modified = true;
   }
   if (eff.origin === undefined) {
     eff.origin = fallbackOrigin;
+    modified = true;
+  }
+  if (eff._stats && eff._stats.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(eff._stats.lastModifiedBy)) {
+    eff._stats.lastModifiedBy = 'kL8nfmJOQTqjeU2x';
     modified = true;
   }
   if (!eff.system || !eff.system.abilityUse || !eff.system.aura || !eff.system.upgrade) {
@@ -118,11 +179,23 @@ function normalizeActiveEffectDoc(eff, fallbackImg = 'systems/tormenta20/icons/s
   }
   if (Array.isArray(eff.changes)) {
     for (const c of eff.changes) {
-      const fixedKey = normalizeEffectChangeKey(c.key);
-      if (fixedKey !== c.key) {
-        anomalies.push(`ActiveEffect "${eff.name}" key "${c.key}" -> "${fixedKey}"`);
-        c.key = fixedKey;
+      if (c.key === 'system.attributes.ataque.margem') {
+        const mag = Math.abs(Number(c.value) || 1);
+        c.key = 'criticoM';
+        c.value = String(-mag);
+        eff.system.onuse = true;
+        eff.system.abilityUse.types = ['attack'];
+        eff.flags = eff.flags || {};
+        eff.flags.tormenta20 = { ...(eff.flags.tormenta20 || {}), onuse: true, attack: true };
+        anomalies.push(`ActiveEffect "${eff.name}" convertido para onuse criticoM (${c.value})`);
         modified = true;
+      } else {
+        const fixedKey = normalizeEffectChangeKey(c.key);
+        if (fixedKey !== c.key) {
+          anomalies.push(`ActiveEffect "${eff.name}" key "${c.key}" -> "${fixedKey}"`);
+          c.key = fixedKey;
+          modified = true;
+        }
       }
     }
   }
@@ -254,6 +327,65 @@ const MONITORED_CDS = {
   'urrash das sombras frias': 22
 };
 
+const MONITORED_EQUIPAMENTOS = {
+  // DB #227
+  'lynel': 'Arco de guerra (Heróis de Arton, p. 216) e um entre: alabarda atroz maciça, machado de guerra atroz maciço, tacape atroz maciço ou espada bastarda atroz maciça e escudo pesado reforçado.',
+  'inumano': 'Azagaia x3, escudo pesado, espada longa, meia armadura.',
+  'tropa de mortos': 'Escudo pesado, espada longa.',
+  // DB #230
+  'lanceiro onirico': 'Brunea, escudo pesado, lança.',
+  'ginete onirico': 'Arco curto, escudo pesado, flechas x20, gibão de peles, lança de cavalaria.',
+  'sargento onirico': 'Cota de malha, escudo pesado, espada bastarda maciça.',
+  'tenente onirico': 'Escudo pesado, espada bastarda maciça, meia armadura macabra.',
+  'nocnam mur o pesadelo amalgamado': 'Escudo pesado reforçado, espada bastarda maciça formidável aumentada, meia armadura macabra fortificada.',
+  'sacerdote caido': 'Brunea, foice.',
+  'arzak': 'Adaga x6, couro batido ajustado, kum’shrak* eviscerador.',
+  'gaardak': 'Azagaia x10, gibão de peles.',
+  // DB #231
+  'cacador de condenados': 'Armadura de couro batido, cimitarra, foice, maça, machadinha.',
+  'ressecado saqueador': 'Arco curto, armadura de couro batido, cimitarra, escudo leve, flechas x20.',
+  'ressecado lider': 'Arco curto, cimitarra, couraça, escudo leve, flechas x20.',
+  'bianco': 'Camisa bufante, estojo de disfarces.',
+  'morrise': 'Chicote cruel equilibrado, traje da corte macabro.',
+  // DB #232
+  'lobisomem predador urbano': 'Adaga x2, capa esvoaçante, gázua.',
+  'lobisomem cacador de recompensas': 'Besta leve, capa pesada, couraça, lança, virotes x20.',
+  'licantropo rato comedor de restos': 'Adaga x3, armadura de couro.',
+  'licantropo rato infiltrador veterano': 'Arco longo, armadura de couro, corrente de espinhos precisa, manto camuflado (urbano), pó do desaparecimento.',
+  'licantropo onca pirata de rio': 'Balas x20, bandana aprimorada, cimitarra, pistola.',
+  'licantropo texugo furioso': 'Gibão de peles, machado de guerra.',
+  'licantropo texugo servo da noite': 'Armadura de couro, clava, símbolo sagrado de Tenebra, terra de cemitério x3.',
+  'licantropo selako farejador de sangue': 'Azagaia x3, lança.',
+  'licantropo selako terror dos mares': 'Azagaia x3, couraça de lanajuste sob medida (veja Ameaças de Arton, p. 400), tridente maciço.',
+  'ginete de troll purista': 'Escudo pesado, lança, meia armadura.',
+  // Fúlgor #25 e anteriores (RT20 #25)
+  'acolito da pureza divina': 'Escudo leve, martelo de guerra, meia armadura, símbolo sagrado.',
+  'cultista da pureza divina': 'Brunea, martelo de guerra.',
+  'espiao purista': 'Adaga, armadura de couro, dose de peçonha comum x6, estojo de disfarces aprimorado, gazua.',
+  'cicatriz de keenn': 'Azagaia x6, espada longa, machado de batalha.',
+  'guardiao das cinzas': 'Cota de malha reforçada e um entre: lança montada, machado de guerra, montante ou maça cruel e escudo pesado.',
+  'irina volensk': 'Baga-de-fogo x5, cetro elemental (fogo), essência de mana x5.',
+  'kaellarem': 'Arco longo pungente, couro batido reforçado, flechas x20, poção de Curar Ferimentos (2d8+2 PV) x2.',
+  'selisse a voz de ferro': 'Cota de malha reforçada, escudo leve, essência de mana x3, maça aumentada maciça, símbolo sagrado.',
+  'thorgan punho de bronze': 'Meia armadura reforçada, escudo pesado espinhoso, espada curta cruel, poção de Curar Ferimentos (2d8+2 PV) x2.',
+  'carvarel enfraquecido': 'Machado de guerra cruel',
+  'carvarel fullgori': 'Machado de guerra cruel',
+  'avatar da promessa': 'Promessa das Cinzas',
+  'protetor de keenn': 'Lança de mitral.',
+  'protetor fullgori': 'Braço-lança',
+  // Fúlgor #26 (RT20 #26)
+  'asmithar martelo mudo': 'Armamento sagrado, instrumentos de Ofício (armeiro) aprimorados, meia-armadura.',
+  'xellmaras a ladra acorrentada': 'Cimitarra x2, gazua aprimorada.',
+  'gangue de hyninn deturpada': 'Adaga x8, gazua x8.',
+  'sacerdote de hyninn deturpado': 'Adaga, gazua, símbolo sagrado de Hyninn.',
+  // Fúlgor #27 (RT20 #27)
+  'cassiella semi fullgori': 'Armadura completa delicada selada, escudo pesado reforçado, espada longa pungente.',
+  'cassiella fullgori': 'Armadura completa delicada selada, escudo pesado reforçado, espada longa pungente.',
+  'troggore': 'Lança.',
+  'bando troggore': 'Lança x1d6.',
+  'urrash das sombras frias': 'Lança, símbolo sagrado de Tenebra.'
+};
+
 /**
  * Atores cujas magias/poderes passam pelas regras estritas de schema e rolagem.
  * Escopo deliberadamente restrito: conteúdo oficial antigo não deve ser reescrito
@@ -280,8 +412,9 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
   const isMonitored = (actorDoc.folder && MONITORED_FOLDERS.has(actorDoc.folder)) || created;
   const anomalies = [];
   let modified = false;
+  const extractedItemEffects = [];
 
-  // A. Token 2MTT + dimensões sincronizadas com tamanho (obrigatório para pastas monitoradas / criados)
+  // A. Token 2MTT + imagem de ficha + dimensões sincronizadas com tamanho
   const currentToken = actorDoc.prototypeToken?.texture?.src || '';
   if (isMonitored && (!currentToken || currentToken.includes('mystery-man') || !currentToken.endsWith('.png'))) {
     const fixedToken = resolveToken({ name: actorDoc.name });
@@ -289,6 +422,11 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     actorDoc.prototypeToken.texture = actorDoc.prototypeToken.texture || {};
     actorDoc.prototypeToken.texture.src = fixedToken;
     anomalies.push(`Token corrigido para 2MTT: ${fixedToken}`);
+    modified = true;
+  }
+  if (created && (!actorDoc.img || String(actorDoc.img).includes('mystery-man'))) {
+    actorDoc.img = resolveIcon({ name: actorDoc.name, type: 'npc' });
+    anomalies.push(`Imagem da ficha resolvida: ${actorDoc.img}`);
     modified = true;
   }
   if (created && actorDoc.system?.detalhes?.tamanho) {
@@ -313,8 +451,74 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     }
   }
 
+  // B2. Completar 34 perícias, corrigir Nobreza (int), e garantir dinheiro/resources (atores criados)
+  if (created) {
+    actorDoc.system = actorDoc.system || {};
+    const ndRaw = actorDoc.system?.attributes?.nd || '1';
+    let ndNum = Number(ndRaw) || 1;
+    if (ndRaw === '1/2') ndNum = 0.5;
+    else if (ndRaw === '1/4') ndNum = 0.25;
+    const meionivel = Math.floor(ndNum / 2);
+    let treino = 2;
+    if (ndNum >= 15) treino = 6;
+    else if (ndNum >= 7) treino = 4;
+    const atrs = actorDoc.system.atributos || {};
+    actorDoc.system.pericias = actorDoc.system.pericias || {};
+    let addedSkills = 0;
+    for (const sk of ALL_SKILLS) {
+      if (!actorDoc.system.pericias[sk.key]) {
+        const atrMod = atrs[sk.atributo]?.value ?? 0;
+        actorDoc.system.pericias[sk.key] = {
+          atributo: sk.atributo,
+          treinado: false,
+          st: Boolean(sk.st),
+          pda: Boolean(sk.pda),
+          size: Boolean(sk.size),
+          value: meionivel + atrMod,
+          outros: 0,
+          condi: 0,
+          bonus: [],
+          custom: false,
+          label: sk.nome,
+          nome: sk.nome
+        };
+        addedSkills++;
+      }
+    }
+    if (addedSkills > 0) {
+      anomalies.push(`Preenchidas ${addedSkills} perícias faltantes (total 34)`);
+      modified = true;
+    }
+    const nobr = actorDoc.system.pericias.nobr;
+    if (nobr && nobr.atributo !== 'int') {
+      const intMod = atrs.int?.value ?? 0;
+      nobr.atributo = 'int';
+      nobr.st = true;
+      nobr.outros = Number(nobr.value || 0) - meionivel - intMod - (nobr.treinado ? treino : 0);
+      anomalies.push('Perícia Nobreza (nobr) corrigida para atributo "int" (JdA)');
+      modified = true;
+    }
+    if (!actorDoc.system.dinheiro) {
+      actorDoc.system.dinheiro = { tc: 0, tp: 0, to: 0, tl: 0 };
+      anomalies.push('Adicionado system.dinheiro padrão');
+      modified = true;
+    }
+    if (!actorDoc.system.resources) {
+      actorDoc.system.resources = {
+        primary: { value: 0, max: 0, label: 'Recurso 1' },
+        secondary: { value: 0, max: 0, label: 'Recurso 2' },
+        tertiary: { value: 0, max: 0, label: 'Recurso 3' },
+        deathsave: { value: 0, max: 3, label: 'Testes de Morte' },
+        shadow: { value: 0, max: 5, label: 'Sombra' },
+        catarse: { value: 0, max: 3, label: 'Catarse' }
+      };
+      anomalies.push('Adicionado system.resources padrão');
+      modified = true;
+    }
+  }
+
   // C. Validação e calibração de CD oficial do statblock
-  const normName = (actorDoc.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, '').trim();
+  const normName = (actorDoc.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
   if (MONITORED_CDS[normName] !== undefined) {
     const expectedCd = MONITORED_CDS[normName];
     if (actorDoc.system?.attributes?.cd !== expectedCd) {
@@ -326,8 +530,46 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     }
   }
 
+  // C2. Calibração oficial da linha Equipamento (PDF)
+  if (MONITORED_EQUIPAMENTOS[normName] !== undefined) {
+    const expectedEq = MONITORED_EQUIPAMENTOS[normName];
+    actorDoc.system = actorDoc.system || {};
+    actorDoc.system.detalhes = actorDoc.system.detalhes || {};
+    if (actorDoc.system.detalhes.equipamento !== expectedEq) {
+      actorDoc.system.detalhes.equipamento = expectedEq;
+      anomalies.push('Linha detalhes.equipamento preenchida conforme PDF oficial');
+      modified = true;
+    }
+  }
+
   // D. Validação de rolagens e schemas em itens embutidos (todos os atores criados/adaptados)
+  // e extração estrutural de efeitos inline para subdocumentos ClassicLevel
+  for (const doc of embeddedDocs) {
+    if (Array.isArray(doc.effects) && doc.effects.some(e => typeof e === 'object' && e !== null)) {
+      const effIds = [];
+      for (const e of doc.effects) {
+        if (typeof e === 'string') {
+          effIds.push(e);
+        } else if (e && typeof e === 'object') {
+          const eid = (e._id && /^[a-zA-Z0-9]{16}$/.test(e._id)) ? e._id : generateId();
+          e._id = eid;
+          normalizeActiveEffectDoc(e, doc.img, `Actor.${actorDoc._id}.Item.${doc._id}`);
+          effIds.push(eid);
+          extractedItemEffects.push({ itemId: doc._id, eff: e });
+        }
+      }
+      doc.effects = effIds;
+      anomalies.push(`Extraídos efeitos inline de "${doc.name}" para subdocumentos`);
+      modified = true;
+    }
+  }
+
   for (const doc of (created ? embeddedDocs : [])) {
+    if (!doc.img || String(doc.img).includes('mystery-man') || doc.img === 'icons/svg/item-bag.svg') {
+      doc.img = resolveIcon({ name: doc.name, type: doc.type });
+      anomalies.push(`Ícone do item "${doc.name}" resolvido para ${doc.img}`);
+      modified = true;
+    }
     if (doc.type === 'magia') {
       const nomeMagia = (doc.name || '').toLowerCase();
       doc.system = doc.system || {};
@@ -407,7 +649,16 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     modified = true;
   }
 
-  return { actorDoc, embeddedDocs, modified, anomalies };
+  // G. Sincronização automática de equipamentos listados em detalhes.equipamento -> itens reais no ator
+  if (created) {
+    const eqSync = syncActorEquipmentItems(actorDoc, embeddedDocs);
+    if (eqSync.modified) {
+      anomalies.push(...eqSync.anomalies);
+      modified = true;
+    }
+  }
+
+  return { actorDoc, embeddedDocs, extractedItemEffects, modified, anomalies };
 }
 
 function hookValidateAndRemediateItem(itemDoc, embeddedEffects = []) {
@@ -591,6 +842,7 @@ async function runAvrlIteration(iterNum, options = {}) {
     const folders = new Set();
     const docKeys = [];
     const rootDocsById = new Map();
+    const actorItemsByKey = new Map();
     const subDocEntries = [];
 
     for await (const [key, val] of db.iterator()) {
@@ -608,6 +860,10 @@ async function runAvrlIteration(iterNum, options = {}) {
         }
       } else if (key.includes('.')) {
         subDocEntries.push({ key, val });
+        if (key.startsWith('!actors.items!')) {
+          const idChain = key.split('!')[2];
+          actorItemsByKey.set(idChain, val);
+        }
       } else {
         const rootId = val?._id || key.split('!').pop();
         rootDocsById.set(rootId, val);
@@ -622,11 +878,19 @@ async function runAvrlIteration(iterNum, options = {}) {
       const chain = (parts[2] || '').split('.');
       const parentId = chain[0];
       const subId = chain[1];
+      const effId = chain[2];
       const parent = rootDocsById.get(parentId);
       let isOrphan = !parent;
       if (!isOrphan) {
         if (ns === 'actors.items' && Array.isArray(parent.items) && parent.items.every(x => typeof x === 'string') && !parent.items.includes(subId)) {
           isOrphan = true;
+        } else if (ns === 'actors.items.effects') {
+          const parentItem = actorItemsByKey.get(`${parentId}.${subId}`);
+          if (!parentItem) {
+            isOrphan = true;
+          } else if (Array.isArray(parentItem.effects) && parentItem.effects.every(x => typeof x === 'string') && !parentItem.effects.includes(effId)) {
+            isOrphan = true;
+          }
         } else if (ns === 'actors.effects' && Array.isArray(parent.effects) && parent.effects.every(x => typeof x === 'string') && !parent.effects.includes(subId)) {
           isOrphan = true;
         } else if (ns === 'items.effects' && Array.isArray(parent.effects) && parent.effects.every(x => typeof x === 'string') && !parent.effects.includes(subId)) {
@@ -693,18 +957,29 @@ async function runAvrlIteration(iterNum, options = {}) {
           for (const sd of res.embeddedDocs) {
             await db.put(`!actors.items!${val._id}.${sd._id}`, sd);
           }
+          for (const ex of (res.extractedItemEffects || [])) {
+            await db.put(`!actors.items.effects!${val._id}.${ex.itemId}.${ex.eff._id}`, ex.eff);
+          }
           iterationFixes += res.anomalies.length;
           console.log(`  ➔ Ator "${val.name}" auto-remediado (${res.anomalies.join('; ')}).`);
         }
 
-        // Normalizar efeitos embutidos dos itens do ator (BaseEffect + keys canônicas)
+        // Normalizar efeitos embutidos do ator e dos itens do ator (BaseEffect + keys canônicas)
         if (isCreatedActor(val)) {
           for await (const [effKey, effDoc] of db.iterator({ gte: `!actors.items.effects!${val._id}.`, lte: `!actors.items.effects!${val._id}.\uffff` })) {
             const resEff = normalizeActiveEffectDoc(effDoc, val.img, `Actor.${val._id}`);
             if (resEff.modified && fix) {
               await db.put(effKey, resEff.eff);
-              iterationFixes += resEff.anomalies.length;
-              console.log(`  ➔ Efeito em "${val.name}" auto-remediado (${resEff.anomalies.join('; ')}).`);
+              iterationFixes += resEff.anomalies.length || 1;
+              if (resEff.anomalies.length) console.log(`  ➔ Efeito em "${val.name}" auto-remediado (${resEff.anomalies.join('; ')}).`);
+            }
+          }
+          for await (const [effKey, effDoc] of db.iterator({ gte: `!actors.effects!${val._id}.`, lte: `!actors.effects!${val._id}.\uffff` })) {
+            const resEff = normalizeActiveEffectDoc(effDoc, val.img, `Actor.${val._id}`);
+            if (resEff.modified && fix) {
+              await db.put(effKey, resEff.eff);
+              iterationFixes += resEff.anomalies.length || 1;
+              if (resEff.anomalies.length) console.log(`  ➔ Efeito direto em "${val.name}" auto-remediado (${resEff.anomalies.join('; ')}).`);
             }
           }
         }
@@ -714,9 +989,10 @@ async function runAvrlIteration(iterNum, options = {}) {
       if (pack === 'Itens_T20' && key.startsWith('!items!') && !key.includes('.effects')) {
         const subEffs = [];
         const effKeysToFix = [];
+        const createdItem = isCreatedItem(val);
         for await (const [effKey, v] of db.iterator({ gte: `!items.effects!${val._id}.`, lte: `!items.effects!${val._id}.\uffff` })) {
-          // Migrar effAuto de 17 chars gerado anteriormente para 16 chars
-          if (v && v._id && v._id.startsWith('effAuto') && v._id.length !== 16) {
+          // Migrar effAuto de 17 chars ou IDs de itens criados com caracteres fora de [a-zA-Z0-9]{16}
+          if (v && v._id && ((v._id.startsWith('effAuto') && v._id.length !== 16) || (createdItem && !/^[a-zA-Z0-9]{16}$/.test(v._id)))) {
             effKeysToFix.push({ oldKey: effKey, eff: v });
           } else {
             subEffs.push(v);
@@ -725,7 +1001,9 @@ async function runAvrlIteration(iterNum, options = {}) {
 
         if (effKeysToFix.length > 0 && fix) {
           for (const { oldKey, eff } of effKeysToFix) {
-            const newId = `effAuto${val._id.slice(0, 7)}01`;
+            const newId = eff._id.startsWith('effAuto')
+              ? `effAuto${val._id.slice(0, 7)}01`
+              : toValidAlnum16Id(eff._id);
             await db.del(oldKey);
             const oldId = eff._id;
             eff._id = newId;
@@ -736,7 +1014,7 @@ async function runAvrlIteration(iterNum, options = {}) {
             await db.put(`!items.effects!${val._id}.${newId}`, eff);
             await db.put(key, val);
             iterationFixes++;
-            console.log(`  ➔ [${pack}] Migrado effAuto de 17 chars "${oldId}" -> "${newId}" em "${val.name}".`);
+            console.log(`  ➔ [${pack}] Migrado ID de efeito "${oldId}" -> "${newId}" em "${val.name}".`);
           }
         }
 
@@ -855,6 +1133,7 @@ if (require.main === module) {
 module.exports = {
   runAvrlLoop,
   runAvrlIteration,
+  MONITORED_EQUIPAMENTOS,
   hookValidateAndRemediateActor,
   hookValidateAndRemediateItem,
   hookValidateAndRemediateJournal,

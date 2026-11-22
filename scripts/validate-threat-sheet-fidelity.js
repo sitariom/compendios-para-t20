@@ -16,6 +16,8 @@
 
 const { ClassicLevel } = require('classic-level');
 const path = require('path');
+const { normEquipStr, parseEquipmentLine } = require('./create-entry');
+const { MONITORED_EQUIPAMENTOS } = require('./avrl-runner');
 
 const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
 
@@ -374,7 +376,61 @@ async function runFidelityAudit() {
       assert(res === exp.expectedResistencias, `${exp.name} possui detalhes.resistencias exato: esperado "${exp.expectedResistencias}", obtido "${res}"`);
     }
 
+    // 6. Verificação de Equipamento Oficial & Itens Embutidos no Ator
+    const normActorName = normEquipStr(exp.name);
+    if (MONITORED_EQUIPAMENTOS[normActorName] !== undefined) {
+      const expectedEq = MONITORED_EQUIPAMENTOS[normActorName];
+      assert(actorDoc.system?.detalhes?.equipamento === expectedEq, `${exp.name} possui detalhes.equipamento oficial preenchido`);
+    }
+    const eqEntries = parseEquipmentLine(actorDoc.system?.detalhes?.equipamento || '');
+    for (const entry of eqEntries) {
+      const isShield = entry.norm.includes('escudo');
+      const matched = items.find(it => {
+        if (isShield && it.type !== 'equipamento') return false;
+        const dn = normEquipStr(it.name);
+        if (dn === entry.norm || dn.includes(entry.norm) || entry.norm.includes(dn)) return true;
+        const baseWord = entry.norm.split(' ')[0];
+        return !isShield && baseWord.length >= 4 && dn.includes(baseWord) && it.type === 'arma';
+      });
+      assert(Boolean(matched), `${exp.name} possui item real embutido para equipamento "${entry.name}"`);
+    }
+    for (const it of items) {
+      if (it.type === 'equipamento') {
+        assert(it.system?.equipado === false, `Equipamento "${it.name}" em ${exp.name} tem equipado=false para não duplicar Defesa/PDA`);
+      }
+    }
+
     console.log(`  ✓ "${exp.name}" auditado e conforme.`);
+  }
+
+  // 7. Cobertura universal da linha detalhes.equipamento e itens embutidos para todos os atores em MONITORED_EQUIPAMENTOS
+  for await (const [k, actorDoc] of db.iterator()) {
+    if (!k.startsWith('!actors!') || k.includes('.')) continue;
+    const normActorName = normEquipStr(actorDoc.name);
+    if (MONITORED_EQUIPAMENTOS[normActorName] === undefined) continue;
+    const expectedEq = MONITORED_EQUIPAMENTOS[normActorName];
+    assert(actorDoc.system?.detalhes?.equipamento === expectedEq, `[Global] ${actorDoc.name} possui detalhes.equipamento oficial preenchido`);
+    const subItems = [];
+    for await (const [, v] of db.iterator({ gte: `!actors.items!${actorDoc._id}.`, lte: `!actors.items!${actorDoc._id}.\uffff` })) {
+      subItems.push(v);
+    }
+    const eqEntries = parseEquipmentLine(actorDoc.system?.detalhes?.equipamento || '');
+    for (const entry of eqEntries) {
+      const isShield = entry.norm.includes('escudo');
+      const matched = subItems.find(it => {
+        if (isShield && it.type !== 'equipamento') return false;
+        const dn = normEquipStr(it.name);
+        if (dn === entry.norm || dn.includes(entry.norm) || entry.norm.includes(dn)) return true;
+        const baseWord = entry.norm.split(' ')[0];
+        return !isShield && baseWord.length >= 4 && dn.includes(baseWord) && it.type === 'arma';
+      });
+      assert(Boolean(matched), `[Global] ${actorDoc.name} possui item real embutido para equipamento "${entry.name}"`);
+    }
+    for (const it of subItems) {
+      if (it.type === 'equipamento') {
+        assert(it.system?.equipado === false, `[Global] Equipamento "${it.name}" em ${actorDoc.name} tem equipado=false`);
+      }
+    }
   }
 
   await db.close();

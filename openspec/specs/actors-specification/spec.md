@@ -253,3 +253,13 @@ All 15 threats from Dragão Brasil #232 (10 from *Licantropos Artonianos*: *Lobi
 - **AND** Estirge defines Chupar Sangue and Sangrar as atomic powers
 - **AND** Perdigueiro Troll defines Natureza Vegetal and Derrubar as atomic powers
 - **AND** Ginete de Troll Purista defines Corcel Troll, Investida Atroz, and Ódio Puro as atomic powers
+
+### Requirement: Official Statblock Equipment Line and Embedded Item Instantiation
+Every Threat or NPC Actor whose published statblock includes an `Equipamento` line SHALL store the exact verbatim equipment text in `system.detalhes.equipamento` AND instantiate every listed physical item (`equipamento`, `consumivel`, `arma`, or `tesouro`) as a real embedded subdocument under `!actors.items!${actorId}.${itemId}` with accurate quantities (`qtd`). Embedded `equipamento` items (armors, shields, accessories, tools, clothing, esoterics) on NPC actors MUST set `system.equipado: false` and `system.equipado2.slot: 0` so Tormenta20 `prepareDefense` and `prepareSkills` do not double-add armor Defense or armor penalty over the published statblock values.
+
+#### Scenario: NPC actor with armor, shield, and gear in statblock
+- **GIVEN** an NPC published with `Equipamento Armadura completa delicada selada, escudo pesado reforçado, espada longa pungente.`
+- **WHEN** the actor is built via `buildNpcActor` or remediated by `npm run avrl`
+- **THEN** `system.detalhes.equipamento` equals the exact published `Equipamento` line
+- **AND** embedded items exist in `!actors.items!` for the armor (`equipamento`, `equipado: false`), shield (`equipamento`, `equipado: false`), and weapon (`arma`)
+- **AND** `npm run validate:fidelity` confirms every equipment entry is present as a real item on the actor without altering Defense or skill totals
