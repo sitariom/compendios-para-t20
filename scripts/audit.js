@@ -2,18 +2,14 @@
 const { ClassicLevel } = require('classic-level');
 const fs = require('fs');
 const path = require('path');
+const { discoverPacksFromModuleJson } = require('./pack-discovery');
 
-const PACKS = [
-  'Ameacas_T20',
-  'Itens_T20',
-  'Macros_T20',
-  'Tabelas_T20',
-  'Diarios_T20',
-  'Playlist_T20'
-];
+const ROOT_DIR = path.resolve(__dirname, '..');
 
-async function auditPack(packName) {
-  const packPath = path.join('packs', packName);
+async function auditPack(packDef) {
+  const packName = typeof packDef === 'string' ? packDef : packDef.name;
+  const packPath = typeof packDef === 'string' ? path.join(ROOT_DIR, 'packs', packDef) : packDef.absPath;
+  const expectedNs = typeof packDef === 'string' ? null : packDef.namespace;
   if (!fs.existsSync(packPath)) return null;
 
   const db = new ClassicLevel(packPath, { valueEncoding: 'utf8' });
@@ -68,6 +64,10 @@ async function auditPack(packName) {
     if (key.includes('.')) {
       subEntries.push({ key, doc });
     } else {
+      if (expectedNs && !key.startsWith(`!${expectedNs}!`)) {
+        invalidStatsIds++;
+        console.error(`  ❌ [${packName}] Chave raiz [${key}] não corresponde ao namespace esperado "!${expectedNs}!"`);
+      }
       docIds.add(id);
       rootDocs.set(id, doc);
     }
@@ -92,6 +92,37 @@ async function auditPack(packName) {
     if (doc._stats?.lastModifiedBy && !/^[a-zA-Z0-9]{16}$/.test(doc._stats.lastModifiedBy)) {
       invalidStatsIds++;
       console.error(`  ❌ [${packName}] Doc [${id}] "${doc.name}" possui _stats.lastModifiedBy inválido: "${doc._stats.lastModifiedBy}"`);
+    }
+
+    // Gate de compatibilidade estrita Foundry v13 + v14 (Tormenta20 v1.5.015 / v1.6.7)
+    if (doc.type === 'consumivel' && doc.system?.tipo !== undefined) {
+      const validCons = new Set(['', 'ammo', 'scroll', 'alchemy', 'potion', 'material', 'food']);
+      if (!validCons.has(doc.system.tipo)) {
+        invalidStatsIds++;
+        console.error(`  ❌ [${packName}] Consumível [${id}] "${doc.name}" possui system.tipo="${doc.system.tipo}" incompatível com Foundry v14 (ConsumableData.tipo).`);
+      }
+    }
+    if (doc.type === 'equipamento' && doc.system?.equipado2 && !['hand', 'body', 'both'].includes(doc.system.equipado2.type)) {
+      invalidStatsIds++;
+      console.error(`  ❌ [${packName}] Equipamento [${id}] "${doc.name}" possui equipado2.type="${doc.system.equipado2.type}" inválido (esperado hand|body|both).`);
+    }
+    if (doc.type === 'magia' && doc.system) {
+      if (doc.system.tipo && !['arc', 'div', 'uni', 'eng', 'sim'].includes(doc.system.tipo)) {
+        invalidStatsIds++;
+        console.error(`  ❌ [${packName}] Magia [${id}] "${doc.name}" possui system.tipo="${doc.system.tipo}" inválido.`);
+      }
+      if (doc.system.escola && !['abj', 'adv', 'con', 'enc', 'evo', 'ilu', 'nec', 'tra'].includes(doc.system.escola)) {
+        invalidStatsIds++;
+        console.error(`  ❌ [${packName}] Magia [${id}] "${doc.name}" possui system.escola="${doc.system.escola}" inválida.`);
+      }
+    }
+    if (doc.system) {
+      for (const tf of ['tags', 'rolltags', 'automationtags']) {
+        if (Array.isArray(doc.system[tf]) && doc.system[tf].some(t => typeof t !== 'string' || t.trim() === '')) {
+          invalidStatsIds++;
+          console.error(`  ❌ [${packName}] Doc [${id}] "${doc.name}" possui item vazio em ${tf} (proibido pelo SetField do Foundry v14).`);
+        }
+      }
     }
 
     // Check folder reference (only for root docs)
@@ -177,8 +208,9 @@ async function main() {
   console.log('='.repeat(80));
 
   let totalErrors = 0;
+  const packs = discoverPacksFromModuleJson(ROOT_DIR);
 
-  for (const p of PACKS) {
+  for (const p of packs) {
     const res = await auditPack(p);
     if (!res) continue;
 

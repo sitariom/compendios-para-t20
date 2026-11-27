@@ -1674,74 +1674,99 @@ let optionsHtml = QUALIDADES.map((q, idx) => \`
   </div>
 \`).join("");
 
-new Dialog({
-  title: "Forja do Aço Sillariano — Edição 26",
-  content: \`
-    <form>
-      <p><em>Os Forjadores Litúrgicos aguardam as estilhas fullgori para consagrar o aço sillariano.</em></p>
-      <div style="margin-bottom: 12px;">
-        <label><strong>Nome do Item/Arma:</strong></label>
-        <input type="text" id="itemName" value="Espada da Vingança" style="width: 100%;">
-      </div>
-      <div style="margin-bottom: 12px;">
-        <label><strong>Portador:</strong></label>
-        <input type="text" id="bearerName" value="Campeão de Arsenal" style="width: 100%;">
-      </div>
-      <div style="max-height: 250px; overflow-y: auto; border: 1px solid #ccc; padding: 8px;">
-        \${optionsHtml}
-      </div>
-    </form>
-  \`,
-  buttons: {
-    forjar: {
-      icon: '<i class="fas fa-hammer"></i>',
-      label: "Bater o Martelo",
-      callback: (html) => {
-        const itemName = html.find("#itemName").val();
-        const bearer = html.find("#bearerName").val();
-        const selected = [];
-        QUALIDADES.forEach((q, idx) => {
-          if (html.find(\`#qual_\${idx}\`).is(":checked")) selected.push(q);
-        });
+const dialogHtml = \`
+  <form>
+    <p><em>Os Forjadores Litúrgicos aguardam as estilhas fullgori para consagrar o aço sillariano.</em></p>
+    <div style="margin-bottom: 12px;">
+      <label><strong>Nome do Item/Arma:</strong></label>
+      <input type="text" id="itemName" name="itemName" value="Espada da Vingança" style="width: 100%;">
+    </div>
+    <div style="margin-bottom: 12px;">
+      <label><strong>Portador:</strong></label>
+      <input type="text" id="bearerName" name="bearerName" value="Campeão de Arsenal" style="width: 100%;">
+    </div>
+    <div style="max-height: 250px; overflow-y: auto; border: 1px solid #ccc; padding: 8px;">
+      \${optionsHtml}
+    </div>
+  </form>
+\`;
 
-        if (selected.length === 0) {
-          ui.notifications.warn("Selecione pelo menos uma qualidade antidivina.");
-          return;
-        }
+function executarForja(rootEl) {
+  const itemName = rootEl.querySelector("#itemName")?.value || "Espada da Vingança";
+  const bearer = rootEl.querySelector("#bearerName")?.value || "Campeão de Arsenal";
+  const selected = [];
+  QUALIDADES.forEach((q, idx) => {
+    if (rootEl.querySelector(\`#qual_\${idx}\`)?.checked) selected.push(q);
+  });
 
-        const totalCost = selected.length * 10;
-        let cardContent = \`
-          <div style="border: 2px solid #800000; border-radius: 6px; padding: 10px; background: #fffaf0;">
-            <h3 style="color: #800000; border-bottom: 1px solid #800000; margin-top: 0;">
-              <i class="fas fa-fire"></i> Aço Sillariano Forjado!
-            </h3>
-            <p><strong>Item:</strong> \${itemName}<br/>
-            <strong>Portador Sagrado:</strong> \${bearer}<br/>
-            <strong>Estilhas Consumidas:</strong> \${totalCost} estilhas</p>
-            <p><strong>Qualidades Antidivinas Adquiridas:</strong></p>
-            <ul>
-              \${selected.map(s => \`<li><strong>\${s.name}:</strong> \${s.desc}</li>\`).join("")}
-            </ul>
-            <blockquote style="font-style: italic; color: #400000; margin-top: 8px;">
-              "Vingança não é ódio. É justiça batida até virar lâmina."<br/>
-              — Thalgrimm Sangue de Ferro
-            </blockquote>
-          </div>
-        \`;
+  if (selected.length === 0) {
+    ui.notifications.warn("Selecione pelo menos uma qualidade antidivina.");
+    return;
+  }
 
-        ChatMessage.create({
-          content: cardContent,
-          speaker: ChatMessage.getSpeaker({ alias: "Forjadores Litúrgicos de Arsenal" })
-        });
+  const totalCost = selected.length * 10;
+  const cardContent = \`
+    <div style="border: 2px solid #800000; border-radius: 6px; padding: 10px; background: #fffaf0;">
+      <h3 style="color: #800000; border-bottom: 1px solid #800000; margin-top: 0;">
+        <i class="fas fa-fire"></i> Aço Sillariano Forjado!
+      </h3>
+      <p><strong>Item:</strong> \${itemName}<br/>
+      <strong>Portador Sagrado:</strong> \${bearer}<br/>
+      <strong>Estilhas Consumidas:</strong> \${totalCost} estilhas</p>
+      <p><strong>Qualidades Antidivinas Adquiridas:</strong></p>
+      <ul>
+        \${selected.map(s => \`<li><strong>\${s.name}:</strong> \${s.desc}</li>\`).join("")}
+      </ul>
+      <blockquote style="font-style: italic; color: #400000; margin-top: 8px;">
+        "Vingança não é ódio. É justiça batida até virar lâmina."<br/>
+        — Thalgrimm Sangue de Ferro
+      </blockquote>
+    </div>
+  \`;
+
+  ChatMessage.create({
+    content: cardContent,
+    speaker: ChatMessage.getSpeaker({ alias: "Forjadores Litúrgicos de Arsenal" })
+  });
+}
+
+if (foundry?.applications?.api?.DialogV2) {
+  foundry.applications.api.DialogV2.wait({
+    window: { title: "Forja do Aço Sillariano — Edição 26" },
+    content: dialogHtml,
+    buttons: [
+      {
+        action: "forjar",
+        icon: "fas fa-hammer",
+        label: "Bater o Martelo",
+        default: true,
+        callback: (_event, button, dialog) => executarForja(button?.form || dialog?.element)
+      },
+      {
+        action: "cancelar",
+        icon: "fas fa-times",
+        label: "Cancelar"
+      }
+    ]
+  });
+} else {
+  new Dialog({
+    title: "Forja do Aço Sillariano — Edição 26",
+    content: dialogHtml,
+    buttons: {
+      forjar: {
+        icon: '<i class="fas fa-hammer"></i>',
+        label: "Bater o Martelo",
+        callback: (html) => executarForja(html[0] || html)
+      },
+      cancelar: {
+        icon: '<i class="fas fa-times"></i>',
+        label: "Cancelar"
       }
     },
-    cancelar: {
-      icon: '<i class="fas fa-times"></i>',
-      label: "Cancelar"
-    }
-  },
-  default: "forjar"
-}).render(true);
+    default: "forjar"
+  }).render(true);
+}
 `;
 
   const macroDoc = {

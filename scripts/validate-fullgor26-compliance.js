@@ -10,11 +10,11 @@
  * 5. Macro de Forja em Macros_T20
  */
 
-const { ClassicLevel } = require('classic-level');
+const { openMergedPackView } = require('./pack-discovery');
 const path = require('path');
 const fs = require('fs');
 
-const PACKS_DIR = path.join(__dirname, '..', 'packs');
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 let totalChecks = 0;
 let errors = 0;
@@ -31,7 +31,7 @@ function assert(condition, message) {
 
 async function validateThreats() {
   console.log('\n--- 1. Validando Ameaças da Edição 26 (Ameacas_T20) ---');
-  const db = new ClassicLevel(path.join(PACKS_DIR, 'Ameacas_T20'), { valueEncoding: 'json' });
+  const db = openMergedPackView('Actor', ROOT_DIR);
   await db.open();
 
   const EXPECTED_THREATS = [
@@ -204,7 +204,7 @@ async function validateThreats() {
 
 async function validateItems() {
   console.log('\n--- 2. Validando Itens da Edição 26 (Itens_T20) ---');
-  const db = new ClassicLevel(path.join(PACKS_DIR, 'Itens_T20'), { valueEncoding: 'json' });
+  const db = openMergedPackView('Item', ROOT_DIR);
   await db.open();
 
   const EXPECTED_ITEMS = [
@@ -264,7 +264,7 @@ async function validateItems() {
 
 async function validateJournals() {
   console.log('\n--- 3. Validando Diários da Edição 26 (Diarios_T20) ---');
-  const db = new ClassicLevel(path.join(PACKS_DIR, 'Diarios_T20'), { valueEncoding: 'json' });
+  const db = openMergedPackView('JournalEntry', ROOT_DIR);
   await db.open();
 
   const journalId = 'fld26DiarioForja';
@@ -292,7 +292,7 @@ async function validateJournals() {
 
 async function validateTables() {
   console.log('\n--- 4. Validando Tabelas de Rolagem da Edição 26 (Tabelas_T20) ---');
-  const db = new ClassicLevel(path.join(PACKS_DIR, 'Tabelas_T20'), { valueEncoding: 'json' });
+  const db = openMergedPackView('RollTable', ROOT_DIR);
   await db.open();
 
   const EXPECTED_TABLES = [
@@ -329,7 +329,7 @@ async function validateTables() {
 
 async function validateMacros() {
   console.log('\n--- 5. Validando Macros da Edição 26 (Macros_T20) ---');
-  const db = new ClassicLevel(path.join(PACKS_DIR, 'Macros_T20'), { valueEncoding: 'json' });
+  const db = openMergedPackView('Macro', ROOT_DIR);
   await db.open();
 
   const macroId = 'fld26MacroForjaS';

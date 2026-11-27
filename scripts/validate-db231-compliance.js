@@ -25,15 +25,12 @@
  *    - Subdocumentos de resultados com campo "name" obrigatório e descrição.
  */
 
-const { ClassicLevel } = require('classic-level');
+const { openMergedPackView } = require('./pack-discovery');
 const fs = require('fs');
 const path = require('path');
 const { ALL_SKILLS } = require('./create-entry');
 
-const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
-const PACK_ITENS = path.join(__dirname, '..', 'packs', 'Itens_T20');
-const PACK_JOURNALS = path.join(__dirname, '..', 'packs', 'Diarios_T20');
-const PACK_TABELAS = path.join(__dirname, '..', 'packs', 'Tabelas_T20');
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 let totalErrors = 0;
 let totalChecks = 0;
@@ -48,7 +45,7 @@ function assert(condition, message) {
 
 async function validateActors() {
   console.log('--- 1. Validando Ameaças da DB #231 (Ameacas_T20) ---');
-  const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
+  const db = openMergedPackView('Actor', ROOT_DIR);
 
   const requiredThreats = [
     { id: 'gq8231ArraiSecAA', name: 'Arraia-Seca', nd: '3', tamanho: 'med' },
@@ -75,7 +72,7 @@ async function validateActors() {
 
     assert(doc.name === req.name, `Nome correto: esperado "${req.name}", obtido "${doc.name}"`);
     assert(String(doc.system?.attributes?.nd) === req.nd, `ND correto para ${req.name}: esperado ${req.nd}, obtido ${doc.system?.attributes?.nd}`);
-    assert(doc.folder === 'wfWApuyngzFm4KOP', `Pasta correta (Dragão Brasil): obtido ${doc.folder}`);
+    assert(doc.folder === 'wfWApuyngzFm4KOP' || db.isHierarchicalDoc(req.id), `Pasta correta (Dragão Brasil ou pack hierárquico): obtido ${doc.folder}`);
     assert(doc.system?.tracos?.tamanho === req.tamanho, `Tamanho correto para ${req.name}: esperado ${req.tamanho}, obtido ${doc.system?.tracos?.tamanho}`);
 
     // Validação de Defesa Base Dinâmica
@@ -210,7 +207,7 @@ async function validateActors() {
 
 async function validateItems() {
   console.log('\n--- 2. Validando Itens, Classes e Poderes da DB #231 (Itens_T20) ---');
-  const db = new ClassicLevel(PACK_ITENS, { valueEncoding: 'json' });
+  const db = openMergedPackView('Item', ROOT_DIR);
 
   const requiredItems = [
     { id: 'i8231MiragemClas', name: 'Classe Variante: Miragem', type: 'poder', folder: '6HZCPG5QrmzhwmBe', minEff: 0 },
@@ -245,7 +242,7 @@ async function validateItems() {
 
     assert(doc.name === req.name, `Nome correto: esperado "${req.name}", obtido "${doc.name}"`);
     assert(doc.type === req.type, `Tipo correto para ${req.name}: esperado ${req.type}, obtido ${doc.type}`);
-    assert(doc.folder === req.folder, `Pasta correta em ${req.name}: esperado ${req.folder}, obtido ${doc.folder}`);
+    assert(doc.folder === req.folder || db.isHierarchicalDoc(req.id), `Pasta correta em ${req.name}: esperado ${req.folder} ou pack hierárquico, obtido ${doc.folder}`);
     assert(Boolean(doc.system?.description?.value), `system.description.value preenchido em ${req.name}`);
 
     // Validação de ActiveEffects
@@ -272,7 +269,7 @@ async function validateItems() {
 
 async function validateJournalsAndTables() {
   console.log('\n--- 3. Validando Diários e Tabelas de Rolagem da DB #231 ---');
-  const dbJournals = new ClassicLevel(PACK_JOURNALS, { valueEncoding: 'json' });
+  const dbJournals = openMergedPackView('JournalEntry', ROOT_DIR);
 
   const requiredJournals = [
     { id: 'j8231HalakTurAAA', name: 'A Vastidão Dourada de Halak-Tûr (DB #231)', minPages: 9 },
@@ -312,7 +309,7 @@ async function validateJournalsAndTables() {
 
   await dbJournals.close();
 
-  const dbTables = new ClassicLevel(PACK_TABELAS, { valueEncoding: 'json' });
+  const dbTables = openMergedPackView('RollTable', ROOT_DIR);
 
   const requiredTables = [
     { id: 't8231PrevSelinaA', name: 'Previsões de Selina (DB #231)', minResults: 3 },

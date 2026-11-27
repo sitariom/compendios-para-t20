@@ -1,0 +1,516 @@
+{
+  "material_id": "DB-0229",
+  "cobertura_pdf": "95% (19/20)",
+  "gerado_em": "2026-11-27T06:55:36.450Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:db-0229:gq8KBasAnc229AAA",
+      "nome": "Basilisco Ancestral",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KBasAnc229AAA",
+      "pack_destino_hierarquico": "db-0229-ameacas",
+      "paginas_pdf": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0229:gq8KDefRoch229AA",
+      "nome": "Defensor Rochoso Desperto",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KDefRoch229AA",
+      "pack_destino_hierarquico": "db-0229-ameacas",
+      "paginas_pdf": [
+        11,
+        37,
+        38,
+        39,
+        41,
+        42,
+        45
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0229:gq8KPreBas229AAA",
+      "nome": "Presa do Grande Basilisco",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KPreBas229AAA",
+      "pack_destino_hierarquico": "db-0229-ameacas",
+      "paginas_pdf": [
+        8,
+        11,
+        19,
+        23,
+        25,
+        28,
+        32,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43,
+        44,
+        45,
+        47,
+        48,
+        49,
+        50,
+        52,
+        55,
+        57,
+        58,
+        66,
+        71,
+        72,
+        78
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0229:gq8KRevSerp229AA",
+      "nome": "Revoada de Serpes",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KRevSerp229AA",
+      "pack_destino_hierarquico": "db-0229-ameacas",
+      "paginas_pdf": [
+        39,
+        41,
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:1L1EEvnpav0XONsU",
+      "nome": "Parceiro: Defensor Rochoso Desperto",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.1L1EEvnpav0XONsU",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [
+        11,
+        37,
+        38,
+        39,
+        41,
+        42,
+        45
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:4XKmGHsOYphYdf2h",
+      "nome": "Peçonha Potente",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.4XKmGHsOYphYdf2h",
+      "pack_destino_hierarquico": "db-0229-consumiveis",
+      "paginas_pdf": [
+        38,
+        43,
+        58
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:7fXXbH9usmth8bMe",
+      "nome": "Parceiro: Arius Gorgonius Dubitatius",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.7fXXbH9usmth8bMe",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [
+        18,
+        25
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:A7XXqzcilQFS6Nh9",
+      "nome": "Olho de Basilisco Ancestral",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.A7XXqzcilQFS6Nh9",
+      "pack_destino_hierarquico": "db-0229-consumiveis",
+      "paginas_pdf": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:E5ARH2Hpt3RdsBrS",
+      "nome": "Machado de Batalha do Culto do Basilisco",
+      "tipo": "Item",
+      "subtipo": "arma",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.E5ARH2Hpt3RdsBrS",
+      "pack_destino_hierarquico": "db-0229-armas",
+      "paginas_pdf": [
+        2,
+        3,
+        19,
+        34,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43,
+        47,
+        50,
+        51,
+        60,
+        61,
+        62,
+        64,
+        69,
+        78,
+        79
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:JI4lGueF8aMSruWC",
+      "nome": "Parceiro: Rexthor",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.JI4lGueF8aMSruWC",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        29
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:N5PbJ86ouA83AIth",
+      "nome": "Parceiro: Ignis Crae",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.N5PbJ86ouA83AIth",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [
+        14,
+        18,
+        27
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:TCMrwRlPK87zGYMd",
+      "nome": "Peçonha Concentrada",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.TCMrwRlPK87zGYMd",
+      "pack_destino_hierarquico": "db-0229-consumiveis",
+      "paginas_pdf": [
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:eD2XJH2Xzs0pXwk1",
+      "nome": "Parceira: Kir’zanaath Odello (Kiki)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.eD2XJH2Xzs0pXwk1",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        28
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:heA8oQwmkuwDszHV",
+      "nome": "Parceiro: Filhote de Grifo",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.heA8oQwmkuwDszHV",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [],
+      "origem_rastreavel": "PENDENTE_REVISAO_MANUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:lO9YvTIyEqsmyUT8",
+      "nome": "Parceira: Aylarianna Purpúrea (Ayla)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.lO9YvTIyEqsmyUT8",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [
+        14,
+        17,
+        18,
+        19,
+        20,
+        22,
+        23,
+        24,
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:uCGImb2DmCZfW42N",
+      "nome": "Couro de Basilisco Ancestral",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.uCGImb2DmCZfW42N",
+      "pack_destino_hierarquico": "db-0229-equipamentos",
+      "paginas_pdf": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0229:vBMc9AAxnTi4LYqZ",
+      "nome": "Parceiro: Kemooz Pensativo",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.vBMc9AAxnTi4LYqZ",
+      "pack_destino_hierarquico": "db-0229-poderes",
+      "paginas_pdf": [
+        40
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0229:tEncontrosS229AA",
+      "nome": "Encontros nas Montanhas Sanguinárias (DB #229)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.tEncontrosS229AA",
+      "pack_destino_hierarquico": "db-0229-tabelas",
+      "paginas_pdf": [
+        3,
+        36,
+        37,
+        39
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0229:jCaesColinas229A",
+      "nome": "Cenário: Os Cães das Colinas (DB #229)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.jCaesColinas229A",
+      "pack_destino_hierarquico": "db-0229-diarios",
+      "paginas_pdf": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12,
+        13,
+        14,
+        19,
+        21,
+        22,
+        23,
+        24,
+        29
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0229:jOlhoBasilis229A",
+      "nome": "Aventura: O Olho do Basilisco (DB #229)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.jOlhoBasilis229A",
+      "pack_destino_hierarquico": "db-0229-diarios",
+      "paginas_pdf": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

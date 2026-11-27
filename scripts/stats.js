@@ -2,15 +2,9 @@
 const { ClassicLevel } = require('classic-level');
 const fs = require('fs');
 const path = require('path');
+const { discoverPacksFromModuleJson } = require('./pack-discovery');
 
-const PACKS = [
-  { name: 'Ameacas_T20', type: 'Actor' },
-  { name: 'Itens_T20', type: 'Item' },
-  { name: 'Macros_T20', type: 'Macro' },
-  { name: 'Tabelas_T20', type: 'RollTable' },
-  { name: 'Diarios_T20', type: 'JournalEntry' },
-  { name: 'Playlist_T20', type: 'Playlist' }
-];
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 function getDirSize(dir) {
   let size = 0;
@@ -26,7 +20,7 @@ function getDirSize(dir) {
 }
 
 async function getPackStats(pack) {
-  const packPath = path.join('packs', pack.name);
+  const packPath = pack.absPath || path.join(ROOT_DIR, 'packs', pack.name);
   if (!fs.existsSync(packPath)) return null;
 
   const db = new ClassicLevel(packPath, { valueEncoding: 'utf8' });
@@ -92,8 +86,9 @@ async function main() {
 
   let totalAllDocs = 0;
   let totalAllKeys = 0;
+  const packs = discoverPacksFromModuleJson(ROOT_DIR);
 
-  for (const pack of PACKS) {
+  for (const pack of packs) {
     const s = await getPackStats(pack);
     if (!s) continue;
 

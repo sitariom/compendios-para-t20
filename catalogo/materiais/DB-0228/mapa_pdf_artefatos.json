@@ -1,0 +1,564 @@
+{
+  "material_id": "DB-0228",
+  "cobertura_pdf": "92% (24/26)",
+  "gerado_em": "2026-11-27T06:55:36.412Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:db-0228:NS5u871jRBLCe1CA",
+      "nome": "Ankthyr",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.NS5u871jRBLCe1CA",
+      "pack_destino_hierarquico": "db-0228-ameacas",
+      "paginas_pdf": [
+        44,
+        45,
+        46,
+        47
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0228:S115R6Jr8xEcOQBq",
+      "nome": "Enxame Cáustico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.S115R6Jr8xEcOQBq",
+      "pack_destino_hierarquico": "db-0228-ameacas",
+      "paginas_pdf": [
+        44,
+        46,
+        47,
+        48
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0228:Wcz6S9LS4zAXCRZg",
+      "nome": "Desabamento dos Túneis",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.Wcz6S9LS4zAXCRZg",
+      "pack_destino_hierarquico": "db-0228-ameacas",
+      "paginas_pdf": [
+        41,
+        43,
+        44,
+        45,
+        48
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0228:vvsdGwGzTR1mQSVX",
+      "nome": "Slark",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.vvsdGwGzTR1mQSVX",
+      "pack_destino_hierarquico": "db-0228-ameacas",
+      "paginas_pdf": [
+        43,
+        44,
+        46
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:08dvhxFTgF3MxVln",
+      "nome": "Bilhete de Valluk Delsori",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.08dvhxFTgF3MxVln",
+      "pack_destino_hierarquico": "db-0228-consumiveis",
+      "paginas_pdf": [
+        16,
+        73
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:2hVBcDokMYkfvx45",
+      "nome": "Pingente Rubro",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.2hVBcDokMYkfvx45",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        18,
+        22
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:3Z0OYUB1g5Hhqh6W",
+      "nome": "Previdência da Vigília",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.3Z0OYUB1g5Hhqh6W",
+      "pack_destino_hierarquico": "db-0228-poderes",
+      "paginas_pdf": [
+        30
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:4htqOC0DhQftKyzv",
+      "nome": "Corso Sombrio",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.4htqOC0DhQftKyzv",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        29
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:69br2Vuf11ic95OX",
+      "nome": "Arco dos Arautos",
+      "tipo": "Item",
+      "subtipo": "arma",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.69br2Vuf11ic95OX",
+      "pack_destino_hierarquico": "db-0228-armas",
+      "paginas_pdf": [
+        12
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:B8E4CUomnI4ff2K0",
+      "nome": "Percepção de Masmorra",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.B8E4CUomnI4ff2K0",
+      "pack_destino_hierarquico": "db-0228-poderes",
+      "paginas_pdf": [
+        26,
+        28,
+        30,
+        44,
+        45,
+        46,
+        47,
+        56,
+        61,
+        63,
+        64,
+        65
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:KSIr5sDoKWXgXh5C",
+      "nome": "Alma de Dragão",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.KSIr5sDoKWXgXh5C",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        1,
+        2,
+        10,
+        11,
+        20,
+        22,
+        32,
+        49,
+        53,
+        61,
+        65,
+        67,
+        68,
+        70,
+        71,
+        72,
+        88
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:N3fExXJ4JJP33Mzf",
+      "nome": "Bússola das Lágrimas",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.N3fExXJ4JJP33Mzf",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        28
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:OJLisnReNpy3nUcf",
+      "nome": "Chave Mestra",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.OJLisnReNpy3nUcf",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        15,
+        41,
+        42,
+        46,
+        65
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:XeTZ3ffbj9HOzbzF",
+      "nome": "Bomba de Tinta",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.XeTZ3ffbj9HOzbzF",
+      "pack_destino_hierarquico": "db-0228-consumiveis",
+      "paginas_pdf": [],
+      "origem_rastreavel": "PENDENTE_REVISAO_MANUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:aBdeo9EXGf6uooEo",
+      "nome": "Certificado de Conclusão",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.aBdeo9EXGf6uooEo",
+      "pack_destino_hierarquico": "db-0228-poderes",
+      "paginas_pdf": [
+        13,
+        49,
+        51
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:apEjmWLSDKFIII3D",
+      "nome": "Parceiro: Guaxininjas",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.apEjmWLSDKFIII3D",
+      "pack_destino_hierarquico": "db-0228-poderes",
+      "paginas_pdf": [
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:f2Ni3NoMHdlE3tiQ",
+      "nome": "Parceiro: Reabilitador",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.f2Ni3NoMHdlE3tiQ",
+      "pack_destino_hierarquico": "db-0228-poderes",
+      "paginas_pdf": [
+        14
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:gN999QNxQmybgyTo",
+      "nome": "Rosário da Vida",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gN999QNxQmybgyTo",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        27
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:hTtUpMhMVHCOGXNb",
+      "nome": "Cítola da Paz",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.hTtUpMhMVHCOGXNb",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        25
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:i8AY07MHjmXRUCwC",
+      "nome": "Memorizar Conhecimento",
+      "tipo": "Item",
+      "subtipo": "magia",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8AY07MHjmXRUCwC",
+      "pack_destino_hierarquico": "db-0228-magias",
+      "paginas_pdf": [
+        5,
+        13,
+        19,
+        23,
+        24,
+        25,
+        39,
+        44,
+        51,
+        54,
+        58,
+        62
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:lZ4DmTwLYachR3et",
+      "nome": "Máscara do Sol Dourado",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.lZ4DmTwLYachR3et",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        17,
+        21,
+        52,
+        62,
+        72,
+        73
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:pnVzq8S4b7H75u46",
+      "nome": "Âncora Naufragista",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.pnVzq8S4b7H75u46",
+      "pack_destino_hierarquico": "db-0228-equipamentos",
+      "paginas_pdf": [
+        22
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:vNDPN4N1W8tsYoLR",
+      "nome": "Arma Silente",
+      "tipo": "Item",
+      "subtipo": "arma",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.vNDPN4N1W8tsYoLR",
+      "pack_destino_hierarquico": "db-0228-armas",
+      "paginas_pdf": [
+        23
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0228:wnXIF77NvB1BE61v",
+      "nome": "Parceiro: Allihennali",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.wnXIF77NvB1BE61v",
+      "pack_destino_hierarquico": "db-0228-poderes",
+      "paginas_pdf": [
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0228:TbDesabamento228",
+      "nome": "Desabamento dos Túneis: Efeitos por Rodada (DB #228)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.TbDesabamento228",
+      "pack_destino_hierarquico": "db-0228-tabelas",
+      "paginas_pdf": [],
+      "origem_rastreavel": "PENDENTE_REVISAO_MANUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0228:TbDivOrgArton228",
+      "nome": "Divinas Organizações de Arton (DB #228)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.TbDivOrgArton228",
+      "pack_destino_hierarquico": "db-0228-tabelas",
+      "paginas_pdf": [
+        1,
+        3,
+        10,
+        11,
+        12
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

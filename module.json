@@ -2,7 +2,7 @@
   "id": "compendios-para-t20",
   "title": "Compêndios para T20",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20.",
-  "version": "1.10.4",
+  "version": "2.0.0",
   "authors": [
     {
       "name": "sitariom",
@@ -11,8 +11,8 @@
   ],
   "compatibility": {
     "minimum": "12",
-    "verified": "12",
-    "maximum": "13"
+    "verified": "14",
+    "maximum": "14"
   },
   "flags": {
     "canUpload": true
@@ -59,11 +59,532 @@
       "path": "packs/Playlist_T20",
       "type": "Playlist",
       "system": "tormenta20"
+    },
+    {
+      "name": "db-0226-ameacas",
+      "label": "Ameaças (DB-0226)",
+      "path": "packs/revistas/dragao-brasil/edicao-226/db-0226-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0226-diarios",
+      "label": "Diários (DB-0226)",
+      "path": "packs/revistas/dragao-brasil/edicao-226/db-0226-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0227-ameacas",
+      "label": "Ameaças (DB-0227)",
+      "path": "packs/revistas/dragao-brasil/edicao-227/db-0227-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0228-ameacas",
+      "label": "Ameaças (DB-0228)",
+      "path": "packs/revistas/dragao-brasil/edicao-228/db-0228-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0228-armas",
+      "label": "Armas (DB-0228)",
+      "path": "packs/revistas/dragao-brasil/edicao-228/db-0228-armas",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0228-consumiveis",
+      "label": "Consumíveis (DB-0228)",
+      "path": "packs/revistas/dragao-brasil/edicao-228/db-0228-consumiveis",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0228-equipamentos",
+      "label": "Equipamentos (DB-0228)",
+      "path": "packs/revistas/dragao-brasil/edicao-228/db-0228-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0228-magias",
+      "label": "Magias (DB-0228)",
+      "path": "packs/revistas/dragao-brasil/edicao-228/db-0228-magias",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0228-poderes",
+      "label": "Poderes & Parceiros (DB-0228)",
+      "path": "packs/revistas/dragao-brasil/edicao-228/db-0228-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0228-tabelas",
+      "label": "Tabelas (DB-0228)",
+      "path": "packs/revistas/dragao-brasil/edicao-228/db-0228-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0229-ameacas",
+      "label": "Ameaças (DB-0229)",
+      "path": "packs/revistas/dragao-brasil/edicao-229/db-0229-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0229-armas",
+      "label": "Armas (DB-0229)",
+      "path": "packs/revistas/dragao-brasil/edicao-229/db-0229-armas",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0229-consumiveis",
+      "label": "Consumíveis (DB-0229)",
+      "path": "packs/revistas/dragao-brasil/edicao-229/db-0229-consumiveis",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0229-diarios",
+      "label": "Diários (DB-0229)",
+      "path": "packs/revistas/dragao-brasil/edicao-229/db-0229-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0229-equipamentos",
+      "label": "Equipamentos (DB-0229)",
+      "path": "packs/revistas/dragao-brasil/edicao-229/db-0229-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0229-poderes",
+      "label": "Poderes & Parceiros (DB-0229)",
+      "path": "packs/revistas/dragao-brasil/edicao-229/db-0229-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0229-tabelas",
+      "label": "Tabelas (DB-0229)",
+      "path": "packs/revistas/dragao-brasil/edicao-229/db-0229-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0230-ameacas",
+      "label": "Ameaças (DB-0230)",
+      "path": "packs/revistas/dragao-brasil/edicao-230/db-0230-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0230-armas",
+      "label": "Armas (DB-0230)",
+      "path": "packs/revistas/dragao-brasil/edicao-230/db-0230-armas",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0230-consumiveis",
+      "label": "Consumíveis (DB-0230)",
+      "path": "packs/revistas/dragao-brasil/edicao-230/db-0230-consumiveis",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0230-diarios",
+      "label": "Diários (DB-0230)",
+      "path": "packs/revistas/dragao-brasil/edicao-230/db-0230-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0230-equipamentos",
+      "label": "Equipamentos (DB-0230)",
+      "path": "packs/revistas/dragao-brasil/edicao-230/db-0230-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0230-poderes",
+      "label": "Poderes & Parceiros (DB-0230)",
+      "path": "packs/revistas/dragao-brasil/edicao-230/db-0230-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0230-tabelas",
+      "label": "Tabelas (DB-0230)",
+      "path": "packs/revistas/dragao-brasil/edicao-230/db-0230-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0231-ameacas",
+      "label": "Ameaças (DB-0231)",
+      "path": "packs/revistas/dragao-brasil/edicao-231/db-0231-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0231-diarios",
+      "label": "Diários (DB-0231)",
+      "path": "packs/revistas/dragao-brasil/edicao-231/db-0231-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0231-equipamentos",
+      "label": "Equipamentos (DB-0231)",
+      "path": "packs/revistas/dragao-brasil/edicao-231/db-0231-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0231-poderes",
+      "label": "Poderes & Parceiros (DB-0231)",
+      "path": "packs/revistas/dragao-brasil/edicao-231/db-0231-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0231-tabelas",
+      "label": "Tabelas (DB-0231)",
+      "path": "packs/revistas/dragao-brasil/edicao-231/db-0231-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0232-ameacas",
+      "label": "Ameaças (DB-0232)",
+      "path": "packs/revistas/dragao-brasil/edicao-232/db-0232-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0232-diarios",
+      "label": "Diários (DB-0232)",
+      "path": "packs/revistas/dragao-brasil/edicao-232/db-0232-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0232-poderes",
+      "label": "Poderes & Parceiros (DB-0232)",
+      "path": "packs/revistas/dragao-brasil/edicao-232/db-0232-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "db-0232-tabelas",
+      "label": "Tabelas (DB-0232)",
+      "path": "packs/revistas/dragao-brasil/edicao-232/db-0232-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-025-ameacas",
+      "label": "Ameaças (RT20-025)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-25/rt20-025-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-026-ameacas",
+      "label": "Ameaças (RT20-026)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-26/rt20-026-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-026-diarios",
+      "label": "Diários (RT20-026)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-26/rt20-026-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-026-equipamentos",
+      "label": "Equipamentos (RT20-026)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-26/rt20-026-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-026-macros",
+      "label": "Macros (RT20-026)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-26/rt20-026-macros",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-026-poderes",
+      "label": "Poderes & Parceiros (RT20-026)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-26/rt20-026-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-026-tabelas",
+      "label": "Tabelas (RT20-026)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-26/rt20-026-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-027-ameacas",
+      "label": "Ameaças (RT20-027)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-27/rt20-027-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-027-diarios",
+      "label": "Diários (RT20-027)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-27/rt20-027-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-027-equipamentos",
+      "label": "Equipamentos (RT20-027)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-27/rt20-027-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-027-macros",
+      "label": "Macros (RT20-027)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-27/rt20-027-macros",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-027-poderes",
+      "label": "Poderes & Parceiros (RT20-027)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-27/rt20-027-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-027-tabelas",
+      "label": "Tabelas (RT20-027)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-27/rt20-027-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-028-ameacas",
+      "label": "Ameaças (RT20-028)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-28/rt20-028-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-028-diarios",
+      "label": "Diários (RT20-028)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-28/rt20-028-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-028-equipamentos",
+      "label": "Equipamentos (RT20-028)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-28/rt20-028-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-028-macros",
+      "label": "Macros (RT20-028)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-28/rt20-028-macros",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-028-poderes",
+      "label": "Poderes & Parceiros (RT20-028)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-28/rt20-028-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-028-tabelas",
+      "label": "Tabelas (RT20-028)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-28/rt20-028-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
     }
   ],
   "url": "https://github.com/sitariom/compendios-para-t20",
   "manifest": "https://github.com/sitariom/compendios-para-t20/releases/latest/download/module.json",
   "download": "https://github.com/sitariom/compendios-para-t20/releases/latest/download/module.zip",
   "readme": "README.md",
-  "license": "LICENSE"
+  "license": "LICENSE",
+  "packFolders": [
+    {
+      "name": "Acervo Geral / Legado (Pré-Catálogo)",
+      "sorting": "m",
+      "color": "#455a64",
+      "packs": [
+        "Ameacas_T20",
+        "Itens_T20",
+        "Macros_T20",
+        "Tabelas_T20",
+        "Diarios_T20",
+        "Playlist_T20"
+      ]
+    },
+    {
+      "name": "Revista Tormenta 20",
+      "sorting": "a",
+      "color": "#7b1fa2",
+      "packs": [],
+      "folders": [
+        {
+          "name": "Fúlgor dos Deuses",
+          "sorting": "m",
+          "color": "#b71c1c",
+          "packs": [],
+          "folders": [
+            {
+              "name": "Edição 26 — Forja da Vingança",
+              "sorting": "m",
+              "packs": [
+                "rt20-026-ameacas",
+                "rt20-026-diarios",
+                "rt20-026-equipamentos",
+                "rt20-026-macros",
+                "rt20-026-poderes",
+                "rt20-026-tabelas"
+              ]
+            },
+            {
+              "name": "Edição 25",
+              "sorting": "m",
+              "packs": [
+                "rt20-025-ameacas"
+              ]
+            },
+            {
+              "name": "Edição 27 — Dia e Noite",
+              "sorting": "m",
+              "packs": [
+                "rt20-027-ameacas",
+                "rt20-027-diarios",
+                "rt20-027-equipamentos",
+                "rt20-027-macros",
+                "rt20-027-poderes",
+                "rt20-027-tabelas"
+              ]
+            },
+            {
+              "name": "Edição 28 — Aço e Arcano",
+              "sorting": "m",
+              "packs": [
+                "rt20-028-ameacas",
+                "rt20-028-diarios",
+                "rt20-028-equipamentos",
+                "rt20-028-macros",
+                "rt20-028-poderes",
+                "rt20-028-tabelas"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dragão Brasil",
+      "sorting": "a",
+      "color": "#8b0000",
+      "packs": [],
+      "folders": [
+        {
+          "name": "Edição 227",
+          "sorting": "m",
+          "packs": [
+            "db-0227-ameacas"
+          ]
+        },
+        {
+          "name": "Edição 226",
+          "sorting": "m",
+          "packs": [
+            "db-0226-ameacas",
+            "db-0226-diarios"
+          ]
+        },
+        {
+          "name": "Edição 228",
+          "sorting": "m",
+          "packs": [
+            "db-0228-ameacas",
+            "db-0228-armas",
+            "db-0228-consumiveis",
+            "db-0228-equipamentos",
+            "db-0228-magias",
+            "db-0228-poderes",
+            "db-0228-tabelas"
+          ]
+        },
+        {
+          "name": "Edição 231",
+          "sorting": "m",
+          "packs": [
+            "db-0231-ameacas",
+            "db-0231-diarios",
+            "db-0231-equipamentos",
+            "db-0231-poderes",
+            "db-0231-tabelas"
+          ]
+        },
+        {
+          "name": "Edição 232",
+          "sorting": "m",
+          "packs": [
+            "db-0232-ameacas",
+            "db-0232-diarios",
+            "db-0232-poderes",
+            "db-0232-tabelas"
+          ]
+        },
+        {
+          "name": "Edição 230",
+          "sorting": "m",
+          "packs": [
+            "db-0230-ameacas",
+            "db-0230-armas",
+            "db-0230-consumiveis",
+            "db-0230-diarios",
+            "db-0230-equipamentos",
+            "db-0230-poderes",
+            "db-0230-tabelas"
+          ]
+        },
+        {
+          "name": "Edição 229",
+          "sorting": "m",
+          "packs": [
+            "db-0229-ameacas",
+            "db-0229-armas",
+            "db-0229-consumiveis",
+            "db-0229-diarios",
+            "db-0229-equipamentos",
+            "db-0229-poderes",
+            "db-0229-tabelas"
+          ]
+        }
+      ]
+    }
+  ]
 }

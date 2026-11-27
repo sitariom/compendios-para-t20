@@ -1,0 +1,119 @@
+{
+  "material_id": "DB-0227",
+  "cobertura_pdf": "100% (5/5)",
+  "gerado_em": "2026-11-27T06:55:36.362Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:db-0227:6jcy63pS6TLhCoHm",
+      "nome": "Lynel",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.6jcy63pS6TLhCoHm",
+      "pack_destino_hierarquico": "db-0227-ameacas",
+      "paginas_pdf": [
+        3,
+        98,
+        99,
+        100
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0227:KnUyjOaSBfGcl48v",
+      "nome": "Oxxdon",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.KnUyjOaSBfGcl48v",
+      "pack_destino_hierarquico": "db-0227-ameacas",
+      "paginas_pdf": [
+        74,
+        76
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0227:XEdZUz2ETKvxvjZH",
+      "nome": "Enxame de Armas",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.XEdZUz2ETKvxvjZH",
+      "pack_destino_hierarquico": "db-0227-ameacas",
+      "paginas_pdf": [
+        73,
+        74,
+        76
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0227:ZB0VONjuE8XS5gmH",
+      "nome": "Tropa de Mortos",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.ZB0VONjuE8XS5gmH",
+      "pack_destino_hierarquico": "db-0227-ameacas",
+      "paginas_pdf": [
+        1,
+        3,
+        46,
+        71,
+        72,
+        73,
+        74,
+        75,
+        77,
+        95
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0227:po00j60czLdn1eu5",
+      "nome": "Inumano",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.po00j60czLdn1eu5",
+      "pack_destino_hierarquico": "db-0227-ameacas",
+      "paginas_pdf": [
+        74,
+        75,
+        77
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

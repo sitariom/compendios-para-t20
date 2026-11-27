@@ -2,6 +2,9 @@
 const { ClassicLevel } = require('classic-level');
 const fs = require('fs');
 const path = require('path');
+const { discoverPacksFromModuleJson } = require('./pack-discovery');
+
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 const PACK_TYPES = {
   Ameacas_T20: 'actors',
@@ -19,7 +22,8 @@ async function packDirectory(packName, srcDir, destDir) {
     return;
   }
 
-  const targetPath = path.join(destDir, packName);
+  const declared = discoverPacksFromModuleJson(ROOT_DIR).find(p => p.name === packName);
+  const targetPath = declared ? declared.absPath : path.join(destDir, packName);
   console.log(`\n📦 Empacotando ${sourcePath} para ${targetPath}...`);
 
   fs.mkdirSync(targetPath, { recursive: true });

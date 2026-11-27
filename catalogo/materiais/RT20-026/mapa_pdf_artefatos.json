@@ -1,0 +1,723 @@
+{
+  "material_id": "RT20-026",
+  "cobertura_pdf": "100% (28/28)",
+  "gerado_em": "2026-11-27T06:55:36.620Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:rt20-026:4Chz9YQv6oC4R5gs",
+      "nome": "Sacerdote de Hyninn Deturpado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.4Chz9YQv6oC4R5gs",
+      "pack_destino_hierarquico": "rt20-026-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        17,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-026:6lKAcCvfQj9FReP7",
+      "nome": "Tigre-de-Hyninn Deturpado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.6lKAcCvfQj9FReP7",
+      "pack_destino_hierarquico": "rt20-026-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        10,
+        11,
+        12,
+        13,
+        14,
+        17,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-026:C6JxlK5xzXU8PYuK",
+      "nome": "Asmithar Martelo-Mudo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.C6JxlK5xzXU8PYuK",
+      "pack_destino_hierarquico": "rt20-026-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        14,
+        15,
+        16,
+        17,
+        19,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-026:E8hgaWNdM2kqv4oo",
+      "nome": "Aço Selvagem",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.E8hgaWNdM2kqv4oo",
+      "pack_destino_hierarquico": "rt20-026-ameacas",
+      "paginas_pdf": [
+        2,
+        12,
+        15,
+        16,
+        17,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-026:gaMGB2dL8R0Rv2mY",
+      "nome": "Xellmaras, a Ladra Acorrentada",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gaMGB2dL8R0Rv2mY",
+      "pack_destino_hierarquico": "rt20-026-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        10,
+        13,
+        14,
+        15,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-026:wbA5Rt8dqRkHQWdC",
+      "nome": "Gangue de Hyninn Deturpada",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.wbA5Rt8dqRkHQWdC",
+      "pack_destino_hierarquico": "rt20-026-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        10,
+        11,
+        12,
+        13,
+        14,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26AbsorcaoAnt",
+      "nome": "Qualidade: Absorção Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26AbsorcaoAnt",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26AcoSillaria",
+      "nome": "Aço Sillariano",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26AcoSillaria",
+      "pack_destino_hierarquico": "rt20-026-equipamentos",
+      "paginas_pdf": [
+        3,
+        4,
+        5,
+        8,
+        9,
+        15,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26AlmaBigorna",
+      "nome": "Alma da Bigorna",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26AlmaBigorna",
+      "pack_destino_hierarquico": "rt20-026-equipamentos",
+      "paginas_pdf": [
+        4,
+        9,
+        10,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26AntidevotoQ",
+      "nome": "Qualidade: Antidevoto",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26AntidevotoQ",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26ArmaAntidiv",
+      "nome": "Qualidade: Arma Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26ArmaAntidiv",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26DefesaAntid",
+      "nome": "Qualidade: Defesa Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26DefesaAntid",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        7,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26GuardaAntid",
+      "nome": "Qualidade: Guarda Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26GuardaAntid",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        15,
+        18,
+        24
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26Impedimento",
+      "nome": "Qualidade: Impedimento Antidivino",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26Impedimento",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26ImunidadesF",
+      "nome": "Imunidades (Fullgori)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26ImunidadesF",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        2,
+        5,
+        8,
+        9,
+        11,
+        13,
+        14,
+        17,
+        18,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26MagiaAntidi",
+      "nome": "Qualidade: Magia Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26MagiaAntidi",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26MenteAntidi",
+      "nome": "Qualidade: Mente Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26MenteAntidi",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26ParcForjado",
+      "nome": "Parceiro: Forjadores Litúrgicos",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26ParcForjado",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26ParcThalgri",
+      "nome": "Parceiro: Thalgrimm Sangue de Ferro",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26ParcThalgri",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26Perseguidor",
+      "nome": "Qualidade: Perseguidora Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26Perseguidor",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26PotenciaAnt",
+      "nome": "Qualidade: Potência Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26PotenciaAnt",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26Resistencia",
+      "nome": "Qualidade: Resistência Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26Resistencia",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        6,
+        17,
+        18,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-026:fld26TeofagiaFul",
+      "nome": "Teofagia (Fullgori)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld26TeofagiaFul",
+      "pack_destino_hierarquico": "rt20-026-poderes",
+      "paginas_pdf": [
+        2,
+        5,
+        8,
+        9,
+        11,
+        13,
+        14,
+        17,
+        18,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "macro:rt20-026:fld26MacroForjaS",
+      "nome": "Forjar Aço Sillariano (Fúlgor dos Deuses)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "uuid_atual": "Compendium.compendios-para-t20.Macros_T20.Macro.fld26MacroForjaS",
+      "pack_destino_hierarquico": "rt20-026-macros",
+      "paginas_pdf": [
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        15,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-026:fld26TabEncontro",
+      "nome": "Subterrâneos de Valkaria — Encontros e Boatos (Edição 26)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld26TabEncontro",
+      "pack_destino_hierarquico": "rt20-026-tabelas",
+      "paginas_pdf": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-026:fld26TabFraseXel",
+      "nome": "Frases de Combate de Xellmaras (Edição 26)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld26TabFraseXel",
+      "pack_destino_hierarquico": "rt20-026-tabelas",
+      "paginas_pdf": [
+        2,
+        4,
+        10,
+        13,
+        14,
+        15,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-026:fld26TabQualidad",
+      "nome": "Qualidades Antidivinas de Aço Sillariano (Edição 26)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld26TabQualidad",
+      "pack_destino_hierarquico": "rt20-026-tabelas",
+      "paginas_pdf": [
+        3,
+        4,
+        5,
+        8,
+        9,
+        15,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:rt20-026:fld26DiarioForja",
+      "nome": "Fúlgor dos Deuses — Edição 26: Forja da Vingança",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.fld26DiarioForja",
+      "pack_destino_hierarquico": "rt20-026-diarios",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
  * Motor Inteligente de Resolução e Download de Ícones para Tormenta20
  *
  * Prioridades:
- * 1. Acervo canônico local: /home/orange/Documents/Tormenta20/icons (systems/tormenta20/icons/...)
+ * 1. Acervo canônico local: C:/Users/simoe/OneDrive/Documentos/t20/Tormenta20/icons (systems/tormenta20/icons/...)
  * 2. Acervo do módulo local: assets/icons/ (modules/compendios-para-t20/assets/icons/...)
  * 3. Download sob demanda do repositório oficial Game-Icons.net (CC BY 3.0) com estilização Foundry.
  */
@@ -11,7 +11,12 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const T20_ICONS_DIR = '/home/orange/Documents/Tormenta20/icons';
+const T20_ICONS_DIR = [
+  process.env.T20_SYSTEM_ICONS_PATH,
+  'C:/Users/simoe/OneDrive/Documentos/t20/Tormenta20/icons',
+  'C:/Users/simoe/OneDrive/Documentos/Tormenta20-master/Tormenta20-master/icons',
+  path.resolve(__dirname, '..', '..', 'Tormenta20', 'icons')
+].find(d => d && fs.existsSync(d)) || path.resolve(__dirname, '..', '..', 'Tormenta20', 'icons');
 const MODULE_ICONS_DIR = path.join(__dirname, '..', 'assets', 'icons');
 const GAME_ICONS_INDEX_PATH = path.join(__dirname, 'game-icons-index.json');
 
@@ -127,7 +132,13 @@ const TOKEN_2MTT_MAP = {
   'estirge': 'modules/compendios-para-t20/assets/tokens/estirge.png',
   'perdigueiro troll': 'modules/compendios-para-t20/assets/tokens/perdigueiro-troll.png',
   'ginete de troll purista': 'modules/compendios-para-t20/assets/tokens/ginete-de-troll-purista.png',
-  'xama finntroll': 'modules/compendios-para-t20/assets/tokens/xama-finntroll.png'
+  'xama finntroll': 'modules/compendios-para-t20/assets/tokens/xama-finntroll.png',
+  // Fúlgor dos Deuses — Edição 28
+  'liriavel forma de quimera': 'modules/compendios-para-t20/assets/tokens/liriavel-forma-de-quimera.png',
+  'liriavel': 'modules/compendios-para-t20/assets/tokens/liriavel-forma-de-quimera.png',
+  'rashid fullgori': 'modules/compendios-para-t20/assets/tokens/rashid-fullgori.png',
+  'rashid': 'modules/compendios-para-t20/assets/tokens/rashid-fullgori.png',
+  'templo do saber em mutacao': 'modules/compendios-para-t20/assets/tokens/rashid-fullgori.png'
 };
 
 const THREAT_MAP = {
@@ -194,7 +205,11 @@ const THREAT_MAP = {
   'estirge': 'systems/tormenta20/icons/ameacas/besouro-aberrante.png',
   'perdigueiro troll': 'systems/tormenta20/icons/ameacas/troll-subterraneo.png',
   'ginete de troll purista': 'systems/tormenta20/icons/ameacas/troll.png',
-  'xama finntroll': 'systems/tormenta20/icons/ameacas/finntroll-feitor.png'
+  'xama finntroll': 'systems/tormenta20/icons/ameacas/finntroll-feitor.png',
+  // Fúlgor dos Deuses — Edição 28
+  'liriavel forma de quimera': 'systems/tormenta20/icons/ameacas/manticora.png',
+  'rashid fullgori': 'systems/tormenta20/icons/ameacas/golem-de-ferro.png',
+  'templo do saber em mutacao': 'systems/tormenta20/icons/magias/muralha-elemental.webp'
 };
 
 const ITEM_AND_POWER_MAP = {

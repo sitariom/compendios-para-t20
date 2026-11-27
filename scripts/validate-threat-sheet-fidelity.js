@@ -15,11 +15,13 @@
  */
 
 const { ClassicLevel } = require('classic-level');
+const fs = require('fs');
 const path = require('path');
 const { normEquipStr, parseEquipmentLine } = require('./create-entry');
 const { MONITORED_EQUIPAMENTOS } = require('./avrl-runner');
+const { discoverPacksFromModuleJson } = require('./pack-discovery');
 
-const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 let totalChecks = 0;
 let totalErrors = 0;
@@ -32,12 +34,38 @@ function assert(condition, message) {
   }
 }
 
+async function loadAllActorRecords() {
+  const actorPacks = discoverPacksFromModuleJson(ROOT_DIR).filter(p => p.type === 'Actor');
+  const records = new Map();
+  for (const p of actorPacks) {
+    if (!fs.existsSync(p.absPath)) continue;
+    const db = new ClassicLevel(p.absPath, { valueEncoding: 'json' });
+    await db.open();
+    const actors = new Map();
+    const itemsByActor = new Map();
+    for await (const [k, v] of db.iterator()) {
+      if (k.startsWith('!actors!') && !k.includes('.')) {
+        actors.set(v._id, v);
+      } else if (k.startsWith('!actors.items!')) {
+        const actorId = (k.split('!')[2] || '').split('.')[0];
+        if (!itemsByActor.has(actorId)) itemsByActor.set(actorId, []);
+        itemsByActor.get(actorId).push(v);
+      }
+    }
+    await db.close();
+    for (const [id, actorDoc] of actors.entries()) {
+      records.set(id, { actorDoc, items: itemsByActor.get(id) || [] });
+    }
+  }
+  return records;
+}
+
 async function runFidelityAudit() {
   console.log('================================================================================');
   console.log('🛡️  AUDITORIA PROFUNDA DE FIDELIDADE DE FICHAS (FOUNDRY VTT MENACE DATA MODEL)');
   console.log('================================================================================\n');
 
-  const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
+  const actorRecords = await loadAllActorRecords();
 
   // Regras de Verificação de Fidelidade Específica por Ator
   const expectations = [
@@ -269,23 +297,35 @@ async function runFidelityAudit() {
       expectedSpells: ['Curar Ferimentos', 'Escuridão', 'Infligir Ferimentos', 'Perdição', 'Profanar', 'Toque Vampírico'],
       expectedSpellRolls: ['Curar Ferimentos', 'Infligir Ferimentos', 'Toque Vampírico'],
       expectedResistencias: 'vulnerabilidade a frio, devoção a tenebra (enjoado e perde PM ao sol)'
+    },
+    // --- Fúlgor dos Deuses: Edição 28 (Aço e Arcano) ---
+    {
+      id: 'fld28LiriavelQui',
+      name: 'Liriavel, Forma de Quimera',
+      expectedCd: 26,
+      expectedPowers: ['Mente Tripla', 'Cabeça de Bode', 'Cabeça de Dragão', 'Cabeça de Leão'],
+      expectedResistencias: 'Nenhuma'
+    },
+    {
+      id: 'fld28RashidFullg',
+      name: 'Rashid, Fullgori',
+      expectedCd: 30,
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Criatura do Fullgor', 'Contramágica Aprimorada', 'Magia Acelerada', 'Zelador da Academia Arcana'],
+      expectedSpells: ['Amarras Etéreas', 'Controlar Terra', 'Dissipar Magia', 'Jato Corrosivo'],
+      expectedSpellRolls: ['Amarras Etéreas', 'Jato Corrosivo'],
+      expectedPerceptions: ['ofic_arquiteto'],
+      expectedResistencias: 'imunidade a encantamento e ácido, redução de dano 10; imunidade fullgori (acertos críticos, cansaço, metabolismo, metamorfose e paralisia)'
     }
   ];
 
   for (const exp of expectations) {
-    let actorDoc;
-    try {
-      actorDoc = await db.get(`!actors!${exp.id}`);
-    } catch {
+    const rec = actorRecords.get(exp.id);
+    if (!rec) {
       assert(false, `Ator "${exp.name}" [${exp.id}] NÃO encontrado no LevelDB.`);
       continue;
     }
-
-    // Carrega subdocumentos
-    const items = [];
-    for await (const [, v] of db.iterator({ gte: `!actors.items!${exp.id}.`, lte: `!actors.items!${exp.id}.\uffff` })) {
-      items.push(v);
-    }
+    const actorDoc = rec.actorDoc;
+    const items = rec.items;
 
     const itemNames = items.map(i => i.name);
     console.log(`Auditorando "${exp.name}" (${items.length} itens)...`);
@@ -404,16 +444,11 @@ async function runFidelityAudit() {
   }
 
   // 7. Cobertura universal da linha detalhes.equipamento e itens embutidos para todos os atores em MONITORED_EQUIPAMENTOS
-  for await (const [k, actorDoc] of db.iterator()) {
-    if (!k.startsWith('!actors!') || k.includes('.')) continue;
+  for (const { actorDoc, items: subItems } of actorRecords.values()) {
     const normActorName = normEquipStr(actorDoc.name);
     if (MONITORED_EQUIPAMENTOS[normActorName] === undefined) continue;
     const expectedEq = MONITORED_EQUIPAMENTOS[normActorName];
     assert(actorDoc.system?.detalhes?.equipamento === expectedEq, `[Global] ${actorDoc.name} possui detalhes.equipamento oficial preenchido`);
-    const subItems = [];
-    for await (const [, v] of db.iterator({ gte: `!actors.items!${actorDoc._id}.`, lte: `!actors.items!${actorDoc._id}.\uffff` })) {
-      subItems.push(v);
-    }
     const eqEntries = parseEquipmentLine(actorDoc.system?.detalhes?.equipamento || '');
     for (const entry of eqEntries) {
       const isShield = entry.norm.includes('escudo');
@@ -432,8 +467,6 @@ async function runFidelityAudit() {
       }
     }
   }
-
-  await db.close();
 
   console.log('\n================================================================================');
   console.log(`Total de verificações realizadas: ${totalChecks}`);

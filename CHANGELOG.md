@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.0.0 - 2026-11-27
+
+- **Organização Hierárquica de Compêndios (58 Packs) + Fúlgor dos Deuses #28 + Compatibilidade Foundry v12–v14 + Catálogo Cumulativo v2**:
+  - **Compêndios Hierárquicos por Publicação (`scripts/migrate-hierarchical-packs.js`, `module.json`, `scripts/pack-discovery.js`)**:
+    - Migrados **220** documentos criados pelo agente (11 edições: `DB-0226..0232` e `RT20-025..028`) para **52** novos packs LevelDB sob `packs/revistas/<publicacao>/.../<subtipo>`, organizados em `packFolders` de até 3 níveis (`Revista Tormenta 20 -> Fúlgor dos Deuses -> Edição NN` e `Dragão Brasil -> Edição NNN`), preservando **5.835** documentos do acervo legado manual nos 6 packs raiz (`Ameacas_T20`, `Itens_T20`, `Macros_T20`, `Tabelas_T20`, `Diarios_T20`, `Playlist_T20`).
+    - Reescritos **121** links `@UUID` internos durante a migração sem colisões e sem referências quebradas.
+    - Descoberta dinâmica de packs via `discoverPacksFromModuleJson` e `openMergedPackView` em `scripts/audit.js`, `scripts/avrl-runner.js`, `scripts/stats.js`, `scripts/search.js`, `scripts/pack.js`, `scripts/unpack.js` e validadores `validate-*.js`.
+  - **Fúlgor dos Deuses — Edição 28: Aço e Arcano (`scripts/inject-fullgor28.js`, `scripts/validate-fullgor28-compliance.js`)**:
+    - Adicionados *Liriavel, Forma de Quimera*, *Rashid, Fullgori*, *Templo do Saber em Mutação* (`hazard`), tokens 2MTT em `assets/tokens/`, parceiros/recompensas, diário completo (7 páginas), 3 tabelas de rolagem e macro interativo de urgência/eventos.
+  - **Catálogo Cumulativo v2 & Auditoria Cega (`scripts/catalogo-init.js`, `scripts/catalogo-extract.js`, `scripts/catalogo-runner.js`)**:
+    - Catalogação de **203** materiais e **6.055** artefatos (`44.053` registros LevelDB no total), extração de 11 PDFs processados via PyMuPDF e auditoria cega 1-por-1 validando DataModels de `Tormenta20` v13 (`1.5.015`) e v14 (`1.6.7`) com **220/220** documentos aprovados.
+    - Removidas referências legadas `/home/orange/...` em favor de caminhos Windows/relativos.
+  - **Compatibilidade Foundry v12–v14 & Automação Playwright (`module.json`, `scripts/validate-foundry-playwright.js`)**:
+    - Atualizado `compatibility` em `module.json` (`minimum: "12"`, `verified: "14"`, `maximum: "14"`).
+    - Configurado Playwright (`playwright` devDependency, `.env.example`, `.gitignore`) com autenticação automática (`/auth` → `/setup` → atualização automática do módulo via `updatePackage` / `updateAll` → `/join` `Gamemaster` → validação in-world `--smoke` e por `--material`), além de exclusões de `.env*`, `.playwright-mcp/`, `catalogo/`, `.pi/` e `openspec/` no empacotamento (`module.zip`).
+
 ## v1.10.4 - 2026-11-21
 
 - **Revisão Retroativa Integral (DB #226–#232 & Fúlgor #25–#27) e Sincronização Canônica de Equipamentos**:

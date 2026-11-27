@@ -1,0 +1,693 @@
+{
+  "material_id": "DB-0230",
+  "cobertura_pdf": "100% (29/29)",
+  "gerado_em": "2026-11-27T06:55:36.493Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:db-0230:gq8KArzak230AAAA",
+      "nome": "Arzak",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KArzak230AAAA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        36,
+        37,
+        38,
+        41
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KCeifPes230AA",
+      "nome": "Ceifador do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KCeifPes230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        12,
+        16,
+        17
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KColePes230AA",
+      "nome": "Coletor do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KColePes230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        12,
+        15,
+        16,
+        19,
+        21,
+        22
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KGaarda230AAA",
+      "nome": "Gaardak",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGaarda230AAA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        36,
+        37,
+        38,
+        41
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KGineOni230AA",
+      "nome": "Ginete Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGineOni230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        23
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KGobGorl230AA",
+      "nome": "Três Goblins em um Gorlogg",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KGobGorl230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        35,
+        36,
+        37,
+        38,
+        40,
+        42,
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KLancOni230AA",
+      "nome": "Lanceiro Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KLancOni230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        23
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KMestPes230AA",
+      "nome": "Mestre do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KMestPes230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        21,
+        29,
+        30,
+        31,
+        46,
+        50,
+        57,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        66,
+        67,
+        74,
+        76,
+        77,
+        79,
+        80
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KNocnMur230AA",
+      "nome": "Nócnam Mur, o Pesadelo Amalgamado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KNocnMur230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        19,
+        22,
+        25,
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KPoliPes230AA",
+      "nome": "Pesadelo Polivalente",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KPoliPes230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        12,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KSaceCai230AA",
+      "nome": "Sacerdote Caído",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KSaceCai230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        26,
+        39,
+        40,
+        43
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KSargOni230AA",
+      "nome": "Sargento Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KSargOni230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        24
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KTeneOni230AA",
+      "nome": "Tenente Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KTeneOni230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        24,
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0230:gq8KZangPes230AA",
+      "nome": "Zangão do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8KZangPes230AA",
+      "pack_destino_hierarquico": "db-0230-ameacas",
+      "paginas_pdf": [
+        12,
+        15
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KCarruagem230",
+      "nome": "Carruagem Duyshidakk",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KCarruagem230",
+      "pack_destino_hierarquico": "db-0230-equipamentos",
+      "paginas_pdf": [
+        34,
+        36,
+        37,
+        38,
+        43,
+        66
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KCentelha230A",
+      "nome": "Centelha Onírica",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KCentelha230A",
+      "pack_destino_hierarquico": "db-0230-consumiveis",
+      "paginas_pdf": [
+        11,
+        12,
+        18,
+        20,
+        29
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KKumshrak230A",
+      "nome": "Kum’shrak Eviscerador",
+      "tipo": "Item",
+      "subtipo": "arma",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KKumshrak230A",
+      "pack_destino_hierarquico": "db-0230-armas",
+      "paginas_pdf": [
+        41
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KMachadoT230A",
+      "nome": "Machado do Campeão de Tyrondir",
+      "tipo": "Item",
+      "subtipo": "arma",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KMachadoT230A",
+      "pack_destino_hierarquico": "db-0230-armas",
+      "paginas_pdf": [
+        34,
+        35,
+        39
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KPRotsheel230",
+      "nome": "Parceira: Rotsheel",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KPRotsheel230",
+      "pack_destino_hierarquico": "db-0230-poderes",
+      "paginas_pdf": [
+        36,
+        37,
+        38
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KPesadPer230A",
+      "nome": "Pesadelo Onírico: Sonho Perdido",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KPesadPer230A",
+      "pack_destino_hierarquico": "db-0230-poderes",
+      "paginas_pdf": [
+        13,
+        16,
+        39,
+        62,
+        67
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KSonhoAmo230A",
+      "nome": "Sonho Resgatado: Sonho de Amor",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoAmo230A",
+      "pack_destino_hierarquico": "db-0230-poderes",
+      "paginas_pdf": [
+        16
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KSonhoApr230A",
+      "nome": "Sonho Resgatado: Sonho de Aprendizado",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoApr230A",
+      "pack_destino_hierarquico": "db-0230-poderes",
+      "paginas_pdf": [
+        16
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0230:gq8KSonhoDes230A",
+      "nome": "Sonho Resgatado: Sonho de Destruição",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.gq8KSonhoDes230A",
+      "pack_destino_hierarquico": "db-0230-poderes",
+      "paginas_pdf": [
+        11,
+        12,
+        16,
+        61
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0230:tCorridaBrut230A",
+      "nome": "Encontros da Corrida Brutal (DB #230)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.tCorridaBrut230A",
+      "pack_destino_hierarquico": "db-0230-tabelas",
+      "paginas_pdf": [
+        3,
+        8,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        50
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0230:tGanchosP230AAAA",
+      "nome": "Ganchos do Pesadelo em Aslothia (DB #230)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.tGanchosP230AAAA",
+      "pack_destino_hierarquico": "db-0230-tabelas",
+      "paginas_pdf": [
+        11,
+        19,
+        20,
+        21,
+        22,
+        27
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0230:tNaturezaP230AAA",
+      "nome": "Natureza do Pesadelo (DB #230)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.tNaturezaP230AAA",
+      "pack_destino_hierarquico": "db-0230-tabelas",
+      "paginas_pdf": [
+        14,
+        17,
+        18,
+        21,
+        26,
+        60,
+        63,
+        78
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0230:tSonhosRoub230AA",
+      "nome": "Sonhos Roubados pelo Coletor (DB #230)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.tSonhosRoub230AA",
+      "pack_destino_hierarquico": "db-0230-tabelas",
+      "paginas_pdf": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        35
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0230:jCorridaBrut230A",
+      "nome": "Aventura: A Corrida Brutal (DB #230)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.jCorridaBrut230A",
+      "pack_destino_hierarquico": "db-0230-diarios",
+      "paginas_pdf": [
+        3,
+        8,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        50
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0230:jReinoPesad230AA",
+      "nome": "O Reino dos Pesadelos (DB #230)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.jReinoPesad230AA",
+      "pack_destino_hierarquico": "db-0230-diarios",
+      "paginas_pdf": [
+        3,
+        11,
+        12,
+        13,
+        14,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        26,
+        27
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

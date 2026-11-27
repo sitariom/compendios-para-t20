@@ -1,0 +1,423 @@
+{
+  "material_id": "RT20-028",
+  "cobertura_pdf": "93% (13/14)",
+  "gerado_em": "2026-11-27T06:55:36.651Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:rt20-028:fld28LiriavelQui",
+      "nome": "Liriavel, Forma de Quimera",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld28LiriavelQui",
+      "pack_destino_hierarquico": "rt20-028-ameacas",
+      "paginas_pdf": [
+        2,
+        7,
+        8,
+        9,
+        10,
+        11,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-028:fld28PerigoTempl",
+      "nome": "Templo do Saber em Mutação (Edição 28)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld28PerigoTempl",
+      "pack_destino_hierarquico": "rt20-028-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        10,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-028:fld28RashidFullg",
+      "nome": "Rashid, Fullgori",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld28RashidFullg",
+      "pack_destino_hierarquico": "rt20-028-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-028:fld28ChavePortaA",
+      "nome": "Chave Antiga do Portal da Academia Arcana",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld28ChavePortaA",
+      "pack_destino_hierarquico": "rt20-028-equipamentos",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-028:fld28DesejoWynna",
+      "nome": "Desejo de Wynna",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld28DesejoWynna",
+      "pack_destino_hierarquico": "rt20-028-poderes",
+      "paginas_pdf": [],
+      "origem_rastreavel": "PENDENTE_REVISAO_MANUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-028:fld28GemaWynnaAA",
+      "nome": "Gema do Renascimento de Rashid (Bênção de Wynna)",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld28GemaWynnaAA",
+      "pack_destino_hierarquico": "rt20-028-equipamentos",
+      "paginas_pdf": [
+        2,
+        4,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-028:fld28MatricForjA",
+      "nome": "Matrícula Forjada da Academia Arcana",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld28MatricForjA",
+      "pack_destino_hierarquico": "rt20-028-equipamentos",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-028:fld28ParcAcadAAA",
+      "nome": "Parceiro: Suporte Arcano da Academia (Vladislav Tpish)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld28ParcAcadAAA",
+      "pack_destino_hierarquico": "rt20-028-poderes",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-028:fld28ParcLiriavA",
+      "nome": "Parceiro: Liriavel Cintilara",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld28ParcLiriavA",
+      "pack_destino_hierarquico": "rt20-028-poderes",
+      "paginas_pdf": [
+        2,
+        8,
+        9,
+        10,
+        11,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "macro:rt20-028:fld28MacroUrgenc",
+      "nome": "Rastreador de Urgência & Eventos do Campus (Edição 28)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "uuid_atual": "Compendium.compendios-para-t20.Macros_T20.Macro.fld28MacroUrgenc",
+      "pack_destino_hierarquico": "rt20-028-macros",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-028:fld28TabFrasesRa",
+      "nome": "Frases de Combate de Rashid Fullgori (Edição 28)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld28TabFrasesRa",
+      "pack_destino_hierarquico": "rt20-028-tabelas",
+      "paginas_pdf": [
+        2,
+        4,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-028:fld28TabFrasesTe",
+      "nome": "Frases de Combate no Templo do Saber (Edição 28)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld28TabFrasesTe",
+      "pack_destino_hierarquico": "rt20-028-tabelas",
+      "paginas_pdf": [
+        2,
+        15,
+        17,
+        18,
+        19,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-028:fld28TabRuasResp",
+      "nome": "Ruas que Respiram — Eventos Aleatórios (Edição 28)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld28TabRuasResp",
+      "pack_destino_hierarquico": "rt20-028-tabelas",
+      "paginas_pdf": [
+        2,
+        12,
+        15,
+        16
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:rt20-028:fld28DiarioAcoAr",
+      "nome": "Fúlgor dos Deuses — Edição 28: Aço e Arcano",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.fld28DiarioAcoAr",
+      "pack_destino_hierarquico": "rt20-028-diarios",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

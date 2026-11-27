@@ -1,0 +1,505 @@
+{
+  "material_id": "RT20-027",
+  "cobertura_pdf": "100% (17/17)",
+  "gerado_em": "2026-11-27T06:55:36.634Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:rt20-027:fld27BandoTroggA",
+      "nome": "Bando Troggore",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld27BandoTroggA",
+      "pack_destino_hierarquico": "rt20-027-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        10,
+        13,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-027:fld27CassiellaFu",
+      "nome": "Cassiella fullgori",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld27CassiellaFu",
+      "pack_destino_hierarquico": "rt20-027-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-027:fld27CassiellaSe",
+      "nome": "Cassiella semi-fullgori",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld27CassiellaSe",
+      "pack_destino_hierarquico": "rt20-027-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-027:fld27EnxameTrogA",
+      "nome": "Enxame Trog",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld27EnxameTrogA",
+      "pack_destino_hierarquico": "rt20-027-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        10,
+        13,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-027:fld27TroggoreAAA",
+      "nome": "Troggore",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld27TroggoreAAA",
+      "pack_destino_hierarquico": "rt20-027-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        10,
+        13,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-027:fld27UrrashSombr",
+      "nome": "Urrash das Sombras Frias",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.fld27UrrashSombr",
+      "pack_destino_hierarquico": "rt20-027-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        11,
+        12,
+        13,
+        17,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-027:fld27ArmaduraCas",
+      "nome": "Armadura Completa Delicada Selada",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld27ArmaduraCas",
+      "pack_destino_hierarquico": "rt20-027-equipamentos",
+      "paginas_pdf": [
+        6,
+        8,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-027:fld27EscudoPesCa",
+      "nome": "Escudo Pesado Reforçado",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld27EscudoPesCa",
+      "pack_destino_hierarquico": "rt20-027-equipamentos",
+      "paginas_pdf": [
+        5,
+        6,
+        7,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-027:fld27EspadaPunge",
+      "nome": "Espada Longa Pungente",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld27EspadaPunge",
+      "pack_destino_hierarquico": "rt20-027-equipamentos",
+      "paginas_pdf": [
+        6,
+        7,
+        9,
+        10,
+        11,
+        13,
+        15,
+        16,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-027:fld27LancaTroggo",
+      "nome": "Lança Troggore",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld27LancaTroggo",
+      "pack_destino_hierarquico": "rt20-027-equipamentos",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        10,
+        13,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-027:fld27OrbeAzgherA",
+      "nome": "Orbe de Azgher",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld27OrbeAzgherA",
+      "pack_destino_hierarquico": "rt20-027-equipamentos",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:rt20-027:fld27ParcCassiel",
+      "nome": "Parceiro: Cassiella de Baldonn",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.fld27ParcCassiel",
+      "pack_destino_hierarquico": "rt20-027-poderes",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "macro:rt20-027:fld27MacroOrbeAz",
+      "nome": "Canalizar Orbe de Azgher (Fúlgor dos Deuses)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "uuid_atual": "Compendium.compendios-para-t20.Macros_T20.Macro.fld27MacroOrbeAz",
+      "pack_destino_hierarquico": "rt20-027-macros",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-027:fld27TabCavernas",
+      "nome": "Cavernas dos Trogs — Perigos e Ecos de Tenebra (Edição 27)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld27TabCavernas",
+      "pack_destino_hierarquico": "rt20-027-tabelas",
+      "paginas_pdf": [
+        4,
+        5,
+        9,
+        10,
+        12,
+        13,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-027:fld27TabDilemaOr",
+      "nome": "Dilema da Orbe de Azgher — Escolhas e Consequências (Edição 27)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld27TabDilemaOr",
+      "pack_destino_hierarquico": "rt20-027-tabelas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:rt20-027:fld27TabFraseCas",
+      "nome": "Frases em Combate de Cassiella Possuída (Edição 27)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.fld27TabFraseCas",
+      "pack_destino_hierarquico": "rt20-027-tabelas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:rt20-027:fld27DiarioDiaNo",
+      "nome": "Fúlgor dos Deuses — Edição 27: Dia e Noite",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.fld27DiarioDiaNo",
+      "pack_destino_hierarquico": "rt20-027-diarios",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

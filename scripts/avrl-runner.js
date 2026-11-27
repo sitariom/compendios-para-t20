@@ -19,6 +19,7 @@ const { ClassicLevel } = require('classic-level');
 const path = require('path');
 const fs = require('fs');
 const { resolveToken, resolveIcon } = require('./icon-resolver');
+const { discoverPacksFromModuleJson } = require('./pack-discovery');
 const {
   ALL_SKILLS,
   generateId,
@@ -32,16 +33,8 @@ const {
   buildActiveEffect
 } = require('./create-entry');
 
-const PACKS_DIR = path.join(__dirname, '..', 'packs');
-
-const PACK_NAMES = [
-  'Ameacas_T20',
-  'Itens_T20',
-  'Macros_T20',
-  'Tabelas_T20',
-  'Diarios_T20',
-  'Playlist_T20'
-];
+const ROOT_DIR = path.resolve(__dirname, '..');
+const PACKS_DIR = path.join(ROOT_DIR, 'packs');
 
 const MONITORED_FOLDERS = new Set([
   'wfWApuyngzFm4KOP', // Dragão Brasil
@@ -92,6 +85,7 @@ function isCreatedActor(actorDoc) {
   const id = actorDoc?._id || '';
   return STRICT_ACTOR_IDS.has(id)
     || DB_226_229_ACTOR_IDS.has(id)
+    || CREATED_ITEM_IDS.has(id)
     || actorDoc?.folder === 'n591wfGB7keSNe7I'
     || id.startsWith('gq8')
     || id.startsWith('fld');
@@ -202,6 +196,98 @@ function normalizeActiveEffectDoc(eff, fallbackImg = 'systems/tormenta20/icons/s
   return { eff, modified, anomalies };
 }
 
+const VALID_CONSUMABLE_TYPES = new Set(['', 'ammo', 'scroll', 'alchemy', 'potion', 'material', 'food']);
+const CONSUMABLE_TYPE_MAP = {
+  veneno: 'alchemy',
+  alquimico: 'alchemy',
+  'alquímico': 'alchemy',
+  preparado: 'alchemy',
+  municao: 'ammo',
+  'munição': 'ammo',
+  recurso: 'potion',
+  pocao: 'potion',
+  'poção': 'potion',
+  alimentacao: 'food',
+  'alimentação': 'food',
+  comida: 'food',
+  pergaminho: 'scroll',
+  material: 'material',
+  outro: '',
+  servico: '',
+  'serviço': '',
+  equipamento: ''
+};
+const SPELL_TYPE_FIX = { arcana: 'arc', arcano: 'arc', divina: 'div', divino: 'div', universal: 'uni' };
+const SPELL_SCHOOL_FIX = {
+  abjuracao: 'abj', 'abjuração': 'abj',
+  adivinhacao: 'adv', 'adivinhação': 'adv',
+  convocacao: 'con', 'convocação': 'con',
+  encantamento: 'enc',
+  evocacao: 'evo', 'evocação': 'evo',
+  ilusao: 'ilu', 'ilusão': 'ilu',
+  necromancia: 'nec',
+  transmutacao: 'tra', 'transmutação': 'tra'
+};
+
+function normalizeDualV13V14ItemFields(doc) {
+  const anomalies = [];
+  let modified = false;
+  if (!doc || !doc.system) return { modified, anomalies };
+
+  if (doc.type === 'consumivel') {
+    const rawTipo = doc.system.tipo ?? '';
+    const lowTipo = String(rawTipo).toLowerCase().trim();
+    if (!VALID_CONSUMABLE_TYPES.has(rawTipo)) {
+      const mapped = Object.prototype.hasOwnProperty.call(CONSUMABLE_TYPE_MAP, lowTipo)
+        ? CONSUMABLE_TYPE_MAP[lowTipo]
+        : '';
+      if (!doc.system.subtipo && rawTipo) {
+        doc.system.subtipo = lowTipo;
+      }
+      doc.system.tipo = mapped;
+      anomalies.push(`Consumível "${doc.name}" tipo "${rawTipo}" -> "${mapped}" (compatibilidade v14)`);
+      modified = true;
+    }
+  }
+
+  if (doc.type === 'equipamento') {
+    const curSlot = doc.system.equipado2?.type;
+    if (!['hand', 'body', 'both'].includes(curSlot)) {
+      const lowTipo = String(doc.system.tipo || '').toLowerCase();
+      const targetSlot = ['escudo', 'ferramenta', 'esoterico', 'simbolo', 'instrumento', 'foco', 'cajado'].includes(lowTipo) ? 'hand' : 'body';
+      doc.system.equipado2 = doc.system.equipado2 || { slot: 0, type: targetSlot };
+      doc.system.equipado2.type = targetSlot;
+      anomalies.push(`Equipamento "${doc.name}" equipado2.type definido para "${targetSlot}"`);
+      modified = true;
+    }
+  }
+
+  if (doc.type === 'magia') {
+    const tLow = String(doc.system.tipo || '').toLowerCase().trim();
+    if (SPELL_TYPE_FIX[tLow]) {
+      doc.system.tipo = SPELL_TYPE_FIX[tLow];
+      anomalies.push(`Magia "${doc.name}" tipo "${tLow}" -> "${doc.system.tipo}"`);
+      modified = true;
+    }
+    const eLow = String(doc.system.escola || '').toLowerCase().trim();
+    if (SPELL_SCHOOL_FIX[eLow]) {
+      doc.system.escola = SPELL_SCHOOL_FIX[eLow];
+      anomalies.push(`Magia "${doc.name}" escola "${eLow}" -> "${doc.system.escola}"`);
+      modified = true;
+    }
+  }
+
+  for (const tf of ['tags', 'rolltags', 'automationtags']) {
+    if (Array.isArray(doc.system[tf]) && doc.system[tf].some(t => typeof t !== 'string' || t.trim() === '')) {
+      doc.system[tf] = doc.system[tf].filter(t => typeof t === 'string' && t.trim() !== '');
+      anomalies.push(`Limpos itens vazios em ${tf} de "${doc.name}"`);
+      modified = true;
+    }
+  }
+
+  return { modified, anomalies };
+}
+
 function normalizeItemSystemSchema(doc, { strictRolls = false } = {}) {
   const anomalies = [];
   let modified = false;
@@ -292,6 +378,13 @@ function normalizeItemSystemSchema(doc, { strictRolls = false } = {}) {
     }
   }
 
+  // 6b. Compatibilidade estrita Foundry v13 + v14 (ConsumableData, EquipmentData, SpellData, SetField tags)
+  const v14Res = normalizeDualV13V14ItemFields(doc);
+  if (v14Res.modified) {
+    anomalies.push(...v14Res.anomalies);
+    modified = true;
+  }
+
   // 7. Regra genérica estrita: magia/poder que cita dados de dano ou cura na descrição precisa de rolls[]
   if (strictRolls && ['magia', 'poder'].includes(doc.type) && (!Array.isArray(doc.system.rolls) || doc.system.rolls.length === 0)) {
     const plain = (doc.system.description?.value || '').replace(/<[^>]+>/g, ' ');
@@ -324,7 +417,9 @@ const MONITORED_CDS = {
   'enxame trog': 20,
   'troggore': 17,
   'bando troggore': 17,
-  'urrash das sombras frias': 22
+  'urrash das sombras frias': 22,
+  'liriavel forma de quimera': 26,
+  'rashid fullgori': 30
 };
 
 const MONITORED_EQUIPAMENTOS = {
@@ -394,7 +489,8 @@ const MONITORED_EQUIPAMENTOS = {
  */
 const STRICT_ACTOR_IDS = new Set([
   'C6JxlK5xzXU8PYuK', 'gaMGB2dL8R0Rv2mY', 'wbA5Rt8dqRkHQWdC', '4Chz9YQv6oC4R5gs', '6lKAcCvfQj9FReP7', 'E8hgaWNdM2kqv4oo', // Ed. 26
-  'fld27CassiellaSe', 'fld27CassiellaFu', 'fld27EnxameTrogA', 'fld27TroggoreAAA', 'fld27BandoTroggA', 'fld27UrrashSombr' // Ed. 27
+  'fld27CassiellaSe', 'fld27CassiellaFu', 'fld27EnxameTrogA', 'fld27TroggoreAAA', 'fld27BandoTroggA', 'fld27UrrashSombr', // Ed. 27
+  'fld28LiriavelQui', 'fld28RashidFullg' // Ed. 28
 ]);
 
 /**
@@ -564,6 +660,14 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     }
   }
 
+  for (const doc of embeddedDocs) {
+    const v14Sub = normalizeDualV13V14ItemFields(doc);
+    if (v14Sub.modified) {
+      anomalies.push(...v14Sub.anomalies);
+      modified = true;
+    }
+  }
+
   for (const doc of (created ? embeddedDocs : [])) {
     if (!doc.img || String(doc.img).includes('mystery-man') || doc.img === 'icons/svg/item-bag.svg') {
       doc.img = resolveIcon({ name: doc.name, type: doc.type });
@@ -674,6 +778,12 @@ function hookValidateAndRemediateItem(itemDoc, embeddedEffects = []) {
   }
 
   // A2. Normalização determinística de schema para itens criados/adaptados e correções seguras
+  const v14Item = normalizeDualV13V14ItemFields(itemDoc);
+  if (v14Item.modified) {
+    anomalies.push(...v14Item.anomalies);
+    modified = true;
+  }
+
   if (created) {
     const normRes = normalizeItemSystemSchema(itemDoc, { strictRolls: false });
     if (normRes.modified) {
@@ -831,9 +941,11 @@ async function runAvrlIteration(iterNum, options = {}) {
   let iterationErrors = 0;
   let iterationFixes = 0;
 
-  // A. Auditoria Estrutural dos 6 Packs
-  for (const pack of PACK_NAMES) {
-    const packPath = path.join(PACKS_DIR, pack);
+  // A. Auditoria Estrutural Dinâmica dos Packs declarados em module.json
+  const packs = discoverPacksFromModuleJson(ROOT_DIR);
+  for (const packDef of packs) {
+    const pack = packDef.name;
+    const packPath = packDef.absPath;
     if (!fs.existsSync(packPath)) continue;
 
     const db = new ClassicLevel(packPath, { valueEncoding: 'json' });
@@ -944,8 +1056,8 @@ async function runAvrlIteration(iterNum, options = {}) {
         }
       }
 
-      // Remediação em Ameacas_T20
-      if (pack === 'Ameacas_T20' && key.startsWith('!actors!') && !key.includes('.items')) {
+      // Remediação em Packs de Atores (Ameacas_T20 ou packs hierárquicos *-ameacas)
+      if (packDef.type === 'Actor' && key.startsWith('!actors!') && !key.includes('.items')) {
         const subDocs = [];
         for await (const [, v] of db.iterator({ gte: `!actors.items!${val._id}.`, lte: `!actors.items!${val._id}.\uffff` })) {
           subDocs.push(v);
@@ -985,8 +1097,8 @@ async function runAvrlIteration(iterNum, options = {}) {
         }
       }
 
-      // Remediação em Itens_T20
-      if (pack === 'Itens_T20' && key.startsWith('!items!') && !key.includes('.effects')) {
+      // Remediação em Packs de Itens (Itens_T20 ou packs hierárquicos *-armas/equipamentos/poderes/magias/etc.)
+      if (packDef.type === 'Item' && key.startsWith('!items!') && !key.includes('.effects')) {
         const subEffs = [];
         const effKeysToFix = [];
         const createdItem = isCreatedItem(val);
@@ -1029,8 +1141,8 @@ async function runAvrlIteration(iterNum, options = {}) {
         }
       }
 
-      // Remediação em Diarios_T20
-      if (pack === 'Diarios_T20' && key.startsWith('!journal!') && !key.includes('.pages')) {
+      // Remediação em Packs de Diários
+      if (packDef.type === 'JournalEntry' && key.startsWith('!journal!') && !key.includes('.pages')) {
         const pages = [];
         for await (const [, v] of db.iterator({ gte: `!journal.pages!${val._id}.`, lte: `!journal.pages!${val._id}.\uffff` })) {
           pages.push(v);
@@ -1045,8 +1157,8 @@ async function runAvrlIteration(iterNum, options = {}) {
         }
       }
 
-      // Remediação em Tabelas_T20
-      if (pack === 'Tabelas_T20' && key.startsWith('!tables!') && !key.includes('.results')) {
+      // Remediação em Packs de Tabelas
+      if (packDef.type === 'RollTable' && key.startsWith('!tables!') && !key.includes('.results')) {
         const results = [];
         for await (const [, v] of db.iterator({ gte: `!tables.results!${val._id}.`, lte: `!tables.results!${val._id}.\uffff` })) {
           results.push(v);
@@ -1060,8 +1172,8 @@ async function runAvrlIteration(iterNum, options = {}) {
         }
       }
 
-      // Remediação em Macros_T20
-      if (pack === 'Macros_T20' && key.startsWith('!macros!')) {
+      // Remediação em Packs de Macros
+      if (packDef.type === 'Macro' && key.startsWith('!macros!')) {
         const res = hookValidateAndRemediateMacro(val);
         if (res.modified && fix) {
           await db.put(key, res.macroDoc);
@@ -1133,7 +1245,9 @@ if (require.main === module) {
 module.exports = {
   runAvrlLoop,
   runAvrlIteration,
+  MONITORED_CDS,
   MONITORED_EQUIPAMENTOS,
+  STRICT_ACTOR_IDS,
   hookValidateAndRemediateActor,
   hookValidateAndRemediateItem,
   hookValidateAndRemediateJournal,

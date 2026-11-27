@@ -1,0 +1,105 @@
+{
+  "material_id": "DB-0226",
+  "cobertura_pdf": "100% (4/4)",
+  "gerado_em": "2026-11-27T06:55:36.328Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:db-0226:7UyOrY1k439sFonD",
+      "nome": "Espectro do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.7UyOrY1k439sFonD",
+      "pack_destino_hierarquico": "db-0226-ameacas",
+      "paginas_pdf": [
+        72,
+        73,
+        74
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0226:AOuINuG6UNmsJTIL",
+      "nome": "Tyrant",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.AOuINuG6UNmsJTIL",
+      "pack_destino_hierarquico": "db-0226-ameacas",
+      "paginas_pdf": [
+        88,
+        89,
+        90,
+        91
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0226:MVyBvkSfAQJKrgjn",
+      "nome": "Come-Sonhos",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.MVyBvkSfAQJKrgjn",
+      "pack_destino_hierarquico": "db-0226-ameacas",
+      "paginas_pdf": [
+        3,
+        67,
+        68,
+        69,
+        72,
+        73,
+        74,
+        115
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0226:YuNalZOnONBoAq70",
+      "nome": "Regras de Reputação (DB #226)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.YuNalZOnONBoAq70",
+      "pack_destino_hierarquico": "db-0226-diarios",
+      "paginas_pdf": [
+        1,
+        3,
+        27,
+        50,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

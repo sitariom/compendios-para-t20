@@ -1,6 +1,6 @@
 name: Release Creation
 
-on: 
+on:
   push:
     tags:
       - 'v*'
@@ -11,22 +11,27 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    # Zip the module content, excluding unwanted files
-    - name: Zip Module
-      run: |
-        zip -r module.zip . -x ".git/*" ".github/*" ".gitignore" "LICENSE" "README.md" "node_modules/*"
+      # Zip the module content, excluding unwanted files
+      - name: Zip Module
+        run: |
+          zip -r module.zip . \
+            -x ".git/*" ".github/*" ".gitignore" "LICENSE" "README.md" \
+            ".env" ".env.*" ".playwright-mcp/*" \
+            "node_modules/*" "src/*" "catalogo/*" "openspec/*" \
+            "referencias_criacao_itens_atores_t20/*" \
+            ".codegraph/*" ".pi/*" ".engram/*" ".ruff_cache/*"
 
-    # Create a GitHub Release
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: true
-        name: ${{ github.ref_name }}
-        draft: false
-        prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: "module.json,module.zip"
-        tag: ${{ github.ref_name }}
-        body: "Release ${{ github.ref_name }}"
+      # Create a GitHub Release
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "module.json,module.zip"
+          tag: ${{ github.ref_name }}
+          body: "Release ${{ github.ref_name }}"

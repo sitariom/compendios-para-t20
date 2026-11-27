@@ -1,0 +1,844 @@
+{
+  "material_id": "DB-0231",
+  "cobertura_pdf": "91% (32/35)",
+  "gerado_em": "2026-11-27T06:55:36.544Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:db-0231:gq8231AnshiraAAA",
+      "nome": "Anshira",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231AnshiraAAA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        28,
+        29
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231ArraiSecAA",
+      "nome": "Arraia-Seca",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231ArraiSecAA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        28
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231BiancoAAAA",
+      "nome": "Bianco",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231BiancoAAAA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        44,
+        46
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231CacCondAAA",
+      "nome": "Caçador de Condenados",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231CacCondAAA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        12,
+        13,
+        14,
+        20,
+        30,
+        59
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231ConstAreAA",
+      "nome": "Constritora Arenosa",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231ConstAreAA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        30,
+        31
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231ManticZumb",
+      "nome": "Mantícora Zumbi",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231ManticZumb",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        27,
+        45,
+        47
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231MorriseAAA",
+      "nome": "Morrise",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231MorriseAAA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        44,
+        45,
+        47
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231RessecLidA",
+      "nome": "Ressecado Líder",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231RessecLidA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        31,
+        32
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231RessecSaqA",
+      "nome": "Ressecado Saqueador",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231RessecSaqA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        23,
+        25,
+        31,
+        32
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:db-0231:gq8231RojoAAAAAA",
+      "nome": "Rojo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.gq8231RojoAAAAAA",
+      "pack_destino_hierarquico": "db-0231-ameacas",
+      "paginas_pdf": [
+        44,
+        46
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231ArsenalDesA",
+      "nome": "Arsenal do Deserto",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231ArsenalDesA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        1,
+        3,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        31,
+        48
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231CancaoPedrA",
+      "nome": "Canção da Pedra",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231CancaoPedrA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        11,
+        12,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231CortinaPoeA",
+      "nome": "Cortina de Poeira",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231CortinaPoeA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        14
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231DancaAreiaA",
+      "nome": "Dança da Areia",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231DancaAreiaA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        12,
+        13,
+        14
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231EscaramDist",
+      "nome": "Escaramuça Distante",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231EscaramDist",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        14,
+        18,
+        31
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231MestreDeser",
+      "nome": "Mestre do Deserto",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231MestreDeser",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        35,
+        36,
+        38,
+        43,
+        45,
+        48,
+        49,
+        55,
+        57,
+        58,
+        59,
+        68,
+        69,
+        74,
+        75,
+        78,
+        81
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231MiragemClas",
+      "nome": "Classe Variante: Miragem",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231MiragemClas",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        1,
+        12,
+        13
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231OrigCriancA",
+      "nome": "Origem: Criança do Crepúsculo",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231OrigCriancA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        17
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231OrigNascEst",
+      "nome": "Origem: Nascido nas Estepes",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231OrigNascEst",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        17,
+        66,
+        67
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231OrigNomadFe",
+      "nome": "Origem: Nômade Ferani",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231OrigNomadFe",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        19,
+        20,
+        24,
+        25,
+        27,
+        31,
+        68
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231PassoDeserA",
+      "nome": "Passo do Deserto",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231PassoDeserA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        1,
+        3,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        31
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231PassoDuploA",
+      "nome": "Passo Duplo",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231PassoDuploA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        14
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231PassosPrecA",
+      "nome": "Passos Precisos",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231PassosPrecA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        14
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231PresaOnixAA",
+      "nome": "Presa de Ônix",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231PresaOnixAA",
+      "pack_destino_hierarquico": "db-0231-equipamentos",
+      "paginas_pdf": [],
+      "origem_rastreavel": "PENDENTE_REVISAO_MANUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231SahiriAnimA",
+      "nome": "Sahiri: Animar Rochas",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231SahiriAnimA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        11,
+        12,
+        28,
+        29
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231SahiriProtA",
+      "nome": "Sahiri: Proteção da Terra",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231SahiriProtA",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        12,
+        23,
+        29,
+        82
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231SimbAzgherA",
+      "nome": "Símbolo Sagrado de Azgher",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231SimbAzgherA",
+      "pack_destino_hierarquico": "db-0231-equipamentos",
+      "paginas_pdf": [
+        2,
+        6,
+        11,
+        12,
+        13,
+        16,
+        18,
+        19,
+        20,
+        23,
+        24,
+        37,
+        42,
+        43,
+        44,
+        49,
+        79,
+        83
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "item:db-0231:i8231TesourosNat",
+      "nome": "Tesouros da Natureza",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.Itens_T20.Item.i8231TesourosNat",
+      "pack_destino_hierarquico": "db-0231-poderes",
+      "paginas_pdf": [
+        11,
+        14,
+        19,
+        20,
+        22,
+        24,
+        30,
+        37,
+        43,
+        44,
+        54,
+        78
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0231:t8231EncDiurnosA",
+      "nome": "Encontros Diurnos em Halak-Tûr (DB #231)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.t8231EncDiurnosA",
+      "pack_destino_hierarquico": "db-0231-tabelas",
+      "paginas_pdf": [],
+      "origem_rastreavel": "PENDENTE_REVISAO_MANUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0231:t8231EncNoturnAA",
+      "nome": "Encontros Noturnos em Halak-Tûr (DB #231)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.t8231EncNoturnAA",
+      "pack_destino_hierarquico": "db-0231-tabelas",
+      "paginas_pdf": [
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0231:t8231GanchosDesA",
+      "nome": "Ganchos de Aventura em Halak-Tûr (DB #231)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.t8231GanchosDesA",
+      "pack_destino_hierarquico": "db-0231-tabelas",
+      "paginas_pdf": [],
+      "origem_rastreavel": "PENDENTE_REVISAO_MANUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "rolltable:db-0231:t8231PrevSelinaA",
+      "nome": "Previsões de Selina (DB #231)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Tabelas_T20.RollTable.t8231PrevSelinaA",
+      "pack_destino_hierarquico": "db-0231-tabelas",
+      "paginas_pdf": [
+        43,
+        45
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0231:j8231CircoSombrA",
+      "nome": "Aventura: Circo Sombrio (DB #231)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.j8231CircoSombrA",
+      "pack_destino_hierarquico": "db-0231-diarios",
+      "paginas_pdf": [
+        3,
+        40,
+        41,
+        42,
+        44,
+        47
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0231:j8231Gazeta163AA",
+      "nome": "Gazeta do Reinado — Edição 163 (DB #231)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.j8231Gazeta163AA",
+      "pack_destino_hierarquico": "db-0231-diarios",
+      "paginas_pdf": [
+        3,
+        16,
+        17,
+        38,
+        48,
+        49,
+        82
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "journalentry:db-0231:j8231HalakTurAAA",
+      "nome": "A Vastidão Dourada de Halak-Tûr (DB #231)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.Diarios_T20.JournalEntry.j8231HalakTurAAA",
+      "pack_destino_hierarquico": "db-0231-diarios",
+      "paginas_pdf": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12,
+        18,
+        20,
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}
