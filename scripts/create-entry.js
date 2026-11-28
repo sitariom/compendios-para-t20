@@ -604,7 +604,43 @@ function buildItem({
   let normalizedTipo = system.tipo;
   if (type === 'poder') {
     normalizedTipo = validPowerTypes.includes(mappedPowerTipo) ? mappedPowerTipo : 'geral';
+  } else if (type === 'consumivel') {
+    const validCons = new Set(['', 'ammo', 'scroll', 'alchemy', 'potion', 'material', 'food']);
+    const consMap = {
+      veneno: 'alchemy',
+      alquimico: 'alchemy',
+      'alquímico': 'alchemy',
+      preparado: 'alchemy',
+      municao: 'ammo',
+      'munição': 'ammo',
+      recurso: 'potion',
+      pocao: 'potion',
+      'poção': 'potion',
+      alimentacao: 'food',
+      'alimentação': 'food',
+      comida: 'food',
+      pergaminho: 'scroll',
+      material: 'material',
+      outro: '',
+      servico: '',
+      'serviço': '',
+      equipamento: ''
+    };
+    const lowCons = String(system.tipo || '').toLowerCase().trim();
+    if (validCons.has(lowCons)) {
+      normalizedTipo = lowCons;
+    } else {
+      normalizedTipo = consMap[lowCons] ?? '';
+    }
   }
+
+  const slotTypeDefault = ['escudo', 'ferramenta', 'esoterico'].includes(normalizedTipo) ? 'hand' : 'body';
+  let normalizedSlotType = system.equipado2?.type || '';
+  if (type === 'equipamento' && !['hand', 'body', 'both'].includes(normalizedSlotType)) {
+    normalizedSlotType = slotTypeDefault;
+  }
+
+  const cleanTagArray = arr => (Array.isArray(arr) ? arr.filter(t => typeof t === 'string' && t.trim() !== '') : []);
 
   const baseDoc = {
     _id,
@@ -632,7 +668,7 @@ function buildItem({
       equipado: normalizedEquipado,
       equipado2: {
         slot: system.equipado2?.slot || 0,
-        type: system.equipado2?.type || ''
+        type: normalizedSlotType
       },
       ativacao: normalizedAtivacao,
       duracao: normalizedDuracao,
@@ -662,10 +698,11 @@ function buildItem({
         txt: system.resistencia?.txt || ''
       },
       origin: system.origin || '',
-      tags: Array.isArray(system.tags) ? system.tags : [],
+      tags: cleanTagArray(system.tags),
       chatFlavor: system.chatFlavor || (description.includes('blockquote') ? description.slice(0, 300) : `<p>${name}</p>`),
       chatGif: system.chatGif || '',
-      rolltags: Array.isArray(system.rolltags) ? system.rolltags : [],
+      rolltags: cleanTagArray(system.rolltags),
+      automationtags: cleanTagArray(system.automationtags),
       upgrades: {
         melhoria1: '',
         melhoria2: '',

@@ -1,6 +1,6 @@
 {
   "name": "compendios-para-t20",
-  "version": "1.10.4",
+  "version": "2.0.0",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20 no Foundry VTT.",
   "scripts": {
     "stats": "node scripts/stats.js",
@@ -12,13 +12,21 @@
     "validate:db232": "node scripts/validate-db232-compliance.js",
     "validate:fullgor26": "node scripts/validate-fullgor26-compliance.js",
     "validate:fullgor27": "node scripts/validate-fullgor27-compliance.js",
+    "validate:fullgor28": "node scripts/validate-fullgor28-compliance.js",
     "validate:fidelity": "node scripts/validate-threat-sheet-fidelity.js",
-    "validate:all": "npm run audit && npm run validate:fidelity && npm run validate:fullgor27 && npm run validate:fullgor26 && npm run validate:db232 && npm run validate:db231",
+    "validate:all": "npm run audit && npm run validate:fidelity && npm run validate:fullgor28 && npm run validate:fullgor27 && npm run validate:fullgor26 && npm run validate:db232 && npm run validate:db231",
     "avrl": "node scripts/avrl-runner.js",
     "ci:quality": "npm run avrl && npm run validate:all",
+    "catalogo:init": "node scripts/catalogo-init.js",
+    "catalogo:run": "node scripts/catalogo-runner.js",
+    "catalogo:migrate:dry": "node scripts/migrate-hierarchical-packs.js --dry-run",
+    "catalogo:migrate:apply": "node scripts/migrate-hierarchical-packs.js --apply",
+    "validate:playwright": "node scripts/validate-foundry-playwright.js",
+    "validate:playwright:smoke": "node scripts/validate-foundry-playwright.js --smoke",
+    "validate:playwright:update": "node scripts/validate-foundry-playwright.js --update-module --smoke",
     "unpack": "node scripts/unpack.js",
     "pack": "node scripts/pack.js",
-    "zip": "zip -r module.zip . -x \".git/*\" \".github/*\" \".gitignore\" \"LICENSE\" \"README.md\" \"node_modules/*\" \"src/*\" \".codegraph/*\" \".pi/*\" \".engram/*\" \".ruff_cache/*\""
+    "zip": "zip -r module.zip . -x \".git/*\" \".github/*\" \".gitignore\" \".env\" \".env.*\" \".playwright-mcp/*\" \"LICENSE\" \"README.md\" \"node_modules/*\" \"src/*\" \"catalogo/*\" \"openspec/*\" \"referencias_criacao_itens_atores_t20/*\" \".codegraph/*\" \".pi/*\" \".engram/*\" \".ruff_cache/*\""
   },
   "repository": {
     "type": "git",
@@ -31,6 +39,7 @@
   },
   "homepage": "https://github.com/sitariom/compendios-para-t20#readme",
   "devDependencies": {
-    "classic-level": "^3.0.0"
+    "classic-level": "^3.0.0",
+    "playwright": "^1.65.1"
   }
 }

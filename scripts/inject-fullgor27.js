@@ -1315,71 +1315,96 @@ async function injectMacros() {
  * Canalizar Orbe de Azgher — Fúlgor dos Deuses (Edição 27)
  * Permite ao portador da relíquia solar emanar luz intensa ou conjurar magias concedidas.
  */
-new Dialog({
-  title: "Orbe de Azgher — Relíquia Solar",
-  content: \`
-    <form>
-      <p style="color: #b8860b;"><em>"A esfera dourada flutua sobre seu ombro, pulsando com a glória implacável do Deus-Sol."</em></p>
-      <div style="margin-bottom: 12px;">
-        <label><strong>Poder Solar a Canalizar:</strong></label>
-        <select id="solarAction" style="width: 100%; padding: 4px;">
-          <option value="luz">Emanar Luz Sagrada (5º Círculo - Ilumina 12m, cega trevas)</option>
-          <option value="coluna">Coluna de Chamas (4 PM - 4d8 fogo + 4d8 luz)</option>
-          <option value="dispersar">Dispersar as Trevas (3 PM - dissipa efeitos de escuridão)</option>
-          <option value="raio">Raio Solar (5 PM - cone de 9m, 8d8 luz, cega inimigos)</option>
-        </select>
-      </div>
-    </form>
-  \`,
-  buttons: {
-    canalizar: {
-      icon: '<i class="fas fa-sun"></i>',
-      label: "Emanar Glória Solar",
-      callback: (html) => {
-        const action = html.find("#solarAction").val();
-        let title = "";
-        let desc = "";
+const solarHtml = \`
+  <form>
+    <p style="color: #b8860b;"><em>"A esfera dourada flutua sobre seu ombro, pulsando com a glória implacável do Deus-Sol."</em></p>
+    <div style="margin-bottom: 12px;">
+      <label><strong>Poder Solar a Canalizar:</strong></label>
+      <select id="solarAction" name="solarAction" style="width: 100%; padding: 4px;">
+        <option value="luz">Emanar Luz Sagrada (5º Círculo - Ilumina 12m, cega trevas)</option>
+        <option value="coluna">Coluna de Chamas (4 PM - 4d8 fogo + 4d8 luz)</option>
+        <option value="dispersar">Dispersar as Trevas (3 PM - dissipa efeitos de escuridão)</option>
+        <option value="raio">Raio Solar (5 PM - cone de 9m, 8d8 luz, cega inimigos)</option>
+      </select>
+    </div>
+  </form>
+\`;
 
-        if (action === "luz") {
-          title = "Luz Solar Permanente";
-          desc = "A Orbe de Azgher expande seu brilho, iluminando uma esfera de 12m de raio e dissipando qualquer escuridão mágica de até 5º círculo!";
-        } else if (action === "coluna") {
-          title = "Coluna de Chamas";
-          desc = "Um pilar colossal de fogo e luz divina desce dos céus, causando <strong>4d8 de fogo e 4d8 de luz</strong> (Reflexos reduz à metade).";
-        } else if (action === "dispersar") {
-          title = "Dispersar as Trevas";
-          desc = "Uma onda dourada dissipa instantaneamente todas as magias e efeitos de trevas presentes na cena!";
-        } else if (action === "raio") {
-          title = "Raio Solar";
-          desc = "Um feixe fulgurante irrompe da relíquia em cone de 9m, causando <strong>8d8 de dano de luz</strong> e cegando todas as criaturas na área.";
-        }
+function executarOrbe(rootEl) {
+  const action = rootEl.querySelector("#solarAction")?.value || "luz";
+  let title = "";
+  let desc = "";
 
-        const card = \`
-          <div style="border: 2px solid #b8860b; border-radius: 6px; padding: 10px; background: #fffdf0;">
-            <h3 style="color: #b8860b; border-bottom: 1px solid #b8860b; margin-top: 0;">
-              <i class="fas fa-sun"></i> \${title}
-            </h3>
-            <p>\${desc}</p>
-            <blockquote style="font-style: italic; color: #806000; margin-top: 6px;">
-              "O sol não tolera a covardia da sombra."<br/>
-              — Liturgia de Azgher
-            </blockquote>
-          </div>
-        \`;
+  if (action === "luz") {
+    title = "Luz Solar Permanente";
+    desc = "A Orbe de Azgher expande seu brilho, iluminando uma esfera de 12m de raio e dissipando qualquer escuridão mágica de até 5º círculo!";
+  } else if (action === "coluna") {
+    title = "Coluna de Chamas";
+    desc = "Um pilar colossal de fogo e luz divina desce dos céus, causando <strong>4d8 de fogo e 4d8 de luz</strong> (Reflexos reduz à metade).";
+  } else if (action === "dispersar") {
+    title = "Dispersar as Trevas";
+    desc = "Uma onda dourada dissipa instantaneamente todas as magias e efeitos de trevas presentes na cena!";
+  } else if (action === "raio") {
+    title = "Raio Solar";
+    desc = "Um feixe fulgurante irrompe da relíquia em cone de 9m, causando <strong>8d8 de dano de luz</strong> e cegando todas as criaturas na área.";
+  }
 
-        ChatMessage.create({
-          content: card,
-          speaker: ChatMessage.getSpeaker({ alias: "Orbe de Azgher" })
-        });
+  const card = \`
+    <div style="border: 2px solid #b8860b; border-radius: 6px; padding: 10px; background: #fffdf0;">
+      <h3 style="color: #b8860b; border-bottom: 1px solid #b8860b; margin-top: 0;">
+        <i class="fas fa-sun"></i> \${title}
+      </h3>
+      <p>\${desc}</p>
+      <blockquote style="font-style: italic; color: #806000; margin-top: 6px;">
+        "O sol não tolera a covardia da sombra."<br/>
+        — Liturgia de Azgher
+      </blockquote>
+    </div>
+  \`;
+
+  ChatMessage.create({
+    content: card,
+    speaker: ChatMessage.getSpeaker({ alias: "Orbe de Azgher" })
+  });
+}
+
+if (foundry?.applications?.api?.DialogV2) {
+  foundry.applications.api.DialogV2.wait({
+    window: { title: "Orbe de Azgher — Relíquia Solar" },
+    content: solarHtml,
+    buttons: [
+      {
+        action: "canalizar",
+        icon: "fas fa-sun",
+        label: "Emanar Glória Solar",
+        default: true,
+        callback: (_event, button, dialog) => executarOrbe(button?.form || dialog?.element)
+      },
+      {
+        action: "cancelar",
+        icon: "fas fa-times",
+        label: "Cancelar"
+      }
+    ]
+  });
+} else {
+  new Dialog({
+    title: "Orbe de Azgher — Relíquia Solar",
+    content: solarHtml,
+    buttons: {
+      canalizar: {
+        icon: '<i class="fas fa-sun"></i>',
+        label: "Emanar Glória Solar",
+        callback: (html) => executarOrbe(html[0] || html)
+      },
+      cancelar: {
+        icon: '<i class="fas fa-times"></i>',
+        label: "Cancelar"
       }
     },
-    cancelar: {
-      icon: '<i class="fas fa-times"></i>',
-      label: "Cancelar"
-    }
-  },
-  default: "canalizar"
-}).render(true);
+    default: "canalizar"
+  }).render(true);
+}
 `;
 
   const macroDoc = {

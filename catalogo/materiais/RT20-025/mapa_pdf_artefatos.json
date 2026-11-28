@@ -1,0 +1,186 @@
+{
+  "material_id": "RT20-025",
+  "cobertura_pdf": "100% (7/7)",
+  "gerado_em": "2026-11-27T06:55:36.602Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:rt20-025:5lj7QlBvNNhd03Ry",
+      "nome": "Proles de Ceret'th",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.5lj7QlBvNNhd03Ry",
+      "pack_destino_hierarquico": "rt20-025-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        8,
+        9,
+        14,
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-025:8Q9cEOfUCYBbfipI",
+      "nome": "Golem de Tharun-Kel",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.8Q9cEOfUCYBbfipI",
+      "pack_destino_hierarquico": "rt20-025-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        21,
+        24,
+        25
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-025:B7UeiV8dWSz76owQ",
+      "nome": "Thorgan Punho de Bronze",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.B7UeiV8dWSz76owQ",
+      "pack_destino_hierarquico": "rt20-025-ameacas",
+      "paginas_pdf": [
+        2,
+        12,
+        13,
+        19,
+        25,
+        26,
+        27
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-025:KoWiaB4rP0QCPlIw",
+      "nome": "Selisse, a Voz de Ferro",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.KoWiaB4rP0QCPlIw",
+      "pack_destino_hierarquico": "rt20-025-ameacas",
+      "paginas_pdf": [
+        2,
+        16,
+        17,
+        19,
+        26,
+        27
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-025:Qm2GKboNZbhXMrkY",
+      "nome": "Irina Volensk",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.Qm2GKboNZbhXMrkY",
+      "pack_destino_hierarquico": "rt20-025-ameacas",
+      "paginas_pdf": [
+        2,
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-025:hJWJERQhdJSwwE5v",
+      "nome": "Ceret'th",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.hJWJERQhdJSwwE5v",
+      "pack_destino_hierarquico": "rt20-025-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        6,
+        7,
+        8,
+        11,
+        14,
+        15,
+        17,
+        18,
+        20,
+        25,
+        26
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    },
+    {
+      "artefato_id": "actor:rt20-025:wGoHaVQwuoTdWBgJ",
+      "nome": "Kaellarem",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.Ameacas_T20.Actor.wGoHaVQwuoTdWBgJ",
+      "pack_destino_hierarquico": "rt20-025-ameacas",
+      "paginas_pdf": [
+        2,
+        17,
+        19,
+        26,
+        27
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "EM_AUDITORIA_CEGA"
+    }
+  ]
+}

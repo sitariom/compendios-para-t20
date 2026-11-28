@@ -2,6 +2,14 @@
 .DS_Store
 Thumbs.db
 
+# Ambiente e Playwright local (nunca comitar credenciais)
+.env
+.env.*
+!.env.example
+.playwright-mcp/
+playwright-report/
+test-results/
+
 # Arquivos de build e dependências (caso venha a usar)
 node_modules/
 dist/

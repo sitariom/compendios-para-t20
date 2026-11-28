@@ -27,15 +27,12 @@
  *    - Subdocumentos de resultados com campo "name" obrigatório e descrição.
  */
 
-const { ClassicLevel } = require('classic-level');
+const { openMergedPackView } = require('./pack-discovery');
 const fs = require('fs');
 const path = require('path');
 const { ALL_SKILLS } = require('./create-entry');
 
-const PACK_AMEACAS = path.join(__dirname, '..', 'packs', 'Ameacas_T20');
-const PACK_ITENS = path.join(__dirname, '..', 'packs', 'Itens_T20');
-const PACK_JOURNALS = path.join(__dirname, '..', 'packs', 'Diarios_T20');
-const PACK_TABELAS = path.join(__dirname, '..', 'packs', 'Tabelas_T20');
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 let totalErrors = 0;
 let totalChecks = 0;
@@ -50,7 +47,7 @@ function assert(condition, message) {
 
 async function validateActors() {
   console.log('--- 1. Validando 15 Ameaças da DB #232 (Ameacas_T20) ---');
-  const db = new ClassicLevel(PACK_AMEACAS, { valueEncoding: 'json' });
+  const db = openMergedPackView('Actor', ROOT_DIR);
 
   const requiredThreats = [
     { id: 'gq8232LoboUrbAAA', name: 'Lobisomem Predador Urbano', nd: '4', tamanho: 'med', inic: 10, perc: 5 },
@@ -82,7 +79,7 @@ async function validateActors() {
 
     assert(doc.name === req.name, `Nome correto: esperado "${req.name}", obtido "${doc.name}"`);
     assert(String(doc.system?.attributes?.nd) === req.nd, `ND correto para ${req.name}: esperado ${req.nd}, obtido ${doc.system?.attributes?.nd}`);
-    assert(doc.folder === 'wfWApuyngzFm4KOP', `Pasta correta (Dragão Brasil): obtido ${doc.folder}`);
+    assert(doc.folder === 'wfWApuyngzFm4KOP' || db.isHierarchicalDoc(req.id), `Pasta correta (Dragão Brasil ou pack hierárquico): obtido ${doc.folder}`);
     assert(doc.system?.tracos?.tamanho === req.tamanho, `Tamanho correto para ${req.name}: esperado ${req.tamanho}, obtido ${doc.system?.tracos?.tamanho}`);
 
     // Validação de Defesa Base Dinâmica
@@ -208,7 +205,7 @@ async function validateActors() {
 
 async function validateItems() {
   console.log('\n--- 2. Validando 13 Itens e Poderes de Licantropia da DB #232 (Itens_T20) ---');
-  const db = new ClassicLevel(PACK_ITENS, { valueEncoding: 'json' });
+  const db = openMergedPackView('Item', ROOT_DIR);
 
   const requiredItems = [
     { id: 'i8232CtrlLicanAA', name: 'Controlar Licantropia', type: 'poder' },
@@ -247,7 +244,7 @@ async function validateItems() {
 
 async function validateJournalsAndTables() {
   console.log('\n--- 3. Validando Diários e Tabelas de Rolagem da DB #232 ---');
-  const dbJournals = new ClassicLevel(PACK_JOURNALS, { valueEncoding: 'json' });
+  const dbJournals = openMergedPackView('JournalEntry', ROOT_DIR);
 
   const requiredJournals = [
     { id: 'j8232LicanArtonA', name: 'Cenário: Licantropos Artonianos (DB #232)', minPages: 9 },
@@ -287,7 +284,7 @@ async function validateJournalsAndTables() {
 
   await dbJournals.close();
 
-  const dbTables = new ClassicLevel(PACK_TABELAS, { valueEncoding: 'json' });
+  const dbTables = openMergedPackView('RollTable', ROOT_DIR);
 
   const requiredTables = [
     { id: 't8232LinhagensAA', name: 'Linhagens e Formas de Licantropia (DB #232)', minResults: 6 },

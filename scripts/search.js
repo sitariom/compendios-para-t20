@@ -2,18 +2,13 @@
 const { ClassicLevel } = require('classic-level');
 const fs = require('fs');
 const path = require('path');
+const { discoverPacksFromModuleJson } = require('./pack-discovery');
 
-const PACKS = [
-  'Ameacas_T20',
-  'Itens_T20',
-  'Macros_T20',
-  'Tabelas_T20',
-  'Diarios_T20',
-  'Playlist_T20'
-];
+const ROOT_DIR = path.resolve(__dirname, '..');
 
-async function searchPack(packName, term, typeFilter, limit) {
-  const packPath = path.join('packs', packName);
+async function searchPack(packDef, term, typeFilter, limit) {
+  const packName = typeof packDef === 'string' ? packDef : packDef.name;
+  const packPath = typeof packDef === 'string' ? path.join(ROOT_DIR, 'packs', packDef) : packDef.absPath;
   if (!fs.existsSync(packPath)) return [];
 
   const db = new ClassicLevel(packPath, { valueEncoding: 'utf8' });
@@ -85,13 +80,16 @@ async function main() {
   }
 
   console.log(`🔍 Buscando por "${term}"...`);
-  const targetPacks = packFilter ? [packFilter] : PACKS;
+  const allPacks = discoverPacksFromModuleJson(ROOT_DIR);
+  const targetPacks = packFilter
+    ? allPacks.filter(p => p.name === packFilter)
+    : allPacks;
 
   let totalHits = 0;
   for (const p of targetPacks) {
     const hits = await searchPack(p, term, typeFilter, limit - totalHits);
     if (hits.length > 0) {
-      console.log(`\n📦 Pack: ${p} (${hits.length} resultados):`);
+      console.log(`\n📦 Pack: ${p.name} (${hits.length} resultados):`);
       for (const h of hits) {
         console.log(`   • [${h.id}] ${h.name}${h.details}`);
       }

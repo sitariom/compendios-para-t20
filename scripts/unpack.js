@@ -2,22 +2,17 @@
 const { ClassicLevel } = require('classic-level');
 const fs = require('fs');
 const path = require('path');
+const { discoverPacksFromModuleJson } = require('./pack-discovery');
 
-const PACKS = [
-  'Macros_T20',
-  'Diarios_T20',
-  'Tabelas_T20',
-  'Itens_T20',
-  'Ameacas_T20',
-  'Playlist_T20'
-];
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 function sanitizeFilename(name) {
   return name.replace(/[/\\?%*:|"<>]/g, '_').trim().slice(0, 80);
 }
 
-async function unpackPack(packName, outDir) {
-  const packPath = path.join('packs', packName);
+async function unpackPack(packDef, outDir) {
+  const packName = typeof packDef === 'string' ? packDef : packDef.name;
+  const packPath = typeof packDef === 'string' ? path.join(ROOT_DIR, 'packs', packDef) : packDef.absPath;
   if (!fs.existsSync(packPath)) {
     console.error(`Pack não encontrado: ${packPath}`);
     return;
@@ -93,12 +88,14 @@ async function main() {
   const target = args[0] || 'Macros_T20';
   const outDir = 'src/packs';
 
+  const packs = discoverPacksFromModuleJson(ROOT_DIR);
   if (target === '--all') {
-    for (const p of PACKS) {
+    for (const p of packs) {
       await unpackPack(p, outDir);
     }
   } else {
-    await unpackPack(target, outDir);
+    const found = packs.find(p => p.name === target);
+    await unpackPack(found || target, outDir);
   }
 }
 

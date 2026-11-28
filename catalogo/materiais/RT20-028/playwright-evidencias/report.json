@@ -1,0 +1,71 @@
+{
+  "material_id": "RT20-028",
+  "modo": "PLAN_ONLY",
+  "gerado_em": "2026-11-27T22:39:49.596Z",
+  "total_amostras": 8,
+  "amostras": [
+    {
+      "id": "actor:rt20-028:fld28LiriavelQui",
+      "nome": "Liriavel, Forma de Quimera",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-ameacas.Actor.fld28LiriavelQui"
+    },
+    {
+      "id": "actor:rt20-028:fld28PerigoTempl",
+      "nome": "Templo do Saber em Mutação (Edição 28)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-ameacas.Actor.fld28PerigoTempl"
+    },
+    {
+      "id": "actor:rt20-028:fld28RashidFullg",
+      "nome": "Rashid, Fullgori",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-ameacas.Actor.fld28RashidFullg"
+    },
+    {
+      "id": "journalentry:rt20-028:fld28DiarioAcoAr",
+      "nome": "Fúlgor dos Deuses — Edição 28: Aço e Arcano",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-diarios.JournalEntry.fld28DiarioAcoAr"
+    },
+    {
+      "id": "item:rt20-028:fld28ChavePortaA",
+      "nome": "Chave Antiga do Portal da Academia Arcana",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-equipamentos.Item.fld28ChavePortaA"
+    },
+    {
+      "id": "macro:rt20-028:fld28MacroUrgenc",
+      "nome": "Rastreador de Urgência & Eventos do Campus (Edição 28)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-macros.Macro.fld28MacroUrgenc"
+    },
+    {
+      "id": "item:rt20-028:fld28DesejoWynna",
+      "nome": "Desejo de Wynna",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-poderes.Item.fld28DesejoWynna"
+    },
+    {
+      "id": "rolltable:rt20-028:fld28TabFrasesRa",
+      "nome": "Frases de Combate de Rashid Fullgori (Edição 28)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid": "Compendium.compendios-para-t20.rt20-028-tabelas.RollTable.fld28TabFrasesRa"
+    }
+  ],
+  "requisitos_ambiente": [
+    "FOUNDRY_URL",
+    "FOUNDRY_ADMIN_PASSWORD",
+    "FOUNDRY_WORLD",
+    "FOUNDRY_USER",
+    "playwright"
+  ]
+}
