@@ -14,5 +14,5 @@
 - [x] 3.2 Executar `npm run ci:quality`, `npm run catalogo:init`, `node scripts/catalogo-extract.js --material RT20-029`, `node scripts/catalogo-runner.js --material RT20-029 --blind-audit` e `npx codegraph index` com 0 erros e rastreabilidade PDF 100%.
 
 ## Fase 4 — Release & Validação Playwright Live
-- [ ] 4.1 Abrir e mergear PR na `main`, publicar nova tag de release no GitHub Actions e validar atualização + renderização completa de `RT20-029` no Foundry ao vivo via `npm run validate:playwright -- --material RT20-029`.
-- [ ] 4.2 Sincronizar evidências Playwright + `CATALOGO.md` + Engram/Mnemosyne via PR na `main`.
+- [x] 4.1 Abrir e mergear PR na `main`, publicar nova tag de release no GitHub Actions e validar atualização + renderização completa de `RT20-029` no Foundry ao vivo via `npm run validate:playwright -- --material RT20-029`.
+- [x] 4.2 Sincronizar evidências Playwright + `CATALOGO.md` + Engram/Mnemosyne via PR na `main`.

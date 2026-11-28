@@ -1,0 +1,165 @@
+{
+  "material_id": "RT20-029",
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.1",
+    "confirmedDialog": false,
+    "versionAfter": "2.1.0",
+    "notifications": [
+      {
+        "msg": "SETUP.InstallSuccess",
+        "type": "info"
+      }
+    ],
+    "notifText": "Module compendios-para-t20 was installed successfully"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.1.0",
+    "packsCount": 64,
+    "packFoldersCount": 21
+  },
+  "status": "APROVADO",
+  "executado_em": "2026-11-28T04:19:17.736Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "network_errors": [],
+  "ui_errors": [],
+  "checks": [
+    {
+      "id": "actor:rt20-029:fld29GuardiaoAbi",
+      "nome": "Guardião do Lamento Abissal",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\Actor_fld29GuardiaoAbi.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-029:fld29NamasqallAb",
+      "nome": "Namasqall Abandonado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\Actor_fld29NamasqallAb.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-029:fld29RespeitoMar",
+      "nome": "Portal do Templo do Oceano: Respeito das Marés (ND 9)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\Actor_fld29RespeitoMar.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-029:fld29ViagemMarHa",
+      "nome": "Viagem ao Fundo do Mar (Desafio Subaquático ND 9)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\Actor_fld29ViagemMarHa.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "journalentry:rt20-029:fld29DiarioDorPr",
+      "nome": "Fúlgor dos Deuses — Edição 29: Dor Profunda",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\JournalEntry_fld29DiarioDorPr.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:rt20-029:fld29BuzioMareFu",
+      "nome": "Búzio da Maré Furiosa (Búzio da Maré Eterna)",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\Item_fld29BuzioMareFu.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "macro:rt20-029:fld29MacroMynath",
+      "nome": "Rastreador: Combate contra Mynath & Regras Subaquáticas (Edição 29)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\Macro_fld29MacroMynath.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:rt20-029:fld29ParcLiriavA",
+      "nome": "Parceira: Liriavel Cintilara (Campanha Dor Profunda)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\Item_fld29ParcLiriavA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "rolltable:rt20-029:fld29TabArenaTem",
+      "nome": "Templo do Oceano — Ações de Arena do Guardião (Edição 29)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-029\\playwright-evidencias\\RollTable_fld29TabArenaTem.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    }
+  ]
+}

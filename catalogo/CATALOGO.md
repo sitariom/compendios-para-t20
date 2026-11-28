@@ -1,6 +1,6 @@
 # Catálogo Cumulativo de Adaptações — Tormenta 20 → Foundry VTT
 
-> Atualizado em: `2026-11-28T04:03:53.925Z`
+> Atualizado em: `2026-11-28T04:49:19.976Z`
 
 ## Resumo Executivo
 - **Total de Artefatos nos Compêndios:** 6068 (**233** criados pelo agente em DB #226–#232 e Fúlgor #25–#29; **5835** do acervo legado manual pré-catálogo)
@@ -22,7 +22,7 @@
 | `RT20-026` | Fúlgor dos Deuses — Edição 26: Forja da Vingança | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 26 | 6 | 17 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 | `RT20-027` | Fúlgor dos Deuses — Edição 27: Dia e Noite | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 27 | 6 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 | `RT20-028` | Fúlgor dos Deuses — Edição 28: Aço e Arcano | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 28 | 3 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
-| `RT20-029` | Fúlgor dos Deuses — Edição 29: Dor Profunda | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 29 | 4 | 4 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
+| `RT20-029` | Fúlgor dos Deuses — Edição 29: Dor Profunda | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 29 | 4 | 4 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 
 ## 2. Acervo Legado Manual (Catalogado Retroativamente — Preservado nos Packs Base)
 | ID | Coleção / Publicação | Atores | Itens | Magias | Diários | Tabelas | Macros | Playlists | Status |
