@@ -8,25 +8,35 @@
     "moduleId": "compendios-para-t20",
     "versionBefore": "2.0.0",
     "confirmedDialog": false,
-    "versionAfter": "2.0.0",
+    "versionAfter": "2.0.1",
     "notifications": [
       {
-        "msg": "PACKAGE.AlreadyUpdated",
+        "msg": "SETUP.InstallSuccess",
         "type": "info"
       }
     ],
-    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+    "notifText": "Module compendios-para-t20 was installed successfully"
   },
   "runtime_summary": {
     "foundryVersion": "13.351",
     "systemVersion": "1.5.015",
-    "moduleVersion": "2.0.0",
+    "moduleVersion": "2.0.1",
     "packsCount": 58,
     "packFoldersCount": 20
   },
-  "status": "REPROVADO",
-  "executado_em": "2026-11-28T01:26:52.125Z",
+  "status": "APROVADO",
+  "executado_em": "2026-11-28T02:23:23.833Z",
   "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    },
     {
       "type": "http",
       "status": 404,
@@ -38,167 +48,9 @@
       "location": "https://lipesrpg.com.br/designer-(56).webp"
     }
   ],
-  "console_errors": [
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/assassinar.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/dreno.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/furia.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/montaria.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
-    },
-    {
-      "text": "Error: Failed data preparation for Compendium.compendios-para-t20.db-0230-ameacas.Actor.gq8KNocnMur230AA. Cannot read properties of undefined (reading 'value')\n    at Hooks.onError (https://lipesrpg.com.br/scripts/foundry.mjs:23854:24)\n    at ActorT20._safePrepareData (https://lipesrpg.com.br/scripts/foundry.mjs:32568:17)\n    at ActorT20._initialize (https://lipesrpg.com.br/scripts/foundry.mjs:32398:12)\n    at new DataModel (https://lipesrpg.com.br/scripts/foundry.mjs:11420:10)\n    at new ClientDocumentMixin (https://lipesrpg.com.br/scripts/foundry.mjs:32362:7)\n    at new Actor (https://lipesrpg.com.br/scripts/foundry.mjs:41217:15)\n    at new ActorT20 (https://lipesrpg.com.br/systems/tormenta20/tormenta20.mjs:7627:1)\n    at ActorT20.fromSource (https://lipesrpg.com.br/scripts/foundry.mjs:11894:12)\n    at https://lipesrpg.com.br/scripts/foundry.mjs:58557:54\n    at Array.map (<anonymous>)",
-      "location": "https://lipesrpg.com.br/scripts/foundry.mjs"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/espada-bastarda.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/magicos/pedra-alma.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/estrategia.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/velocidade.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/abrolhos.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/vapor.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/lama.webp"
-    }
-  ],
+  "console_errors": [],
   "page_errors": [],
-  "network_errors": [
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/assassinar.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/dreno.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/furia.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/montaria.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/espada-bastarda.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/magicos/pedra-alma.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/estrategia.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/velocidade.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/abrolhos.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/vapor.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/lama.webp"
-    }
-  ],
+  "network_errors": [],
   "ui_errors": [],
   "checks": [
     {
@@ -207,10 +59,8 @@
       "tipo": "Actor",
       "subtipo": "npc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KArzak230AAAA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/poderes/ameacas/assassinar.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -233,10 +83,8 @@
       "tipo": "Actor",
       "subtipo": "npc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KColePes230AA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/poderes/ameacas/dreno.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -247,10 +95,8 @@
       "tipo": "Actor",
       "subtipo": "npc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KGaarda230AAA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/poderes/ameacas/furia.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -261,10 +107,8 @@
       "tipo": "Actor",
       "subtipo": "npc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KGineOni230AA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/poderes/ameacas/montaria.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -275,10 +119,8 @@
       "tipo": "Actor",
       "subtipo": "npc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KGobGorl230AA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/poderes/ameacas/explosao.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -289,10 +131,8 @@
       "tipo": "Actor",
       "subtipo": "npc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KLancOni230AA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/armas/lanca.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -351,10 +191,8 @@
       "tipo": "Actor",
       "subtipo": "npc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KSargOni230AA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/armas/espada-bastarda.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -389,11 +227,8 @@
       "tipo": "Item",
       "subtipo": "arma",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Item_gq8KKumshrak230A.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/armas/foice.webp",
-        "systems/tormenta20/icons/armas/foice.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": "locked-pack-skipped",
       "rendered": true
@@ -404,10 +239,8 @@
       "tipo": "Item",
       "subtipo": "consumivel",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Item_gq8KCentelha230A.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/itens/magicos/pedra-alma.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -430,11 +263,8 @@
       "tipo": "Item",
       "subtipo": "equipamento",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Item_gq8KCarruagem230.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/itens/equipamentos/carroca.webp",
-        "systems/tormenta20/icons/itens/equipamentos/carroca.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": "locked-pack-skipped",
       "rendered": true
@@ -457,16 +287,8 @@
       "tipo": "RollTable",
       "subtipo": "doc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\RollTable_tCorridaBrut230A.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/itens/equipamentos/carroca.webp",
-        "systems/tormenta20/icons/armas/lanca.webp",
-        "systems/tormenta20/icons/poderes/ameacas/explosao.webp",
-        "systems/tormenta20/icons/armas/foice.webp",
-        "systems/tormenta20/icons/poderes/ameacas/vapor.webp",
-        "systems/tormenta20/icons/itens/equipamentos/abrolhos.webp",
-        "systems/tormenta20/icons/poderes/ameacas/lama.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true

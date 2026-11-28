@@ -8,25 +8,35 @@
     "moduleId": "compendios-para-t20",
     "versionBefore": "2.0.0",
     "confirmedDialog": false,
-    "versionAfter": "2.0.0",
+    "versionAfter": "2.0.1",
     "notifications": [
       {
-        "msg": "PACKAGE.AlreadyUpdated",
+        "msg": "SETUP.InstallSuccess",
         "type": "info"
       }
     ],
-    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+    "notifText": "Module compendios-para-t20 was installed successfully"
   },
   "runtime_summary": {
     "foundryVersion": "13.351",
     "systemVersion": "1.5.015",
-    "moduleVersion": "2.0.0",
+    "moduleVersion": "2.0.1",
     "packsCount": 58,
     "packFoldersCount": 20
   },
-  "status": "REPROVADO",
-  "executado_em": "2026-11-28T01:27:17.649Z",
+  "status": "APROVADO",
+  "executado_em": "2026-11-28T02:23:51.750Z",
   "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    },
     {
       "type": "http",
       "status": 404,
@@ -38,35 +48,9 @@
       "location": "https://lipesrpg.com.br/designer-(56).webp"
     }
   ],
-  "console_errors": [
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/montaria.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/concedidos/visao-no-escuro.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/magias/tempestade-estelar.webp"
-    }
-  ],
+  "console_errors": [],
   "page_errors": [],
-  "network_errors": [
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/montaria.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/concedidos/visao-no-escuro.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/magias/tempestade-estelar.webp"
-    }
-  ],
+  "network_errors": [],
   "ui_errors": [],
   "checks": [
     {
@@ -231,12 +215,8 @@
       "tipo": "RollTable",
       "subtipo": "doc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0231\\playwright-evidencias\\RollTable_t8231EncDiurnosA.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/poderes/concedidos/visao-no-escuro.webp",
-        "systems/tormenta20/icons/poderes/ameacas/montaria.webp",
-        "systems/tormenta20/icons/magias/tempestade-estelar.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true

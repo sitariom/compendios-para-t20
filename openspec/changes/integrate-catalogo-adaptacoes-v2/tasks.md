@@ -20,4 +20,4 @@
 
 ## Fase 5 — Verificação Final e Sincronização
 - [x] 5.1 Executar `openspec validate integrate-catalogo-adaptacoes-v2`, `npm run catalogo:init`, `npm run catalogo:migrate:dry`, `npm run ci:quality` e `npx codegraph index`.
-- [ ] 5.2 Registrar decisões e estado no Engram e Mnemosyne; após aprovação/conexão ao mundo Foundry, executar `--apply` da migração, auditoria cega do baseline e validação Playwright por publicação.
+- [x] 5.2 Registrar decisões e estado no Engram e Mnemosyne; após aprovação/conexão ao mundo Foundry, executar `--apply` da migração, auditoria cega do baseline e validação Playwright por publicação.
