@@ -1,0 +1,360 @@
+{
+  "material_id": "RT20-029",
+  "cobertura_pdf": "100% (13/13)",
+  "gerado_em": "2026-11-28T03:53:17.349Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:rt20-029:fld29GuardiaoAbi",
+      "nome": "Guardião do Lamento Abissal",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-ameacas.Actor.fld29GuardiaoAbi",
+      "pack_destino_hierarquico": "rt20-029-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        13,
+        14,
+        15,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-029:fld29NamasqallAb",
+      "nome": "Namasqall Abandonado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-ameacas.Actor.fld29NamasqallAb",
+      "pack_destino_hierarquico": "rt20-029-ameacas",
+      "paginas_pdf": [
+        2,
+        11,
+        14,
+        15,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-029:fld29RespeitoMar",
+      "nome": "Portal do Templo do Oceano: Respeito das Marés (ND 9)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-ameacas.Actor.fld29RespeitoMar",
+      "pack_destino_hierarquico": "rt20-029-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-029:fld29ViagemMarHa",
+      "nome": "Viagem ao Fundo do Mar (Desafio Subaquático ND 9)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-ameacas.Actor.fld29ViagemMarHa",
+      "pack_destino_hierarquico": "rt20-029-ameacas",
+      "paginas_pdf": [
+        2,
+        10,
+        11
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "journalentry:rt20-029:fld29DiarioDorPr",
+      "nome": "Fúlgor dos Deuses — Edição 29: Dor Profunda",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-diarios.JournalEntry.fld29DiarioDorPr",
+      "pack_destino_hierarquico": "rt20-029-diarios",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-029:fld29BuzioMareFu",
+      "nome": "Búzio da Maré Furiosa (Búzio da Maré Eterna)",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-equipamentos.Item.fld29BuzioMareFu",
+      "pack_destino_hierarquico": "rt20-029-equipamentos",
+      "paginas_pdf": [
+        2,
+        14,
+        15,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-029:fld29EstilhaMynA",
+      "nome": "Estilhas Cristalinas de Mynath",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-equipamentos.Item.fld29EstilhaMynA",
+      "pack_destino_hierarquico": "rt20-029-equipamentos",
+      "paginas_pdf": [
+        2,
+        4,
+        16,
+        17,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "macro:rt20-029:fld29MacroMynath",
+      "nome": "Rastreador: Combate contra Mynath & Regras Subaquáticas (Edição 29)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-macros.Macro.fld29MacroMynath",
+      "pack_destino_hierarquico": "rt20-029-macros",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-029:fld29ParcLiriavA",
+      "nome": "Parceira: Liriavel Cintilara (Campanha Dor Profunda)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-poderes.Item.fld29ParcLiriavA",
+      "pack_destino_hierarquico": "rt20-029-poderes",
+      "paginas_pdf": [
+        5,
+        7,
+        9,
+        10,
+        11,
+        14,
+        16,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-029:fld29ParcThalgri",
+      "nome": "Parceiro: \"Thalgrimm\" Sangue de Ferro (Médico Veterano)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-poderes.Item.fld29ParcThalgri",
+      "pack_destino_hierarquico": "rt20-029-poderes",
+      "paginas_pdf": [
+        4,
+        7,
+        9,
+        10,
+        11,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-029:fld29TabArenaTem",
+      "nome": "Templo do Oceano — Ações de Arena do Guardião (Edição 29)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-tabelas.RollTable.fld29TabArenaTem",
+      "pack_destino_hierarquico": "rt20-029-tabelas",
+      "paginas_pdf": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-029:fld29TabFrasesGu",
+      "nome": "Guardião do Lamento Abissal — Frases de Combate (Edição 29)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-tabelas.RollTable.fld29TabFrasesGu",
+      "pack_destino_hierarquico": "rt20-029-tabelas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        13,
+        14,
+        15,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-029:fld29TabFrasesMy",
+      "nome": "Mynath, o Eco Dourado — Provocações por Estágio (Edição 29)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-029-tabelas.RollTable.fld29TabFrasesMy",
+      "pack_destino_hierarquico": "rt20-029-tabelas",
+      "paginas_pdf": [
+        2,
+        4,
+        9,
+        16,
+        17,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    }
+  ]
+}

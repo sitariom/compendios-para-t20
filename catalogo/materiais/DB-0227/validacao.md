@@ -12,8 +12,8 @@
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |
 |---|---|---|---|---:|---|
-| `actor:db-0227:6jcy63pS6TLhCoHm` | Lynel | Actor | npc | 0 | `VALIDADO` |
-| `actor:db-0227:KnUyjOaSBfGcl48v` | Oxxdon | Actor | npc | 0 | `VALIDADO` |
-| `actor:db-0227:XEdZUz2ETKvxvjZH` | Enxame de Armas | Actor | npc | 0 | `VALIDADO` |
-| `actor:db-0227:ZB0VONjuE8XS5gmH` | Tropa de Mortos | Actor | npc | 0 | `VALIDADO` |
-| `actor:db-0227:po00j60czLdn1eu5` | Inumano | Actor | npc | 0 | `VALIDADO` |
+| `actor:db-0227:6jcy63pS6TLhCoHm` | Lynel | Actor | npc | 0 | `PUBLICADO` |
+| `actor:db-0227:KnUyjOaSBfGcl48v` | Oxxdon | Actor | npc | 0 | `PUBLICADO` |
+| `actor:db-0227:XEdZUz2ETKvxvjZH` | Enxame de Armas | Actor | npc | 0 | `PUBLICADO` |
+| `actor:db-0227:ZB0VONjuE8XS5gmH` | Tropa de Mortos | Actor | npc | 0 | `PUBLICADO` |
+| `actor:db-0227:po00j60czLdn1eu5` | Inumano | Actor | npc | 0 | `PUBLICADO` |

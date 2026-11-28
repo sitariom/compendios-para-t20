@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.1.0 - 2026-11-28
+
+- **Revista Tormenta 20 — Fúlgor dos Deuses, Edição 29: Dor Profunda (`RT20-029`, `scripts/inject-fullgor29.js`, `scripts/validate-fullgor29-compliance.js`)**:
+  - Criados diretamente nos **6 novos compêndios hierárquicos** (`packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-*`, totalizando **64 packs** declarados em `module.json`):
+    - **`rt20-029-ameacas`**: *Guardião do Lamento Abissal* (ND 9, Monstro Enorme `3x3`, 560 PV, Defesa 33, Templo consagrado e 4 ações de arena), *Namasqall Abandonado* (ND 9, Espírito Elemental Colossal `4x4`, 550 PV, Defesa 37, Maremoto CD 31), *Viagem ao Fundo do Mar (ND 9)* (`hazard`) e *Portal do Templo do Oceano: Respeito das Marés (ND 9)* (`hazard`), com tokens PNG transparentes 2-Minute Tabletop em `assets/tokens/`.
+    - **`rt20-029-equipamentos` & `rt20-029-poderes`**: relíquia *Búzio da Maré Furiosa (Búzio da Maré Eterna)*, *Estilhas Cristalinas de Mynath*, *Parceira: Liriavel Cintilara (Campanha Dor Profunda)* (`+2 Conh/Dipl/Mist` via ActiveEffect + formas de combate) e *Parceiro: "Thalgrimm" Sangue de Ferro (Médico Veterano)*.
+    - **`rt20-029-diarios`**: diário completo *Fúlgor dos Deuses — Edição 29: Dor Profunda* com 7 páginas e referências `@UUID` cruzadas (incluindo vínculo ao *Pamgra* em `Ameacas_T20`).
+    - **`rt20-029-tabelas` & `rt20-029-macros`**: 3 tabelas de rolagem (`1d10` Frases do Guardião, `1d4` Ações de Arena do Templo, `1d18` Provocações por Estágio de Mynath) e macro interativa v12–v14 *Rastreador: Combate contra Mynath & Regras Subaquáticas (Edição 29)*.
+  - Validação completa com **100% de rastreabilidade PDF** (22 páginas, 13/13 artefatos), DataModels `Tormenta20` v13+v14 (`validados=13, bloqueados=0`) e 0 colisões/@UUID quebrados.
+
 ## v2.0.1 - 2026-11-27
 
 - **Correções em Tempo Real (Playwright Foundry v13 + `Tormenta20` v1.5.015)**:

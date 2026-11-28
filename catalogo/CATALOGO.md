@@ -1,12 +1,12 @@
 # Catálogo Cumulativo de Adaptações — Tormenta 20 → Foundry VTT
 
-> Atualizado em: `2026-11-28T02:27:41.366Z`
+> Atualizado em: `2026-11-28T04:03:53.925Z`
 
 ## Resumo Executivo
-- **Total de Artefatos nos Compêndios:** 6055 (**220** criados pelo agente em DB #226–#232 e Fúlgor #25–#28; **5835** do acervo legado manual pré-catálogo)
+- **Total de Artefatos nos Compêndios:** 6068 (**233** criados pelo agente em DB #226–#232 e Fúlgor #25–#29; **5835** do acervo legado manual pré-catálogo)
 - **Publicações Processadas pelo Agente (aguardando Auditoria Cega + Playwright):** 0
 - **Publicações / Coleções Legado Manual (catalogadas retroativamente):** 70
-- **Fontes Descobertas a Processar (`REGISTRADO`):** 122
+- **Fontes Descobertas a Processar (`REGISTRADO`):** 121
 
 ## 1. Edições Processadas pelo Agente (Migração Hierárquica + Validação Dual)
 | ID | Material | Série / Campanha | Atores | Itens | Magias | Diários | Tabelas | Macros | Auditoria Cega | Playwright | Status |
@@ -22,6 +22,7 @@
 | `RT20-026` | Fúlgor dos Deuses — Edição 26: Forja da Vingança | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 26 | 6 | 17 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 | `RT20-027` | Fúlgor dos Deuses — Edição 27: Dia e Noite | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 27 | 6 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 | `RT20-028` | Fúlgor dos Deuses — Edição 28: Aço e Arcano | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 28 | 3 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `RT20-029` | Fúlgor dos Deuses — Edição 29: Dor Profunda | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 29 | 4 | 4 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
 
 ## 2. Acervo Legado Manual (Catalogado Retroativamente — Preservado nos Packs Base)
 | ID | Coleção / Publicação | Atores | Itens | Magias | Diários | Tabelas | Macros | Playlists | Status |
@@ -161,4 +162,4 @@
 | `DB-0170` | Dragão Brasil #170 | Dragão Brasil → Edição 170 | `REGISTRADO` |
 | `DB-0171` | Dragão Brasil #171 | Dragão Brasil → Edição 171 | `REGISTRADO` |
 
-_... e mais 62 edições da Dragão Brasil em `catalogo/catalogo.json`._
+_... e mais 61 edições da Dragão Brasil em `catalogo/catalogo.json`._

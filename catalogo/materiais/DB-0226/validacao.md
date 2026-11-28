@@ -12,7 +12,7 @@
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |
 |---|---|---|---|---:|---|
-| `actor:db-0226:7UyOrY1k439sFonD` | Espectro do Pesadelo | Actor | npc | 0 | `VALIDADO` |
-| `actor:db-0226:AOuINuG6UNmsJTIL` | Tyrant | Actor | npc | 0 | `VALIDADO` |
-| `actor:db-0226:MVyBvkSfAQJKrgjn` | Come-Sonhos | Actor | npc | 0 | `VALIDADO` |
-| `journalentry:db-0226:YuNalZOnONBoAq70` | Regras de Reputação (DB #226) | JournalEntry | doc | 0 | `VALIDADO` |
+| `actor:db-0226:7UyOrY1k439sFonD` | Espectro do Pesadelo | Actor | npc | 0 | `PUBLICADO` |
+| `actor:db-0226:AOuINuG6UNmsJTIL` | Tyrant | Actor | npc | 0 | `PUBLICADO` |
+| `actor:db-0226:MVyBvkSfAQJKrgjn` | Come-Sonhos | Actor | npc | 0 | `PUBLICADO` |
+| `journalentry:db-0226:YuNalZOnONBoAq70` | Regras de Reputação (DB #226) | JournalEntry | doc | 0 | `PUBLICADO` |

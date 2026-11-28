@@ -12,17 +12,17 @@
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |
 |---|---|---|---|---:|---|
-| `actor:rt20-028:fld28LiriavelQui` | Liriavel, Forma de Quimera | Actor | npc | 0 | `VALIDADO` |
-| `actor:rt20-028:fld28PerigoTempl` | Templo do Saber em Mutação (Edição 28) | Actor | hazard | 0 | `VALIDADO` |
-| `actor:rt20-028:fld28RashidFullg` | Rashid, Fullgori | Actor | npc | 0 | `VALIDADO` |
-| `journalentry:rt20-028:fld28DiarioAcoAr` | Fúlgor dos Deuses — Edição 28: Aço e Arcano | JournalEntry | doc | 0 | `VALIDADO` |
-| `item:rt20-028:fld28ChavePortaA` | Chave Antiga do Portal da Academia Arcana | Item | equipamento | 0 | `VALIDADO` |
-| `item:rt20-028:fld28GemaWynnaAA` | Gema do Renascimento de Rashid (Bênção de Wynna) | Item | equipamento | 0 | `VALIDADO` |
-| `item:rt20-028:fld28MatricForjA` | Matrícula Forjada da Academia Arcana | Item | equipamento | 0 | `VALIDADO` |
-| `macro:rt20-028:fld28MacroUrgenc` | Rastreador de Urgência & Eventos do Campus (Edição 28) | Macro | script | 0 | `VALIDADO` |
-| `item:rt20-028:fld28DesejoWynna` | Desejo de Wynna | Item | poder | 0 | `VALIDADO` |
-| `item:rt20-028:fld28ParcAcadAAA` | Parceiro: Suporte Arcano da Academia (Vladislav Tpish) | Item | poder | 0 | `VALIDADO` |
-| `item:rt20-028:fld28ParcLiriavA` | Parceiro: Liriavel Cintilara | Item | poder | 0 | `VALIDADO` |
-| `rolltable:rt20-028:fld28TabFrasesRa` | Frases de Combate de Rashid Fullgori (Edição 28) | RollTable | doc | 0 | `VALIDADO` |
-| `rolltable:rt20-028:fld28TabFrasesTe` | Frases de Combate no Templo do Saber (Edição 28) | RollTable | doc | 0 | `VALIDADO` |
-| `rolltable:rt20-028:fld28TabRuasResp` | Ruas que Respiram — Eventos Aleatórios (Edição 28) | RollTable | doc | 0 | `VALIDADO` |
+| `actor:rt20-028:fld28LiriavelQui` | Liriavel, Forma de Quimera | Actor | npc | 0 | `PUBLICADO` |
+| `actor:rt20-028:fld28PerigoTempl` | Templo do Saber em Mutação (Edição 28) | Actor | hazard | 0 | `PUBLICADO` |
+| `actor:rt20-028:fld28RashidFullg` | Rashid, Fullgori | Actor | npc | 0 | `PUBLICADO` |
+| `journalentry:rt20-028:fld28DiarioAcoAr` | Fúlgor dos Deuses — Edição 28: Aço e Arcano | JournalEntry | doc | 0 | `PUBLICADO` |
+| `item:rt20-028:fld28ChavePortaA` | Chave Antiga do Portal da Academia Arcana | Item | equipamento | 0 | `PUBLICADO` |
+| `item:rt20-028:fld28GemaWynnaAA` | Gema do Renascimento de Rashid (Bênção de Wynna) | Item | equipamento | 0 | `PUBLICADO` |
+| `item:rt20-028:fld28MatricForjA` | Matrícula Forjada da Academia Arcana | Item | equipamento | 0 | `PUBLICADO` |
+| `macro:rt20-028:fld28MacroUrgenc` | Rastreador de Urgência & Eventos do Campus (Edição 28) | Macro | script | 0 | `PUBLICADO` |
+| `item:rt20-028:fld28DesejoWynna` | Desejo de Wynna | Item | poder | 0 | `PUBLICADO` |
+| `item:rt20-028:fld28ParcAcadAAA` | Parceiro: Suporte Arcano da Academia (Vladislav Tpish) | Item | poder | 0 | `PUBLICADO` |
+| `item:rt20-028:fld28ParcLiriavA` | Parceiro: Liriavel Cintilara | Item | poder | 0 | `PUBLICADO` |
+| `rolltable:rt20-028:fld28TabFrasesRa` | Frases de Combate de Rashid Fullgori (Edição 28) | RollTable | doc | 0 | `PUBLICADO` |
+| `rolltable:rt20-028:fld28TabFrasesTe` | Frases de Combate no Templo do Saber (Edição 28) | RollTable | doc | 0 | `PUBLICADO` |
+| `rolltable:rt20-028:fld28TabRuasResp` | Ruas que Respiram — Eventos Aleatórios (Edição 28) | RollTable | doc | 0 | `PUBLICADO` |
