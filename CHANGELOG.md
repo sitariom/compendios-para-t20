@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.0.1 - 2026-11-27
+
+- **Correções em Tempo Real (Playwright Foundry v13 + `Tormenta20` v1.5.015)**:
+  - **Fix de Preparação de Dados (`Actor.gq8KNocnMur230AA` — *Nócnam Mur*)**: corrigido `system.alcance` de `"m"` para `"spec"` na arma *Quatro Tentáculos-Cauda* (`scripts/create-entry.js`, `scripts/avrl-runner.js`, `scripts/audit.js`), evitando crash `TypeError: Cannot read properties of undefined (reading 'value')` em `ItemT20._prepareLabels()` (pois `WeaponData` não possui `system.range`).
+  - **Saneamento de 151 Ícones Quebrados (404) para Acervo Verificado do Sistema**: adicionada lista canônica `scripts/valid-system-icons.json` (`790` ícones `systems/tormenta20/icons/...` validados ao vivo via Playwright) + `BROKEN_ICON_REMEDIATION_MAP` e guardas `isVerifiedIconPath`/`repairBrokenIconPath` em `scripts/icon-resolver.js`, `scripts/avrl-runner.js` e `scripts/audit.js`, remediando atores, subitens, ActiveEffects, tabelas e macros nos 52 packs hierárquicos.
+  - **Validador Playwright em Lote & Roteamento `/auth`/`/join`/`/setup`**: adicionado suporte a `--all` (`npm run validate:playwright:all`), detecção explícita de `SETUP.InstallSuccess`, fallback inteligente para retorno de `/join` ao `/setup` durante auto-update e ignorância de `<img src="">` vazios do template Tormenta20.
+
 ## v2.0.0 - 2026-11-27
 
 - **Organização Hierárquica de Compêndios (58 Packs) + Fúlgor dos Deuses #28 + Compatibilidade Foundry v12–v14 + Catálogo Cumulativo v2**:

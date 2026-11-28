@@ -1,0 +1,199 @@
+{
+  "material_id": "DB-0229",
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.0",
+    "confirmedDialog": false,
+    "versionAfter": "2.0.0",
+    "notifications": [
+      {
+        "msg": "PACKAGE.AlreadyUpdated",
+        "type": "info"
+      }
+    ],
+    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.0.0",
+    "packsCount": 58,
+    "packFoldersCount": 20
+  },
+  "status": "REPROVADO",
+  "executado_em": "2026-11-28T01:26:16.097Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/combatentes/bloqueio-com-escudo.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/terremoto.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/svg/stairs.svg"
+    }
+  ],
+  "page_errors": [],
+  "network_errors": [
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/combatentes/bloqueio-com-escudo.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/terremoto.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/svg/stairs.svg"
+    }
+  ],
+  "ui_errors": [],
+  "checks": [
+    {
+      "id": "actor:db-0229:gq8KBasAnc229AAA",
+      "nome": "Basilisco Ancestral",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Actor_gq8KBasAnc229AAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0229:gq8KDefRoch229AA",
+      "nome": "Defensor Rochoso Desperto",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Actor_gq8KDefRoch229AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0229:gq8KPreBas229AAA",
+      "nome": "Presa do Grande Basilisco",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Actor_gq8KPreBas229AAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0229:gq8KRevSerp229AA",
+      "nome": "Revoada de Serpes",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Actor_gq8KRevSerp229AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:db-0229:E5ARH2Hpt3RdsBrS",
+      "nome": "Machado de Batalha do Culto do Basilisco",
+      "tipo": "Item",
+      "subtipo": "arma",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Item_E5ARH2Hpt3RdsBrS.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:db-0229:4XKmGHsOYphYdf2h",
+      "nome": "Peçonha Potente",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Item_4XKmGHsOYphYdf2h.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "journalentry:db-0229:jCaesColinas229A",
+      "nome": "Cenário: Os Cães das Colinas (DB #229)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\JournalEntry_jCaesColinas229A.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:db-0229:uCGImb2DmCZfW42N",
+      "nome": "Couro de Basilisco Ancestral",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Item_uCGImb2DmCZfW42N.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:db-0229:1L1EEvnpav0XONsU",
+      "nome": "Parceiro: Defensor Rochoso Desperto",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\Item_1L1EEvnpav0XONsU.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/classes/combatentes/bloqueio-com-escudo.webp",
+        "systems/tormenta20/icons/poderes/classes/combatentes/bloqueio-com-escudo.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "rolltable:db-0229:tEncontrosS229AA",
+      "nome": "Encontros nas Montanhas Sanguinárias (DB #229)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0229\\playwright-evidencias\\RollTable_tEncontrosS229AA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/ameacas/terremoto.webp",
+        "systems/tormenta20/icons/svg/stairs.svg"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    }
+  ]
+}

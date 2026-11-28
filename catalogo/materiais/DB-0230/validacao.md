@@ -7,7 +7,7 @@
 - **Tormenta20 v13:** `1.5.015` (C:/Users/simoe/OneDrive/Documentos/Tormenta20-master/Tormenta20-master)
 - **Total de Artefatos:** 29
 - **Auditoria Cega (2ª Passagem):** `CONCLUIDA`
-- **Validação Playwright (Foundry Live):** `PENDENTE`
+- **Validação Playwright (Foundry Live):** `REPROVADO`
 
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |
@@ -26,10 +26,12 @@
 | `actor:db-0230:gq8KSargOni230AA` | Sargento Onírico | Actor | npc | 0 | `VALIDADO` |
 | `actor:db-0230:gq8KTeneOni230AA` | Tenente Onírico | Actor | npc | 0 | `VALIDADO` |
 | `actor:db-0230:gq8KZangPes230AA` | Zangão do Pesadelo | Actor | npc | 0 | `VALIDADO` |
-| `item:db-0230:gq8KCarruagem230` | Carruagem Duyshidakk | Item | equipamento | 0 | `VALIDADO` |
-| `item:db-0230:gq8KCentelha230A` | Centelha Onírica | Item | consumivel | 0 | `VALIDADO` |
 | `item:db-0230:gq8KKumshrak230A` | Kum’shrak Eviscerador | Item | arma | 0 | `VALIDADO` |
 | `item:db-0230:gq8KMachadoT230A` | Machado do Campeão de Tyrondir | Item | arma | 0 | `VALIDADO` |
+| `item:db-0230:gq8KCentelha230A` | Centelha Onírica | Item | consumivel | 0 | `VALIDADO` |
+| `journalentry:db-0230:jCorridaBrut230A` | Aventura: A Corrida Brutal (DB #230) | JournalEntry | doc | 0 | `VALIDADO` |
+| `journalentry:db-0230:jReinoPesad230AA` | O Reino dos Pesadelos (DB #230) | JournalEntry | doc | 0 | `VALIDADO` |
+| `item:db-0230:gq8KCarruagem230` | Carruagem Duyshidakk | Item | equipamento | 0 | `VALIDADO` |
 | `item:db-0230:gq8KPRotsheel230` | Parceira: Rotsheel | Item | poder | 0 | `VALIDADO` |
 | `item:db-0230:gq8KPesadPer230A` | Pesadelo Onírico: Sonho Perdido | Item | poder | 0 | `VALIDADO` |
 | `item:db-0230:gq8KSonhoAmo230A` | Sonho Resgatado: Sonho de Amor | Item | poder | 0 | `VALIDADO` |
@@ -39,5 +41,3 @@
 | `rolltable:db-0230:tGanchosP230AAAA` | Ganchos do Pesadelo em Aslothia (DB #230) | RollTable | doc | 0 | `VALIDADO` |
 | `rolltable:db-0230:tNaturezaP230AAA` | Natureza do Pesadelo (DB #230) | RollTable | doc | 0 | `VALIDADO` |
 | `rolltable:db-0230:tSonhosRoub230AA` | Sonhos Roubados pelo Coletor (DB #230) | RollTable | doc | 0 | `VALIDADO` |
-| `journalentry:db-0230:jCorridaBrut230A` | Aventura: A Corrida Brutal (DB #230) | JournalEntry | doc | 0 | `VALIDADO` |
-| `journalentry:db-0230:jReinoPesad230AA` | O Reino dos Pesadelos (DB #230) | JournalEntry | doc | 0 | `VALIDADO` |

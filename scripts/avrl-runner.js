@@ -18,7 +18,7 @@
 const { ClassicLevel } = require('classic-level');
 const path = require('path');
 const fs = require('fs');
-const { resolveToken, resolveIcon } = require('./icon-resolver');
+const { resolveToken, resolveIcon, isVerifiedIconPath, repairBrokenIconPath } = require('./icon-resolver');
 const { discoverPacksFromModuleJson } = require('./pack-discovery');
 const {
   ALL_SKILLS,
@@ -131,8 +131,22 @@ function normalizeActiveEffectDoc(eff, fallbackImg = 'systems/tormenta20/icons/s
   if (!eff.img && eff.icon) {
     eff.img = eff.icon;
     modified = true;
-  } else if (!eff.img || String(eff.img).includes('mystery-man')) {
-    eff.img = fallbackImg || 'systems/tormenta20/icons/svg/skills.svg';
+  }
+  if (!eff.img || String(eff.img).includes('mystery-man') || !isVerifiedIconPath(eff.img)) {
+    const candidateFallback = (fallbackImg && isVerifiedIconPath(fallbackImg))
+      ? fallbackImg
+      : 'systems/tormenta20/icons/svg/skills.svg';
+    const fixedEffImg = !eff.img || String(eff.img).includes('mystery-man')
+      ? candidateFallback
+      : repairBrokenIconPath(eff.img, { name: eff.name, type: 'poder' });
+    if (fixedEffImg !== eff.img) {
+      eff.img = fixedEffImg;
+      anomalies.push(`ActiveEffect "${eff.name}" ícone reparado: ${fixedEffImg}`);
+      modified = true;
+    }
+  }
+  if (eff.icon && !isVerifiedIconPath(eff.icon)) {
+    eff.icon = eff.img;
     modified = true;
   }
   if (eff.origin === undefined) {
@@ -341,8 +355,12 @@ function normalizeItemSystemSchema(doc, { strictRolls = false } = {}) {
 
   // 4. alcance e range.units (T20.distanceUnits)
   const curAlc = doc.system.alcance;
-  if (curAlc && !VALID_DIST_UNITS.has(curAlc)) {
-    const fixedAlc = normalizeAlcance(curAlc);
+  if (doc.type === 'arma' && ['m', 'km'].includes(curAlc)) {
+    doc.system.alcance = 'spec';
+    anomalies.push(`Arma "${doc.name}" alcance "${curAlc}" -> "spec" (WeaponData não possui system.range)`);
+    modified = true;
+  } else if (curAlc && !VALID_DIST_UNITS.has(curAlc)) {
+    const fixedAlc = doc.type === 'arma' && ['m', 'km'].includes(normalizeAlcance(curAlc)) ? 'spec' : normalizeAlcance(curAlc);
     doc.system.alcance = fixedAlc;
     if (doc.system.range) doc.system.range.units = fixedAlc;
     anomalies.push(`"${doc.name}" alcance "${curAlc}" -> "${fixedAlc}"`);
@@ -497,7 +515,7 @@ const STRICT_ACTOR_IDS = new Set([
  * 1. HOOKS DE CICLO DE VIDA (Pós-criação e Pré-persistência)
  */
 
-function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
+function hookValidateAndRemediateActor(actorDoc, embeddedDocs = [], forceIconVerify = false) {
   if (actorDoc.type !== 'npc') {
     return { actorDoc, embeddedDocs, modified: false, anomalies: [] };
   }
@@ -520,10 +538,13 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     anomalies.push(`Token corrigido para 2MTT: ${fixedToken}`);
     modified = true;
   }
-  if (created && (!actorDoc.img || String(actorDoc.img).includes('mystery-man'))) {
-    actorDoc.img = resolveIcon({ name: actorDoc.name, type: 'npc' });
-    anomalies.push(`Imagem da ficha resolvida: ${actorDoc.img}`);
-    modified = true;
+  if ((created || forceIconVerify) && (!actorDoc.img || String(actorDoc.img).includes('mystery-man') || !isVerifiedIconPath(actorDoc.img))) {
+    const fixedImg = repairBrokenIconPath(actorDoc.img, { name: actorDoc.name, type: 'npc' });
+    if (fixedImg !== actorDoc.img) {
+      actorDoc.img = fixedImg;
+      anomalies.push(`Imagem da ficha resolvida: ${actorDoc.img}`);
+      modified = true;
+    }
   }
   if (created && actorDoc.system?.detalhes?.tamanho) {
     const expectedDim = getTokenDimension(actorDoc.system.detalhes.tamanho);
@@ -668,7 +689,7 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     }
   }
 
-  for (const doc of (created ? embeddedDocs : [])) {
+  for (const doc of ((created || forceIconVerify) ? embeddedDocs : [])) {
     if (!doc.img || String(doc.img).includes('mystery-man') || doc.img === 'icons/svg/item-bag.svg') {
       doc.img = resolveIcon({ name: doc.name, type: doc.type });
       anomalies.push(`Ícone do item "${doc.name}" resolvido para ${doc.img}`);
@@ -717,6 +738,14 @@ function hookValidateAndRemediateActor(actorDoc, embeddedDocs = []) {
     if (normRes.modified) {
       anomalies.push(...normRes.anomalies);
       modified = true;
+    }
+    if ((created || forceIconVerify) && (!doc.img || !isVerifiedIconPath(doc.img))) {
+      const fixedSubImg = repairBrokenIconPath(doc.img, { name: doc.name, type: doc.type });
+      if (fixedSubImg !== doc.img) {
+        doc.img = fixedSubImg;
+        anomalies.push(`Ícone do subitem "${doc.name}" reparado: ${fixedSubImg}`);
+        modified = true;
+      }
     }
   }
 
@@ -770,11 +799,14 @@ function hookValidateAndRemediateItem(itemDoc, embeddedEffects = []) {
   let modified = false;
   const created = isCreatedItem(itemDoc);
 
-  // A. Ícone padrão
-  if (!itemDoc.img || itemDoc.img.includes('mystery-man') || itemDoc.img === 'icons/svg/item-bag.svg') {
-    itemDoc.img = resolveIcon({ name: itemDoc.name, type: itemDoc.type });
-    anomalies.push(`Ícone resolvido para: ${itemDoc.img}`);
-    modified = true;
+  // A. Ícone padrão e reparo de caminhos inválidos em itens criados
+  if (!itemDoc.img || itemDoc.img.includes('mystery-man') || itemDoc.img === 'icons/svg/item-bag.svg' || (created && !isVerifiedIconPath(itemDoc.img))) {
+    const fixedImg = repairBrokenIconPath(itemDoc.img, { name: itemDoc.name, type: itemDoc.type });
+    if (fixedImg !== itemDoc.img) {
+      itemDoc.img = fixedImg;
+      anomalies.push(`Ícone resolvido para: ${itemDoc.img}`);
+      modified = true;
+    }
   }
 
   // A2. Normalização determinística de schema para itens criados/adaptados e correções seguras
@@ -863,7 +895,7 @@ function hookValidateAndRemediateItem(itemDoc, embeddedEffects = []) {
 
   // C. Normalização BaseEffect e chaves canônicas nos efeitos existentes (para itens criados)
   for (const eff of embeddedEffects) {
-    if (created || (eff._id && eff._id.startsWith('effAuto'))) {
+    if (created || (eff._id && eff._id.startsWith('effAuto')) || !isVerifiedIconPath(eff.img)) {
       const resEff = normalizeActiveEffectDoc(eff, itemDoc.img, `Item.${itemDoc._id}`);
       if (resEff.modified) {
         anomalies.push(...resEff.anomalies);
@@ -897,15 +929,32 @@ function hookValidateAndRemediateJournal(journalDoc, pages = []) {
   return { journalDoc, pages, modified, anomalies };
 }
 
-function hookValidateAndRemediateTable(tableDoc, results = []) {
+function hookValidateAndRemediateTable(tableDoc, results = [], isHierarchical = false) {
   let modified = false;
   const anomalies = [];
+
+  if (isHierarchical && (!tableDoc.img || !isVerifiedIconPath(tableDoc.img))) {
+    const fixedTImg = repairBrokenIconPath(tableDoc.img, { name: tableDoc.name, type: 'equipamento' });
+    if (fixedTImg !== tableDoc.img) {
+      tableDoc.img = fixedTImg;
+      anomalies.push(`Ícone da tabela reparado: ${fixedTImg}`);
+      modified = true;
+    }
+  }
 
   for (const res of results) {
     if (!res.name || res.name.trim() === '') {
       res.name = (res.text || 'Resultado').slice(0, 30);
       anomalies.push(`Resultado de tabela com nome preenchido: "${res.name}"`);
       modified = true;
+    }
+    if (isHierarchical && res.img && !isVerifiedIconPath(res.img)) {
+      const fixedRImg = repairBrokenIconPath(res.img, { name: res.name || tableDoc.name, type: 'poder' });
+      if (fixedRImg !== res.img) {
+        res.img = fixedRImg;
+        anomalies.push(`Ícone de resultado "${res.name}" reparado: ${fixedRImg}`);
+        modified = true;
+      }
     }
   }
 
@@ -920,10 +969,13 @@ function hookValidateAndRemediateMacro(macroDoc) {
     macroDoc.type = 'script';
     modified = true;
   }
-  if (!macroDoc.img || macroDoc.img.includes('mystery-man')) {
-    macroDoc.img = 'systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp';
-    anomalies.push('Ícone de macro resolvido para martelo de forja');
-    modified = true;
+  if (!macroDoc.img || macroDoc.img.includes('mystery-man') || !isVerifiedIconPath(macroDoc.img)) {
+    const fixedMImg = repairBrokenIconPath(macroDoc.img, { name: macroDoc.name, type: 'macro' });
+    if (fixedMImg !== macroDoc.img) {
+      macroDoc.img = fixedMImg;
+      anomalies.push(`Ícone de macro resolvido para ${fixedMImg}`);
+      modified = true;
+    }
   }
 
   return { macroDoc, modified, anomalies };
@@ -1063,7 +1115,7 @@ async function runAvrlIteration(iterNum, options = {}) {
           subDocs.push(v);
         }
 
-        const res = hookValidateAndRemediateActor(val, subDocs);
+        const res = hookValidateAndRemediateActor(val, subDocs, !packDef.isLegacyRoot);
         if (res.modified && fix) {
           await db.put(key, res.actorDoc);
           for (const sd of res.embeddedDocs) {
@@ -1076,8 +1128,8 @@ async function runAvrlIteration(iterNum, options = {}) {
           console.log(`  ➔ Ator "${val.name}" auto-remediado (${res.anomalies.join('; ')}).`);
         }
 
-        // Normalizar efeitos embutidos do ator e dos itens do ator (BaseEffect + keys canônicas)
-        if (isCreatedActor(val)) {
+        // Normalizar efeitos embutidos do ator e dos itens do ator (BaseEffect + keys canônicas + ícones)
+        if (isCreatedActor(val) || !packDef.isLegacyRoot) {
           for await (const [effKey, effDoc] of db.iterator({ gte: `!actors.items.effects!${val._id}.`, lte: `!actors.items.effects!${val._id}.\uffff` })) {
             const resEff = normalizeActiveEffectDoc(effDoc, val.img, `Actor.${val._id}`);
             if (resEff.modified && fix) {
@@ -1163,8 +1215,9 @@ async function runAvrlIteration(iterNum, options = {}) {
         for await (const [, v] of db.iterator({ gte: `!tables.results!${val._id}.`, lte: `!tables.results!${val._id}.\uffff` })) {
           results.push(v);
         }
-        const res = hookValidateAndRemediateTable(val, results);
+        const res = hookValidateAndRemediateTable(val, results, !packDef.isLegacyRoot);
         if (res.modified && fix) {
+          await db.put(key, res.tableDoc);
           for (const r of res.results) {
             await db.put(`!tables.results!${val._id}.${r._id}`, r);
           }

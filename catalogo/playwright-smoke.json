@@ -1,6 +1,6 @@
 {
   "modo": "SMOKE",
-  "executado_em": "2026-11-27T23:29:47.245Z",
+  "executado_em": "2026-11-28T01:01:09.515Z",
   "url": "https://lipesrpg.com.br",
   "module_update": {
     "triggered": true,
@@ -8,14 +8,14 @@
     "moduleId": "compendios-para-t20",
     "versionBefore": "1.10.4",
     "confirmedDialog": false,
-    "versionAfter": "1.10.4",
+    "versionAfter": "2.0.0",
     "notifications": [
       {
-        "msg": "PACKAGE.AlreadyUpdated",
+        "msg": "SETUP.InstallSuccess",
         "type": "info"
       }
     ],
-    "notifText": "Compêndios para T20 is already up to date."
+    "notifText": ""
   },
   "runtime": {
     "foundryVersion": "13.351",
@@ -31,10 +31,10 @@
     "module": {
       "id": "compendios-para-t20",
       "title": "Compêndios para T20",
-      "version": "1.10.4",
+      "version": "2.0.0",
       "active": true
     },
-    "packsCount": 6,
+    "packsCount": 58,
     "packs": [
       {
         "collection": "compendios-para-t20.Ameacas_T20",
@@ -42,7 +42,7 @@
         "label": "Ameaças T20",
         "type": "Actor",
         "locked": true,
-        "indexSize": 2184
+        "indexSize": 2110
       },
       {
         "collection": "compendios-para-t20.Itens_T20",
@@ -50,7 +50,7 @@
         "label": "Itens T20",
         "type": "Item",
         "locked": true,
-        "indexSize": 2780
+        "indexSize": 2684
       },
       {
         "collection": "compendios-para-t20.Macros_T20",
@@ -58,7 +58,7 @@
         "label": "Macros T20",
         "type": "Macro",
         "locked": true,
-        "indexSize": 29
+        "indexSize": 27
       },
       {
         "collection": "compendios-para-t20.Tabelas_T20",
@@ -66,7 +66,7 @@
         "label": "Tabelas T20",
         "type": "RollTable",
         "locked": true,
-        "indexSize": 112
+        "indexSize": 91
       },
       {
         "collection": "compendios-para-t20.Diarios_T20",
@@ -74,7 +74,7 @@
         "label": "Diários T20",
         "type": "JournalEntry",
         "locked": true,
-        "indexSize": 23
+        "indexSize": 10
       },
       {
         "collection": "compendios-para-t20.Playlist_T20",
@@ -83,15 +83,431 @@
         "type": "Playlist",
         "locked": true,
         "indexSize": 913
+      },
+      {
+        "collection": "compendios-para-t20.db-0226-ameacas",
+        "name": "db-0226-ameacas",
+        "label": "Ameaças (DB-0226)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.db-0226-diarios",
+        "name": "db-0226-diarios",
+        "label": "Diários (DB-0226)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.db-0227-ameacas",
+        "name": "db-0227-ameacas",
+        "label": "Ameaças (DB-0227)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 5
+      },
+      {
+        "collection": "compendios-para-t20.db-0228-ameacas",
+        "name": "db-0228-ameacas",
+        "label": "Ameaças (DB-0228)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 4
+      },
+      {
+        "collection": "compendios-para-t20.db-0228-armas",
+        "name": "db-0228-armas",
+        "label": "Armas (DB-0228)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.db-0228-consumiveis",
+        "name": "db-0228-consumiveis",
+        "label": "Consumíveis (DB-0228)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.db-0228-equipamentos",
+        "name": "db-0228-equipamentos",
+        "label": "Equipamentos (DB-0228)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 9
+      },
+      {
+        "collection": "compendios-para-t20.db-0228-magias",
+        "name": "db-0228-magias",
+        "label": "Magias (DB-0228)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.db-0228-poderes",
+        "name": "db-0228-poderes",
+        "label": "Poderes & Parceiros (DB-0228)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 6
+      },
+      {
+        "collection": "compendios-para-t20.db-0228-tabelas",
+        "name": "db-0228-tabelas",
+        "label": "Tabelas (DB-0228)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.db-0229-ameacas",
+        "name": "db-0229-ameacas",
+        "label": "Ameaças (DB-0229)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 4
+      },
+      {
+        "collection": "compendios-para-t20.db-0229-armas",
+        "name": "db-0229-armas",
+        "label": "Armas (DB-0229)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.db-0229-consumiveis",
+        "name": "db-0229-consumiveis",
+        "label": "Consumíveis (DB-0229)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.db-0229-diarios",
+        "name": "db-0229-diarios",
+        "label": "Diários (DB-0229)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.db-0229-equipamentos",
+        "name": "db-0229-equipamentos",
+        "label": "Equipamentos (DB-0229)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.db-0229-poderes",
+        "name": "db-0229-poderes",
+        "label": "Poderes & Parceiros (DB-0229)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 8
+      },
+      {
+        "collection": "compendios-para-t20.db-0229-tabelas",
+        "name": "db-0229-tabelas",
+        "label": "Tabelas (DB-0229)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.db-0230-ameacas",
+        "name": "db-0230-ameacas",
+        "label": "Ameaças (DB-0230)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 14
+      },
+      {
+        "collection": "compendios-para-t20.db-0230-armas",
+        "name": "db-0230-armas",
+        "label": "Armas (DB-0230)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.db-0230-consumiveis",
+        "name": "db-0230-consumiveis",
+        "label": "Consumíveis (DB-0230)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.db-0230-diarios",
+        "name": "db-0230-diarios",
+        "label": "Diários (DB-0230)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.db-0230-equipamentos",
+        "name": "db-0230-equipamentos",
+        "label": "Equipamentos (DB-0230)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.db-0230-poderes",
+        "name": "db-0230-poderes",
+        "label": "Poderes & Parceiros (DB-0230)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 5
+      },
+      {
+        "collection": "compendios-para-t20.db-0230-tabelas",
+        "name": "db-0230-tabelas",
+        "label": "Tabelas (DB-0230)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 4
+      },
+      {
+        "collection": "compendios-para-t20.db-0231-ameacas",
+        "name": "db-0231-ameacas",
+        "label": "Ameaças (DB-0231)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 10
+      },
+      {
+        "collection": "compendios-para-t20.db-0231-diarios",
+        "name": "db-0231-diarios",
+        "label": "Diários (DB-0231)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.db-0231-equipamentos",
+        "name": "db-0231-equipamentos",
+        "label": "Equipamentos (DB-0231)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.db-0231-poderes",
+        "name": "db-0231-poderes",
+        "label": "Poderes & Parceiros (DB-0231)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 16
+      },
+      {
+        "collection": "compendios-para-t20.db-0231-tabelas",
+        "name": "db-0231-tabelas",
+        "label": "Tabelas (DB-0231)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 4
+      },
+      {
+        "collection": "compendios-para-t20.db-0232-ameacas",
+        "name": "db-0232-ameacas",
+        "label": "Ameaças (DB-0232)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 15
+      },
+      {
+        "collection": "compendios-para-t20.db-0232-diarios",
+        "name": "db-0232-diarios",
+        "label": "Diários (DB-0232)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.db-0232-poderes",
+        "name": "db-0232-poderes",
+        "label": "Poderes & Parceiros (DB-0232)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 13
+      },
+      {
+        "collection": "compendios-para-t20.db-0232-tabelas",
+        "name": "db-0232-tabelas",
+        "label": "Tabelas (DB-0232)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 4
+      },
+      {
+        "collection": "compendios-para-t20.rt20-025-ameacas",
+        "name": "rt20-025-ameacas",
+        "label": "Ameaças (RT20-025)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 7
+      },
+      {
+        "collection": "compendios-para-t20.rt20-026-ameacas",
+        "name": "rt20-026-ameacas",
+        "label": "Ameaças (RT20-026)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 6
+      },
+      {
+        "collection": "compendios-para-t20.rt20-026-diarios",
+        "name": "rt20-026-diarios",
+        "label": "Diários (RT20-026)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-026-equipamentos",
+        "name": "rt20-026-equipamentos",
+        "label": "Equipamentos (RT20-026)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.rt20-026-macros",
+        "name": "rt20-026-macros",
+        "label": "Macros (RT20-026)",
+        "type": "Macro",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-026-poderes",
+        "name": "rt20-026-poderes",
+        "label": "Poderes & Parceiros (RT20-026)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 15
+      },
+      {
+        "collection": "compendios-para-t20.rt20-026-tabelas",
+        "name": "rt20-026-tabelas",
+        "label": "Tabelas (RT20-026)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.rt20-027-ameacas",
+        "name": "rt20-027-ameacas",
+        "label": "Ameaças (RT20-027)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 6
+      },
+      {
+        "collection": "compendios-para-t20.rt20-027-diarios",
+        "name": "rt20-027-diarios",
+        "label": "Diários (RT20-027)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-027-equipamentos",
+        "name": "rt20-027-equipamentos",
+        "label": "Equipamentos (RT20-027)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 5
+      },
+      {
+        "collection": "compendios-para-t20.rt20-027-macros",
+        "name": "rt20-027-macros",
+        "label": "Macros (RT20-027)",
+        "type": "Macro",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-027-poderes",
+        "name": "rt20-027-poderes",
+        "label": "Poderes & Parceiros (RT20-027)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-027-tabelas",
+        "name": "rt20-027-tabelas",
+        "label": "Tabelas (RT20-027)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.rt20-028-ameacas",
+        "name": "rt20-028-ameacas",
+        "label": "Ameaças (RT20-028)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.rt20-028-diarios",
+        "name": "rt20-028-diarios",
+        "label": "Diários (RT20-028)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-028-equipamentos",
+        "name": "rt20-028-equipamentos",
+        "label": "Equipamentos (RT20-028)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.rt20-028-macros",
+        "name": "rt20-028-macros",
+        "label": "Macros (RT20-028)",
+        "type": "Macro",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-028-poderes",
+        "name": "rt20-028-poderes",
+        "label": "Poderes & Parceiros (RT20-028)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.rt20-028-tabelas",
+        "name": "rt20-028-tabelas",
+        "label": "Tabelas (RT20-028)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 3
       }
     ],
-    "packFoldersCount": 5
+    "packFoldersCount": 20
   },
   "local_manifest": {
-    "version": "1.10.4",
+    "version": "2.0.0",
     "packsCount": 58
   },
-  "pack_sync_match": false,
+  "pack_sync_match": true,
   "sample_doc_check": {
     "ok": true,
     "collection": "compendios-para-t20.Ameacas_T20",
@@ -102,6 +518,16 @@
     "brokenImgs": []
   },
   "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    },
     {
       "type": "http",
       "status": 404,
