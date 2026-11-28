@@ -330,6 +330,92 @@ async function runFidelityAudit() {
       expectedCd: 31,
       expectedPowers: ['Agarrar Aprimorado', 'Constrição', 'Corpo Torrencial', 'Maremoto', 'Olho da Tempestade'],
       expectedResistencias: 'imunidade a acertos críticos, atordoado, cansaço, efeitos de metabolismo, frio e paralisia, vulnerabilidade a fogo'
+    },
+    // --- Fúlgor dos Deuses: Edição 30 (Guerra e Paz) ---
+    {
+      id: 'fld30ElanorLumVA',
+      name: 'Elanor Lúmen-Velho',
+      expectedCd: 28,
+      expectedPowers: ['Aura de Paz', 'Integridade Corporal', 'Técnica da Mão Vazia', 'Sair do Caminho'],
+      expectedResistencias: 'evasão, imunidade a alquebrado, esmorecido e frustrado'
+    },
+    {
+      id: 'fld30DaliriaMara',
+      name: 'Dalíria de Marah',
+      expectedCd: 28,
+      expectedPowers: ['Aparência Inofensiva', 'Transe Dançante'],
+      expectedSpells: ['Curar Ferimentos', 'Dissipar Magia', 'Escudo da Fé', 'Luz', 'Tranquilidade'],
+      expectedSpellRolls: ['Curar Ferimentos'],
+      expectedResistencias: 'Nenhuma'
+    },
+    {
+      id: 'fld30DevotoMarah',
+      name: 'Devoto de Marah Fullgori',
+      expectedCd: 22,
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Aura de Desinteresse', 'Remorso Existencial', 'Toque Pacificador'],
+      expectedResistencias: 'imunidade a acertos críticos, cansaço, metabolismo, metamorfose e paralisia (Fullgori)'
+    },
+    {
+      id: 'fld30CoralBranco',
+      name: 'Coral Branco',
+      expectedCd: 30,
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Enxame (Perda de PM)', 'Maior que a Morte', 'Anular a Vontade', 'Fim da Dor', 'Paz sem Voz', 'Remorso Existencial', 'Reduzir ao Nada'],
+      expectedResistencias: 'maior que a morte, redução de dano 10; imunidade a acertos críticos, cansaço, metabolismo, metamorfose e paralisia (Fullgori)'
+    },
+    // --- Fúlgor dos Deuses: Edição 31 (Pecados do Pai) ---
+    {
+      id: 'fld31IscoFullgor',
+      name: 'Isco do Fullgor',
+      expectedCd: 33,
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Natureza Vegetal', 'Agarrar Aprimorado', 'Adaptação Fullgori', 'Pancada Estonteante', 'Preparação Mutável', 'Pólen Dourado', 'Núcleo Luminoso'],
+      expectedResistencias: 'cura acelerada 20/fogo, natureza vegetal, vulnerabilidade a fogo'
+    },
+    {
+      id: 'fld31JardineiroD',
+      name: 'Jardineiro Dourado',
+      expectedCd: 33,
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Natureza Vegetal', 'Adaptado ao Ambiente', 'Chamado do Fullgor', 'Subverter Natureza', 'Vulnerabilidade à Natureza'],
+      expectedSpells: ['Armamento da Natureza', 'Controlar Plantas', 'Despedaçar', 'Escudo da Fé', 'Silêncio', 'Tranquilidade'],
+      expectedSpellRolls: ['Despedaçar'],
+      expectedResistencias: 'natureza vegetal, redução de dano 10, resistência a magia divina +5, vulnerabilidade a fogo'
+    },
+    {
+      id: 'fld31LisandraDet',
+      name: 'Lisandra Deturpada',
+      expectedCd: 35,
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Chuva de Estacas', 'Criar Toscos', 'Força da Natureza', 'Forma de Madeira', 'Magia Acelerada'],
+      expectedSpells: ['Controlar Plantas', 'Curar Ferimentos', 'Dissipar Magia', 'Raio Polar', 'Libertação'],
+      expectedSpellRolls: ['Curar Ferimentos', 'Raio Polar'],
+      expectedResistencias: 'redução de dano 15, resistência a magia +5'
+    },
+    // --- Fúlgor dos Deuses: Edição 32 (Como um Deus) ---
+    {
+      id: 'fld32TurbaEnfure',
+      name: 'Turba Enfurecida',
+      expectedPowers: ['Enxame', 'Devolver Favor', 'Empilhar', 'Retribuição Raivosa'],
+      expectedPerceptions: ['ofic_fazendeiro'],
+      expectedResistencias: 'Nenhuma'
+    },
+    {
+      id: 'fld32VigiaDevolu',
+      name: 'Vigia da Devolução',
+      expectedPowers: ['Correntes da Gratidão', 'Devolução Fullgori', 'Fanatismo Fullgori', 'Lutar em Formação'],
+      expectedResistencias: 'redução de dano 5'
+    },
+    {
+      id: 'fld32LysenneEuch',
+      name: 'Lysenne de Eucharion',
+      expectedPowers: ['Ataque em Movimento', 'Aura Sagrada', 'Cura pelas Mãos', 'Golpe Divino', 'Retribuição Divina'],
+      expectedResistencias: 'Nenhuma'
+    },
+    {
+      id: 'fld32EucharionFu',
+      name: 'Eucharion do Fullgor',
+      expectedCd: 37,
+      expectedPowers: ['Teofagia', 'Imunidades Fullgori', 'Coração Avassalador', 'De Nada', 'Devolver Favor', 'Magia Acelerada', 'Magia Ampliada', 'Remorso Ingrato', 'Retribuir Favor'],
+      expectedSpells: ['Comando', 'Curar Ferimentos', 'Dispersar as Trevas', 'Imobilizar', 'Marca da Obediência', 'Raio Solar', 'Santuário', 'Selo de Mana'],
+      expectedSpellRolls: ['Curar Ferimentos', 'Marca da Obediência', 'Raio Solar'],
+      expectedResistencias: 'imunidade a caído, flanqueado e veneno, maior que a morte, redução de dano 10, resistência a magia +5'
     }
   ];
 
