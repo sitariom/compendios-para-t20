@@ -1,0 +1,475 @@
+{
+  "material_id": "DB-0230",
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.0",
+    "confirmedDialog": false,
+    "versionAfter": "2.0.0",
+    "notifications": [
+      {
+        "msg": "PACKAGE.AlreadyUpdated",
+        "type": "info"
+      }
+    ],
+    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.0.0",
+    "packsCount": 58,
+    "packFoldersCount": 20
+  },
+  "status": "REPROVADO",
+  "executado_em": "2026-11-28T01:26:52.125Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/assassinar.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/dreno.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/furia.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/montaria.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
+    },
+    {
+      "text": "Error: Failed data preparation for Compendium.compendios-para-t20.db-0230-ameacas.Actor.gq8KNocnMur230AA. Cannot read properties of undefined (reading 'value')\n    at Hooks.onError (https://lipesrpg.com.br/scripts/foundry.mjs:23854:24)\n    at ActorT20._safePrepareData (https://lipesrpg.com.br/scripts/foundry.mjs:32568:17)\n    at ActorT20._initialize (https://lipesrpg.com.br/scripts/foundry.mjs:32398:12)\n    at new DataModel (https://lipesrpg.com.br/scripts/foundry.mjs:11420:10)\n    at new ClientDocumentMixin (https://lipesrpg.com.br/scripts/foundry.mjs:32362:7)\n    at new Actor (https://lipesrpg.com.br/scripts/foundry.mjs:41217:15)\n    at new ActorT20 (https://lipesrpg.com.br/systems/tormenta20/tormenta20.mjs:7627:1)\n    at ActorT20.fromSource (https://lipesrpg.com.br/scripts/foundry.mjs:11894:12)\n    at https://lipesrpg.com.br/scripts/foundry.mjs:58557:54\n    at Array.map (<anonymous>)",
+      "location": "https://lipesrpg.com.br/scripts/foundry.mjs"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/espada-bastarda.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/magicos/pedra-alma.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/estrategia.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/velocidade.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/abrolhos.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/vapor.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/lama.webp"
+    }
+  ],
+  "page_errors": [],
+  "network_errors": [
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/assassinar.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/dreno.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/furia.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/montaria.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/espada-bastarda.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/magicos/pedra-alma.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/estrategia.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/velocidade.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/carroca.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/lanca.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/explosao.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/armas/foice.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/abrolhos.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/vapor.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/lama.webp"
+    }
+  ],
+  "ui_errors": [],
+  "checks": [
+    {
+      "id": "actor:db-0230:gq8KArzak230AAAA",
+      "nome": "Arzak",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KArzak230AAAA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/ameacas/assassinar.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KCeifPes230AA",
+      "nome": "Ceifador do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KCeifPes230AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KColePes230AA",
+      "nome": "Coletor do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KColePes230AA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/ameacas/dreno.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KGaarda230AAA",
+      "nome": "Gaardak",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KGaarda230AAA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/ameacas/furia.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KGineOni230AA",
+      "nome": "Ginete Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KGineOni230AA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/ameacas/montaria.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KGobGorl230AA",
+      "nome": "Três Goblins em um Gorlogg",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KGobGorl230AA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/ameacas/explosao.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KLancOni230AA",
+      "nome": "Lanceiro Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KLancOni230AA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/armas/lanca.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KMestPes230AA",
+      "nome": "Mestre do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KMestPes230AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KNocnMur230AA",
+      "nome": "Nócnam Mur, o Pesadelo Amalgamado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KNocnMur230AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KPoliPes230AA",
+      "nome": "Pesadelo Polivalente",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KPoliPes230AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KSaceCai230AA",
+      "nome": "Sacerdote Caído",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KSaceCai230AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KSargOni230AA",
+      "nome": "Sargento Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KSargOni230AA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/armas/espada-bastarda.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KTeneOni230AA",
+      "nome": "Tenente Onírico",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KTeneOni230AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0230:gq8KZangPes230AA",
+      "nome": "Zangão do Pesadelo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Actor_gq8KZangPes230AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:db-0230:gq8KKumshrak230A",
+      "nome": "Kum’shrak Eviscerador",
+      "tipo": "Item",
+      "subtipo": "arma",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Item_gq8KKumshrak230A.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/armas/foice.webp",
+        "systems/tormenta20/icons/armas/foice.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "item:db-0230:gq8KCentelha230A",
+      "nome": "Centelha Onírica",
+      "tipo": "Item",
+      "subtipo": "consumivel",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Item_gq8KCentelha230A.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/magicos/pedra-alma.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "journalentry:db-0230:jCorridaBrut230A",
+      "nome": "Aventura: A Corrida Brutal (DB #230)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\JournalEntry_jCorridaBrut230A.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:db-0230:gq8KCarruagem230",
+      "nome": "Carruagem Duyshidakk",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Item_gq8KCarruagem230.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/equipamentos/carroca.webp",
+        "systems/tormenta20/icons/itens/equipamentos/carroca.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "item:db-0230:gq8KPRotsheel230",
+      "nome": "Parceira: Rotsheel",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\Item_gq8KPRotsheel230.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "rolltable:db-0230:tCorridaBrut230A",
+      "nome": "Encontros da Corrida Brutal (DB #230)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0230\\playwright-evidencias\\RollTable_tCorridaBrut230A.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/equipamentos/carroca.webp",
+        "systems/tormenta20/icons/armas/lanca.webp",
+        "systems/tormenta20/icons/poderes/ameacas/explosao.webp",
+        "systems/tormenta20/icons/armas/foice.webp",
+        "systems/tormenta20/icons/poderes/ameacas/vapor.webp",
+        "systems/tormenta20/icons/itens/equipamentos/abrolhos.webp",
+        "systems/tormenta20/icons/poderes/ameacas/lama.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    }
+  ]
+}

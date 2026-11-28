@@ -1,0 +1,212 @@
+{
+  "material_id": "RT20-027",
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.0",
+    "confirmedDialog": false,
+    "versionAfter": "2.0.0",
+    "notifications": [
+      {
+        "msg": "PACKAGE.AlreadyUpdated",
+        "type": "info"
+      }
+    ],
+    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.0.0",
+    "packsCount": 58,
+    "packFoldersCount": 20
+  },
+  "status": "REPROVADO",
+  "executado_em": "2026-11-28T01:28:41.237Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/orbe.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/guerreiros/disciplina-de-combate.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/tocha.webp"
+    }
+  ],
+  "page_errors": [],
+  "network_errors": [
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/orbe.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/guerreiros/disciplina-de-combate.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/tocha.webp"
+    }
+  ],
+  "ui_errors": [],
+  "checks": [
+    {
+      "id": "actor:rt20-027:fld27BandoTroggA",
+      "nome": "Bando Troggore",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Actor_fld27BandoTroggA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-027:fld27CassiellaFu",
+      "nome": "Cassiella fullgori",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Actor_fld27CassiellaFu.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-027:fld27CassiellaSe",
+      "nome": "Cassiella semi-fullgori",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Actor_fld27CassiellaSe.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-027:fld27EnxameTrogA",
+      "nome": "Enxame Trog",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Actor_fld27EnxameTrogA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-027:fld27TroggoreAAA",
+      "nome": "Troggore",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Actor_fld27TroggoreAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-027:fld27UrrashSombr",
+      "nome": "Urrash das Sombras Frias",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Actor_fld27UrrashSombr.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "journalentry:rt20-027:fld27DiarioDiaNo",
+      "nome": "Fúlgor dos Deuses — Edição 27: Dia e Noite",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\JournalEntry_fld27DiarioDiaNo.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:rt20-027:fld27ArmaduraCas",
+      "nome": "Armadura Completa Delicada Selada",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Item_fld27ArmaduraCas.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "macro:rt20-027:fld27MacroOrbeAz",
+      "nome": "Canalizar Orbe de Azgher (Fúlgor dos Deuses)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Macro_fld27MacroOrbeAz.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/equipamentos/orbe.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:rt20-027:fld27ParcCassiel",
+      "nome": "Parceiro: Cassiella de Baldonn",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\Item_fld27ParcCassiel.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/classes/guerreiros/disciplina-de-combate.webp",
+        "systems/tormenta20/icons/poderes/classes/guerreiros/disciplina-de-combate.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": "locked-pack-skipped",
+      "rendered": true
+    },
+    {
+      "id": "rolltable:rt20-027:fld27TabCavernas",
+      "nome": "Cavernas dos Trogs — Perigos e Ecos de Tenebra (Edição 27)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-027\\playwright-evidencias\\RollTable_fld27TabCavernas.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/equipamentos/tocha.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    }
+  ]
+}

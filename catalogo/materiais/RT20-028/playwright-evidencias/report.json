@@ -1,71 +1,143 @@
 {
   "material_id": "RT20-028",
-  "modo": "PLAN_ONLY",
-  "gerado_em": "2026-11-27T22:39:49.596Z",
-  "total_amostras": 8,
-  "amostras": [
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.0",
+    "confirmedDialog": false,
+    "versionAfter": "2.0.0",
+    "notifications": [
+      {
+        "msg": "PACKAGE.AlreadyUpdated",
+        "type": "info"
+      }
+    ],
+    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.0.0",
+    "packsCount": 58,
+    "packFoldersCount": 20
+  },
+  "status": "APROVADO",
+  "executado_em": "2026-11-28T01:28:54.250Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "network_errors": [],
+  "ui_errors": [],
+  "checks": [
     {
       "id": "actor:rt20-028:fld28LiriavelQui",
       "nome": "Liriavel, Forma de Quimera",
       "tipo": "Actor",
       "subtipo": "npc",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-ameacas.Actor.fld28LiriavelQui"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\Actor_fld28LiriavelQui.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     },
     {
       "id": "actor:rt20-028:fld28PerigoTempl",
       "nome": "Templo do Saber em Mutação (Edição 28)",
       "tipo": "Actor",
       "subtipo": "hazard",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-ameacas.Actor.fld28PerigoTempl"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\Actor_fld28PerigoTempl.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     },
     {
       "id": "actor:rt20-028:fld28RashidFullg",
       "nome": "Rashid, Fullgori",
       "tipo": "Actor",
       "subtipo": "npc",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-ameacas.Actor.fld28RashidFullg"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\Actor_fld28RashidFullg.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     },
     {
       "id": "journalentry:rt20-028:fld28DiarioAcoAr",
       "nome": "Fúlgor dos Deuses — Edição 28: Aço e Arcano",
       "tipo": "JournalEntry",
       "subtipo": "doc",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-diarios.JournalEntry.fld28DiarioAcoAr"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\JournalEntry_fld28DiarioAcoAr.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     },
     {
       "id": "item:rt20-028:fld28ChavePortaA",
       "nome": "Chave Antiga do Portal da Academia Arcana",
       "tipo": "Item",
       "subtipo": "equipamento",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-equipamentos.Item.fld28ChavePortaA"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\Item_fld28ChavePortaA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     },
     {
       "id": "macro:rt20-028:fld28MacroUrgenc",
       "nome": "Rastreador de Urgência & Eventos do Campus (Edição 28)",
       "tipo": "Macro",
       "subtipo": "script",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-macros.Macro.fld28MacroUrgenc"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\Macro_fld28MacroUrgenc.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     },
     {
       "id": "item:rt20-028:fld28DesejoWynna",
       "nome": "Desejo de Wynna",
       "tipo": "Item",
       "subtipo": "poder",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-poderes.Item.fld28DesejoWynna"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\Item_fld28DesejoWynna.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     },
     {
       "id": "rolltable:rt20-028:fld28TabFrasesRa",
       "nome": "Frases de Combate de Rashid Fullgori (Edição 28)",
       "tipo": "RollTable",
       "subtipo": "doc",
-      "uuid": "Compendium.compendios-para-t20.rt20-028-tabelas.RollTable.fld28TabFrasesRa"
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-028\\playwright-evidencias\\RollTable_fld28TabFrasesRa.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
     }
-  ],
-  "requisitos_ambiente": [
-    "FOUNDRY_URL",
-    "FOUNDRY_ADMIN_PASSWORD",
-    "FOUNDRY_WORLD",
-    "FOUNDRY_USER",
-    "playwright"
   ]
 }

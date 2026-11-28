@@ -7,7 +7,7 @@
 - **Tormenta20 v13:** `1.5.015` (C:/Users/simoe/OneDrive/Documentos/Tormenta20-master/Tormenta20-master)
 - **Total de Artefatos:** 35
 - **Auditoria Cega (2ª Passagem):** `CONCLUIDA`
-- **Validação Playwright (Foundry Live):** `PENDENTE`
+- **Validação Playwright (Foundry Live):** `REPROVADO`
 
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |
@@ -27,6 +27,9 @@
 | `actor:db-0232:gq8232TexuFurAAA` | Licantropo Texugo Furioso | Actor | npc | 0 | `VALIDADO` |
 | `actor:db-0232:gq8232TexuNoiAAA` | Licantropo Texugo Servo da Noite | Actor | npc | 0 | `VALIDADO` |
 | `actor:db-0232:gq8232XamaFinntA` | Xamã Finntroll | Actor | npc | 0 | `VALIDADO` |
+| `journalentry:db-0232:j8232Gazeta164AA` | Gazeta do Reinado — Edição 164 (DB #232) | JournalEntry | doc | 0 | `VALIDADO` |
+| `journalentry:db-0232:j8232LicanArtonA` | Cenário: Licantropos Artonianos (DB #232) | JournalEntry | doc | 0 | `VALIDADO` |
+| `journalentry:db-0232:j8232MonstHomemA` | Aventura: Monstros e Homens (DB #232) | JournalEntry | doc | 0 | `VALIDADO` |
 | `item:db-0232:i8232AvMitralAAA` | Licantropia: Aversão a Mitral | Item | poder | 0 | `VALIDADO` |
 | `item:db-0232:i8232CtrlLicanAA` | Controlar Licantropia | Item | poder | 0 | `VALIDADO` |
 | `item:db-0232:i8232DoencaLicaA` | Maldição: Licantropia | Item | poder | 0 | `VALIDADO` |
@@ -44,6 +47,3 @@
 | `rolltable:db-0232:t8232EncMonstrAA` | Encontros na Floresta em Monstros e Homens (DB #232) | RollTable | doc | 0 | `VALIDADO` |
 | `rolltable:db-0232:t8232GanchLicaAA` | Ganchos de Aventura com Licantropos (DB #232) | RollTable | doc | 0 | `VALIDADO` |
 | `rolltable:db-0232:t8232LinhagensAA` | Linhagens e Formas de Licantropia (DB #232) | RollTable | doc | 0 | `VALIDADO` |
-| `journalentry:db-0232:j8232Gazeta164AA` | Gazeta do Reinado — Edição 164 (DB #232) | JournalEntry | doc | 0 | `VALIDADO` |
-| `journalentry:db-0232:j8232LicanArtonA` | Cenário: Licantropos Artonianos (DB #232) | JournalEntry | doc | 0 | `VALIDADO` |
-| `journalentry:db-0232:j8232MonstHomemA` | Aventura: Monstros e Homens (DB #232) | JournalEntry | doc | 0 | `VALIDADO` |

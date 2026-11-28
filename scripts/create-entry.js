@@ -843,7 +843,7 @@ function buildWeaponAttack({
       tipoUso: 'sim',
       proposito: finalProposito,
       size,
-      alcance: normalizeAlcance(alcance),
+      alcance: ['m', 'km'].includes(normalizeAlcance(alcance)) ? 'spec' : normalizeAlcance(alcance),
       chatFlavor,
       propriedades: {
         ada: false, agi: false, alo: false, des: false, dup: false, ver: false, hib: false

@@ -1,0 +1,295 @@
+{
+  "material_id": "DB-0232",
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.0",
+    "confirmedDialog": false,
+    "versionAfter": "2.0.0",
+    "notifications": [
+      {
+        "msg": "PACKAGE.AlreadyUpdated",
+        "type": "info"
+      }
+    ],
+    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.0.0",
+    "packsCount": 58,
+    "packFoldersCount": 20
+  },
+  "status": "REPROVADO",
+  "executado_em": "2026-11-28T01:27:49.262Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/combatentes/estilo-desarmado.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/resistencia.webp"
+    }
+  ],
+  "page_errors": [],
+  "network_errors": [
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/combatentes/estilo-desarmado.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/ameacas/resistencia.webp"
+    }
+  ],
+  "ui_errors": [],
+  "checks": [
+    {
+      "id": "actor:db-0232:gq8232EstirgeAAA",
+      "nome": "Estirge",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232EstirgeAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232GineTrollA",
+      "nome": "Ginete de Troll Purista",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232GineTrollA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232LoboCacAAA",
+      "nome": "Lobisomem Caçador de Recompensas",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232LoboCacAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232LoboUrbAAA",
+      "nome": "Lobisomem Predador Urbano",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232LoboUrbAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232MamaeGlopA",
+      "nome": "Mamãe Glop",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232MamaeGlopA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232OncaLutAAA",
+      "nome": "Licantropo Onça Lutador de Arena",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232OncaLutAAA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/classes/combatentes/estilo-desarmado.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232OncaPirAAA",
+      "nome": "Licantropo Onça Pirata de Rio",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232OncaPirAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232PerdTrollA",
+      "nome": "Perdigueiro Troll",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232PerdTrollA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232RatoComAAA",
+      "nome": "Licantropo Rato Comedor de Restos",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232RatoComAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232RatoInfAAA",
+      "nome": "Licantropo Rato Infiltrador Veterano",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232RatoInfAAA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232SelaFarAAA",
+      "nome": "Licantropo Selako Farejador de Sangue",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232SelaFarAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232SelaTerAAA",
+      "nome": "Licantropo Selako Terror dos Mares",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232SelaTerAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232TexuFurAAA",
+      "nome": "Licantropo Texugo Furioso",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232TexuFurAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232TexuNoiAAA",
+      "nome": "Licantropo Texugo Servo da Noite",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232TexuNoiAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0232:gq8232XamaFinntA",
+      "nome": "Xamã Finntroll",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Actor_gq8232XamaFinntA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "journalentry:db-0232:j8232Gazeta164AA",
+      "nome": "Gazeta do Reinado — Edição 164 (DB #232)",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\JournalEntry_j8232Gazeta164AA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:db-0232:i8232AvMitralAAA",
+      "nome": "Licantropia: Aversão a Mitral",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\Item_i8232AvMitralAAA.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/ameacas/resistencia.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "rolltable:db-0232:t8232EncLicanAAA",
+      "nome": "Encontros com Licantropos em Arton (DB #232)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0232\\playwright-evidencias\\RollTable_t8232EncLicanAAA.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    }
+  ]
+}

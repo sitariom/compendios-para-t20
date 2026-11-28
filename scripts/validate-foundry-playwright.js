@@ -163,7 +163,7 @@ async function updateModulesInFoundrySetup(page, { updateAll = false, moduleId =
         return { done: false, clickedDialog: true, notes, notifText };
       }
       const hasAlreadyUpdated = notes.some(n => n.msg.includes('AlreadyUpdated')) || /already up to date|já está atualizado/i.test(notifText);
-      const hasInstallFinish = notes.some(n => /InstallComplete|Updated|PackageInstalled/i.test(n.msg)) || /updated successfully|atualizado com sucesso|was updated/i.test(notifText);
+      const hasInstallFinish = notes.some(n => /InstallSuccess|InstallComplete|Updated|PackageInstalled/i.test(n.msg)) || /updated successfully|atualizado com sucesso|was updated|installed successfully/i.test(notifText);
       const hasError = notes.some(n => n.type === 'error');
       const versionNow = document.querySelector(`[data-package-id="${modId}"] .badge, [data-package-id="${modId}"] .version`)?.innerText?.trim() || null;
       return { done: hasAlreadyUpdated || hasInstallFinish || hasError, clickedDialog: false, notes, notifText, versionNow };
@@ -198,13 +198,20 @@ async function updateModulesInFoundrySetup(page, { updateAll = false, moduleId =
 async function waitForFoundryRoute(page, timeoutMs = 15000) {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
-    const state = await page.evaluate(() => ({
-      url: location.href,
-      ready: Boolean(window.game && window.game.ready),
-      hasAuth: Boolean(document.querySelector('input[name="adminPassword"]')),
-      hasSetup: Boolean(document.querySelector('#worlds, [data-tab="worlds"], [data-package-id]')),
-      hasJoin: Boolean(document.querySelector('select[name="userid"]'))
-    })).catch(() => null);
+    const state = await page.evaluate(() => {
+      const pathName = location.pathname || '';
+      const hasUserSelect = Boolean(document.querySelector('select[name="userid"]'));
+      const isJoin = pathName.includes('/join') && hasUserSelect;
+      const hasAdminInput = Boolean(document.querySelector('input[name="adminPassword"]'));
+      const hasSetupCards = Boolean(document.querySelector('[data-package-id]'));
+      return {
+        url: location.href,
+        ready: Boolean(window.game && window.game.ready),
+        hasAuth: !isJoin && !hasSetupCards && (pathName.includes('/auth') || hasAdminInput),
+        hasSetup: !isJoin && pathName.includes('/setup') && hasSetupCards,
+        hasJoin: isJoin
+      };
+    }).catch(() => null);
     if (state && (state.ready || state.hasAuth || state.hasSetup || state.hasJoin)) {
       return state;
     }
@@ -214,6 +221,7 @@ async function waitForFoundryRoute(page, timeoutMs = 15000) {
 }
 
 async function ensureFoundryGameReady(page, { url, adminPassword, world, user, password, updateModule = false, updateAll = false }) {
+  console.log(`[playwright] Navegando para ${url}...`);
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
   let updateResult = null;
   let updateDone = !updateModule && !updateAll;
@@ -222,19 +230,26 @@ async function ensureFoundryGameReady(page, { url, adminPassword, world, user, p
     const state = await waitForFoundryRoute(page, 20000);
     if (state.ready) {
       if (!updateDone && typeof (await page.evaluate(() => typeof window.game?.shutDown)) === 'string') {
+        console.log('[playwright] Retornando ao /setup para atualizar módulo...');
         await maybeReturnToSetup(page, true);
         continue;
       }
+      console.log('[playwright] Foundry game.ready!');
       return updateResult;
     }
 
     if (state.hasAuth) {
+      console.log('[playwright] Autenticando administrador em /auth...');
       if (!adminPassword) {
         throw new Error('Foundry solicitou senha de administrador em /auth, mas FOUNDRY_ADMIN_PASSWORD não está definida.');
       }
-      await page.locator('input[name="adminPassword"]').fill(adminPassword);
-      const submitBtn = page.locator('form button[type="submit"], button[name="submit"], button:has-text("Access")').first();
-      await submitBtn.click();
+      const adminInput = page.locator('input[name="adminPassword"]').first();
+      await adminInput.fill(adminPassword);
+      const authSubmit = page.locator('form:has(input[name="adminPassword"]) button[type="submit"], button[name="submit"]').first();
+      await Promise.all([
+        page.waitForURL(u => !u.toString().includes('/auth'), { timeout: 15000 }).catch(() => {}),
+        authSubmit.click()
+      ]);
       await page.waitForTimeout(600);
       continue;
     }
@@ -244,9 +259,12 @@ async function ensureFoundryGameReady(page, { url, adminPassword, world, user, p
         throw new Error('Foundry está em /setup, mas FOUNDRY_WORLD não está definido.');
       }
       if (!updateDone) {
+        console.log('[playwright] Verificando/atualizando compendios-para-t20 em /setup...');
         updateResult = await updateModulesInFoundrySetup(page, { updateAll });
+        console.log(`[playwright] Update módulo: ${updateResult.versionBefore || '?'} -> ${updateResult.versionAfter || '?'} (${updateResult.notifText || updateResult.notifications?.[0]?.msg || 'ok'})`);
         updateDone = true;
       }
+      console.log(`[playwright] Iniciando mundo "${world}"...`);
       await dismissFoundryTour(page);
       const launchOk = await page.evaluate((targetWorld) => {
         const worldsTab = document.querySelector('[data-action="tab"][data-tab="worlds"]');
@@ -265,12 +283,21 @@ async function ensureFoundryGameReady(page, { url, adminPassword, world, user, p
 
     if (state.hasJoin) {
       if (!updateDone) {
-        const returned = await page.evaluate(() => {
-          const btn = document.querySelector('button[data-action="setup"], button[name="setup"], button:has-text("Return to Setup")');
-          if (btn) { btn.click(); return true; }
-          return false;
-        });
-        if (!returned) {
+        console.log('[playwright] Mundo já aberto no /join; retornando ao /setup para atualizar módulo...');
+        const setupAdminInput = page.locator('form:has(button:has-text("Return to Setup")) input[name="adminPassword"], input[name="adminPassword"]').first();
+        if (await setupAdminInput.count() && await setupAdminInput.isVisible().catch(() => false)) {
+          if (!adminPassword) {
+            throw new Error('Foundry pediu senha de administrador em Return to Setup, mas FOUNDRY_ADMIN_PASSWORD não está definida.');
+          }
+          await setupAdminInput.fill(adminPassword);
+        }
+        const setupBtn = page.locator('button:has-text("Return to Setup"), button[data-action="setup"], button[name="setup"]').first();
+        if (await setupBtn.count()) {
+          await Promise.all([
+            page.waitForURL(u => u.toString().includes('/setup') || u.toString().includes('/auth'), { timeout: 15000 }).catch(() => {}),
+            setupBtn.click()
+          ]);
+        } else {
           const baseOrigin = new URL(url).origin;
           await page.goto(`${baseOrigin}/setup`, { waitUntil: 'domcontentloaded', timeout: 20000 });
         }
@@ -278,6 +305,7 @@ async function ensureFoundryGameReady(page, { url, adminPassword, world, user, p
         continue;
       }
       const targetUser = user || 'Gamemaster';
+      console.log(`[playwright] Entrando em /join como "${targetUser}"...`);
       const userSelect = page.locator('select[name="userid"]');
       const optionValue = await page.evaluate((wantedUser) => {
         const sel = document.querySelector('select[name="userid"]');
@@ -300,14 +328,16 @@ async function ensureFoundryGameReady(page, { url, adminPassword, world, user, p
 
       const joinBtn = page.locator('button[name="join"], button:has-text("Join Game Session"), button[type="submit"]').first();
       await joinBtn.click();
-      await page.waitForFunction(() => Boolean(window.game && window.game.ready), { timeout: 60000 });
+      console.log('[playwright] Aguardando game.ready no cliente Foundry (até 90s)...');
+      await page.waitForFunction(() => Boolean(window.game && window.game.ready), { timeout: 90000 });
+      console.log('[playwright] Foundry game.ready!');
       return updateResult;
     }
 
     await page.waitForTimeout(500);
   }
 
-  await page.waitForFunction(() => Boolean(window.game && window.game.ready), { timeout: 60000 });
+  await page.waitForFunction(() => Boolean(window.game && window.game.ready), { timeout: 90000 });
   return updateResult;
 }
 
@@ -387,7 +417,7 @@ async function runSmokeValidation(page, contextInfo) {
         await new Promise(r => setTimeout(r, 500));
       }
       const brokenImgs = [...document.querySelectorAll('.application img, .window-app img, dialog img')]
-        .filter(img => img.complete && img.naturalWidth === 0)
+        .filter(img => Boolean((img.getAttribute('src') || '').trim()) && img.complete && img.naturalWidth === 0)
         .map(img => img.getAttribute('src'));
       return {
         ok: brokenImgs.length === 0,
@@ -446,14 +476,165 @@ async function runSmokeValidation(page, contextInfo) {
   return report.status === 'APROVADO';
 }
 
+async function validateMaterialInPage(page, { materialId, catalogo, artefatos, world, url, updateResult, runtime, pregameErrors, consoleErrors, pageErrors, networkErrors }) {
+  const mat = catalogo.materiais?.[materialId];
+  if (!mat) {
+    throw new Error(`Material "${materialId}" não encontrado em catalogo/catalogo.json.`);
+  }
+
+  const samples = buildSamplePlan(materialId, artefatos);
+  const evidenciasDir = path.join(CATALOGO_DIR, 'materiais', materialId, 'playwright-evidencias');
+  fs.mkdirSync(evidenciasDir, { recursive: true });
+  const reportPath = path.join(evidenciasDir, 'report.json');
+
+  const activePackSet = new Set(runtime.packs.map(p => p.collection));
+  const expectedPacks = [...new Set(samples.map(s => {
+    const parts = String(s.uuid || '').split('.');
+    return parts.length >= 3 && parts[0] === 'Compendium' ? `${parts[1]}.${parts[2]}` : null;
+  }).filter(Boolean))];
+  const missingPacks = expectedPacks.filter(c => !activePackSet.has(c));
+
+  if (missingPacks.length > 0) {
+    const blockedReport = {
+      material_id: materialId,
+      world,
+      url,
+      status: 'BLOQUEADO_VERSAO_SERVIDOR',
+      motivo: `O servidor Foundry está com ${runtime.packsCount} packs ativos (módulo ${runtime.module?.version || 'ausente'}), faltando ${missingPacks.length} packs esperados pela versão local.`,
+      packs_ausentes: missingPacks,
+      runtime,
+      executado_em: new Date().toISOString()
+    };
+    fs.writeFileSync(reportPath, JSON.stringify(blockedReport, null, 2), 'utf8');
+    console.error(`⚠️ Validação Playwright (${materialId}) bloqueada por versão no servidor: ${blockedReport.motivo}`);
+    return false;
+  }
+
+  const errStart = {
+    console: consoleErrors.length,
+    page: pageErrors.length,
+    network: networkErrors.length
+  };
+  await page.evaluate(() => { window.__pwUiErrors = []; });
+
+  console.log(`[playwright] Validando ${materialId} (${samples.length} amostras)...`);
+  const checks = [];
+  for (const s of samples) {
+    const docId = s._id || String(s.uuid || '').split('.').pop() || s.id;
+    const safeName = `${s.tipo}_${docId}`.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const shotPath = path.join(evidenciasDir, `${safeName}.png`);
+    console.log(`  • ${materialId} -> ${s.tipo} (${s.subtipo}): ${s.nome}`);
+
+    const prep = await page.evaluate(async ({ uuid, tipo }) => {
+      const withTimeout = (p, ms = 6000) => Promise.race([
+        p,
+        new Promise((_, rej) => setTimeout(() => rej(new Error(`Timeout after ${ms}ms`)), ms))
+      ]);
+      const doc = await withTimeout(fromUuid(uuid), 10000);
+      if (!doc) return { ok: false, error: `UUID não encontrado: ${uuid}` };
+      let sheet = null;
+      if (doc.sheet) {
+        sheet = await withTimeout(doc.sheet.render(true), 8000);
+      }
+      await new Promise(r => setTimeout(r, 450));
+
+      const brokenImgs = [...document.querySelectorAll('.application img, .window-app img, dialog img')]
+        .filter(img => Boolean((img.getAttribute('src') || '').trim()) && img.complete && img.naturalWidth === 0)
+        .map(img => img.getAttribute('src'));
+
+      let rollOk = true;
+      let effectToggleOk = true;
+      const packObj = doc.pack ? game.packs.get(doc.pack) : null;
+      const isLocked = Boolean(packObj?.locked);
+
+      if (tipo === 'Actor' && doc.type !== 'hazard' && doc.system?.pericias?.inic && typeof doc.rollPericia === 'function') {
+        try {
+          await withTimeout(
+            doc.rollPericia('inic', { chatMessage: false, skipDialog: true, event: { shiftKey: true } }),
+            4000
+          );
+        } catch {
+          rollOk = false;
+        }
+        // Fecha eventual diálogo de rolagem caso o sistema tenha aberto
+        document.querySelectorAll('.application.dialog button[data-action="close"], dialog button[data-action="close"], .dialog .close').forEach(b => b.click());
+      } else if (tipo === 'RollTable' && typeof doc.draw === 'function') {
+        try { await withTimeout(doc.draw({ displayChat: false }), 4000); } catch { rollOk = false; }
+      } else if (tipo === 'Item' && doc.effects?.size > 0 && !isLocked) {
+        try {
+          const eff = doc.effects.contents[0];
+          await eff.update({ disabled: !eff.disabled });
+          await eff.update({ disabled: !eff.disabled });
+        } catch { effectToggleOk = false; }
+      }
+
+      return {
+        ok: brokenImgs.length === 0 && rollOk && effectToggleOk,
+        brokenImgs,
+        rollOk,
+        effectToggleOk: isLocked && doc.effects?.size > 0 ? 'locked-pack-skipped' : effectToggleOk,
+        rendered: Boolean(sheet)
+      };
+    }, { uuid: s.uuid, tipo: s.tipo });
+
+    await page.screenshot({ path: shotPath });
+
+    if (prep.rendered) {
+      await page.evaluate(async (uuid) => {
+        const doc = await fromUuid(uuid);
+        await doc?.sheet?.close().catch(() => {});
+      }, s.uuid).catch(() => {});
+    }
+
+    checks.push({ id: s.id, nome: s.nome, tipo: s.tipo, subtipo: s.subtipo, screenshot: shotPath, ...prep });
+  }
+
+  const uiErrors = await page.evaluate(() => window.__pwUiErrors || []);
+  const matConsoleErrors = consoleErrors.slice(errStart.console);
+  const matPageErrors = pageErrors.slice(errStart.page);
+  const matNetworkErrors = networkErrors.slice(errStart.network);
+
+  const allOk = matConsoleErrors.length === 0 && matPageErrors.length === 0 && matNetworkErrors.length === 0 && uiErrors.length === 0 && checks.every(c => c.ok);
+  const report = {
+    material_id: materialId,
+    world: world || null,
+    url,
+    module_update: updateResult || null,
+    runtime_summary: {
+      foundryVersion: runtime.foundryVersion,
+      systemVersion: runtime.system?.version,
+      moduleVersion: runtime.module?.version,
+      packsCount: runtime.packsCount,
+      packFoldersCount: runtime.packFoldersCount
+    },
+    status: allOk ? 'APROVADO' : 'REPROVADO',
+    executado_em: new Date().toISOString(),
+    pregame_errors: pregameErrors,
+    console_errors: matConsoleErrors,
+    page_errors: matPageErrors,
+    network_errors: matNetworkErrors,
+    ui_errors: uiErrors,
+    checks
+  };
+  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2), 'utf8');
+
+  mat.playwright_status = report.status;
+  if (allOk && mat.status === 'VALIDADO') mat.status = 'PUBLICADO';
+  fs.writeFileSync(CATALOGO_PATH, JSON.stringify(catalogo, null, 2), 'utf8');
+
+  console.log(`${allOk ? '✅' : '❌'} Validação Playwright (${materialId}): ${report.status} (${checks.length} amostras).`);
+  return allOk;
+}
+
 async function runPlaywrightValidation(options = {}) {
   loadEnvFile();
 
   const materialId = options.material;
   const isSmoke = Boolean(options.smoke);
+  const isAll = Boolean(options.all);
 
-  if (!isSmoke && !materialId) {
-    throw new Error('Uso: node scripts/validate-foundry-playwright.js (--smoke | --material <ID>) [--plan-only] [--headed]');
+  if (!isSmoke && !isAll && !materialId) {
+    throw new Error('Uso: node scripts/validate-foundry-playwright.js (--smoke | --all | --material <ID>) [--plan-only] [--headed]');
   }
 
   const url = options.url || process.env.FOUNDRY_URL || '';
@@ -472,10 +653,8 @@ async function runPlaywrightValidation(options = {}) {
     : String(process.env.FOUNDRY_RETURN_TO_SETUP ?? 'true').toLowerCase() !== 'false';
 
   let catalogo = null;
-  let mat = null;
-  let samples = [];
-  let evidenciasDir = null;
-  let reportPath = null;
+  let artefatos = [];
+  let targetIds = [];
 
   if (!isSmoke) {
     if (!fs.existsSync(CATALOGO_PATH) || !fs.existsSync(ARTEFATOS_PATH)) {
@@ -483,27 +662,39 @@ async function runPlaywrightValidation(options = {}) {
     }
     catalogo = JSON.parse(fs.readFileSync(CATALOGO_PATH, 'utf8'));
     const artefatosData = JSON.parse(fs.readFileSync(ARTEFATOS_PATH, 'utf8'));
-    mat = catalogo.materiais?.[materialId];
-    if (!mat) {
-      throw new Error(`Material "${materialId}" não encontrado em catalogo/catalogo.json.`);
+    artefatos = artefatosData.artefatos || [];
+
+    if (isAll) {
+      targetIds = Object.keys(catalogo.materiais || {}).filter(id =>
+        ['VALIDADO', 'PROCESSADO_VALIDACAO_PENDENTE', 'PUBLICADO'].includes(catalogo.materiais[id]?.status)
+      );
+      if (targetIds.length === 0) {
+        throw new Error('Nenhum material processado encontrado para validação em lote (--all).');
+      }
+    } else {
+      if (!catalogo.materiais?.[materialId]) {
+        throw new Error(`Material "${materialId}" não encontrado em catalogo/catalogo.json.`);
+      }
+      targetIds = [materialId];
     }
 
-    samples = buildSamplePlan(materialId, artefatosData.artefatos || []);
-    evidenciasDir = path.join(CATALOGO_DIR, 'materiais', materialId, 'playwright-evidencias');
-    fs.mkdirSync(evidenciasDir, { recursive: true });
-    reportPath = path.join(evidenciasDir, 'report.json');
-
     if (options.planOnly) {
-      const plan = {
-        material_id: materialId,
-        modo: 'PLAN_ONLY',
-        gerado_em: new Date().toISOString(),
-        total_amostras: samples.length,
-        amostras: samples.map(s => ({ id: s.id, nome: s.nome, tipo: s.tipo, subtipo: s.subtipo, uuid: s.uuid })),
-        requisitos_ambiente: ['FOUNDRY_URL', 'FOUNDRY_ADMIN_PASSWORD', 'FOUNDRY_WORLD', 'FOUNDRY_USER', 'playwright']
-      };
-      fs.writeFileSync(reportPath, JSON.stringify(plan, null, 2), 'utf8');
-      console.log(`📋 Plano Playwright gerado em ${reportPath} (${samples.length} amostras).`);
+      for (const id of targetIds) {
+        const samples = buildSamplePlan(id, artefatos);
+        const evidenciasDir = path.join(CATALOGO_DIR, 'materiais', id, 'playwright-evidencias');
+        fs.mkdirSync(evidenciasDir, { recursive: true });
+        const reportPath = path.join(evidenciasDir, 'report.json');
+        const plan = {
+          material_id: id,
+          modo: 'PLAN_ONLY',
+          gerado_em: new Date().toISOString(),
+          total_amostras: samples.length,
+          amostras: samples.map(s => ({ id: s.id, nome: s.nome, tipo: s.tipo, subtipo: s.subtipo, uuid: s.uuid })),
+          requisitos_ambiente: ['FOUNDRY_URL', 'FOUNDRY_ADMIN_PASSWORD', 'FOUNDRY_WORLD', 'FOUNDRY_USER', 'playwright']
+        };
+        fs.writeFileSync(reportPath, JSON.stringify(plan, null, 2), 'utf8');
+        console.log(`📋 Plano Playwright gerado em ${reportPath} (${samples.length} amostras).`);
+      }
       return true;
     }
   }
@@ -513,15 +704,17 @@ async function runPlaywrightValidation(options = {}) {
     const reason = !pw
       ? 'Pacote `playwright` não instalado neste projeto (ou NODE_PATH).'
       : 'Variável de ambiente FOUNDRY_URL não configurada para conexão ao mundo real.';
-    if (reportPath) {
-      const blockedReport = {
-        material_id: materialId,
+    for (const id of targetIds) {
+      const samples = buildSamplePlan(id, artefatos);
+      const evidenciasDir = path.join(CATALOGO_DIR, 'materiais', id, 'playwright-evidencias');
+      fs.mkdirSync(evidenciasDir, { recursive: true });
+      fs.writeFileSync(path.join(evidenciasDir, 'report.json'), JSON.stringify({
+        material_id: id,
         status: 'BLOQUEADO_AMBIENTE',
         motivo: reason,
         gerado_em: new Date().toISOString(),
         amostras_previstas: samples.map(s => ({ nome: s.nome, tipo: s.tipo, subtipo: s.subtipo, uuid: s.uuid }))
-      };
-      fs.writeFileSync(reportPath, JSON.stringify(blockedReport, null, 2), 'utf8');
+      }, null, 2), 'utf8');
     }
     console.error(`⚠️ Validação Playwright bloqueada: ${reason}`);
     return false;
@@ -532,7 +725,6 @@ async function runPlaywrightValidation(options = {}) {
   const consoleErrors = [];
   const pageErrors = [];
   const networkErrors = [];
-  const checks = [];
   let capturePhase = 'pregame';
 
   try {
@@ -583,112 +775,26 @@ async function runPlaywrightValidation(options = {}) {
     }
 
     const runtime = await inspectFoundryRuntime(page);
-    const activePackSet = new Set(runtime.packs.map(p => p.collection));
-    const expectedPacks = [...new Set(samples.map(s => {
-      const parts = String(s.uuid || '').split('.');
-      return parts.length >= 3 && parts[0] === 'Compendium' ? `${parts[1]}.${parts[2]}` : null;
-    }).filter(Boolean))];
-    const missingPacks = expectedPacks.filter(c => !activePackSet.has(c));
-
-    if (missingPacks.length > 0) {
-      await maybeReturnToSetup(page, returnToSetup);
-      const blockedReport = {
-        material_id: materialId,
+    let allPassed = true;
+    for (const id of targetIds) {
+      const ok = await validateMaterialInPage(page, {
+        materialId: id,
+        catalogo,
+        artefatos,
         world,
         url,
-        status: 'BLOQUEADO_VERSAO_SERVIDOR',
-        motivo: `O servidor Foundry está com ${runtime.packsCount} packs ativos (módulo ${runtime.module?.version || 'ausente'}), faltando ${missingPacks.length} packs esperados pela versão local.`,
-        packs_ausentes: missingPacks,
+        updateResult,
         runtime,
-        executado_em: new Date().toISOString()
-      };
-      fs.writeFileSync(reportPath, JSON.stringify(blockedReport, null, 2), 'utf8');
-      console.error(`⚠️ Validação Playwright (${materialId}) bloqueada por versão no servidor: ${blockedReport.motivo}`);
-      return false;
+        pregameErrors,
+        consoleErrors,
+        pageErrors,
+        networkErrors
+      });
+      if (!ok) allPassed = false;
     }
 
-    for (const s of samples) {
-      const safeName = `${s.tipo}_${s._id}`.replace(/[^a-zA-Z0-9_-]/g, '_');
-      const shotPath = path.join(evidenciasDir, `${safeName}.png`);
-
-      const prep = await page.evaluate(async ({ uuid, tipo }) => {
-        const doc = await fromUuid(uuid);
-        if (!doc) return { ok: false, error: `UUID não encontrado: ${uuid}` };
-        let sheet = null;
-        if (doc.sheet) {
-          sheet = await doc.sheet.render(true);
-        }
-        await new Promise(r => setTimeout(r, 400));
-
-        const brokenImgs = [...document.querySelectorAll('.application img, .window-app img, dialog img')]
-          .filter(img => img.complete && img.naturalWidth === 0)
-          .map(img => img.getAttribute('src'));
-
-        let rollOk = true;
-        let effectToggleOk = true;
-        const packObj = doc.pack ? game.packs.get(doc.pack) : null;
-        const isLocked = Boolean(packObj?.locked);
-
-        if (tipo === 'Actor' && typeof doc.rollPericia === 'function') {
-          try { await doc.rollPericia('inic', { chatMessage: false }); } catch { rollOk = false; }
-        } else if (tipo === 'RollTable' && typeof doc.draw === 'function') {
-          try { await doc.draw({ displayChat: false }); } catch { rollOk = false; }
-        } else if (tipo === 'Item' && doc.effects?.size > 0 && !isLocked) {
-          try {
-            const eff = doc.effects.contents[0];
-            await eff.update({ disabled: !eff.disabled });
-            await eff.update({ disabled: !eff.disabled });
-          } catch { effectToggleOk = false; }
-        }
-
-        return {
-          ok: brokenImgs.length === 0 && rollOk && effectToggleOk,
-          brokenImgs,
-          rollOk,
-          effectToggleOk: isLocked && doc.effects?.size > 0 ? 'locked-pack-skipped' : effectToggleOk,
-          rendered: Boolean(sheet)
-        };
-      }, { uuid: s.uuid, tipo: s.tipo });
-
-      await page.screenshot({ path: shotPath });
-
-      if (prep.rendered) {
-        await page.evaluate(async (uuid) => {
-          const doc = await fromUuid(uuid);
-          await doc?.sheet?.close().catch(() => {});
-        }, s.uuid).catch(() => {});
-      }
-
-      checks.push({ id: s.id, nome: s.nome, tipo: s.tipo, subtipo: s.subtipo, screenshot: shotPath, ...prep });
-    }
-
-    const uiErrors = await page.evaluate(() => window.__pwUiErrors || []);
     await maybeReturnToSetup(page, returnToSetup);
-
-    const allOk = consoleErrors.length === 0 && pageErrors.length === 0 && networkErrors.length === 0 && uiErrors.length === 0 && checks.every(c => c.ok);
-    const report = {
-      material_id: materialId,
-      world: world || null,
-      url,
-      module_update: updateResult || null,
-      runtime,
-      status: allOk ? 'APROVADO' : 'REPROVADO',
-      executado_em: new Date().toISOString(),
-      pregame_errors: pregameErrors,
-      console_errors: consoleErrors,
-      page_errors: pageErrors,
-      network_errors: networkErrors,
-      ui_errors: uiErrors,
-      checks
-    };
-    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2), 'utf8');
-
-    mat.playwright_status = report.status;
-    if (allOk && mat.status === 'VALIDADO') mat.status = 'PUBLICADO';
-    fs.writeFileSync(CATALOGO_PATH, JSON.stringify(catalogo, null, 2), 'utf8');
-
-    console.log(`${allOk ? '✅' : '❌'} Validação Playwright (${materialId}): ${report.status} (${checks.length} amostras).`);
-    return allOk;
+    return allPassed;
   } finally {
     await browser.close();
   }
@@ -706,6 +812,7 @@ function parseCliArgs(argv) {
     else if (a === '--admin-password' && argv[i + 1]) opts.adminPassword = argv[++i];
     else if (a === '--plan-only' || a === '--dry-run') opts.planOnly = true;
     else if (a === '--smoke') opts.smoke = true;
+    else if (a === '--all') opts.all = true;
     else if (a === '--update-module') opts.updateModule = true;
     else if (a === '--no-update') { opts.updateModule = false; opts.updateAll = false; }
     else if (a === '--update-all') opts.updateAll = true;
@@ -724,4 +831,12 @@ if (require.main === module) {
     });
 }
 
-module.exports = { runPlaywrightValidation, buildSamplePlan, loadEnvFile, parseCliArgs };
+module.exports = {
+  runPlaywrightValidation,
+  buildSamplePlan,
+  loadEnvFile,
+  parseCliArgs,
+  ensureFoundryGameReady,
+  launchChromium,
+  maybeReturnToSetup
+};

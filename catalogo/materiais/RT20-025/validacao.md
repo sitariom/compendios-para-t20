@@ -1,13 +1,13 @@
 # Validação — Fúlgor dos Deuses — Edição 25 (RT20-025)
 
-- **Status:** `VALIDADO`
+- **Status:** `PUBLICADO`
 - **Origem:** `CRIADO_AGENTE`
 - **Hash Fonte:** `sha256:eb50e7556f49c5b178dbdd9c2aef310769b4c624468334c0f0d39333709b7362`
 - **Tormenta20 v14:** `1.6.7` (C:/Users/simoe/OneDrive/Documentos/t20/Tormenta20)
 - **Tormenta20 v13:** `1.5.015` (C:/Users/simoe/OneDrive/Documentos/Tormenta20-master/Tormenta20-master)
 - **Total de Artefatos:** 7
 - **Auditoria Cega (2ª Passagem):** `CONCLUIDA`
-- **Validação Playwright (Foundry Live):** `PENDENTE`
+- **Validação Playwright (Foundry Live):** `APROVADO`
 
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |

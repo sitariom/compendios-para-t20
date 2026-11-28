@@ -1,0 +1,107 @@
+{
+  "material_id": "DB-0227",
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.0",
+    "confirmedDialog": false,
+    "versionAfter": "2.0.0",
+    "notifications": [
+      {
+        "msg": "PACKAGE.AlreadyUpdated",
+        "type": "info"
+      }
+    ],
+    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.0.0",
+    "packsCount": 58,
+    "packFoldersCount": 20
+  },
+  "status": "APROVADO",
+  "executado_em": "2026-11-28T01:25:40.668Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "network_errors": [],
+  "ui_errors": [],
+  "checks": [
+    {
+      "id": "actor:db-0227:6jcy63pS6TLhCoHm",
+      "nome": "Lynel",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0227\\playwright-evidencias\\Actor_6jcy63pS6TLhCoHm.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0227:KnUyjOaSBfGcl48v",
+      "nome": "Oxxdon",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0227\\playwright-evidencias\\Actor_KnUyjOaSBfGcl48v.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0227:XEdZUz2ETKvxvjZH",
+      "nome": "Enxame de Armas",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0227\\playwright-evidencias\\Actor_XEdZUz2ETKvxvjZH.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0227:ZB0VONjuE8XS5gmH",
+      "nome": "Tropa de Mortos",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0227\\playwright-evidencias\\Actor_ZB0VONjuE8XS5gmH.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:db-0227:po00j60czLdn1eu5",
+      "nome": "Inumano",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\DB-0227\\playwright-evidencias\\Actor_po00j60czLdn1eu5.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    }
+  ]
+}

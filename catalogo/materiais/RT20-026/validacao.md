@@ -7,7 +7,7 @@
 - **Tormenta20 v13:** `1.5.015` (C:/Users/simoe/OneDrive/Documentos/Tormenta20-master/Tormenta20-master)
 - **Total de Artefatos:** 28
 - **Auditoria Cega (2ª Passagem):** `CONCLUIDA`
-- **Validação Playwright (Foundry Live):** `PENDENTE`
+- **Validação Playwright (Foundry Live):** `REPROVADO`
 
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |
@@ -18,9 +18,11 @@
 | `actor:rt20-026:E8hgaWNdM2kqv4oo` | Aço Selvagem | Actor | npc | 0 | `VALIDADO` |
 | `actor:rt20-026:gaMGB2dL8R0Rv2mY` | Xellmaras, a Ladra Acorrentada | Actor | npc | 0 | `VALIDADO` |
 | `actor:rt20-026:wbA5Rt8dqRkHQWdC` | Gangue de Hyninn Deturpada | Actor | npc | 0 | `VALIDADO` |
-| `item:rt20-026:fld26AbsorcaoAnt` | Qualidade: Absorção Antidivina | Item | poder | 0 | `VALIDADO` |
+| `journalentry:rt20-026:fld26DiarioForja` | Fúlgor dos Deuses — Edição 26: Forja da Vingança | JournalEntry | doc | 0 | `VALIDADO` |
 | `item:rt20-026:fld26AcoSillaria` | Aço Sillariano | Item | equipamento | 0 | `VALIDADO` |
 | `item:rt20-026:fld26AlmaBigorna` | Alma da Bigorna | Item | equipamento | 0 | `VALIDADO` |
+| `macro:rt20-026:fld26MacroForjaS` | Forjar Aço Sillariano (Fúlgor dos Deuses) | Macro | script | 0 | `VALIDADO` |
+| `item:rt20-026:fld26AbsorcaoAnt` | Qualidade: Absorção Antidivina | Item | poder | 0 | `VALIDADO` |
 | `item:rt20-026:fld26AntidevotoQ` | Qualidade: Antidevoto | Item | poder | 0 | `VALIDADO` |
 | `item:rt20-026:fld26ArmaAntidiv` | Qualidade: Arma Antidivina | Item | poder | 0 | `VALIDADO` |
 | `item:rt20-026:fld26DefesaAntid` | Qualidade: Defesa Antidivina | Item | poder | 0 | `VALIDADO` |
@@ -35,8 +37,6 @@
 | `item:rt20-026:fld26PotenciaAnt` | Qualidade: Potência Antidivina | Item | poder | 0 | `VALIDADO` |
 | `item:rt20-026:fld26Resistencia` | Qualidade: Resistência Antidivina | Item | poder | 0 | `VALIDADO` |
 | `item:rt20-026:fld26TeofagiaFul` | Teofagia (Fullgori) | Item | poder | 0 | `VALIDADO` |
-| `macro:rt20-026:fld26MacroForjaS` | Forjar Aço Sillariano (Fúlgor dos Deuses) | Macro | script | 0 | `VALIDADO` |
 | `rolltable:rt20-026:fld26TabEncontro` | Subterrâneos de Valkaria — Encontros e Boatos (Edição 26) | RollTable | doc | 0 | `VALIDADO` |
 | `rolltable:rt20-026:fld26TabFraseXel` | Frases de Combate de Xellmaras (Edição 26) | RollTable | doc | 0 | `VALIDADO` |
 | `rolltable:rt20-026:fld26TabQualidad` | Qualidades Antidivinas de Aço Sillariano (Edição 26) | RollTable | doc | 0 | `VALIDADO` |
-| `journalentry:rt20-026:fld26DiarioForja` | Fúlgor dos Deuses — Edição 26: Forja da Vingança | JournalEntry | doc | 0 | `VALIDADO` |

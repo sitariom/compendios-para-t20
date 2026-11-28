@@ -1,0 +1,221 @@
+{
+  "material_id": "RT20-026",
+  "world": "teste-compendios-para-t20",
+  "url": "https://lipesrpg.com.br",
+  "module_update": {
+    "triggered": true,
+    "mode": "updatePackage",
+    "moduleId": "compendios-para-t20",
+    "versionBefore": "2.0.0",
+    "confirmedDialog": false,
+    "versionAfter": "2.0.0",
+    "notifications": [
+      {
+        "msg": "PACKAGE.AlreadyUpdated",
+        "type": "info"
+      }
+    ],
+    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+  },
+  "runtime_summary": {
+    "foundryVersion": "13.351",
+    "systemVersion": "1.5.015",
+    "moduleVersion": "2.0.0",
+    "packsCount": 58,
+    "packFoldersCount": 20
+  },
+  "status": "REPROVADO",
+  "executado_em": "2026-11-28T01:28:22.746Z",
+  "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    }
+  ],
+  "console_errors": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/lingote.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/conjuradores/magia-ampliada.webp"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/tocha.webp"
+    }
+  ],
+  "page_errors": [],
+  "network_errors": [
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/lingote.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/conjuradores/magia-ampliada.webp"
+    },
+    {
+      "status": 404,
+      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/tocha.webp"
+    }
+  ],
+  "ui_errors": [],
+  "checks": [
+    {
+      "id": "actor:rt20-026:4Chz9YQv6oC4R5gs",
+      "nome": "Sacerdote de Hyninn Deturpado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Actor_4Chz9YQv6oC4R5gs.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-026:6lKAcCvfQj9FReP7",
+      "nome": "Tigre-de-Hyninn Deturpado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Actor_6lKAcCvfQj9FReP7.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-026:C6JxlK5xzXU8PYuK",
+      "nome": "Asmithar Martelo-Mudo",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Actor_C6JxlK5xzXU8PYuK.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-026:E8hgaWNdM2kqv4oo",
+      "nome": "Aço Selvagem",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Actor_E8hgaWNdM2kqv4oo.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-026:gaMGB2dL8R0Rv2mY",
+      "nome": "Xellmaras, a Ladra Acorrentada",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Actor_gaMGB2dL8R0Rv2mY.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "actor:rt20-026:wbA5Rt8dqRkHQWdC",
+      "nome": "Gangue de Hyninn Deturpada",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Actor_wbA5Rt8dqRkHQWdC.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "journalentry:rt20-026:fld26DiarioForja",
+      "nome": "Fúlgor dos Deuses — Edição 26: Forja da Vingança",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\JournalEntry_fld26DiarioForja.png",
+      "ok": true,
+      "brokenImgs": [],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:rt20-026:fld26AcoSillaria",
+      "nome": "Aço Sillariano",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Item_fld26AcoSillaria.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/equipamentos/lingote.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "macro:rt20-026:fld26MacroForjaS",
+      "nome": "Forjar Aço Sillariano (Fúlgor dos Deuses)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Macro_fld26MacroForjaS.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "item:rt20-026:fld26AbsorcaoAnt",
+      "nome": "Qualidade: Absorção Antidivina",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Item_fld26AbsorcaoAnt.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/poderes/classes/conjuradores/magia-ampliada.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    },
+    {
+      "id": "rolltable:rt20-026:fld26TabEncontro",
+      "nome": "Subterrâneos de Valkaria — Encontros e Boatos (Edição 26)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\RollTable_fld26TabEncontro.png",
+      "ok": false,
+      "brokenImgs": [
+        "systems/tormenta20/icons/itens/equipamentos/tocha.webp"
+      ],
+      "rollOk": true,
+      "effectToggleOk": true,
+      "rendered": true
+    }
+  ]
+}

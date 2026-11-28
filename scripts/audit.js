@@ -3,6 +3,7 @@ const { ClassicLevel } = require('classic-level');
 const fs = require('fs');
 const path = require('path');
 const { discoverPacksFromModuleJson } = require('./pack-discovery');
+const { isVerifiedIconPath } = require('./icon-resolver');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 
@@ -115,6 +116,14 @@ async function auditPack(packDef) {
         invalidStatsIds++;
         console.error(`  ❌ [${packName}] Magia [${id}] "${doc.name}" possui system.escola="${doc.system.escola}" inválida.`);
       }
+    }
+    if (doc.type === 'arma' && ['m', 'km'].includes(doc.system?.alcance)) {
+      invalidStatsIds++;
+      console.error(`  ❌ [${packName}] Arma [${id}] "${doc.name}" possui system.alcance="${doc.system.alcance}" (proibido pois WeaponData não possui system.range).`);
+    }
+    if (!packDef.isLegacyRoot && doc.img && !isVerifiedIconPath(doc.img)) {
+      invalidStatsIds++;
+      console.error(`  ❌ [${packName}] Doc [${id}] "${doc.name}" possui imagem não verificada/quebrada: "${doc.img}".`);
     }
     if (doc.system) {
       for (const tf of ['tags', 'rolltags', 'automationtags']) {

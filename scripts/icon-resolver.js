@@ -19,6 +19,191 @@ const T20_ICONS_DIR = [
 ].find(d => d && fs.existsSync(d)) || path.resolve(__dirname, '..', '..', 'Tormenta20', 'icons');
 const MODULE_ICONS_DIR = path.join(__dirname, '..', 'assets', 'icons');
 const GAME_ICONS_INDEX_PATH = path.join(__dirname, 'game-icons-index.json');
+const VALID_SYSTEM_ICONS_PATH = path.join(__dirname, 'valid-system-icons.json');
+const ROOT_DIR = path.resolve(__dirname, '..');
+
+let VALID_SYSTEM_ICONS = new Set();
+let VALID_SYSTEM_BY_BASENAME = new Map();
+try {
+  if (fs.existsSync(VALID_SYSTEM_ICONS_PATH)) {
+    const arr = JSON.parse(fs.readFileSync(VALID_SYSTEM_ICONS_PATH, 'utf8'));
+    VALID_SYSTEM_ICONS = new Set(arr);
+    for (const p of arr) {
+      const base = p.split('/').pop();
+      if (!VALID_SYSTEM_BY_BASENAME.has(base)) VALID_SYSTEM_BY_BASENAME.set(base, p);
+    }
+  }
+} catch {
+  // Ignora se ainda não disponível
+}
+
+const BROKEN_ICON_REMEDIATION_MAP = {
+  // Core Foundry icons quebrados no v13
+  'icons/weapons/swords/sword-broad-crystal.webp': 'systems/tormenta20/icons/itens/equipamentos/espada-longa.webp',
+  'icons/weapons/polearms/halberd-crescent.webp': 'systems/tormenta20/icons/itens/equipamentos/alabarda.webp',
+  'icons/weapons/axes/axe-double-large.webp': 'systems/tormenta20/icons/itens/equipamentos/machado-de-guerra.webp',
+  'icons/weapons/clubs/club-spiked-bone.webp': 'systems/tormenta20/icons/itens/equipamentos/tacape.webp',
+  'icons/creatures/abilities/mouth-teeth-fangs.webp': 'systems/tormenta20/icons/poderes/ameacas/mordida.webp',
+  'icons/weapons/bows/shortbow-recurve-gold.webp': 'systems/tormenta20/icons/itens/equipamentos/arco-curto.webp',
+  'icons/magic/sonic/scream-wail-shout-red.webp': 'systems/tormenta20/icons/poderes/ameacas/urro-selvagem.webp',
+  'icons/skills/melee/strike-kick-yellow.webp': 'systems/tormenta20/icons/poderes/ameacas/cascos.webp',
+  'icons/skills/movement/horse-running-charging-flame.webp': 'systems/tormenta20/icons/poderes/ameacas/investida.webp',
+  'icons/commodities/materials/ore-chunk-rust.webp': 'systems/tormenta20/icons/itens/gerais/materia-vermelha.webp',
+  'icons/creatures/tentacles/tentacle-glowing-green.webp': 'systems/tormenta20/icons/poderes/ameacas/agarrar.webp',
+  'icons/skills/melee/shield-block-blade-yellow.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp',
+  'icons/magic/death/skull-energy-purple.webp': 'systems/tormenta20/icons/poderes/concedidos-trevas.webp',
+  'icons/svg/windfoot.svg': 'systems/tormenta20/icons/poderes/classes/especialistas/esquiva-sagaz.webp',
+  'icons/svg/fog.svg': 'systems/tormenta20/icons/poderes/ameacas/sopro-gas.webp',
+
+  // Paths Tormenta20 inexistentes -> equivalentes verificados no sistema
+  'systems/tormenta20/icons/svg/stairs.svg': 'systems/tormenta20/icons/svg/door.svg',
+  'systems/tormenta20/icons/svg/holy-symbol.svg': 'systems/tormenta20/icons/itens/gerais/simbolo-sagrado.webp',
+  'systems/tormenta20/icons/magias/dardos-do-talarion.webp': 'systems/tormenta20/icons/magias/adaga-mental.webp',
+  'systems/tormenta20/icons/magias/ondas-de-choque.webp': 'systems/tormenta20/icons/magias/barragem-elemental.webp',
+  'systems/tormenta20/icons/magias/tempestade-estelar.webp': 'systems/tormenta20/icons/magias/chuva-de-meteoros.webp',
+  'systems/tormenta20/icons/magias/nevasca.webp': 'systems/tormenta20/icons/itens/gerais/gelo-eterno.webp',
+  'systems/tormenta20/icons/itens/equipamentos/abrolhos.webp': 'systems/tormenta20/icons/itens/gerais/espinho.webp',
+  'systems/tormenta20/icons/itens/equipamentos/moedas.webp': 'systems/tormenta20/icons/itens/gerais/gemas-preciosas.webp',
+  'systems/tormenta20/icons/itens/equipamentos/lingote.webp': 'systems/tormenta20/icons/itens/gerais/adamante.webp',
+  'systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp': 'systems/tormenta20/icons/itens/gerais/ferramenta-pesada.webp',
+  'systems/tormenta20/icons/itens/equipamentos/orbe.webp': 'systems/tormenta20/icons/itens/gerais/orbe-cristalina.webp',
+  'systems/tormenta20/icons/itens/magicos/pedra-alma.webp': 'systems/tormenta20/icons/itens/itens-magicos/gema-elemental.webp',
+  'systems/tormenta20/icons/itens/magicos/livro-magias.webp': 'systems/tormenta20/icons/itens/gerais/grimorio.webp',
+  'systems/tormenta20/icons/itens/magicos/mapa-do-tesouro.webp': 'systems/tormenta20/icons/itens/gerais/organizador-de-pergaminhos.webp',
+  'systems/tormenta20/icons/poderes/ameacas/rugido.webp': 'systems/tormenta20/icons/poderes/ameacas/urro-selvagem.webp',
+  'systems/tormenta20/icons/poderes/ameacas/rugido-amedrontador.webp': 'systems/tormenta20/icons/poderes/ameacas/urro-selvagem.webp',
+  'systems/tormenta20/icons/poderes/ameacas/incorporeo.webp': 'systems/tormenta20/icons/poderes/ameacas/forma.webp',
+  'systems/tormenta20/icons/poderes/ameacas/fantasma.webp': 'systems/tormenta20/icons/poderes/ameacas/forma.webp',
+  'systems/tormenta20/icons/poderes/ameacas/devorar-mente.webp': 'systems/tormenta20/icons/poderes/ameacas/insanidade-tormenta.webp',
+  'systems/tormenta20/icons/poderes/ameacas/mente-alienigena.webp': 'systems/tormenta20/icons/poderes/ameacas/insanidade-tormenta.webp',
+  'systems/tormenta20/icons/poderes/ameacas/pesadelo.webp': 'systems/tormenta20/icons/poderes/ameacas/insanidade-tormenta.webp',
+  'systems/tormenta20/icons/poderes/ameacas/dreno.webp': 'systems/tormenta20/icons/poderes/ameacas/insanidade-tormenta.webp',
+  'systems/tormenta20/icons/poderes/ameacas/olhar.webp': 'systems/tormenta20/icons/poderes/ameacas/olhar-petrificante.webp',
+  'systems/tormenta20/icons/poderes/ameacas/olhar-aterrador.webp': 'systems/tormenta20/icons/poderes/ameacas/olhar-petrificante.webp',
+  'systems/tormenta20/icons/poderes/concedidos/olhar-amedrontador.webp': 'systems/tormenta20/icons/poderes/ameacas/olhar-petrificante.webp',
+  'systems/tormenta20/icons/poderes/ameacas/imunidade.webp': 'systems/tormenta20/icons/poderes/ameacas/imunidade-magia.webp',
+  'systems/tormenta20/icons/poderes/ameacas/regeneracao.webp': 'systems/tormenta20/icons/poderes/concedidos-vida.webp',
+  'systems/tormenta20/icons/poderes/concedidos/cura.webp': 'systems/tormenta20/icons/poderes/concedidos-vida.webp',
+  'systems/tormenta20/icons/poderes/concedidos/alento-vida.webp': 'systems/tormenta20/icons/poderes/concedidos-vida.webp',
+  'systems/tormenta20/icons/poderes/classes/clerigos/cura-gentil.webp': 'systems/tormenta20/icons/poderes/concedidos-vida.webp',
+  'systems/tormenta20/icons/poderes/concedidos/dom-da-ressurreicao.webp': 'systems/tormenta20/icons/poderes/concedidos-ressurreicao.webp',
+  'systems/tormenta20/icons/poderes/concedidos/conhecimento.webp': 'systems/tormenta20/icons/itens/gerais/tomo-hermetico.webp',
+  'systems/tormenta20/icons/poderes/classes/especialistas/conhecimento-de-lendas.webp': 'systems/tormenta20/icons/itens/gerais/tomo-hermetico.webp',
+  'systems/tormenta20/icons/poderes/concedidos/destruicao.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-especial.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/ataque-poderoso.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-especial.webp',
+  'systems/tormenta20/icons/poderes/concedidos/forca-da-natureza.webp': 'systems/tormenta20/icons/poderes/classes/conjuradores/forca-natureza.webp',
+  'systems/tormenta20/icons/poderes/concedidos/espada-solar.webp': 'systems/tormenta20/icons/poderes/concedidos-deus-sol.webp',
+  'systems/tormenta20/icons/poderes/concedidos/visao-no-escuro.webp': 'systems/tormenta20/icons/poderes/ameacas/visao-ampla.webp',
+  'systems/tormenta20/icons/poderes/concedidos/frutos-da-coragem.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/durao.webp',
+  'systems/tormenta20/icons/poderes/concedidos/sorte-dos-loucos.webp': 'systems/tormenta20/icons/poderes/classes/especialistas/sorte-louco.webp',
+  'systems/tormenta20/icons/poderes/ameacas/baforada.webp': 'systems/tormenta20/icons/poderes/ameacas/cospe-chamas.webp',
+  'systems/tormenta20/icons/poderes/ameacas/sentido-sismico.webp': 'systems/tormenta20/icons/poderes/ameacas/visao-ampla.webp',
+  'systems/tormenta20/icons/poderes/ameacas/percepcao-as-cegas.webp': 'systems/tormenta20/icons/poderes/ameacas/visao-ampla.webp',
+  'systems/tormenta20/icons/poderes/ameacas/visao-no-escuro.webp': 'systems/tormenta20/icons/poderes/ameacas/visao-ampla.webp',
+  'systems/tormenta20/icons/poderes/ameacas/espreitador.webp': 'systems/tormenta20/icons/poderes/ameacas/bote.webp',
+  'systems/tormenta20/icons/poderes/ameacas/enxame.webp': 'systems/tormenta20/icons/ameacas/convocacoes/enxame-de-insetos-rubros.webp',
+  'systems/tormenta20/icons/poderes/ameacas/saliva.webp': 'systems/tormenta20/icons/poderes/ameacas/fumos-toxicos.webp',
+  'systems/tormenta20/icons/poderes/ameacas/mau-cheiro.webp': 'systems/tormenta20/icons/poderes/ameacas/fumos-toxicos.webp',
+  'systems/tormenta20/icons/poderes/ameacas/furtividade.webp': 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
+  'systems/tormenta20/icons/poderes/ameacas/assassinar.webp': 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
+  'systems/tormenta20/icons/poderes/classes/especialistas/passo-furtivo.webp': 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
+  'systems/tormenta20/icons/poderes/classes/especialistas/camuflagem.webp': 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
+  'systems/tormenta20/icons/poderes/classes/especialistas/emboscada.webp': 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
+  'systems/tormenta20/icons/poderes/classes/ladinos/sombra.webp': 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
+  'systems/tormenta20/icons/poderes/classes/ladinos/ladinagem.webp': 'systems/tormenta20/icons/poderes/ameacas/ataque-furtivo.webp',
+  'systems/tormenta20/icons/poderes/ameacas/bloqueio.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/bloqueio-com-escudo.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/solidez.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp',
+  'systems/tormenta20/icons/poderes/classes/paladinos/escudo-divino.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp',
+  'systems/tormenta20/icons/poderes/classes/paladinos/egide-sagrada.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/bencao-justica-egide.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/retomar-folego.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/durao.webp',
+  'systems/tormenta20/icons/poderes/ameacas/montaria.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/caminho-cavaleiro-montaria.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/investida-destruidora.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/caminho-cavaleiro-montaria.webp',
+  'systems/tormenta20/icons/poderes/classes/cavaleiros/investida-destruidora.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/caminho-cavaleiro-montaria.webp',
+  'systems/tormenta20/icons/poderes/ameacas/tentaculo.webp': 'systems/tormenta20/icons/poderes/ameacas/agarrar.webp',
+  'systems/tormenta20/icons/poderes/ameacas/tentaculos.webp': 'systems/tormenta20/icons/poderes/ameacas/agarrar.webp',
+  'systems/tormenta20/icons/poderes/ameacas/constricao.webp': 'systems/tormenta20/icons/poderes/ameacas/agarrar.webp',
+  'systems/tormenta20/icons/poderes/ameacas/ataque-de-correntes.webp': 'systems/tormenta20/icons/poderes/ameacas/agarrar.webp',
+  'systems/tormenta20/icons/poderes/ameacas/arremesso.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-extra.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/golpe-preciso.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-extra.webp',
+  'systems/tormenta20/icons/poderes/classes/guerreiros/precisao.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/ataque-extra.webp',
+  'systems/tormenta20/icons/poderes/ameacas/contra-ataque.webp': 'systems/tormenta20/icons/poderes/combate.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/foco-em-arma.webp': 'systems/tormenta20/icons/poderes/combate.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/estilo-de-duas-armas.webp': 'systems/tormenta20/icons/poderes/combate.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/saque-rapido.webp': 'systems/tormenta20/icons/poderes/combate.webp',
+  'systems/tormenta20/icons/poderes/classes/guerreiros/golpe-pessoal.webp': 'systems/tormenta20/icons/poderes/combate.webp',
+  'systems/tormenta20/icons/poderes/classes/clerigos/abencoar-arma.webp': 'systems/tormenta20/icons/poderes/combate.webp',
+  'systems/tormenta20/icons/poderes/ameacas/medo.webp': 'systems/tormenta20/icons/poderes/ameacas/aura-aterradora.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/presenca-aterrorizante.webp': 'systems/tormenta20/icons/poderes/ameacas/aura-aterradora.webp',
+  'systems/tormenta20/icons/poderes/ameacas/explosao.webp': 'systems/tormenta20/icons/itens/gerais/bomba.webp',
+  'systems/tormenta20/icons/poderes/ameacas/peconha.webp': 'systems/tormenta20/icons/poderes/ameacas/veneno.webp',
+  'systems/tormenta20/icons/poderes/ameacas/estrategia.webp': 'systems/tormenta20/icons/poderes/ameacas/comandar.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/lideranca.webp': 'systems/tormenta20/icons/poderes/ameacas/comandar.webp',
+  'systems/tormenta20/icons/poderes/classes/guerreiros/disciplina-de-combate.webp': 'systems/tormenta20/icons/poderes/ameacas/comandar.webp',
+  'systems/tormenta20/icons/poderes/ameacas/forca.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/furia-titanica.webp',
+  'systems/tormenta20/icons/poderes/ameacas/resistencia.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/resistencia-dano.webp',
+  'systems/tormenta20/icons/poderes/ameacas/reducao-de-dano.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/resistencia-dano.webp',
+  'systems/tormenta20/icons/poderes/ameacas/varredura.webp': 'systems/tormenta20/icons/poderes/ameacas/varrer.webp',
+  'systems/tormenta20/icons/poderes/classes/lutadores/rasteira.webp': 'systems/tormenta20/icons/poderes/ameacas/varrer.webp',
+  'systems/tormenta20/icons/poderes/ameacas/vapor.webp': 'systems/tormenta20/icons/poderes/ameacas/sopro-gas.webp',
+  'systems/tormenta20/icons/poderes/ameacas/lama.webp': 'systems/tormenta20/icons/magias/area-escorregadia.webp',
+  'systems/tormenta20/icons/poderes/classes/conjuradores/forma-fluida.webp': 'systems/tormenta20/icons/poderes/ameacas/forma.webp',
+  'systems/tormenta20/icons/poderes/ameacas/odio.webp': 'systems/tormenta20/icons/poderes/ameacas/odio-puro.webp',
+  'systems/tormenta20/icons/poderes/classes/especialistas/escaramuca.webp': 'systems/tormenta20/icons/poderes/classes/especialistas/esquiva-sagaz.webp',
+  'systems/tormenta20/icons/poderes/classes/especialistas/acrobacia.webp': 'systems/tormenta20/icons/poderes/classes/especialistas/esquiva-sagaz.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/estilo-desarmado.webp': 'systems/tormenta20/icons/poderes/classes/combatentes/briga.webp',
+  'systems/tormenta20/icons/poderes/classes/combatentes/derrubar-aprimorado.webp': 'systems/tormenta20/icons/poderes/ameacas/derrubar.webp',
+  'systems/tormenta20/icons/poderes/classes/especialistas/marca-da-presa.webp': 'systems/tormenta20/icons/poderes/classes/especialistas/marca-presa.webp',
+  'systems/tormenta20/icons/poderes/ameacas/teofagia.webp': 'systems/tormenta20/icons/poderes/concedidos-tormenta.webp',
+  'systems/tormenta20/icons/poderes/classes/ladinos/ladrao-de-almas.webp': 'systems/tormenta20/icons/poderes/concedidos-tormenta.webp',
+  'systems/tormenta20/icons/poderes/ameacas/resistencia-a-fogo.webp': 'systems/tormenta20/icons/poderes/ameacas/aura-de-calor.webp',
+  'systems/tormenta20/icons/poderes/ameacas/resistencia-a-frio.webp': 'systems/tormenta20/icons/itens/gerais/gelo-eterno.webp',
+  'systems/tormenta20/icons/poderes/ameacas/sangramento.webp': 'systems/tormenta20/icons/poderes/ameacas/dilacerar.webp',
+  'systems/tormenta20/icons/poderes/classes/conjuradores/magia-ampliada.webp': 'systems/tormenta20/icons/poderes/magia.webp',
+  'systems/tormenta20/icons/poderes/classes/conjuradores/foco-em-magia.webp': 'systems/tormenta20/icons/poderes/magia.webp',
+  'systems/tormenta20/icons/poderes/classes/arcanistas/eficiencia-mistica.webp': 'systems/tormenta20/icons/poderes/magia.webp',
+  'systems/tormenta20/icons/poderes/classes/arcanistas/contramagia.webp': 'systems/tormenta20/icons/magias/campo-antimagia.webp',
+  'systems/tormenta20/icons/magias/criar-elementos.webp': 'systems/tormenta20/icons/poderes/magia.webp',
+  'systems/tormenta20/icons/ameacas/necromante-veterano.png': 'systems/tormenta20/icons/ameacas/colosso-supremo.png'
+};
+
+function isVerifiedIconPath(img) {
+  if (!img || typeof img !== 'string') return false;
+  if (BROKEN_ICON_REMEDIATION_MAP[img]) return false;
+  if (img.startsWith('modules/compendios-para-t20/')) {
+    const rel = img.replace('modules/compendios-para-t20/', '');
+    return fs.existsSync(path.join(ROOT_DIR, rel));
+  }
+  if (img.startsWith('systems/tormenta20/')) {
+    return VALID_SYSTEM_ICONS.size === 0 ? true : VALID_SYSTEM_ICONS.has(img);
+  }
+  if (img.startsWith('icons/svg/')) {
+    // SVGs padrão do core Foundry não listados no mapa de paths quebrados v13 são válidos
+    return true;
+  }
+  if (img.startsWith('icons/')) {
+    return false;
+  }
+  return false;
+}
+
+function repairBrokenIconPath(img, { name = '', type = 'poder' } = {}) {
+  if (!img) return resolveIcon({ name, type });
+  if (BROKEN_ICON_REMEDIATION_MAP[img]) return BROKEN_ICON_REMEDIATION_MAP[img];
+  if (img.startsWith('systems/tormenta20/') && VALID_SYSTEM_ICONS.size > 0 && !VALID_SYSTEM_ICONS.has(img)) {
+    const base = img.split('/').pop();
+    if (VALID_SYSTEM_BY_BASENAME.has(base)) return VALID_SYSTEM_BY_BASENAME.get(base);
+    return resolveIcon({ name, type });
+  }
+  if (img.startsWith('modules/compendios-para-t20/')) {
+    const rel = img.replace('modules/compendios-para-t20/', '');
+    if (!fs.existsSync(path.join(ROOT_DIR, rel))) return resolveIcon({ name, type });
+  }
+  if (img.startsWith('icons/') && !['icons/svg/mystery-man.svg', 'icons/svg/d20-grey.svg', 'icons/svg/book.svg', 'icons/svg/hazard.svg', 'icons/svg/dice-target.svg', 'icons/svg/item-bag.svg'].includes(img)) {
+    return resolveIcon({ name, type });
+  }
+  return img;
+}
 
 // Carrega o catálogo do Game-Icons se disponível
 let gameIconsCatalog = null;
@@ -563,20 +748,29 @@ function resolveIcon({ name, type = 'poder', currentImg = '' }) {
   if (type === 'arma') {
     return 'systems/tormenta20/icons/itens/equipamentos/espada-longa.webp';
   }
-  if (type === 'armadura' || type === 'escudo') {
+  if (type === 'armadura' || type === 'escudo' || type === 'equipamento') {
     return 'systems/tormenta20/icons/itens/equipamentos/escudo-pesado.webp';
   }
   if (type === 'poder') {
     return 'systems/tormenta20/icons/poderes/combate.webp';
   }
   if (type === 'magia') {
-    return 'systems/tormenta20/icons/magias/dardos-do-talarion.webp';
+    return 'systems/tormenta20/icons/magias/adaga-mental.webp';
+  }
+  if (type === 'macro') {
+    return 'systems/tormenta20/icons/itens/gerais/ferramenta-pesada.webp';
   }
   if (isActor) {
     return 'systems/tormenta20/icons/ameacas/colosso-supremo.png';
   }
 
-  return currentImg || 'systems/tormenta20/icons/svg/skills.svg';
+  return (currentImg && isVerifiedIconPath(currentImg)) ? currentImg : 'systems/tormenta20/icons/svg/skills.svg';
+}
+
+const rawResolveIcon = resolveIcon;
+function verifiedResolveIcon(opts) {
+  const candidate = rawResolveIcon(opts);
+  return repairBrokenIconPath(candidate, opts);
 }
 
 /**
@@ -650,8 +844,12 @@ function searchAndDownload2MinuteTabletopToken(query, localRelativePath) {
 }
 
 module.exports = {
-  resolveIcon,
+  resolveIcon: verifiedResolveIcon,
   resolveToken,
+  isVerifiedIconPath,
+  repairBrokenIconPath,
+  VALID_SYSTEM_ICONS,
+  BROKEN_ICON_REMEDIATION_MAP,
   searchAndDownload2MinuteTabletopToken,
   downloadGameIcon,
   downloadFromUrl,
