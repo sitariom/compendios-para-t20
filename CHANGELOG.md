@@ -1,5 +1,22 @@
 # Changelog
 
+## v2.2.0 - 2026-11-28
+
+- **Revista Tormenta 20 — Fúlgor dos Deuses, Edições 30, 31 e 32 (`RT20-030`, `RT20-031`, `RT20-032`)**:
+  - **`RT20-030` — Edição 30: Guerra e Paz (`packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-*`, `scripts/inject-fullgor30.js`, `scripts/validate-fullgor30-compliance.js`)**:
+    - **`rt20-030-ameacas`**: *Elanor Lúmen-Velho* (ND 8), *Dalíria de Marah* (ND 8), *Devoto de Marah Fullgori* (ND 6), *Coral Branco* (ND 10, `int: -5`, `movement.walk.base: 0`) e 3 perigos complexos (*Vidência de Cinzas*, *Julgamento dos Mansos*, *O Nada em Expansão*), com tokens PNG transparentes 2-Minute Tabletop em `assets/tokens/`.
+    - **`rt20-030-equipamentos` & `rt20-030-poderes`**: *Estilhas Cristalinas do Fullgor (Edição 30)*, parceiros *Elanor Lúmen-Velho* e *Dalíria de Marah*, *Favor da Dama Branca*, *Favor da Donzela Deslumbrante* e *Sentença de Valkaria*.
+    - **`rt20-030-diarios`, `rt20-030-tabelas` & `rt20-030-macros`**: diário completo de 7 páginas, 3 tabelas de rolagem e macro interativa *Rastreador: Prova das Mãos Vazias, Coral Branco & Sentença*.
+  - **`RT20-031` — Edição 31: Pecados do Pai (`packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-*`, `scripts/inject-fullgor31.js`, `scripts/validate-fullgor31-compliance.js`)**:
+    - **`rt20-031-ameacas`**: *Isco do Fullgor* (ND 11), *Jardineiro Dourado* (ND 11), *Lisandra Deturpada* (ND 13) e 5 perigos complexos (*Rastros da Caça*, *Natureza Deturpada*, *Enxame Fullgori*, *Santuário em Sofrimento*, *Correntes Invisíveis*), com tokens 2MTT em `assets/tokens/`.
+    - **`rt20-031-equipamentos` & `rt20-031-poderes`**: *Estilhas Cristalinas do Fullgor (Edição 31)*, *Parceira: Lisandra de Allihanna (Gratidão Plena — Mestre Tripla)* e *Vínculo de Greenleaf: Bênção de Lisandra*.
+    - **`rt20-031-diarios`, `rt20-031-tabelas` & `rt20-031-macros`**: diário de 7 páginas, 3 tabelas e macro interativa *Rastreador: Pontos de Deturpação & Casulos de Lisandra*.
+  - **`RT20-032` — Edição 32: Como um Deus (`packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-*`, `scripts/inject-fullgor32.js`, `scripts/validate-fullgor32-compliance.js`)**:
+    - **`rt20-032-ameacas`**: *Turba Enfurecida* (ND 10), *Vigia da Devolução* (ND 7), *Lysenne de Eucharion* (ND 10), *Eucharion do Fullgor* (ND 13) e 2 perigos complexos (*Graças Recebidas*, *Turbulência em Santa Graça*), com tokens 2MTT em `assets/tokens/`.
+    - **`rt20-032-equipamentos` & `rt20-032-poderes`**: artefato *Pingente da Gratidão Pura*, *Estilhas Cristalinas do Fullgor (Edição 32)*, poder concedido *Dívida Sagrada* e *Parceira: Lysenne de Eucharion*.
+    - **`rt20-032-diarios`, `rt20-032-tabelas` & `rt20-032-macros`**: diário de 7 páginas, 3 tabelas e macro interativa *Rastreador: Dispersar Turba, Procissão da Dívida & Gratidão Final*.
+  - **Qualidade & Catálogo Cumulativo (`82` packs declarados em `module.json`, `6.117` artefatos totais)**: AVRL convergindo em 1 iteração (`0` erros), `validate:fidelity` (`2.648` verificações, `0` erros), `validate:fullgor30` (`216/0`), `validate:fullgor31` (`196/0`), `validate:fullgor32` (`231/0`) e rastreabilidade PDF 100% em `RT20-030..032`.
+
 ## v2.1.0 - 2026-11-28
 
 - **Revista Tormenta 20 — Fúlgor dos Deuses, Edição 29: Dor Profunda (`RT20-029`, `scripts/inject-fullgor29.js`, `scripts/validate-fullgor29-compliance.js`)**:

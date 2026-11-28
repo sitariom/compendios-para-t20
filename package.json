@@ -1,6 +1,6 @@
 {
   "name": "compendios-para-t20",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20 no Foundry VTT.",
   "scripts": {
     "stats": "node scripts/stats.js",
@@ -14,8 +14,11 @@
     "validate:fullgor27": "node scripts/validate-fullgor27-compliance.js",
     "validate:fullgor28": "node scripts/validate-fullgor28-compliance.js",
     "validate:fullgor29": "node scripts/validate-fullgor29-compliance.js",
+    "validate:fullgor30": "node scripts/validate-fullgor30-compliance.js",
+    "validate:fullgor31": "node scripts/validate-fullgor31-compliance.js",
+    "validate:fullgor32": "node scripts/validate-fullgor32-compliance.js",
     "validate:fidelity": "node scripts/validate-threat-sheet-fidelity.js",
-    "validate:all": "npm run audit && npm run validate:fidelity && npm run validate:fullgor29 && npm run validate:fullgor28 && npm run validate:fullgor27 && npm run validate:fullgor26 && npm run validate:db232 && npm run validate:db231",
+    "validate:all": "npm run audit && npm run validate:fidelity && npm run validate:fullgor32 && npm run validate:fullgor31 && npm run validate:fullgor30 && npm run validate:fullgor29 && npm run validate:fullgor28 && npm run validate:fullgor27 && npm run validate:fullgor26 && npm run validate:db232 && npm run validate:db231",
     "avrl": "node scripts/avrl-runner.js",
     "ci:quality": "npm run avrl && npm run validate:all",
     "catalogo:init": "node scripts/catalogo-init.js",

@@ -226,3 +226,77 @@ Compendium `rt20-029-diarios` SHALL contain *Fúlgor dos Deuses — Edição 29:
 - **GIVEN** the Edition 29 documents across `rt20-029-*` hierarchical packs
 - **WHEN** `npm run validate:fullgor29` executes
 - **THEN** the journal has 7 valid 16-char pages with resolved `@UUID` links, all 3 tables have 10, 4, and 18 valid 16-char results, and the macro is a valid `script` macro
+
+### Requirement: Canonical Threat Actors, NPCs, and Hazards of Fúlgor dos Deuses Edition 30
+All canonical NPCs, threats, and hazards from Edition 30 (*Guerra e Paz*) SHALL reside in hierarchical pack `rt20-030-ameacas` under `packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-ameacas` with 16-char `fld30*` IDs, 34 skills, dynamic defense base (`base + des === value`), atomic abilities, individual spell items for Dalíria, embedded physical equipment (`equipado: false`), and exclusive 2-Minute Tabletop transparent tokens (`1x1` Medium, `4x4` Colossal).
+
+#### Scenario: Elanor Lúmen-Velho and Dalíria de Marah schema validation
+- **GIVEN** the NPCs Elanor Lúmen-Velho and Dalíria de Marah published in RT20 #30 (both ND 8)
+- **WHEN** the actor documents are validated
+- **THEN** Elanor has defense 31 (`base 27 + Des 4`), PV 228, speed 12m, `Ataque desarmado x2 +24 (1d10+20)`, and atomic powers (`Aura de Paz`, `Integridade Corporal`, `Técnica da Mão Vazia`, `Sair do Caminho`)
+- **AND** Dalíria has defense 28 (`base 25 + Des 3`), PV 214, PM 54, CD 28, atomic powers (`Aparência Inofensiva`, `Transe Dançante`), and 5 individual divine spell items (`Curar Ferimentos`, `Dissipar Magia`, `Escudo da Fé`, `Luz`, `Tranquilidade`)
+- **AND** both instantiate their official physical equipment items with `equipado: false`
+
+#### Scenario: Devoto de Marah Fullgori and Coral Branco schema validation
+- **GIVEN** Devoto de Marah Fullgori (ND 6) and Coral Branco (ND 10) published in RT20 #30
+- **WHEN** the actor documents are validated
+- **THEN** Devoto de Marah Fullgori has defense 26 (`base 24 + Des 2`), PV 48, `Toque pacificador x2 +24` (`2d6` PM loss), and fullgori abilities (`Teofagia`, `Imunidades Fullgori`, `Aura de Desinteresse`, `Remorso Existencial`, `Toque Pacificador`)
+- **AND** Coral Branco has size `col` (`4x4`), defense 33 (`base 38 + Des -5`), PV 600, speed 0m, RD 10, `maior que a morte`, fullgori immunities, `Enxame (Perda de PM)` (`2d8`), `Anular a Vontade`, `Fim da Dor`, `Paz sem Voz` (`8d6` `perda`), `Remorso Existencial`, and `Reduzir ao Nada`
+
+#### Scenario: Edition 30 complex hazards validation
+- **GIVEN** the three Edition 30 complex hazards (`Vidência de Cinzas`, `Julgamento dos Mansos`, and `O Nada em Expansão`, all ND 10)
+- **WHEN** the hazard documents are inspected
+- **THEN** all three use type `hazard`, ND `10`, valid 2-Minute Tabletop tokens, and verbatim success/failure rules
+
+### Requirement: Edition 30 Partners, Sanctuary Favors, and Fullgor Spoils
+Edition 30 spoils SHALL reside in `rt20-030-equipamentos` (`Estilhas Cristalinas do Fullgor (Edição 30)`), and Edition 30 partners, favors, and campaign rewards SHALL reside in `rt20-030-poderes` (`Parceiro: Elanor Lúmen-Velho`, `Parceira: Dalíria de Marah` with ActiveEffect +3 Defense/Saves, `Favor da Dama Branca`, `Favor da Donzela Deslumbrante`, and `Sentença de Valkaria`).
+
+#### Scenario: Dalíria de Marah partner ActiveEffect schema validation
+- **GIVEN** `Parceira: Dalíria de Marah (Veterana Especial)` in `rt20-030-poderes`
+- **WHEN** the item document is validated
+- **THEN** type is `poder`, `system.subtipo` is `parceiro`, and a `BaseEffect` ActiveEffect grants `+3` to Defense and Saving Throws
+
+### Requirement: Adventure Journal, Roll Tables, and Sanctuary Macro for Edition 30
+`rt20-030-diarios` SHALL contain *Fúlgor dos Deuses — Edição 30: Guerra e Paz* (7 pages under `!journal.pages!`, `ownership.default: -1`). `rt20-030-tabelas` SHALL contain 3 tables (10, 10, and 4 results under `!tables.results!`). `rt20-030-macros` SHALL contain the interactive v12–v14 macro *Rastreador: Prova das Mãos Vazias, Coral Branco & Sentença (Edição 30)*.
+
+#### Scenario: Validating Edition 30 journal, tables, macro, and compliance
+- **GIVEN** the Edition 30 documents across `rt20-030-*` hierarchical packs
+- **WHEN** `npm run validate:fullgor30` executes
+- **THEN** all 4 NPCs, 3 hazards, 6 items/powers, 7-page journal, 3 tables (10, 10, 4 results), and macro pass 100% of assertions with 0 errors
+
+### Requirement: Canonical Threat Actors and Hazards of Fúlgor dos Deuses Edition 31
+All canonical threats and complex hazards from Edition 31 (*Pecados do Pai*) SHALL reside in `rt20-031-ameacas` under `packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-ameacas` with 16-char `fld31*` IDs, 34 skills, dynamic defense base, atomic abilities, individual spells, and 2-Minute Tabletop transparent tokens (`1x1` Medium, `2x2` Large).
+
+#### Scenario: Isco do Fullgor, Jardineiro Dourado, and Lisandra Deturpada schema validation
+- **GIVEN** the three Edition 31 threats (`Isco do Fullgor` ND 11, `Jardineiro Dourado` ND 11, `Lisandra Deturpada` ND 13)
+- **WHEN** the actor documents are validated
+- **THEN** Isco has size `gra` (`2x2`), defense 41 (`base 39 + Des 2`), PV 400, vulnerability to fire, and 4x `Pancada +27 (2d8+15)`
+- **AND** Jardineiro Dourado has defense 35 (`base 33 + Des 2`), PV 385, PM 49, RD 10, vulnerability to fire, 4x `Cipós +30 (2d6+20)`, and 6 simulated spell items
+- **AND** Lisandra Deturpada has defense 45 (`base 42 + Des 3`), PV 455, PM 62, CD 35, RD 15, `Espada Bastarda` + `Gavinhas x2`, 5 spell items, and embedded `Símbolo sagrado de Allihanna` (`equipado: false`)
+
+### Requirement: Edition 31 Rewards, Journal, Roll Tables, and Corruption Tracker Macro
+`rt20-031-equipamentos` SHALL contain `Estilhas Cristalinas do Fullgor (Edição 31)`, `rt20-031-poderes` SHALL contain `Parceira: Lisandra de Allihanna` and `Vínculo de Greenleaf: Bênção de Lisandra`, `rt20-031-diarios` SHALL contain the 7-page adventure journal, `rt20-031-tabelas` SHALL contain 3 roll tables (10, 4, 4 results), and `rt20-031-macros` SHALL contain the Edition 31 tracker macro.
+
+#### Scenario: Validating Edition 31 compliance suite
+- **GIVEN** the Edition 31 documents across `rt20-031-*`
+- **WHEN** `npm run validate:fullgor31` executes
+- **THEN** all actors, hazards, items, 7-page journal, 3 tables, and macro pass with 0 errors
+
+### Requirement: Canonical Threat Actors and Hazards of Fúlgor dos Deuses Edition 32
+All canonical threats and complex hazards from Edition 32 (*Como um Deus*) SHALL reside in `rt20-032-ameacas` under `packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-ameacas` with 16-char `fld32*` IDs, 34+ skills, dynamic defense base, atomic abilities, individual spells for Eucharion, embedded physical equipment (`equipado: false`), and 2-Minute Tabletop transparent tokens (`1x1` Medium, `4x4` Colossal).
+
+#### Scenario: Turba Enfurecida, Vigia da Devolução, Lysenne, and Eucharion schema validation
+- **GIVEN** the four Edition 32 threats (`Turba Enfurecida` ND 10, `Vigia da Devolução` ND 7, `Lysenne de Eucharion` ND 10, `Eucharion do Fullgor` ND 13)
+- **WHEN** the actor documents are validated
+- **THEN** Turba Enfurecida is Colossal (`4x4`), defense 32, PV 120, `[bando] Ataque desarmado x2 +34 (2d6+5)`, and `ofic_fazendeiro` custom skill
+- **AND** Vigia da Devolução has defense 28, PV 60, RD 5, `Dois manguais +24 (2d8+11)`, and embedded armor/holy symbol (`equipado: false`)
+- **AND** Lysenne de Eucharion has defense 36 (`base 31 + Des 5`), PV 400, PM 45, `Duas espadas longas +28 (2d8+15, 18)`, and embedded armor/holy symbol (`equipado: false`)
+- **AND** Eucharion do Fullgor is Colossal (`4x4`), defense 42, PV 455, PM 101, CD 37, RD 10, `maior que a morte`, and 8 individual spell items
+
+### Requirement: Edition 32 Artifact, Granted Power, Partner, Journal, Roll Tables, and Macro
+`rt20-032-equipamentos` SHALL contain `Pingente da Gratidão Pura (Artefato de Eucharion)` and `Estilhas Cristalinas do Fullgor (Edição 32)`, `rt20-032-poderes` SHALL contain `Dívida Sagrada` and `Parceira: Lysenne de Eucharion`, `rt20-032-diarios` SHALL contain the 7-page adventure journal, `rt20-032-tabelas` SHALL contain 3 roll tables (10, 10, 10 results), and `rt20-032-macros` SHALL contain the Edition 32 tracker macro.
+
+#### Scenario: Validating Edition 32 compliance suite
+- **GIVEN** the Edition 32 documents across `rt20-032-*`
+- **WHEN** `npm run validate:fullgor32` executes
+- **THEN** all actors, hazards, items, 7-page journal, 3 tables, and macro pass with 0 errors

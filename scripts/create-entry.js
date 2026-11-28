@@ -949,6 +949,7 @@ const EQUIPMENT_CATALOG = {
   'camisa bufante': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 25, slotType: 'body' },
   'traje da corte': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 100, slotType: 'body' },
   'manto camuflado': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 12, slotType: 'body' },
+  'manto eclesiastico': { type: 'equipamento', tipo: 'traje', esp: 1, preco: 25, slotType: 'body' },
   'bandana': { type: 'equipamento', tipo: 'traje', esp: 0.5, preco: 10, slotType: 'body' },
   'po do desaparecimento': { type: 'consumivel', tipo: 'alchemy', esp: 0.5, preco: 600 },
   'terra de cemiterio': { type: 'consumivel', tipo: 'material', esp: 0.5, preco: 5 },
@@ -1073,7 +1074,7 @@ function buildNpcEquipmentItem({ name, qtd = 1, raw = '' }) {
 }
 
 function isWeaponClause(normName) {
-  return /^(adaga|azagaia|espada|machado|lanca|lança|arco|besta|cimitarra|foice|maca|maça|machadinha|clava|tridente|chicote|pistola|alabarda|tacape|montante|corrente|kum|armamento|braco)/.test(normName);
+  return /^(adaga|azagaia|espada|machado|lanca|lança|arco|besta|cimitarra|foice|maca|maça|machadinha|clava|mangual|tridente|chicote|pistola|alabarda|tacape|montante|corrente|kum|armamento|braco)/.test(normName);
 }
 
 function syncActorEquipmentItems(actorDoc, embeddedDocs = []) {

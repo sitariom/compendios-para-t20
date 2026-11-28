@@ -80,7 +80,10 @@ const EDITION_METADATA = {
   'RT20-026': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 26, titulo: 'Fúlgor dos Deuses — Edição 26: Forja da Vingança', pdfMatch: /RT20-26/i },
   'RT20-027': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 27, titulo: 'Fúlgor dos Deuses — Edição 27: Dia e Noite', pdfMatch: /RT20-27/i },
   'RT20-028': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 28, titulo: 'Fúlgor dos Deuses — Edição 28: Aço e Arcano', pdfMatch: /RT20-28/i },
-  'RT20-029': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 29, titulo: 'Fúlgor dos Deuses — Edição 29: Dor Profunda', pdfMatch: /RT20-29/i }
+  'RT20-029': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 29, titulo: 'Fúlgor dos Deuses — Edição 29: Dor Profunda', pdfMatch: /RT20-29/i },
+  'RT20-030': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 30, titulo: 'Fúlgor dos Deuses — Edição 30: Guerra e Paz', pdfMatch: /RT20-30/i },
+  'RT20-031': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 31, titulo: 'Fúlgor dos Deuses — Edição 31: Pecados do Pai', pdfMatch: /RT20-31/i },
+  'RT20-032': { serie: 'Revista Tormenta 20', campanha: 'Fúlgor dos Deuses', edicao: 32, titulo: 'Fúlgor dos Deuses — Edição 32: Como um Deus', pdfMatch: /RT20-32/i }
 };
 
 // Entidades de DB #226 e RT20 #25 criadas antes da padronização por prefixo de ID
@@ -570,7 +573,7 @@ async function main() {
     `> Atualizado em: \`${now}\``,
     '',
     '## Resumo Executivo',
-    `- **Total de Artefatos nos Compêndios:** ${resumo.total_artefatos} (**${resumo.criados_agente}** criados pelo agente em DB #226–#232 e Fúlgor #25–#29; **${resumo.legado_manual}** do acervo legado manual pré-catálogo)`,
+    `- **Total de Artefatos nos Compêndios:** ${resumo.total_artefatos} (**${resumo.criados_agente}** criados pelo agente em DB #226–#232 e Fúlgor #25–#32; **${resumo.legado_manual}** do acervo legado manual pré-catálogo)`,
     `- **Publicações Processadas pelo Agente (aguardando Auditoria Cega + Playwright):** ${resumo.materiais_processados_pendentes_validacao}`,
     `- **Publicações / Coleções Legado Manual (catalogadas retroativamente):** ${resumo.materiais_legado_manual}`,
     `- **Fontes Descobertas a Processar (\`REGISTRADO\`):** ${resumo.materiais_registrados_a_processar}`,

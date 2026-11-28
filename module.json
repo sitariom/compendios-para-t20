@@ -2,7 +2,7 @@
   "id": "compendios-para-t20",
   "title": "Compêndios para T20",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20.",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "authors": [
     {
       "name": "sitariom",
@@ -465,6 +465,132 @@
       "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-tabelas",
       "type": "RollTable",
       "system": "tormenta20"
+    },
+    {
+      "name": "rt20-030-ameacas",
+      "label": "Ameaças (RT20-030)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-030-diarios",
+      "label": "Diários (RT20-030)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-030-equipamentos",
+      "label": "Equipamentos (RT20-030)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-030-macros",
+      "label": "Macros (RT20-030)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-macros",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-030-poderes",
+      "label": "Poderes & Parceiros (RT20-030)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-030-tabelas",
+      "label": "Tabelas (RT20-030)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-30/rt20-030-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-031-ameacas",
+      "label": "Ameaças (RT20-031)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-031-diarios",
+      "label": "Diários (RT20-031)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-031-equipamentos",
+      "label": "Equipamentos (RT20-031)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-031-macros",
+      "label": "Macros (RT20-031)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-macros",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-031-poderes",
+      "label": "Poderes & Parceiros (RT20-031)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-031-tabelas",
+      "label": "Tabelas (RT20-031)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-31/rt20-031-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-032-ameacas",
+      "label": "Ameaças (RT20-032)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-032-diarios",
+      "label": "Diários (RT20-032)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-032-equipamentos",
+      "label": "Equipamentos (RT20-032)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-032-macros",
+      "label": "Macros (RT20-032)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-macros",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-032-poderes",
+      "label": "Poderes & Parceiros (RT20-032)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-032-tabelas",
+      "label": "Tabelas (RT20-032)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-32/rt20-032-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
     }
   ],
   "url": "https://github.com/sitariom/compendios-para-t20",
@@ -551,6 +677,42 @@
                 "rt20-029-macros",
                 "rt20-029-poderes",
                 "rt20-029-tabelas"
+              ]
+            },
+            {
+              "name": "Edição 30 — Guerra e Paz",
+              "sorting": "m",
+              "packs": [
+                "rt20-030-ameacas",
+                "rt20-030-diarios",
+                "rt20-030-equipamentos",
+                "rt20-030-macros",
+                "rt20-030-poderes",
+                "rt20-030-tabelas"
+              ]
+            },
+            {
+              "name": "Edição 31 — Pecados do Pai",
+              "sorting": "m",
+              "packs": [
+                "rt20-031-ameacas",
+                "rt20-031-diarios",
+                "rt20-031-equipamentos",
+                "rt20-031-macros",
+                "rt20-031-poderes",
+                "rt20-031-tabelas"
+              ]
+            },
+            {
+              "name": "Edição 32 — Como um Deus",
+              "sorting": "m",
+              "packs": [
+                "rt20-032-ameacas",
+                "rt20-032-diarios",
+                "rt20-032-equipamentos",
+                "rt20-032-macros",
+                "rt20-032-poderes",
+                "rt20-032-tabelas"
               ]
             }
           ]

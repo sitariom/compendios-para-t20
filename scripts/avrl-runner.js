@@ -437,7 +437,15 @@ const MONITORED_CDS = {
   'bando troggore': 17,
   'urrash das sombras frias': 22,
   'liriavel forma de quimera': 26,
-  'rashid fullgori': 30
+  'rashid fullgori': 30,
+  'elanor lumen velho': 28,
+  'daliria de marah': 28,
+  'devoto de marah fullgori': 22,
+  'coral branco': 30,
+  'isco do fullgor': 33,
+  'jardineiro dourado': 33,
+  'lisandra deturpada': 35,
+  'eucharion do fullgor': 37
 };
 
 const MONITORED_EQUIPAMENTOS = {
@@ -496,7 +504,15 @@ const MONITORED_EQUIPAMENTOS = {
   'cassiella fullgori': 'Armadura completa delicada selada, escudo pesado reforçado, espada longa pungente.',
   'troggore': 'Lança.',
   'bando troggore': 'Lança x1d6.',
-  'urrash das sombras frias': 'Lança, símbolo sagrado de Tenebra.'
+  'urrash das sombras frias': 'Lança, símbolo sagrado de Tenebra.',
+  // Fúlgor #30 (RT20 #30)
+  'elanor lumen velho': 'Manto eclesiástico aprimorado, símbolo sagrado de Marah.',
+  'daliria de marah': 'Camisa bufante aprimorada, símbolo sagrado de Marah.',
+  // Fúlgor #31 (RT20 #31)
+  'lisandra deturpada': 'Símbolo sagrado de Allihanna.',
+  // Fúlgor #32 (RT20 #32)
+  'vigia da devolucao': 'Armadura completa reforçada, mangual equilibrado, símbolo sagrado de Eucharion.',
+  'lysenne de eucharion': 'Armadura completa delicada de mitral, espada longa precisa de mitral x2, símbolo sagrado de Eucharion.'
 };
 
 /**
@@ -508,7 +524,10 @@ const MONITORED_EQUIPAMENTOS = {
 const STRICT_ACTOR_IDS = new Set([
   'C6JxlK5xzXU8PYuK', 'gaMGB2dL8R0Rv2mY', 'wbA5Rt8dqRkHQWdC', '4Chz9YQv6oC4R5gs', '6lKAcCvfQj9FReP7', 'E8hgaWNdM2kqv4oo', // Ed. 26
   'fld27CassiellaSe', 'fld27CassiellaFu', 'fld27EnxameTrogA', 'fld27TroggoreAAA', 'fld27BandoTroggA', 'fld27UrrashSombr', // Ed. 27
-  'fld28LiriavelQui', 'fld28RashidFullg' // Ed. 28
+  'fld28LiriavelQui', 'fld28RashidFullg', // Ed. 28
+  'fld30ElanorLumVA', 'fld30DaliriaMara', 'fld30DevotoMarah', 'fld30CoralBranco', // Ed. 30
+  'fld31IscoFullgor', 'fld31JardineiroD', 'fld31LisandraDet', // Ed. 31
+  'fld32TurbaEnfure', 'fld32VigiaDevolu', 'fld32LysenneEuch', 'fld32EucharionFu' // Ed. 32
 ]);
 
 /**

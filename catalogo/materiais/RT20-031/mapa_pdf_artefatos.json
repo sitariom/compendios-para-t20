@@ -1,0 +1,511 @@
+{
+  "material_id": "RT20-031",
+  "cobertura_pdf": "100% (16/16)",
+  "gerado_em": "2026-11-28T14:33:34.502Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:rt20-031:fld31CorrentesIn",
+      "nome": "Correntes Invisíveis (Perigo Complexo ND 11)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31CorrentesIn",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        10,
+        11,
+        15
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-031:fld31EnxameFullg",
+      "nome": "Enxame Fullgori (Perigo Complexo ND 9)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31EnxameFullg",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        8,
+        11,
+        12,
+        17,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-031:fld31IscoFullgor",
+      "nome": "Isco do Fullgor",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31IscoFullgor",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-031:fld31JardineiroD",
+      "nome": "Jardineiro Dourado",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31JardineiroD",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        7,
+        8,
+        11,
+        13,
+        16,
+        17,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-031:fld31LisandraDet",
+      "nome": "Lisandra Deturpada",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31LisandraDet",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-031:fld31NaturezaDet",
+      "nome": "Natureza Deturpada (Perigo Complexo ND 11)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31NaturezaDet",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        16,
+        17,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-031:fld31RastrosCaca",
+      "nome": "Rastros da Caça (Perigo Complexo ND 11)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31RastrosCaca",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        7
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-031:fld31SantuarioSo",
+      "nome": "Santuário em Sofrimento (Perigo Complexo ND 11)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-ameacas.Actor.fld31SantuarioSo",
+      "pack_destino_hierarquico": "rt20-031-ameacas",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        10,
+        12
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "journalentry:rt20-031:fld31DiarioPecad",
+      "nome": "Fúlgor dos Deuses — Edição 31: Pecados do Pai",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-diarios.JournalEntry.fld31DiarioPecad",
+      "pack_destino_hierarquico": "rt20-031-diarios",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-031:fld31EstilhaFull",
+      "nome": "Estilhas Cristalinas do Fullgor (Edição 31)",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-equipamentos.Item.fld31EstilhaFull",
+      "pack_destino_hierarquico": "rt20-031-equipamentos",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "macro:rt20-031:fld31MacroPecado",
+      "nome": "Rastreador: Pontos de Deturpação & Casulos de Lisandra (Edição 31)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-macros.Macro.fld31MacroPecado",
+      "pack_destino_hierarquico": "rt20-031-macros",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-031:fld31BencaoLisDi",
+      "nome": "Vínculo de Greenleaf: Bênção de Lisandra",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-poderes.Item.fld31BencaoLisDi",
+      "pack_destino_hierarquico": "rt20-031-poderes",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-031:fld31ParcLisandr",
+      "nome": "Parceira: Lisandra de Allihanna (Gratidão Plena — Mestre Tripla)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-poderes.Item.fld31ParcLisandr",
+      "pack_destino_hierarquico": "rt20-031-poderes",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-031:fld31TabFrasesLi",
+      "nome": "Lisandra Deturpada — Frases de Combate (Edição 31)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-tabelas.RollTable.fld31TabFrasesLi",
+      "pack_destino_hierarquico": "rt20-031-tabelas",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-031:fld31TabPesoPres",
+      "nome": "O Peso da Presença — Resultados com Lisandra (Edição 31)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-tabelas.RollTable.fld31TabPesoPres",
+      "pack_destino_hierarquico": "rt20-031-tabelas",
+      "paginas_pdf": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        9,
+        10,
+        12,
+        13,
+        14,
+        16,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-031:fld31TabRecompGr",
+      "nome": "Gratidão de Allihanna — Recompensas por Deturpação (Edição 31)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-031-tabelas.RollTable.fld31TabRecompGr",
+      "pack_destino_hierarquico": "rt20-031-tabelas",
+      "paginas_pdf": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    }
+  ]
+}

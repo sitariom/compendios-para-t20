@@ -1,0 +1,517 @@
+{
+  "material_id": "RT20-030",
+  "cobertura_pdf": "100% (18/18)",
+  "gerado_em": "2026-11-28T14:21:40.590Z",
+  "artefatos": [
+    {
+      "artefato_id": "actor:rt20-030:fld30CoralBranco",
+      "nome": "Coral Branco",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-ameacas.Actor.fld30CoralBranco",
+      "pack_destino_hierarquico": "rt20-030-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-030:fld30DaliriaMara",
+      "nome": "Dalíria de Marah",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-ameacas.Actor.fld30DaliriaMara",
+      "pack_destino_hierarquico": "rt20-030-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-030:fld30DevotoMarah",
+      "nome": "Devoto de Marah Fullgori",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-ameacas.Actor.fld30DevotoMarah",
+      "pack_destino_hierarquico": "rt20-030-ameacas",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-030:fld30ElanorLumVA",
+      "nome": "Elanor Lúmen-Velho",
+      "tipo": "Actor",
+      "subtipo": "npc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-ameacas.Actor.fld30ElanorLumVA",
+      "pack_destino_hierarquico": "rt20-030-ameacas",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        16,
+        17,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-030:fld30JulgamentoM",
+      "nome": "Julgamento dos Mansos (Perigo Complexo ND 10)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-ameacas.Actor.fld30JulgamentoM",
+      "pack_destino_hierarquico": "rt20-030-ameacas",
+      "paginas_pdf": [
+        2,
+        4,
+        9,
+        10
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-030:fld30NadaExpansa",
+      "nome": "O Nada em Expansão (Perigo Complexo ND 10)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-ameacas.Actor.fld30NadaExpansa",
+      "pack_destino_hierarquico": "rt20-030-ameacas",
+      "paginas_pdf": [
+        2,
+        16,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "actor:rt20-030:fld30VidenciaCin",
+      "nome": "Vidência de Cinzas (Perigo Complexo ND 10)",
+      "tipo": "Actor",
+      "subtipo": "hazard",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-ameacas.Actor.fld30VidenciaCin",
+      "pack_destino_hierarquico": "rt20-030-ameacas",
+      "paginas_pdf": [
+        2,
+        5
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "journalentry:rt20-030:fld30DiarioGuerr",
+      "nome": "Fúlgor dos Deuses — Edição 30: Guerra e Paz",
+      "tipo": "JournalEntry",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-diarios.JournalEntry.fld30DiarioGuerr",
+      "pack_destino_hierarquico": "rt20-030-diarios",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-030:fld30EstilhaFull",
+      "nome": "Estilhas Cristalinas do Fullgor (Edição 30)",
+      "tipo": "Item",
+      "subtipo": "equipamento",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-equipamentos.Item.fld30EstilhaFull",
+      "pack_destino_hierarquico": "rt20-030-equipamentos",
+      "paginas_pdf": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "macro:rt20-030:fld30MacroGuerra",
+      "nome": "Rastreador: Prova das Mãos Vazias, Coral Branco & Sentença (Edição 30)",
+      "tipo": "Macro",
+      "subtipo": "script",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-macros.Macro.fld30MacroGuerra",
+      "pack_destino_hierarquico": "rt20-030-macros",
+      "paginas_pdf": [
+        2,
+        5,
+        6,
+        7,
+        8,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-030:fld30FavorDamaBr",
+      "nome": "Favor da Dama Branca (Santuário de Marah)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-poderes.Item.fld30FavorDamaBr",
+      "pack_destino_hierarquico": "rt20-030-poderes",
+      "paginas_pdf": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        13,
+        18,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-030:fld30FavorDonzel",
+      "nome": "Favor da Donzela Deslumbrante (Santuário de Marah)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-poderes.Item.fld30FavorDonzel",
+      "pack_destino_hierarquico": "rt20-030-poderes",
+      "paginas_pdf": [
+        2,
+        4,
+        6,
+        7,
+        9,
+        19
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-030:fld30ParcDaliria",
+      "nome": "Parceira: Dalíria de Marah (Veterana Especial)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-poderes.Item.fld30ParcDaliria",
+      "pack_destino_hierarquico": "rt20-030-poderes",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-030:fld30ParcElanorA",
+      "nome": "Parceiro: Elanor Lúmen-Velho (Veterano Especial)",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-poderes.Item.fld30ParcElanorA",
+      "pack_destino_hierarquico": "rt20-030-poderes",
+      "paginas_pdf": [
+        2,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "item:rt20-030:fld30SentencaFav",
+      "nome": "Sentença de Valkaria: Favor de Arsenal / Favor de Marah",
+      "tipo": "Item",
+      "subtipo": "poder",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-poderes.Item.fld30SentencaFav",
+      "pack_destino_hierarquico": "rt20-030-poderes",
+      "paginas_pdf": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        12,
+        17,
+        18
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-030:fld30TabFrasesCo",
+      "nome": "Coral Branco — Frases em Combate (Edição 30)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-tabelas.RollTable.fld30TabFrasesCo",
+      "pack_destino_hierarquico": "rt20-030-tabelas",
+      "paginas_pdf": [
+        2,
+        6,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-030:fld30TabFrasesDv",
+      "nome": "Devotos Fullgori — Frases em Combate (Edição 30)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-tabelas.RollTable.fld30TabFrasesDv",
+      "pack_destino_hierarquico": "rt20-030-tabelas",
+      "paginas_pdf": [
+        2,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        20,
+        21
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    },
+    {
+      "artefato_id": "rolltable:rt20-030:fld30TabPresenca",
+      "nome": "A Presença — Eventos Espirituais de Thalgrimm (Edição 30)",
+      "tipo": "RollTable",
+      "subtipo": "doc",
+      "uuid_atual": "Compendium.compendios-para-t20.rt20-030-tabelas.RollTable.fld30TabPresenca",
+      "pack_destino_hierarquico": "rt20-030-tabelas",
+      "paginas_pdf": [
+        2,
+        5,
+        6,
+        11,
+        12,
+        13,
+        19,
+        20
+      ],
+      "origem_rastreavel": "PDF_CORRESPONDENCIA_TEXTUAL",
+      "campos_mapeados": [
+        "_id",
+        "name",
+        "type",
+        "system"
+      ],
+      "status": "PROCESSADO_VALIDACAO_PENDENTE"
+    }
+  ]
+}

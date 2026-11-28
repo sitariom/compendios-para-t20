@@ -1,21 +1,21 @@
 {
   "modo": "SMOKE",
-  "executado_em": "2026-11-28T01:01:09.515Z",
+  "executado_em": "2026-11-28T15:37:01.802Z",
   "url": "https://lipesrpg.com.br",
   "module_update": {
     "triggered": true,
     "mode": "updatePackage",
     "moduleId": "compendios-para-t20",
-    "versionBefore": "1.10.4",
+    "versionBefore": "2.1.0",
     "confirmedDialog": false,
-    "versionAfter": "2.0.0",
+    "versionAfter": "2.1.0",
     "notifications": [
       {
-        "msg": "SETUP.InstallSuccess",
+        "msg": "PACKAGE.AlreadyUpdated",
         "type": "info"
       }
     ],
-    "notifText": ""
+    "notifText": "Compêndios para T20 is already up to date."
   },
   "runtime": {
     "foundryVersion": "13.351",
@@ -31,10 +31,10 @@
     "module": {
       "id": "compendios-para-t20",
       "title": "Compêndios para T20",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "active": true
     },
-    "packsCount": 58,
+    "packsCount": 64,
     "packs": [
       {
         "collection": "compendios-para-t20.Ameacas_T20",
@@ -499,15 +499,63 @@
         "type": "RollTable",
         "locked": true,
         "indexSize": 3
+      },
+      {
+        "collection": "compendios-para-t20.rt20-029-ameacas",
+        "name": "rt20-029-ameacas",
+        "label": "Ameaças (RT20-029)",
+        "type": "Actor",
+        "locked": true,
+        "indexSize": 4
+      },
+      {
+        "collection": "compendios-para-t20.rt20-029-diarios",
+        "name": "rt20-029-diarios",
+        "label": "Diários (RT20-029)",
+        "type": "JournalEntry",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-029-equipamentos",
+        "name": "rt20-029-equipamentos",
+        "label": "Equipamentos (RT20-029)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.rt20-029-macros",
+        "name": "rt20-029-macros",
+        "label": "Macros (RT20-029)",
+        "type": "Macro",
+        "locked": true,
+        "indexSize": 1
+      },
+      {
+        "collection": "compendios-para-t20.rt20-029-poderes",
+        "name": "rt20-029-poderes",
+        "label": "Poderes & Parceiros (RT20-029)",
+        "type": "Item",
+        "locked": true,
+        "indexSize": 2
+      },
+      {
+        "collection": "compendios-para-t20.rt20-029-tabelas",
+        "name": "rt20-029-tabelas",
+        "label": "Tabelas (RT20-029)",
+        "type": "RollTable",
+        "locked": true,
+        "indexSize": 3
       }
     ],
-    "packFoldersCount": 20
+    "packFoldersCount": 21
   },
   "local_manifest": {
-    "version": "2.0.0",
-    "packsCount": 58
+    "version": "2.1.0",
+    "packsCount": 82
   },
-  "pack_sync_match": true,
+  "pack_sync_match": false,
   "sample_doc_check": {
     "ok": true,
     "collection": "compendios-para-t20.Ameacas_T20",
@@ -518,16 +566,6 @@
     "brokenImgs": []
   },
   "pregame_errors": [
-    {
-      "type": "http",
-      "status": 404,
-      "url": "https://lipesrpg.com.br/designer-(56).webp"
-    },
-    {
-      "type": "console",
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/designer-(56).webp"
-    },
     {
       "type": "http",
       "status": 404,

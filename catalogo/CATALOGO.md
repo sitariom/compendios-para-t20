@@ -1,12 +1,12 @@
 # Catálogo Cumulativo de Adaptações — Tormenta 20 → Foundry VTT
 
-> Atualizado em: `2026-11-28T04:49:19.976Z`
+> Atualizado em: `2026-11-28T14:51:10.123Z`
 
 ## Resumo Executivo
-- **Total de Artefatos nos Compêndios:** 6068 (**233** criados pelo agente em DB #226–#232 e Fúlgor #25–#29; **5835** do acervo legado manual pré-catálogo)
+- **Total de Artefatos nos Compêndios:** 6117 (**282** criados pelo agente em DB #226–#232 e Fúlgor #25–#32; **5835** do acervo legado manual pré-catálogo)
 - **Publicações Processadas pelo Agente (aguardando Auditoria Cega + Playwright):** 0
 - **Publicações / Coleções Legado Manual (catalogadas retroativamente):** 70
-- **Fontes Descobertas a Processar (`REGISTRADO`):** 121
+- **Fontes Descobertas a Processar (`REGISTRADO`):** 118
 
 ## 1. Edições Processadas pelo Agente (Migração Hierárquica + Validação Dual)
 | ID | Material | Série / Campanha | Atores | Itens | Magias | Diários | Tabelas | Macros | Auditoria Cega | Playwright | Status |
@@ -23,6 +23,9 @@
 | `RT20-027` | Fúlgor dos Deuses — Edição 27: Dia e Noite | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 27 | 6 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 | `RT20-028` | Fúlgor dos Deuses — Edição 28: Aço e Arcano | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 28 | 3 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 | `RT20-029` | Fúlgor dos Deuses — Edição 29: Dor Profunda | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 29 | 4 | 4 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `RT20-030` | Fúlgor dos Deuses — Edição 30: Guerra e Paz | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 30 | 7 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
+| `RT20-031` | Fúlgor dos Deuses — Edição 31: Pecados do Pai | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 31 | 8 | 3 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
+| `RT20-032` | Fúlgor dos Deuses — Edição 32: Como um Deus | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 32 | 6 | 4 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
 
 ## 2. Acervo Legado Manual (Catalogado Retroativamente — Preservado nos Packs Base)
 | ID | Coleção / Publicação | Atores | Itens | Magias | Diários | Tabelas | Macros | Playlists | Status |
@@ -162,4 +165,4 @@
 | `DB-0170` | Dragão Brasil #170 | Dragão Brasil → Edição 170 | `REGISTRADO` |
 | `DB-0171` | Dragão Brasil #171 | Dragão Brasil → Edição 171 | `REGISTRADO` |
 
-_... e mais 61 edições da Dragão Brasil em `catalogo/catalogo.json`._
+_... e mais 58 edições da Dragão Brasil em `catalogo/catalogo.json`._
