@@ -12,10 +12,10 @@
 ## Artefatos
 | ID | Nome | Tipo | Subtipo | Divergências Abertas | Status |
 |---|---|---|---|---:|---|
-| `actor:rt20-025:5lj7QlBvNNhd03Ry` | Proles de Ceret'th | Actor | npc | 0 | `VALIDADO` |
-| `actor:rt20-025:8Q9cEOfUCYBbfipI` | Golem de Tharun-Kel | Actor | npc | 0 | `VALIDADO` |
-| `actor:rt20-025:B7UeiV8dWSz76owQ` | Thorgan Punho de Bronze | Actor | npc | 0 | `VALIDADO` |
-| `actor:rt20-025:KoWiaB4rP0QCPlIw` | Selisse, a Voz de Ferro | Actor | npc | 0 | `VALIDADO` |
-| `actor:rt20-025:Qm2GKboNZbhXMrkY` | Irina Volensk | Actor | npc | 0 | `VALIDADO` |
-| `actor:rt20-025:hJWJERQhdJSwwE5v` | Ceret'th | Actor | npc | 0 | `VALIDADO` |
-| `actor:rt20-025:wGoHaVQwuoTdWBgJ` | Kaellarem | Actor | npc | 0 | `VALIDADO` |
+| `actor:rt20-025:5lj7QlBvNNhd03Ry` | Proles de Ceret'th | Actor | npc | 0 | `PUBLICADO` |
+| `actor:rt20-025:8Q9cEOfUCYBbfipI` | Golem de Tharun-Kel | Actor | npc | 0 | `PUBLICADO` |
+| `actor:rt20-025:B7UeiV8dWSz76owQ` | Thorgan Punho de Bronze | Actor | npc | 0 | `PUBLICADO` |
+| `actor:rt20-025:KoWiaB4rP0QCPlIw` | Selisse, a Voz de Ferro | Actor | npc | 0 | `PUBLICADO` |
+| `actor:rt20-025:Qm2GKboNZbhXMrkY` | Irina Volensk | Actor | npc | 0 | `PUBLICADO` |
+| `actor:rt20-025:hJWJERQhdJSwwE5v` | Ceret'th | Actor | npc | 0 | `PUBLICADO` |
+| `actor:rt20-025:wGoHaVQwuoTdWBgJ` | Kaellarem | Actor | npc | 0 | `PUBLICADO` |

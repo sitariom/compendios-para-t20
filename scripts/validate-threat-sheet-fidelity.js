@@ -315,6 +315,21 @@ async function runFidelityAudit() {
       expectedSpellRolls: ['Amarras Etéreas', 'Jato Corrosivo'],
       expectedPerceptions: ['ofic_arquiteto'],
       expectedResistencias: 'imunidade a encantamento e ácido, redução de dano 10; imunidade fullgori (acertos críticos, cansaço, metabolismo, metamorfose e paralisia)'
+    },
+    // --- Fúlgor dos Deuses: Edição 29 (Dor Profunda) ---
+    {
+      id: 'fld29GuardiaoAbi',
+      name: 'Guardião do Lamento Abissal',
+      expectedCd: 24,
+      expectedPowers: ['Agarrar Aprimorado', 'Constrição', 'Encastelar-se', 'Fluxo Circular', 'Maior que a Morte', 'Templo'],
+      expectedResistencias: 'imunidade a frio, maior que a morte, redução de dano 5, vulnerabilidade a eletricidade'
+    },
+    {
+      id: 'fld29NamasqallAb',
+      name: 'Namasqall Abandonado',
+      expectedCd: 31,
+      expectedPowers: ['Agarrar Aprimorado', 'Constrição', 'Corpo Torrencial', 'Maremoto', 'Olho da Tempestade'],
+      expectedResistencias: 'imunidade a acertos críticos, atordoado, cansaço, efeitos de metabolismo, frio e paralisia, vulnerabilidade a fogo'
     }
   ];
 

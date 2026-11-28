@@ -2,7 +2,7 @@
   "id": "compendios-para-t20",
   "title": "Compêndios para T20",
   "description": "Compêndios de Itens, Ameaças, Macros, Tabelas, Diários e Playlists para o sistema Tormenta20.",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "authors": [
     {
       "name": "sitariom",
@@ -423,6 +423,48 @@
       "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-28/rt20-028-tabelas",
       "type": "RollTable",
       "system": "tormenta20"
+    },
+    {
+      "name": "rt20-029-ameacas",
+      "label": "Ameaças (RT20-029)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-ameacas",
+      "type": "Actor",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-029-diarios",
+      "label": "Diários (RT20-029)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-diarios",
+      "type": "JournalEntry",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-029-equipamentos",
+      "label": "Equipamentos (RT20-029)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-equipamentos",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-029-macros",
+      "label": "Macros (RT20-029)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-macros",
+      "type": "Macro",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-029-poderes",
+      "label": "Poderes & Parceiros (RT20-029)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-poderes",
+      "type": "Item",
+      "system": "tormenta20"
+    },
+    {
+      "name": "rt20-029-tabelas",
+      "label": "Tabelas (RT20-029)",
+      "path": "packs/revistas/revista-tormenta-20/fulgor-dos-deuses/edicao-29/rt20-029-tabelas",
+      "type": "RollTable",
+      "system": "tormenta20"
     }
   ],
   "url": "https://github.com/sitariom/compendios-para-t20",
@@ -497,6 +539,18 @@
                 "rt20-028-macros",
                 "rt20-028-poderes",
                 "rt20-028-tabelas"
+              ]
+            },
+            {
+              "name": "Edição 29 — Dor Profunda",
+              "sorting": "m",
+              "packs": [
+                "rt20-029-ameacas",
+                "rt20-029-diarios",
+                "rt20-029-equipamentos",
+                "rt20-029-macros",
+                "rt20-029-poderes",
+                "rt20-029-tabelas"
               ]
             }
           ]
