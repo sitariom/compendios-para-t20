@@ -1,6 +1,6 @@
 # Catálogo Cumulativo de Adaptações — Tormenta 20 → Foundry VTT
 
-> Atualizado em: `2026-11-27T06:57:13.633Z`
+> Atualizado em: `2026-11-28T02:27:41.366Z`
 
 ## Resumo Executivo
 - **Total de Artefatos nos Compêndios:** 6055 (**220** criados pelo agente em DB #226–#232 e Fúlgor #25–#28; **5835** do acervo legado manual pré-catálogo)
@@ -11,17 +11,17 @@
 ## 1. Edições Processadas pelo Agente (Migração Hierárquica + Validação Dual)
 | ID | Material | Série / Campanha | Atores | Itens | Magias | Diários | Tabelas | Macros | Auditoria Cega | Playwright | Status |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|---|---|
-| `DB-0226` | Dragão Brasil #226 | Dragão Brasil → Edição 226 | 3 | 0 | 0 | 1 | 0 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `DB-0227` | Dragão Brasil #227 | Dragão Brasil → Edição 227 | 5 | 0 | 0 | 0 | 0 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `DB-0228` | Dragão Brasil #228 | Dragão Brasil → Edição 228 | 4 | 19 | 1 | 0 | 2 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `DB-0229` | Dragão Brasil #229 | Dragão Brasil → Edição 229 | 4 | 13 | 0 | 2 | 1 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `DB-0230` | Dragão Brasil #230 | Dragão Brasil → Edição 230 | 14 | 9 | 0 | 2 | 4 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `DB-0231` | Dragão Brasil #231 | Dragão Brasil → Edição 231 | 10 | 18 | 0 | 3 | 4 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `DB-0232` | Dragão Brasil #232 | Dragão Brasil → Edição 232 | 15 | 13 | 0 | 3 | 4 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `RT20-025` | Fúlgor dos Deuses — Edição 25 | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 25 | 7 | 0 | 0 | 0 | 0 | 0 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `RT20-026` | Fúlgor dos Deuses — Edição 26: Forja da Vingança | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 26 | 6 | 17 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `RT20-027` | Fúlgor dos Deuses — Edição 27: Dia e Noite | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 27 | 6 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
-| `RT20-028` | Fúlgor dos Deuses — Edição 28: Aço e Arcano | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 28 | 3 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `PENDENTE` | `VALIDADO` |
+| `DB-0226` | Dragão Brasil #226 | Dragão Brasil → Edição 226 | 3 | 0 | 0 | 1 | 0 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `DB-0227` | Dragão Brasil #227 | Dragão Brasil → Edição 227 | 5 | 0 | 0 | 0 | 0 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `DB-0228` | Dragão Brasil #228 | Dragão Brasil → Edição 228 | 4 | 19 | 1 | 0 | 2 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `DB-0229` | Dragão Brasil #229 | Dragão Brasil → Edição 229 | 4 | 13 | 0 | 2 | 1 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `DB-0230` | Dragão Brasil #230 | Dragão Brasil → Edição 230 | 14 | 9 | 0 | 2 | 4 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `DB-0231` | Dragão Brasil #231 | Dragão Brasil → Edição 231 | 10 | 18 | 0 | 3 | 4 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `DB-0232` | Dragão Brasil #232 | Dragão Brasil → Edição 232 | 15 | 13 | 0 | 3 | 4 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `RT20-025` | Fúlgor dos Deuses — Edição 25 | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 25 | 7 | 0 | 0 | 0 | 0 | 0 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `RT20-026` | Fúlgor dos Deuses — Edição 26: Forja da Vingança | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 26 | 6 | 17 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `RT20-027` | Fúlgor dos Deuses — Edição 27: Dia e Noite | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 27 | 6 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
+| `RT20-028` | Fúlgor dos Deuses — Edição 28: Aço e Arcano | Revista Tormenta 20 → Fúlgor dos Deuses → Edição 28 | 3 | 6 | 0 | 1 | 3 | 1 | `CONCLUIDA` | `APROVADO` | `PUBLICADO` |
 
 ## 2. Acervo Legado Manual (Catalogado Retroativamente — Preservado nos Packs Base)
 | ID | Coleção / Publicação | Atores | Itens | Magias | Diários | Tabelas | Macros | Playlists | Status |

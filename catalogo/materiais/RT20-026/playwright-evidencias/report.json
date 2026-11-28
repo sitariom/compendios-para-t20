@@ -8,25 +8,35 @@
     "moduleId": "compendios-para-t20",
     "versionBefore": "2.0.0",
     "confirmedDialog": false,
-    "versionAfter": "2.0.0",
+    "versionAfter": "2.0.1",
     "notifications": [
       {
-        "msg": "PACKAGE.AlreadyUpdated",
+        "msg": "SETUP.InstallSuccess",
         "type": "info"
       }
     ],
-    "notifText": "Compêndios para T20 is already up to date.\n\nAdmin authentication successful"
+    "notifText": "Module compendios-para-t20 was installed successfully"
   },
   "runtime_summary": {
     "foundryVersion": "13.351",
     "systemVersion": "1.5.015",
-    "moduleVersion": "2.0.0",
+    "moduleVersion": "2.0.1",
     "packsCount": 58,
     "packFoldersCount": 20
   },
-  "status": "REPROVADO",
-  "executado_em": "2026-11-28T01:28:22.746Z",
+  "status": "APROVADO",
+  "executado_em": "2026-11-28T02:25:13.869Z",
   "pregame_errors": [
+    {
+      "type": "http",
+      "status": 404,
+      "url": "https://lipesrpg.com.br/designer-(56).webp"
+    },
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "location": "https://lipesrpg.com.br/designer-(56).webp"
+    },
     {
       "type": "http",
       "status": 404,
@@ -38,43 +48,9 @@
       "location": "https://lipesrpg.com.br/designer-(56).webp"
     }
   ],
-  "console_errors": [
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/lingote.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/conjuradores/magia-ampliada.webp"
-    },
-    {
-      "text": "Failed to load resource: the server responded with a status of 404 ()",
-      "location": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/tocha.webp"
-    }
-  ],
+  "console_errors": [],
   "page_errors": [],
-  "network_errors": [
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/lingote.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/poderes/classes/conjuradores/magia-ampliada.webp"
-    },
-    {
-      "status": 404,
-      "url": "https://lipesrpg.com.br/systems/tormenta20/icons/itens/equipamentos/tocha.webp"
-    }
-  ],
+  "network_errors": [],
   "ui_errors": [],
   "checks": [
     {
@@ -167,10 +143,8 @@
       "tipo": "Item",
       "subtipo": "equipamento",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Item_fld26AcoSillaria.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/itens/equipamentos/lingote.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -181,10 +155,8 @@
       "tipo": "Macro",
       "subtipo": "script",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Macro_fld26MacroForjaS.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/itens/equipamentos/martelo-de-forja.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -195,10 +167,8 @@
       "tipo": "Item",
       "subtipo": "poder",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\Item_fld26AbsorcaoAnt.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/poderes/classes/conjuradores/magia-ampliada.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
@@ -209,10 +179,8 @@
       "tipo": "RollTable",
       "subtipo": "doc",
       "screenshot": "C:\\Users\\simoe\\OneDrive\\Documentos\\t20\\compendios-para-t20\\catalogo\\materiais\\RT20-026\\playwright-evidencias\\RollTable_fld26TabEncontro.png",
-      "ok": false,
-      "brokenImgs": [
-        "systems/tormenta20/icons/itens/equipamentos/tocha.webp"
-      ],
+      "ok": true,
+      "brokenImgs": [],
       "rollOk": true,
       "effectToggleOk": true,
       "rendered": true
